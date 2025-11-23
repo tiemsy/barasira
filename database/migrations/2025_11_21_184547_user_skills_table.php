@@ -7,10 +7,16 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('user_skills', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
-            $table->integer('experience_years')->unsigned()->default(0);
-            $table->decimal('hourly_rate',8,2)->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('service_id')->constrained()->onDelete('cascade');
+
+            $table->string('level')->nullable();                 // beginner, intermediate, expert
+            $table->integer('years_experience')->default(0);     // années d’expérience
+            $table->string('certificate')->nullable();           // nom du certificat
+            $table->string('certificate_file')->nullable();      // fichier justificatif
+            $table->text('description')->nullable();             // description libre
+            $table->boolean('verified')->default(false);         // validé par l’équipe
+
             $table->timestamps();
             $table->unique(['user_id','service_id']);
         });

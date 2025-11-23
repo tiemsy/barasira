@@ -22,6 +22,7 @@ return new class () extends Migration {
             $table->string('avatar_url')->nullable();
             $table->decimal('rating', 3, 2)->default(0.00);
             $table->boolean('verified')->default(false);
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
             $table->index('role');

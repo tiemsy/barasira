@@ -16,7 +16,7 @@ return new class () extends Migration {
             $table->string('address')->nullable();
             $table->decimal('latitude', 10, 6)->nullable();
             $table->decimal('longitude', 10, 6)->nullable();
-            $table->enum('status', ['en_attente','acceptee','en_cours','terminee','annulee'])->default('en_attente');
+            $table->enum('status', ['pending', 'in_progress', 'completed', 'cancelled'])->default('in_progress');
             $table->decimal('price', 10, 2)->nullable();
             $table->dateTime('date_start')->nullable();
             $table->dateTime('date_end')->nullable();

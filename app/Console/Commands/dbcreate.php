@@ -12,7 +12,7 @@ class dbcreate extends Command
      *
      * @var string
      */
-    protected $signature = 'app:dbcreate';
+    protected $signature = 'db:create {name?}';
 
     /**
      * The console command description.
@@ -26,9 +26,12 @@ class dbcreate extends Command
      */
     public function handle()
     {
-        $schemaName = $this->argument('name') ?: config("database.connections.mysql.database");
+
+        $schemaName = $this->argument('name') ?? config("database.connections.mysql.database");
+
         $charset = config("database.connections.mysql.charset",'utf8');
         $collation = config("database.connections.mysql.collation",'utf8_general_ci');
+
 
         config(["database.connections.mysql.database" => null]);
 

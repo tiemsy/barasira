@@ -12,10 +12,17 @@ return new class () extends Migration {
     {
         Schema::create('services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 150);
-            $table->text('description')->nullable();
-            $table->string('category', 100)->nullable();
-            $table->string('icon')->nullable();
+            $table->foreignId('category_id')
+                ->constrained('service_categories') // référence la table service_categories
+                ->onDelete('cascade');
+
+            $table->string('name');          // nom du service
+            $table->text('description');     // description générale
+            $table->string('icon')->nullable(); // icône ou pictogramme optionnel
+            $table->integer('price_min')->default(0); // prix minimum suggéré
+            $table->integer('price_max')->default(0); // prix maximum suggéré
+            $table->boolean('is_active')->default(true); // service actif ou non
+
             $table->timestamps();
         });
     }
