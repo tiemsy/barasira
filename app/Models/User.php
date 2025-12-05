@@ -47,7 +47,8 @@ class User extends Authenticatable
     public function services(): BelongsToMany
     {
         return $this->belongsToMany(Service::class, 'user_skills')
-            ->withPivot(['price', 'experience_years']);
+            // ->withPivot(['certificate', 'years_experience'])
+            ;
     }
 
 
@@ -71,6 +72,6 @@ class User extends Authenticatable
 
     public function disputes(): HasMany
     {
-        return $this->hasMany(Dispute::class, 'user_id');
+        return $this->hasMany(Dispute::class, 'complainant_id');
     }
 }
