@@ -9,6 +9,11 @@ class BaseRepositoryEloquent implements BaseRepositoryInterface
 {
     protected Model $model;
 
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
+    }
+
     public function all(array $with = [])
     {
         return $this->model->with($with)->get();

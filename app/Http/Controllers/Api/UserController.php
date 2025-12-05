@@ -9,7 +9,7 @@ use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
-
+use App\Repositories\Eloquent\UserRepositoryEloquent;
 /**
  * @OA\Schema(
  * schema="User",
@@ -31,6 +31,13 @@ use OpenApi\Annotations as OA;
  */
 class UserController extends Controller
 {
+    protected $userRepository;
+
+    public function __construct(UserRepositoryEloquent $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * @OA\Get(
      *     path="/api/users",
@@ -45,8 +52,7 @@ class UserController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $perPage = (int) $request->query('per_page', 15);
-        $users = User::with(['services'])->paginate($perPage);
+        $users = $this->userRepository->paginate(15);
 
         return response()->json($users);
     }
