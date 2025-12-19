@@ -36,5 +36,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+
+        // Désactiver le model binding automatique pour User dans apiResource
+        Route::bind('user', function ($value) {
+            return $value; // On retourne seulement l’ID
+        });
     }
 }

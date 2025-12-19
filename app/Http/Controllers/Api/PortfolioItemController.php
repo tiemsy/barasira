@@ -7,17 +7,26 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PortfolioItemStoreRequest;
 use Illuminate\Http\JsonResponse;
 use App\Models\PortfolioItem;
+use App\Repositories\Eloquent\PortfolioItemRepositoryEloquent;
 use OpenApi\Annotations as OA;
 
 class PortfolioItemController extends Controller
 {
+
+    protected $portfolioItemRepository;
+
+    public function __construct(PortfolioItemRepositoryEloquent $portfolioItemRepository)
+    {
+        $this->portfolioItemRepository = $portfolioItemRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(): JsonResponse
     {
         return response()->json(
-            PortfolioItem::with(['user'])->paginate(15)
+            $this->portfolioItemRepository->paginate(15, ['user'])
         );
     }
 
@@ -26,7 +35,7 @@ class PortfolioItemController extends Controller
      */
     public function store(PortfolioItemStoreRequest $request): JsonResponse
     {
-        $item = PortfolioItem::create($request->validate());
+        $item = $this->portfolioItemRepository->create($request->validate());
 
         return response()->json($item, 201);
     }

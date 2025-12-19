@@ -11,4 +11,19 @@ class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepos
     {
         parent::__construct($model);
     }
+
+    public function findByEmail(string $email)
+    {
+        return $this->model->where('email', $email)->first();
+    }
+
+    public function search(string $query)
+    {
+        return $this->model
+            ->where('first_name', 'LIKE', "%$query%")
+            ->orWhere('last_name', 'LIKE', "%$query%")
+            ->orWhere('email', 'LIKE', "%$query%")
+            ->limit(20)
+            ->get();
+    }
 }

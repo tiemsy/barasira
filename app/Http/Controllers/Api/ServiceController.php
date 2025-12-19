@@ -8,16 +8,53 @@ use App\Models\Service;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ServiceStoreRequest;
 use App\Http\Requests\ServiceUpdateRequest;
+use App\Repositories\Eloquent\ServiceRepositoryEloquent;
 use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ * schema="Service",
+ * type="object",
+ * title="Service",
+ * required={"id", "name"},
+ * @OA\Property(property="id", type="integer", example=1),
+ * @OA\Property(property="name", type="string", example="Plomberie"),
+ * @OA\Property(property="description", type="text", example="description du service"),
+ * @OA\Property(property="icon", type="string", example="icône ou pictogramme optionnel"),
+ * @OA\Property(property="price_min", type="integer", example="1000"),
+ * @OA\Property(property="price_max", type="integer", example="50000"),
+ * @OA\Property(property="is_active", type="boolean", example="true")
+ * )
+ */
 class ServiceController extends Controller
 {
+    protected $serviceRepository;
+
+    public function __construct(ServiceRepositoryEloquent $serviceRepository)
+    {
+        $this->serviceRepository = $serviceRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
+    /**
+     * @OA\Get(
+     *     path="/api/services",
+     *     tags={"Services"},
+     *     summary="Liste des services",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Liste des services",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Service"))
+     *     )
+     * )
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function index(): JsonResponse
     {
-        $services = Service::with(['category', 'userSkills'])->paginate(20);
+        $services = $this->serviceRepository->paginate(15, ['category', 'userSkills']);
         return response()->json($services);
     }
 
@@ -26,7 +63,7 @@ class ServiceController extends Controller
      */
     public function store(ServiceStoreRequest $request): JsonResponse
     {
-        $service = Service::create($request->validated());
+        $service = $this->serviceRepository->create($request->validated());
         return response()->json($service, 201);
     }
 

@@ -3,11 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Eloquent\ResumeRepositoryEloquent;
 use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
 class ResumeController extends Controller
 {
+    protected $resumeRepository;
+
+    public function __construct(ResumeRepositoryEloquent $resumeRepository)
+    {
+        $this->resumeRepository = $resumeRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -27,10 +27,10 @@ class UserStoreRequest extends FormRequest
             'email'      => ['required', 'email', 'max:150', 'unique:users,email'],
             'password'   => ['required', 'string', 'min:6'],
             'phone'      => ['nullable', 'string', 'max:30'],
-            'role'       => ['required', 'in:client,prestataire,admin'],
+            'role'       => ['required', 'string'],
             'bio'        => ['nullable', 'string'],
-            'avatar_url' => ['nullable', 'url', 'max:255'],
-            'rating'     => ['nullable', 'numeric', 'between:0,5'],
+            'avatar_url' => ['nullable', 'string', 'max:255'],
+            'rating'     => ['nullable', 'numeric'],
             'verified'   => ['nullable', 'boolean'],
         ];
     }

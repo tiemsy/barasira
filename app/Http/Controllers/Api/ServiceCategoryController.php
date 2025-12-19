@@ -8,16 +8,24 @@ use App\Models\ServiceCategory;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ServiceCategoryStoreRequest;
 use App\Http\Requests\ServiceCategoryUpdateRequest;
+use App\Repositories\Eloquent\ServiceCategoryRepositoryEloquent;
 use OpenApi\Annotations as OA;
 
 class ServiceCategoryController extends Controller
 {
+    protected $serviceCategoryRepository;
+
+    public function __construct(ServiceCategoryRepositoryEloquent $serviceCategoryRepository)
+    {
+        $this->serviceCategoryRepository = $serviceCategoryRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(): JsonResponse
     {
-        return response()->json(ServiceCategory::all());
+        return response()->json($this->serviceCategoryRepository->all());
     }
 
     /**

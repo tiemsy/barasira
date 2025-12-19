@@ -6,17 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserSkillStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\UserSkill;
+use App\Repositories\Eloquent\UserSkillRepositoryEloquent;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 
 class UserSkillController extends Controller
 {
+    protected $userSkillRepository;
+
+    public function __construct(UserSkillRepositoryEloquent $userSkillRepository)
+    {
+        $this->userSkillRepository = $userSkillRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(): JsonResponse
     {
-        return response()->json(UserSkill::with(['user', 'service'])->get());
+        return response()->json($this->userSkillRepository->all(['user', 'service']));
     }
 
     /**
