@@ -35,6 +35,18 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            Route::group(
+                [
+                    'prefix' => 'admin',
+                    'middleware' => [
+                        'web',
+                        'auth'
+                    ],
+                    'namespace' => $this->namespace . '\Admin',
+                ],
+                base_path('routes/admin.php')
+            );
         });
 
         // Désactiver le model binding automatique pour User dans apiResource
