@@ -1,0 +1,65 @@
+<svg
+  viewBox="0 0 550 530"
+  xmlns="http://www.w3.org/2000/svg"
+  class="mali-map"
+>
+
+  <!-- PNG en fond -->
+  <image
+    x="0"
+    y="0"
+    width="550"
+    height="530"
+    xlink:href="/images/mali-base.png"
+    preserveAspectRatio="xMidYMid meet"
+  />
+
+  <!-- Kayes -->
+  <g id="kayes" class="city" data-city="Kayes" data-lat="14.4469" data-lng="-8.0029">
+    <circle cx="40" cy="395" r="10" />
+    <text x="60" y="400">Kayes</text>
+  </g>
+
+  <!-- Kita -->
+  <g id="kita" class="city" data-city="Kita" data-lat="12.7333" data-lng="-9.4833">
+    <circle cx="200" cy="370" r="10" />
+    <text x="180" y="350">Kita</text>
+  </g>
+
+  <!-- Bamako -->
+  <g id="bamako" class="city" data-city="Bamako" data-lat="12.6392" data-lng="-8.0029">
+    <circle cx="295" cy="400" r="12" />
+    <text x="265" y="380">Bamako</text>
+  </g>
+
+  <!-- Sikasso -->
+  <g id="sikasso" class="city" data-city="Sikasso" data-lat="11.3176" data-ng="-5.6665">
+    <circle cx="250" cy="445" r="10" />
+    <text x="185" y="460">Sikasso</text>
+  </g>
+
+  <!-- Ségou -->
+  <g id="segou" class="city" data-city="Ségou" data-lat="13.4317" data-ng="-6.2157">
+    <circle cx="305" cy="440" r="10" />
+    <text x="320" y="445">Ségou</text>
+  </g>
+
+  <!-- Mopti -->
+  <g id="mopti" class="city" data-city="Mopti" data-lat="14.4963" data-ng="-4.1955">
+    <circle cx="400" cy="300" r="10" />
+    <text x="420" y="305">Mopti</text>
+  </g>
+
+  <!-- Tombouctou -->
+  <g id="tombouctou" class="city" data-city="Tombouctou" data-lat="16.7735" data-ng="-3.0074">
+    <circle cx="415" cy="170" r="10" />
+    <text x="310" y="175">Tombouctou</text>
+  </g>
+
+  <!-- Gao -->
+  <g id="gao" class="city" data-city="Gao" data-lat="16.2667" data-ng="-0.0500">
+    <circle cx="520" cy="230" r="10" />
+    <text x="510" y="210">Gao</text>
+  </g>
+</svg>
+

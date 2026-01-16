@@ -1,0 +1,184 @@
+/* ===========================
+   SERVICE HERO
+=========================== */
+
+.service-hero {
+    position: relative;
+    padding: 4rem 0 3rem;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+        url("/images/hero-services-barasira.png") center / cover no-repeat;
+    color: #ffffff;
+    text-align: center;
+
+    .container {
+        width: 100%;
+    }
+
+    .service-category {
+        display: inline-block;
+        background: #f97316;
+        color: #fff;
+        padding: 0.35rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .service-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 700;
+        margin: 0.5rem 0;
+    }
+
+    .service-city {
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+}
+
+/* ===========================
+   CONTENT
+=========================== */
+
+.service-content {
+    padding: 3rem 0;
+    background-color: #f9fafb;
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        color: #6b7280;
+
+        &-link {
+            color: #2563eb;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &-separator {
+            color: #9ca3af;
+        }
+
+        &-current {
+            color: #111827;
+            font-weight: 600;
+        }
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+/* ===========================
+   CARDS
+=========================== */
+
+.card {
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 1.75rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.service-description {
+    margin-bottom: 2rem;
+
+    h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        line-height: 1.7;
+        color: #374151;
+    }
+}
+
+.service-details {
+    h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+            padding: 0.5rem 0;
+            color: #374151;
+        }
+
+        strong {
+            color: #111827;
+        }
+    }
+}
+
+/* ===========================
+   SIDEBAR
+=========================== */
+
+.service-sidebar {
+    position: sticky;
+    top: 10rem;
+
+    @media (max-width: 900px) {
+        position: static;
+    }
+}
+
+.provider-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+    text-align: center;
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.btn-primary {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff;
+    border: none;
+    padding: 0.85rem 1.2rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+    }
+}
+
+.btn-block {
+    width: 100%;
+}

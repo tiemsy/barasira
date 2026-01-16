@@ -11,4 +11,11 @@ class MissionRepositoryEloquent extends BaseRepositoryEloquent implements Missio
     {
         parent::__construct($model);
     }
+
+    public function hommeMissions()
+    {
+        return $this->model
+            ->limit(4)
+            ->get();
+    }
 }

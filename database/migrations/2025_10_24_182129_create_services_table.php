@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+// Services
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -12,10 +13,19 @@ return new class () extends Migration {
     {
         Schema::create('services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('category_id')
+            $table->foreignId('user_id')
+                ->constrained('users') // référence la table users
+                ->onDelete('cascade');
+            $table->foreignId('service_category_id')
                 ->constrained('service_categories') // référence la table service_categories
                 ->onDelete('cascade');
 
+            $table->foreignId('city_id')
+                ->constrained('cities') // référence la table cities
+                ->onDelete('cascade');
+            $table->foreignId('municipality_id')->nullable()
+                ->constrained('municipalities') // référence la table municipalities
+                ->onDelete('cascade');
             $table->string('name');          // nom du service
             $table->text('description');     // description générale
             $table->string('icon')->nullable(); // icône ou pictogramme optionnel
@@ -32,6 +42,11 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::table('services', function (Blueprint $table) {
+            $table->dropForeign(['city_id']);
+            $table->dropForeign(['municipality_id']);
+            $table->dropColumn(['city_id', 'municipality_id']);
+            $table->dropIfExists('services');
+        });
     }
 };

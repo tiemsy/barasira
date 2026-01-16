@@ -1,0 +1,211 @@
+{
+  "app": {
+    "name": "Barasira",
+    "tagline": "Trouvez des prestataires fiables près de chez vous au Mali 🇲🇱"
+  },
+
+  "home": {
+    "heroTitle": "Trouvez des prestataires fiables près de chez vous au Mali 🇲🇱",
+    "heroSubtitle": "Plomberie, électricité, transport, couture… en quelques minutes.\nBarasira connecte particuliers et professionnels maliens pour des services rapides, fiables et locaux.",
+    "heroBtnFindService": "Trouver un service",
+    "heroBtnBecomeProvider": "Devenir prestataire",
+    "security": "Sécurité",
+    "securePayments": "Paiements et échanges sécurisés",
+    "speed": "Rapidité",
+    "serviceFound": "Un service trouvé en quelques minutes",
+    "trust": "Confiance",
+    "verifiedProviders": "Des prestataires vérifiés et notés",
+    "servicesAvailable": "Services disponibles par ville",
+    "popularCategories": "Catégories populaires",
+    "services": "services"
+  },
+
+  "footer": {
+    "copyright": "Barasira. Tous droits réservés.",
+    "terms": "Conditions",
+    "privacy": "Confidentialité",
+    "contactUs": "Nous contacter"
+  },
+
+  "lang": {
+    "french": "Français",
+    "english": "Anglais",
+    "bambara": "Bambara"
+  },
+
+  "navigation": {
+    "home": "Accueil",
+    "services": "Services",
+    "dashboard": "Tableau de bord",
+    "missions": "Missions",
+    "applications": "Candidatures",
+    "messages": "Messages",
+    "notifications": "Notifications",
+    "payments": "Paiements",
+    "disputes": "Litiges",
+    "favorites": "Favoris",
+    "profile": "Profil",
+    "admin": "Administration",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "register": "Inscription"
+  },
+
+  "auth": {
+    "login_title": "Connexion",
+    "register_title": "Créer un compte",
+    "email": "Email",
+    "password": "Mot de passe",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "phone": "Téléphone",
+    "role": "Rôle",
+    "role_client": "Client",
+    "role_provider": "Prestataire",
+    "remember_me": "Se souvenir de moi",
+    "forgot_password": "Mot de passe oublié ?",
+    "no_account": "Pas encore de compte ?",
+    "have_account": "Vous avez déjà un compte ?",
+    "verify_email_title": "Vérifiez votre adresse email",
+    "verify_email_text": "Un lien de vérification vous a été envoyé. Veuillez vérifier votre boîte de réception.",
+    "resend_email": "Renvoyer l'email de vérification"
+  },
+
+  "dashboard": {
+    "client_title": "Tableau de bord client",
+    "provider_title": "Tableau de bord prestataire",
+    "admin_title": "Tableau de bord administrateur",
+    "stats_missions": "Missions",
+    "stats_earnings": "Gains",
+    "stats_applications": "Candidatures",
+    "stats_rating": "Note moyenne"
+  },
+
+  "missions": {
+    "title": "Missions",
+    "my_missions": "Mes missions",
+    "available_missions": "Missions disponibles",
+    "assigned_missions": "Missions assignées",
+    "create": "Créer une mission",
+    "edit": "Modifier la mission",
+    "details": "Détails de la mission",
+    "no_missions": "Aucune mission pour le moment.",
+    "fields": {
+      "title": "Titre",
+      "description": "Description",
+      "service": "Service",
+      "budget_min": "Budget minimum",
+      "budget_max": "Budget maximum",
+      "city": "Ville",
+      "municipality": "Commune",
+      "address_detail": "Adresse détaillée",
+      "scheduled_at": "Date et heure prévues",
+      "status": "Statut",
+      "client": "Client",
+      "provider": "Prestataire"
+    },
+    "status": {
+      "open": "Ouverte",
+      "in_review": "En cours de revue",
+      "assigned": "Assignée",
+      "in_progress": "En cours",
+      "completed": "Terminée",
+      "cancelled": "Annulée",
+      "disputed": "En litige"
+    },
+    "actions": {
+      "view": "Voir",
+      "apply": "Postuler",
+      "cancel": "Annuler",
+      "start": "Démarrer",
+      "complete": "Marquer comme terminée"
+    },
+    "messages": {
+      "created_success": "Mission créée avec succès.",
+      "updated_success": "Mission mise à jour.",
+      "cancelled_success": "Mission annulée."
+    }
+  },
+
+  "applications": {
+    "title": "Candidatures",
+    "my_applications": "Mes candidatures",
+    "proposal_amount": "Montant proposé",
+    "proposal_message": "Message de candidature",
+    "status": {
+      "pending": "En attente",
+      "accepted": "Acceptée",
+      "rejected": "Refusée",
+      "withdrawn": "Retirée"
+    },
+    "actions": {
+      "accept": "Accepter",
+      "reject": "Refuser"
+    }
+  },
+
+  "messages": {
+    "title": "Messagerie",
+    "mission_chat": "Discussion de la mission",
+    "placeholder": "Écrire un message...",
+    "send": "Envoyer",
+    "no_messages": "Aucun message pour le moment."
+  },
+
+  "payments": {
+    "title": "Paiements",
+    "amount": "Montant",
+    "currency": "Devise",
+    "method": "Méthode",
+    "status": {
+      "pending": "En attente",
+      "paid": "Payé",
+      "failed": "Échoué",
+      "refunded": "Remboursé"
+    },
+    "methods": {
+      "OM": "Orange Money",
+      "MoovMoney": "Moov Money",
+      "card": "Carte bancaire",
+      "cash": "Espèces"
+    },
+    "pay_now": "Payer maintenant"
+  },
+
+  "disputes": {
+    "title": "Litiges",
+    "open_disputes": "Litiges ouverts",
+    "reason": "Raison",
+    "status": {
+      "open": "Ouvert",
+      "in_review": "En cours de revue",
+      "resolved": "Résolu",
+      "rejected": "Rejeté"
+    },
+    "actions": {
+      "open_dispute": "Ouvrir un litige",
+      "add_message": "Ajouter un message"
+    }
+  },
+
+  "notifications": {
+    "title": "Notifications",
+    "no_notifications": "Aucune notification.",
+    "mark_all_as_read": "Tout marquer comme lu"
+  },
+
+  "profile": {
+    "title": "Mon profil",
+    "edit": "Modifier le profil",
+    "save": "Enregistrer",
+    "skills": "Compétences",
+    "documents": "Documents",
+    "favorites": "Favoris"
+  },
+
+  "validation": {
+    "required": "Ce champ est obligatoire.",
+    "email": "Veuillez entrer un email valide.",
+    "min_length": "Ce champ doit contenir au moins {min} caractères."
+  }
+}

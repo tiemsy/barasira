@@ -16,13 +16,13 @@ class UserSeeder extends Seeder
         // Générer 20 utilisateurs aléatoires
         User::factory()->count(20)->create();
 
-        // Ajouter un utilisateur admin spécifique
+        // Ajouter un utilisateur super admin spécifique
         User::factory()->create([
             'first_name' => 'Admin',
             'last_name' => 'Sira',
             'email' => 'admin@barasira.local',
             'password' => bcrypt('admin123'),
-            'role' => 'admin',
+            'role' => 'superadmin',
             'bio' => 'Administrateur principal de l’application Bara Sira.',
             'avatar_url' => null,
             'rating' => 5.0,

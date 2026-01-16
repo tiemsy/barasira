@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Inertia\Inertia;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -27,4 +29,13 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e)
+{
+    if ($e instanceof NotFoundHttpException && $request->expectsJson() === false) {
+        return Inertia::render('Errors/NotFound')->toResponse($request);
+    }
+
+    return parent::render($request, $e);
+}
 }

@@ -1,0 +1,52 @@
+@use 'colors' as c;
+@use 'spacing' as s;
+@use 'typography' as t;
+
+/* mixins/_mixins.scss */
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin card {
+  background-color: c.$bg-card;
+  border-radius: s.$radius-md;
+  box-shadow: s.$shadow;
+  padding: s.$spacing-lg;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@mixin button($bg, $color: #fff) {
+  background-color: $bg;
+  color: $color;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: t.$font-medium;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == sm {
+    @media (max-width: 640px) { @content; }
+  }
+  @if $breakpoint == md {
+    @media (max-width: 768px) { @content; }
+  }
+}

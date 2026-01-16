@@ -18,6 +18,10 @@ use OpenApi\Annotations as OA;
  * title="Service",
  * required={"id", "name"},
  * @OA\Property(property="id", type="integer", example=1),
+ * @OA\Property(property="user_id", type="integer", example="1"),
+ * @OA\Property(property="service_category_id", type="integer", example="2"),
+ * @OA\Property(property="city_id", type="integer", example="1"),
+ * @OA\Property(property="municipality_id", type="integer", example="3"),
  * @OA\Property(property="name", type="string", example="Plomberie"),
  * @OA\Property(property="description", type="text", example="description du service"),
  * @OA\Property(property="icon", type="string", example="icône ou pictogramme optionnel"),
@@ -54,7 +58,7 @@ class ServiceController extends Controller
      */
     public function index(): JsonResponse
     {
-        $services = $this->serviceRepository->paginate(15, ['category', 'userSkills']);
+        $services = $this->serviceRepository->all();
         return response()->json($services);
     }
 
@@ -92,5 +96,28 @@ class ServiceController extends Controller
     {
         $service->delete();
         return response()->json(null, 204);
+    }
+
+    public function search(Request $request)
+    {
+        $services = Service::with(['city', 'municipality', 'category', 'user'])
+            ->when(
+                $request->keyword,
+                fn($q) =>
+                $q->where('name', 'like', "%{$request->keyword}%")
+            )
+            ->when(
+                $request->city,
+                fn($q) =>
+                $q->where('city_id', $request->city)
+            )
+            ->when(
+                $request->category,
+                fn($q) =>
+                $q->where('service_category_id', $request->category)
+            )
+            ->get();
+
+        return response()->json($services);
     }
 }

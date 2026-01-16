@@ -1,0 +1,23 @@
+<svg
+  viewBox="0 0 800 900"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+  <!-- PNG intégré -->
+  <image
+    x="0"
+    y="0"
+    width="800"
+    height="900"
+    xlink:href="/images/mali-base.png"
+  />
+
+  <!-- Zones interactives -->
+  <path
+    d="M120,50 L600,80 L700,300 L500,800 L200,700 Z"
+    fill="transparent"
+    stroke="#1d4ed8"
+    stroke-width="2"
+    cursor="pointer"
+  />
+</svg>

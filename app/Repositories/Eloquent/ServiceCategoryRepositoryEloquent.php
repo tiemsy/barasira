@@ -11,4 +11,12 @@ class ServiceCategoryRepositoryEloquent extends BaseRepositoryEloquent implement
     {
         parent::__construct($model);
     }
+
+    public function randomServiceCategories()
+    {
+        return $this->model
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
+    }
 }

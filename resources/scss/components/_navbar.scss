@@ -1,0 +1,132 @@
+@use "../variables/colors" as c;
+@use "../variables/spacing" as s;
+@use "../variables/typography" as t;
+
+/* NAVBAR */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+      background: c.$white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+    // background-color: c.$white;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: center;
+    padding: s.$spacing-md s.$spacing-xl;
+    // box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-container {
+    padding: s.$spacing-md s.$spacing-lg;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
+
+    li {
+        list-style: none;
+        display: inline-block;
+        padding: 0 20px;
+    }
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: s.$spacing-sm;
+    font-size: t.$heading-3;
+    font-weight: bold;
+    color: c.$primary;
+    text-decoration: none;
+
+    img {
+        height: 40px;
+    }
+}
+
+.navbar-links {
+    display: flex;
+    gap: s.$spacing-lg;
+
+    .btn-primary {
+        background: c.$primary;
+        color: c.$white;
+        transition: all 0.3s ease 0s;
+
+        &:hover {
+            background: c.$dark;
+            color: c.$secondary-dark;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: c.$dark;
+        font-weight: 500;
+
+        &:hover {
+            color: c.$primary;
+        }
+    }
+}
+
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+}
+
+.breadcrumb ol {
+        list-style: none;
+        display: flex;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: #6b7280;
+        margin-bottom: 1.5rem;
+    }
+
+    .breadcrumb ol li a {
+        color: c.$primary;
+        text-decoration: none;
+    }
+
+    .breadcrumb ol li::after {
+        content: "/";
+        margin-left: 0.5rem;
+    }
+
+    .breadcrumb ol li:last-child::after {
+        content: "";
+        margin: 0;
+    }
+
+/* Responsive */
+@media (max-width: t.$breakpoint-md) {
+
+    .navbar-container {
+        li {
+            display: table-header-group;
+        }
+    }
+    .navbar-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: c.$white;
+        flex-direction: column;
+        padding: s.$spacing-md;
+        display: none;
+
+        &.open {
+            display: flex;
+        }
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+}

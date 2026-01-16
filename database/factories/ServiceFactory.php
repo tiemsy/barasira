@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
 use App\Models\Service;
 use App\Models\ServiceCategory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,8 +23,13 @@ class ServiceFactory extends Factory
     public function definition(): array
     {
         return [
-            'category_id' => ServiceCategory::inRandomOrder()->first()->id ?? ServiceCategory::factory(),
-            'name' => $this->faker->unique()->words(2, true), // nom de service ex: "Réparation Tuyaux"
+            'user_id' => User::where('role', 'prestataire')->inRandomOrder()->first()->id,
+            'service_category_id' => ServiceCategory::inRandomOrder()->first()->id ?? ServiceCategory::factory(),
+
+            'city_id' => City::inRandomOrder()->first()->id ?? City::factory(),
+            'municipality_id' => null,
+
+            'name' => $this->faker->unique()->jobTitle, // nom de service ex: "Réparation Tuyaux"
             'description' => $this->faker->paragraph(2),
             'icon' => $this->faker->optional()->randomElement([
                 'fa-solid fa-wrench',
@@ -34,8 +41,8 @@ class ServiceFactory extends Factory
                 'fa-solid fa-laptop',
                 'fa-solid fa-building'
             ]),
-            'price_min' => $this->faker->numberBetween(5000, 20000),
-            'price_max' => $this->faker->numberBetween(25000, 100000),
+            'price_min' => $this->faker->numberBetween(3000, 8000),
+            'price_max' => $this->faker->numberBetween(9000, 30000),
             'is_active' => $this->faker->boolean(90), // 90% des services actifs
         ];
     }

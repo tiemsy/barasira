@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserStoreRequest extends FormRequest
 {
@@ -24,21 +25,20 @@ class UserStoreRequest extends FormRequest
         return [
             'first_name' => ['required', 'string', 'max:100'],
             'last_name'  => ['required', 'string', 'max:100'],
-            'email'      => ['required', 'email', 'max:150', 'unique:users,email'],
+            'phone'      => ['required', 'string', 'max:20', 'unique:users,phone'],
+            'email'      => ['required', 'email', 'max:255', 'unique:users,email'],
             'password'   => ['required', 'string', 'min:6'],
-            'phone'      => ['nullable', 'string', 'max:30'],
-            'role'       => ['required', 'string'],
-            'bio'        => ['nullable', 'string'],
-            'avatar_url' => ['nullable', 'string', 'max:255'],
-            'rating'     => ['nullable', 'numeric'],
-            'verified'   => ['nullable', 'boolean'],
+            'password_confirmed' => 'Les mots de passe ne correspondent pas.',
+            'role'       => ['required', Rule::in(['client', 'prestataire', 'admin', 'superadmin'])],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'role.in' => 'Le rôle doit être : client, prestataire ou admin.',
+            'role.in' => 'Le rôle doit être : client, prestataire, admin ou superadmin.',
+            'first_name' => 'Le champs prénom est obligatoire',
+            'last_name' => 'Le champs nom de famille est obligatoire'
         ];
     }
 }

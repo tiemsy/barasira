@@ -3,6 +3,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// langues parlées liées au CV
 return new class extends Migration {
     public function up(): void {
         Schema::create('resume_languages', function (Blueprint $table) {

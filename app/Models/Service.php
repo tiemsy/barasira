@@ -11,7 +11,10 @@ class Service extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'category_id',    // catégorie du service (ex : plomberie, électricité…)
+        'city_id',
+        'municipality_id',
         'name',           // nom du service
         'description',    // description générale
         'icon',           // icône ou pictogramme (optionnel)
@@ -20,12 +23,33 @@ class Service extends Model
         'is_active',      // service visible ou désactivé
     ];
 
+    protected $casts = [
+        'is_active' => 'boolean',
+        'price_min' => 'decimal:2',
+        'price_max' => 'decimal:2',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class);
+    }
+
     /**
      * Catégorie du service
      */
     public function category()
     {
-        return $this->belongsTo(ServiceCategory::class);
+        return $this->belongsTo(ServiceCategory::class, 'service_category_id');
     }
 
     /**
@@ -42,7 +66,7 @@ class Service extends Model
     public function providers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_service')
-                    ->withTimestamps();
+            ->withTimestamps();
     }
 
     /**

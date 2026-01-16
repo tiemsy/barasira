@@ -1,0 +1,36 @@
+@use "../variables/colors" as c;
+@use "../variables/spacing" as s;
+@use "../variables/typography" as t;
+
+/* FOOTER */
+.footer {
+    background: #111827;
+    color: #9ca3af;
+    padding: 2rem 0;
+    min-height: 30vh;
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.footer a {
+    color: #9ca3af;
+    margin-left: 1rem;
+    text-decoration: none;
+
+    &:hover {
+        color: c.$white;
+        text-decoration: underline;
+    }
+}
+
+/* Responsive */
+@media (max-width: t.$breakpoint-md) {
+    .footer-inner {
+        flex-direction: column;
+    }
+}

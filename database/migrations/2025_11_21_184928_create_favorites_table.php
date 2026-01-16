@@ -3,6 +3,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// Favoris ou coups de cœur
 return new class extends Migration {
     public function up(): void {
         Schema::create('favorites', function (Blueprint $table) {

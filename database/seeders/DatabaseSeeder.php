@@ -15,10 +15,12 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(UserSkillSeeder::class);
         $this->call(ServiceCategorySeeder::class);
+        $this->call(CitySeeder::class);
+        $this->call(MunicipalitySeeder::class);
         $this->call(ServiceSeeder::class);
         $this->call(UserSkillSeeder::class);
         $this->call(MissionSeeder::class);
-        $this->call(ResumeSeeder::class);
+        // $this->call(ResumeSeeder::class);
         $this->call(ReviewSeeder::class);
     }
 }
