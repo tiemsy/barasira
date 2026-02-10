@@ -46,7 +46,7 @@ class UserUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'role.in' => 'Le rôle doit être : client, prestataire ou admin.',
+            'role.in' => 'Le rôle doit être : client ou prestataire',
         ];
     }
 }

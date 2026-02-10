@@ -1,0 +1,3 @@
+barasira.duckdns.org {
+    reverse_proxy barasira_nginx:80
+}

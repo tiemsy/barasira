@@ -76,7 +76,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service): JsonResponse
     {
-        $service->load(['category', 'userSkills']);
+        $service->load(['category', 'city', 'municipality', 'missions', 'providers']);
         return response()->json($service);
     }
 

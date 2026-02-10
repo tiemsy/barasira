@@ -4,8 +4,8 @@
         <!-- Fil d'ariane -->
         <nav class="breadcrumb">
             <ol>
-                <li><a href="/">Accueil</a></li>
-                <li>Connexion</li>
+                <li><a href="/">{{ $t('navigation.home') }}</a></li>
+                <li>{{ $t('auth.login_title') }}</li>
             </ol>
         </nav>
 
@@ -14,13 +14,13 @@
             <div class="container">
                 <div class="login-card">
 
-                    <h1 class="login-title">Se connecter</h1>
+                    <h1 class="login-title">{{ $t('auth.login_title') }}</h1>
                     <p class="login-subtitle">Accédez à votre compte Barasira</p>
 
                     <form @submit.prevent="submit" class="login-form">
 
                         <div class="form-group">
-                            <label for="email">Email</label>
+                            <label for="email">{{ $t('auth.email') }}</label>
                             <input type="email" id="email" v-model="form.email" placeholder="votre@email.com" />
                             <p v-if="errors.email" class="input-error">
                                 {{ errors.email[0] }}
@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password">Mot de passe</label>
+                            <label for="password">{{ $t('auth.password') }}</label>
                             <input type="password" id="password" v-model="form.password" placeholder="Mot de passe" />
                             <p v-if="errors.password" class="input-error">
                                 {{ errors.password[0] }}
@@ -38,7 +38,7 @@
                         <!-- REMEMBER -->
                         <label>
                             <input type="checkbox" v-model="form.remember" />
-                            Se souvenir de moi
+                            {{ $t('auth.remember_me') }}
                         </label>
 
                         <!-- ERREUR GLOBALE -->
@@ -48,11 +48,11 @@
 
                         <!-- SUBMIT -->
                         <button :disabled="form.processing" :class="['btn-primary']">
-                            {{ form.processing ? 'Connexion...' : 'Se connecter' }}
+                            {{ form.processing ? 'Connexion...' : $t('navigation.login') }}
                         </button>
 
                         <p class="login-footer">
-                            Pas encore de compte ? <a href="/register">Inscription</a>
+                            <a href="/register">{{ $t('auth.no_account') }}</a>
                         </p>
                     </form>
                 </div>

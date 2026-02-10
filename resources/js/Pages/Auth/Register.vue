@@ -4,8 +4,8 @@
         <!-- Fil d'ariane -->
         <nav class="breadcrumb">
             <ol>
-                <li><a href="/">Accueil</a></li>
-                <li>Inscription</li>
+                <li><a href="/">{{ $t('navigation.home') }}</a></li>
+                <li>{{ $t('navigation.register') }}</li>
             </ol>
         </nav>
 
@@ -14,58 +14,58 @@
             <div class="container">
                 <div class="login-card">
 
-                    <h1 class="login-title">Inscription</h1>
+                    <h1 class="login-title">{{ $t('auth.register_title') }}</h1>
                     <p class="login-subtitle">Inscrivez-vous sur Barasira</p>
 
                     <form @submit.prevent="submit" class="login-form">
                         <div class="form-group">
                             <select id="role" v-model="form.role">
-                                <option value="client">Client</option>
-                                <option value="prestataire">Prestataire</option>
+                                <option value="client">{{ $t('auth.role_client') }}</option>
+                                <option value="prestataire">{{ $t('auth.role_provider') }}</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="first_name">Prénom</label>
+                            <label for="first_name">{{ $t('auth.first_name') }}</label>
                             <input type="text" id="first_name" v-model="form.first_name" placeholder="Prénom"
                                 :class="{ 'input-error': errors.first_name }" />
                             <p v-if="errors.first_name" class="error-text">{{ errors.first_name }}</p>
                         </div>
                         <div class="form-group">
-                            <label for="last_name">Nom</label>
+                            <label for="last_name">{{ $t('auth.last_name') }}</label>
                             <input type="text" id="last_name" v-model="form.last_name" placeholder="Nom"
                                 :class="{ 'input-error': errors.last_name }" />
                             <p v-if="errors.last_name" class="error-text">{{ errors.last_name }}</p>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
+                            <label for="email">{{ $t('auth.email') }}</label>
                             <input type="email" id="email" v-model="form.email" placeholder="votre@email.com"
                                 :class="{ 'input-error': errors.email }" />
                             <p v-if="errors.email" class="error-text">{{ errors.email }}</p>
                         </div>
 
                         <div class="form-group">
-                            <label for="phone">Téléphone</label>
+                            <label for="phone">{{ $t('auth.phone') }}</label>
                             <input type="phone" id="phone" v-model="form.phone" placeholder="Téléphone"
                                 :class="{ 'input-error': errors.phone }" />
                             <p v-if="errors.phone" class="error-text">{{ errors.phone }}</p>
                         </div>
 
                         <div class="form-group">
-                            <label for="password">Mot de passe</label>
+                            <label for="password">{{ $t('auth.password') }}</label>
                             <input type="password" id="password" v-model="form.password" placeholder="Mot de passe"
                                 :class="{ 'input-error': errors.password }" />
                             <p v-if="errors.password" class="error-text">{{ errors.password }}</p>
                         </div>
                         <div class="form-group">
-                            <label for="password_confirmation">Mot de passe</label>
+                            <label for="password_confirmation">{{ $t('auth.password') }}</label>
                             <input type="password" id="password_confirmation" v-model="form.password_confirmation"
                                 placeholder="Confirmation" :class="{ 'input-error': errors.password_confirmation }" />
                             <p v-if="errors.password" class="error-text">{{ errors.password_confirmation }}</p>
                         </div>
 
                         <button :disabled="loading" class="btn-primary btn-block">
-                            {{ loading ? 'Création...' : 'Créer le compte' }}
+                            {{ loading ? 'Création...' : $t('auth.register_title')}}
                         </button>
                         <p v-if="errors.general" class="error-text">
                             {{ errors.general[0] }}
@@ -75,7 +75,7 @@
                         </p>
 
                         <p class="login-footer">
-                            Compte déjà existant ? <a href="/login">Connexion</a>
+                            <a href="/login">{{ $t('auth.have_account') }}</a>
                         </p>
                     </form>
                 </div>

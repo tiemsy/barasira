@@ -58,7 +58,7 @@ const user = computed(() => page.props.auth?.user ?? null)
  * (exemple simple : prestataire connecté)
  */
 const canApply = computed(() => {
-    return user.value && user.value.role === 'provider'
+    return user.value && user.value.role === 'prestataire'
 })
 
 /**

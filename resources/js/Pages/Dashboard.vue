@@ -36,13 +36,15 @@ const user = page.props[1].auth?.user
 
                 <!-- CARD -->
                 <div class="dash-card">
-                    <h3>📦 Mes services acceptés</h3>
-                    <ul>
-                        <li v-for="service in services" :key="service.id">
-                            {{ service.name }}
-                            <span v-if="service.category">- {{ service.category?.name }}</span>
-                        </li>
-                    </ul>
+                    <h3>📦 Mes missions</h3>
+                    <p>Gérez et publiez les missions</p>
+                    <a href="/missions/index" class="btn-primary">Voir</a>
+                </div>
+
+                <div class="dash-card">
+                    <h3>📨 Messages</h3>
+                    <p>Consultez vos discussions</p>
+                    <a href="/messages" class="btn-primary">Ouvrir</a>
                 </div>
 
             </div>

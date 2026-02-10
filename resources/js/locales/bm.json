@@ -1,211 +1,200 @@
 {
-  "app": {
-    "name": "Barasira",
-    "tagline": "A bɛ se ka dɔgɔkunw jɔyɔrɔ minnu bɛ sigi i kan Mali la 🇲🇱"
-  },
-
-  "home": {
-    "heroTitle": "A bɛ se ka dɔgɔkunw jɔyɔrɔ minnu bɛ sigi i kan Mali la 🇲🇱",
-    "heroSubtitle": "Plɔmbɛri, elektrisite, transport, sɔgɔsili… a bɛ kɛ kɔfɛ miniti dɔ la.\nBarasira bɛ sɔrɔw ani dɔgɔkunw fɛ ka dɛmɛ Maliba la doni-doni, jɔyɔrɔ ani sisan kɛlɛya.",
-    "heroBtnFindService": "Dɔgɔkun dɔ sɔrɔ",
-    "heroBtnBecomeProvider": "Ka dɔgɔkunya kɛ",
-    "security": "Jɔyɔrɔ",
-    "securePayments": "Payement ani bɛɛ cogo jɔyɔrɔ",
-    "speed": "Sisan kɛlɛya",
-    "serviceFound": "Dɔgɔkun dɔ bɛ sɔrɔ kɔfɛ miniti dɔ la",
-    "trust": "Nya",
-    "verifiedProviders": "Dɔgɔkunw minnu bɛ sɔrɔfɛ ani minnu bɛ na sigida",
-    "servicesAvailable": "Dɔgɔkunw minnu bɛ sɔrɔ duguw kɔfɛ",
-    "popularCategories": "Cɛsiriyaw jɔyɔrɔ",
-    "services": "dɔgɔkunw"
-  },
-
-  "footer": {
-    "copyright": "Barasira. Hakɛ bɛ bɛɛ ye.",
-    "terms": "Shɛrikanw",
-    "privacy": "Siratigɛya",
-    "contactUs": "Ka an na"
-  },
-
-  "lang": {
-    "french": "Faransi kan",
-    "english": "Angilɛ kan",
-    "bambara": "Bamanankan"
-  },
-
-  "navigation": {
-    "home": "So",
-    "services": "Dɔgɔkunw Jɔyɔrɔ",
-    "dashboard": "Ka fila kan",
-    "missions": "Baro kɛcogo",
-    "applications": "Kana kɔnɔ hakɛ",
-    "messages": "Kuma",
-    "notifications": "Sɔnniw",
-    "payments": "Sisanw",
-    "disputes": "Fɛnw",
-    "favorites": "Jɛgɛ min bɛ se ka kalan",
-    "profile": "Ka ka fɔlɔ",
-    "admin": "Kalanden kɔrɔ",
-    "logout": "Ka bɔ",
-    "login": "Ka sigi",
-    "register": "Ka tɔgɔ fɔ"
-  },
-
-  "auth": {
-    "login_title": "Ka sigi",
-    "register_title": "Ka tɔgɔ fɔ",
-    "email": "Email",
-    "password": "Kɔdɔ",
-    "first_name": "Tɔgɔ kɔnɔ",
-    "last_name": "Tɔgɔ kɔrɔ",
-    "phone": "Telefɔni",
-    "role": "Dɔ",
-    "role_client": "Jatigi",
-    "role_provider": "Jɛgɛn",
-    "remember_me": "Ka hakili n na",
-    "forgot_password": "Kɔdɔ bi na?",
-    "no_account": "Kɔnto tɛ i ye?",
-    "have_account": "I bɛ kɔnto kɔnɔ?",
-    "verify_email_title": "Ka email kɛla",
-    "verify_email_text": "Link kelen bɛ yɛrɛ email la. I ka kɛ ka a dɔɔnin.",
-    "resend_email": "Ka email lajɛ sisan"
-  },
-
-  "dashboard": {
-    "client_title": "Jatigi ka fila kan",
-    "provider_title": "Jɛgɛn ka fila kan",
-    "admin_title": "Kalanden ka fila kan",
-    "stats_missions": "Baro kɛcogo",
-    "stats_earnings": "Denbaya sisan",
-    "stats_applications": "Kana hakɛw",
-    "stats_rating": "Naamu dugukolo"
-  },
-
-  "missions": {
-    "title": "Baro kɛcogo",
-    "my_missions": "N baro kɛcogow",
-    "available_missions": "Baro kɛcogow bɛ se",
-    "assigned_missions": "Baro kɛcogow bɛ jɛgɛn kɔrɔ",
-    "create": "Ka baro kɛcogo dɔ dilan",
-    "edit": "Ka baro kɛcogo sɛbɛn",
-    "details": "Baro kɛcogo fɔlɔ",
-    "no_missions": "Baro kɛcogo tɛ yen sisan.",
-    "fields": {
-      "title": "Tɔgɔ",
-      "description": "Kɔrɔfɔli",
-      "service": "Jɛgɛli",
-      "budget_min": "Budje dɔɔnin",
-      "budget_max": "Budje ba",
-      "city": "Dugu",
-      "municipality": "Kɛmɛ",
-      "address_detail": "Sigi dabɔ kɔnɔ",
-      "scheduled_at": "Don kelen / waati",
-      "status": "Ka fɛ",
-      "client": "Jatigi",
-      "provider": "Jɛgɛn"
+    "app": {
+        "name": "Barasira",
+        "tagline": "A bɛ se ka dɔgɔkunw jɔyɔrɔ minnu bɛ sigi i kan Mali la 🇲🇱"
     },
-    "status": {
-      "open": "Dilan",
-      "in_review": "Bɛ lajɛ",
-      "assigned": "Bɛ jɛgɛn kɔrɔ",
-      "in_progress": "Bɛ kɛ",
-      "completed": "Bara ban",
-      "cancelled": "A lajɛra",
-      "disputed": "Fɛ bɛ a kɔrɔ"
+    "home": {
+        "heroTitle": "A bɛ se ka dɔgɔkunw jɔyɔrɔ minnu bɛ sigi i kan Mali la 🇲🇱",
+        "heroSubtitle": "Plɔmbɛri, elektrisite, transport, sɔgɔsili… a bɛ kɛ kɔfɛ miniti dɔ la.\nBarasira bɛ sɔrɔw ani dɔgɔkunw fɛ ka dɛmɛ Maliba la doni-doni, jɔyɔrɔ ani sisan kɛlɛya.",
+        "heroBtnFindService": "Dɔgɔkun dɔ sɔrɔ",
+        "heroBtnBecomeProvider": "Ka dɔgɔkunya kɛ",
+        "security": "Jɔyɔrɔ",
+        "securePayments": "Payement ani bɛɛ cogo jɔyɔrɔ",
+        "speed": "Sisan kɛlɛya",
+        "serviceFound": "Dɔgɔkun dɔ bɛ sɔrɔ kɔfɛ miniti dɔ la",
+        "trust": "Nya",
+        "verifiedProviders": "Dɔgɔkunw minnu bɛ sɔrɔfɛ ani minnu bɛ na sigida",
+        "servicesAvailable": "Dɔgɔkunw minnu bɛ sɔrɔ duguw kɔfɛ",
+        "popularCategories": "Cɛsiriyaw jɔyɔrɔ",
+        "services": "dɔgɔkunw"
     },
-    "actions": {
-      "view": "Ka dɔɔnin",
-      "apply": "Ka kana hakɛ",
-      "cancel": "Ka lajɛ",
-      "start": "Ka daminɛ",
-      "complete": "Ka fɛ ka bara ban"
+    "footer": {
+        "copyright": "Barasira. Hakɛ bɛ bɛɛ ye.",
+        "terms": "Shɛrikanw",
+        "privacy": "Siratigɛya",
+        "contactUs": "Ka an na"
+    },
+    "lang": {
+        "french": "Faransi kan",
+        "english": "Angilɛ kan",
+        "bambara": "Bamanankan"
+    },
+    "navigation": {
+        "home": "So",
+        "services": "Dɔgɔkunw Jɔyɔrɔ",
+        "dashboard": "Ka fila kan",
+        "missions": "Baro kɛcogo",
+        "applications": "Kana kɔnɔ hakɛ",
+        "messages": "Kuma",
+        "notifications": "Sɔnniw",
+        "payments": "Sisanw",
+        "disputes": "Fɛnw",
+        "favorites": "Jɛgɛ min bɛ se ka kalan",
+        "profile": "Ka ka fɔlɔ",
+        "admin": "Kalanden kɔrɔ",
+        "logout": "Ka bɔ",
+        "login": "Ka sigi",
+        "register": "Ka tɔgɔ fɔ"
+    },
+    "auth": {
+        "login_title": "Ka sigi",
+        "register_title": "Ka tɔgɔ fɔ",
+        "email": "Email",
+        "password": "Kɔdɔ",
+        "first_name": "Tɔgɔ kɔnɔ",
+        "last_name": "Tɔgɔ kɔrɔ",
+        "phone": "Telefɔni",
+        "role": "Dɔ",
+        "role_client": "Jatigi",
+        "role_provider": "Jɛgɛn",
+        "remember_me": "Ka hakili to n na",
+        "forgot_password": "Kɔdɔ bi na?",
+        "no_account": "Kɔnto tɛ i ye?",
+        "have_account": "I bɛ kɔnto kɔnɔ?",
+        "verify_email_title": "Ka email kɛla",
+        "verify_email_text": "Link kelen bɛ yɛrɛ email la. I ka kɛ ka a dɔɔnin.",
+        "resend_email": "Ka email lajɛ sisan",
+        "forgot_password_text": "I bɛ se ka email sɛbɛn, an bɛ i ma link dɔ jɛ ka kɔdɔ sɛbɛn fɔlɔ.",
+        "send_reset_link": "Ka link jɛ",
+        "back_to_login": "Ka segin ka sigi"
+    },
+    "dashboard": {
+        "client_title": "Jatigi ka fila kan",
+        "provider_title": "Jɛgɛn ka fila kan",
+        "admin_title": "Kalanden ka fila kan",
+        "stats_missions": "Baro kɛcogo",
+        "stats_earnings": "Denbaya sisan",
+        "stats_applications": "Kana hakɛw",
+        "stats_rating": "Naamu dugukolo"
+    },
+    "missions": {
+        "title": "Baro kɛcogo",
+        "my_missions": "N baro kɛcogow",
+        "available_missions": "Baro kɛcogow bɛ se",
+        "assigned_missions": "Baro kɛcogow bɛ jɛgɛn kɔrɔ",
+        "create": "Ka baro kɛcogo dɔ dilan",
+        "edit": "Ka baro kɛcogo sɛbɛn",
+        "details": "Baro kɛcogo fɔlɔ",
+        "no_missions": "Baro kɛcogo tɛ yen sisan.",
+        "fields": {
+            "title": "Tɔgɔ",
+            "description": "Kɔrɔfɔli",
+            "service": "Jɛgɛli",
+            "budget_min": "Budje dɔɔnin",
+            "budget_max": "Budje ba",
+            "city": "Dugu",
+            "municipality": "Kɛmɛ",
+            "address_detail": "Sigi dabɔ kɔnɔ",
+            "scheduled_at": "Don kelen / waati",
+            "status": "Ka fɛ",
+            "client": "Jatigi",
+            "provider": "Jɛgɛn"
+        },
+        "status": {
+            "open": "Dilan",
+            "in_review": "Bɛ lajɛ",
+            "assigned": "Bɛ jɛgɛn kɔrɔ",
+            "in_progress": "Bɛ kɛ",
+            "completed": "Bara ban",
+            "cancelled": "A lajɛra",
+            "disputed": "Fɛ bɛ a kɔrɔ"
+        },
+        "actions": {
+            "view": "Ka dɔɔnin",
+            "apply": "Ka kana hakɛ",
+            "cancel": "Ka lajɛ",
+            "start": "Ka daminɛ",
+            "complete": "Ka fɛ ka bara ban"
+        },
+        "messages": {
+            "created_success": "Baro kɛcogo dilan na.",
+            "updated_success": "Baro kɛcogo sɛbɛn na.",
+            "cancelled_success": "Baro kɛcogo lajɛra."
+        }
+    },
+    "applications": {
+        "title": "Kana hakɛw",
+        "my_applications": "N kana hakɛw",
+        "proposal_amount": "Sisan min i bɛ bɔ",
+        "proposal_message": "Kana hakɛ kuma",
+        "status": {
+            "pending": "Bɛ lajɛ",
+            "accepted": "Ka bɛna",
+            "rejected": "Ka lajɛra",
+            "withdrawn": "Ka jirali"
+        },
+        "actions": {
+            "accept": "Ka bɛna",
+            "reject": "Ka lajɛ"
+        }
     },
     "messages": {
-      "created_success": "Baro kɛcogo dilan na.",
-      "updated_success": "Baro kɛcogo sɛbɛn na.",
-      "cancelled_success": "Baro kɛcogo lajɛra."
+        "title": "Kuma",
+        "mission_chat": "Baro kɛcogo kuma",
+        "placeholder": "Ka kuma dɔ sɛbɛn...",
+        "send": "Ka taa",
+        "no_messages": "Kuma tɛ yen sisan."
+    },
+    "payments": {
+        "title": "Sisanw",
+        "amount": "Jɛsi",
+        "currency": "Faransi",
+        "method": "Jɛsi fɔli",
+        "status": {
+            "pending": "Bɛ lajɛ",
+            "paid": "Jɛsi na",
+            "failed": "Taa tɛraa",
+            "refunded": "Jɛsi fɔlɔ na"
+        },
+        "methods": {
+            "OM": "Orange Money",
+            "MoovMoney": "Moov Money",
+            "card": "Karti",
+            "cash": "Ka kontan"
+        },
+        "pay_now": "Ka jɛsi sisan"
+    },
+    "disputes": {
+        "title": "Fɛnw",
+        "open_disputes": "Fɛ bɛ yen",
+        "reason": "Kɔrɔ",
+        "status": {
+            "open": "Dilan",
+            "in_review": "Bɛ lajɛ",
+            "resolved": "Ka ban",
+            "rejected": "Ka lajɛra"
+        },
+        "actions": {
+            "open_dispute": "Ka fɛ dɔ dilan",
+            "add_message": "Ka kuma dɔ fara"
+        }
+    },
+    "notifications": {
+        "title": "Sɔnniw",
+        "no_notifications": "Sɔnni tɛ yen.",
+        "mark_all_as_read": "Ka bɛɛ dɔn"
+    },
+    "profile": {
+        "title": "N ka fɔlɔ",
+        "edit": "Ka fɔlɔ sɛbɛn",
+        "save": "Ka dan",
+        "skills": "Dimiw",
+        "documents": "Kabiniw",
+        "favorites": "Dɔw min n bɛ kalan"
+    },
+    "validation": {
+        "required": "Fɛn yi bɛ se ka kɔ.",
+        "email": "Email dɔgɔkun bɛ se ka kɛ.",
+        "min_length": "Fɛn yi bɛ se ka kɛ {min} hakɛ dɔ."
     }
-  },
-
-  "applications": {
-    "title": "Kana hakɛw",
-    "my_applications": "N kana hakɛw",
-    "proposal_amount": "Sisan min i bɛ bɔ",
-    "proposal_message": "Kana hakɛ kuma",
-    "status": {
-      "pending": "Bɛ lajɛ",
-      "accepted": "Ka bɛna",
-      "rejected": "Ka lajɛra",
-      "withdrawn": "Ka jirali"
-    },
-    "actions": {
-      "accept": "Ka bɛna",
-      "reject": "Ka lajɛ"
-    }
-  },
-
-  "messages": {
-    "title": "Kuma",
-    "mission_chat": "Baro kɛcogo kuma",
-    "placeholder": "Ka kuma dɔ sɛbɛn...",
-    "send": "Ka taa",
-    "no_messages": "Kuma tɛ yen sisan."
-  },
-
-  "payments": {
-    "title": "Sisanw",
-    "amount": "Jɛsi",
-    "currency": "Faransi",
-    "method": "Jɛsi fɔli",
-    "status": {
-      "pending": "Bɛ lajɛ",
-      "paid": "Jɛsi na",
-      "failed": "Taa tɛraa",
-      "refunded": "Jɛsi fɔlɔ na"
-    },
-    "methods": {
-      "OM": "Orange Money",
-      "MoovMoney": "Moov Money",
-      "card": "Karti",
-      "cash": "Ka kontan"
-    },
-    "pay_now": "Ka jɛsi sisan"
-  },
-
-  "disputes": {
-    "title": "Fɛnw",
-    "open_disputes": "Fɛ bɛ yen",
-    "reason": "Kɔrɔ",
-    "status": {
-      "open": "Dilan",
-      "in_review": "Bɛ lajɛ",
-      "resolved": "Ka ban",
-      "rejected": "Ka lajɛra"
-    },
-    "actions": {
-      "open_dispute": "Ka fɛ dɔ dilan",
-      "add_message": "Ka kuma dɔ fara"
-    }
-  },
-
-  "notifications": {
-    "title": "Sɔnniw",
-    "no_notifications": "Sɔnni tɛ yen.",
-    "mark_all_as_read": "Ka bɛɛ dɔn"
-  },
-
-  "profile": {
-    "title": "N ka fɔlɔ",
-    "edit": "Ka fɔlɔ sɛbɛn",
-    "save": "Ka dan",
-    "skills": "Dimiw",
-    "documents": "Kabiniw",
-    "favorites": "Dɔw min n bɛ kalan"
-  },
-
-  "validation": {
-    "required": "Fɛn yi bɛ se ka kɔ.",
-    "email": "Email dɔgɔkun bɛ se ka kɛ.",
-    "min_length": "Fɛn yi bɛ se ka kɛ {min} hakɛ dɔ."
-  }
 }

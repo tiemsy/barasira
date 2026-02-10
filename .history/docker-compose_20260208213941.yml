@@ -1,0 +1,56 @@
+services:
+
+  api:
+    build: ./api
+    container_name: barasira_api
+    volumes:
+      - ./api:/var/www
+    networks:
+      - barasira
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:latest
+    container_name: barasira_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./api:/var/www
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - barasira
+    depends_on:
+      - api
+
+  front:
+    build: ./front
+    container_name: barasira_front
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./front:/app
+    networks:
+      - barasira
+
+  db:
+    image: mysql:8
+    container_name: barasira_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: barasira
+      MYSQL_USER: barasira
+      MYSQL_PASSWORD: barasira
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - barasira
+
+networks:
+  barasira:
+
+volumes:
+  dbdata:

@@ -1,0 +1,17 @@
+# docker/node/Dockerfile.dev
+
+FROM node:18
+
+WORKDIR /var/www/html
+
+# 1. Copier uniquement les fichiers nécessaires à npm install
+# 2. Installer les dépendances AVANT de copier tout le projet
+COPY package*.json ./
+RUN npm install
+
+# 3. Copier le reste du projet
+COPY . .
+
+EXPOSE 5173
+CMD ["npm", "run", "sass"]
+CMD ["npm", "run", "dev"]

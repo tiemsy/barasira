@@ -5,7 +5,7 @@ import bm from './locales/bm.json'
 
 export default createI18n({
   legacy: false,
-  locale: 'fr',
+  locale: localStorage.getItem("lang") || navigator.language.slice(0, 2) || "fr",
   fallbackLocale: 'fr',
   messages: { fr, en, bm }
 })

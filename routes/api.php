@@ -47,7 +47,7 @@ Route::get('services-search', [ServiceController::class, 'search'])->name('servi
 // MISSIONS
 Route::apiResource('missions', MissionController::class);
 
-// REVIEWS
+// Avis et notes
 Route::apiResource('reviews', ReviewController::class);
 
 // RESUMES

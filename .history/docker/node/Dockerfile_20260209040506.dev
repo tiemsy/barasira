@@ -1,0 +1,17 @@
+FROM node:18
+
+WORKDIR /var/www/html
+
+# Installer les dépendances AVANT de copier tout le projet
+# 1. Copier uniquement les fichiers nécessaires à npm install
+COPY package*.json ./
+
+# 2. Installer les dépendances (Vite sera installé ici)
+RUN npm install
+
+# 3. Copier le reste du projet
+COPY . .
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev"]

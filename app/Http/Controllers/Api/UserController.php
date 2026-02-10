@@ -234,7 +234,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user): JsonResponse
     {
-        //var_dump($user); die;
+        // var_dump($user); die;
         $data = $request->validated();
 
         if (array_key_exists('password', $data) && $data['password']) {

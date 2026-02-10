@@ -7,11 +7,35 @@
     },
     "servers": [
         {
-            "url": "http://127.0.0.1:8000",
-            "description": "Serveur principal"
+            "url": "http://barasira.test",
+            "description": "Serveur principal API"
         }
     ],
     "paths": {
+        "/api/missions": {
+            "get": {
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Liste des missions",
+                "operationId": "59bb79fe27bbf0414b341550a7dccc5e",
+                "responses": {
+                    "200": {
+                        "description": "Liste des missions",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Mission"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/services": {
             "get": {
                 "tags": [
@@ -376,6 +400,56 @@
     },
     "components": {
         "schemas": {
+            "Mission": {
+                "title": "Mission",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "client_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "service_id": {
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Besoin jardinage"
+                    },
+                    "description": {
+                        "type": "text",
+                        "example": "description de la mission"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Adresse de la mission"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "example": "50000"
+                    },
+                    "date_start": {
+                        "type": "dateTime",
+                        "example": ""
+                    },
+                    "data_end": {
+                        "type": "dateTime",
+                        "example": ""
+                    },
+                    "status": {
+                        "type": "boolean",
+                        "example": "pending, in_progress..."
+                    }
+                },
+                "type": "object"
+            },
             "Service": {
                 "title": "Service",
                 "required": [
@@ -386,6 +460,22 @@
                     "id": {
                         "type": "integer",
                         "example": 1
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "service_category_id": {
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "city_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "municipality_id": {
+                        "type": "integer",
+                        "example": "3"
                     },
                     "name": {
                         "type": "string",
@@ -472,6 +562,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Missions",
+            "description": "Missions"
+        },
         {
             "name": "Services",
             "description": "Services"

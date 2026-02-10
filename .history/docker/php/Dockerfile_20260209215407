@@ -1,0 +1,40 @@
+# docker/php/Dockerfile
+
+FROM php:8.4-fpm AS barasira_php
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git curl zip unzip supervisor \
+    libpng-dev libonig-dev libxml2-dev libzip-dev \
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip \
+    && docker-php-ext-enable opcache \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Redis extension
+RUN pecl install redis \
+    && docker-php-ext-enable redis
+
+WORKDIR /var/www/html
+
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Install PHP dependencies
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader
+
+# Copy app
+COPY . .
+
+# Laravel optimizations
+RUN php artisan optimize
+
+# Permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && find storage -type d -exec chmod 775 {} \; \
+    && find bootstrap/cache -type d -exec chmod 775 {} \;
+
+# Supervisor config
+COPY ./docker/php/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+
+CMD ["php-fpm"]

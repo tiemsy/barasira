@@ -1,0 +1,50 @@
+{
+    auto_https off
+}
+
+# ───────────────────────────────
+# LARAVEL + INERTIA (Frontend)
+# ───────────────────────────────
+localhost:8000 {
+
+    root * /Users/mcamara/homesites/www/barasira/public
+
+    php_fastcgi unix//opt/homebrew/var/run/php-fpm.sock
+
+    encode gzip zstd
+
+    file_server
+
+    try_files {path} {path}/ /index.php?{query}
+}
+
+# ───────────────────────────────
+# API (Laravel)
+# ───────────────────────────────
+localhost:8001 {
+
+    root * /Users/mcamara/homesites/www/barasira/public
+
+    php_fastcgi unix//opt/homebrew/var/run/php-fpm.sock
+
+    encode gzip zstd
+
+    # CORS pour API
+    header Access-Control-Allow-Origin "*"
+    header Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+    header Access-Control-Allow-Headers "Content-Type, Authorization"
+
+    @options method OPTIONS
+    handle @options {
+        respond "" 204
+    }
+
+    try_files {path} {path}/ /index.php?{query}
+}
+
+# ───────────────────────────────
+# VITE DEV SERVER (proxy)
+# ───────────────────────────────
+localhost:5173 {
+    reverse_proxy localhost:5173
+}

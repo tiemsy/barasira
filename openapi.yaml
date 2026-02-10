@@ -1,0 +1,540 @@
+openapi: 3.0.3
+info:
+  title: Bara Sira API
+  version: "1.0.0"
+  description: |
+    Documentation minimale OpenAPI, alignée avec les annotations L5-Swagger existantes.
+    Source d'annotations: app/Swagger/OpenApi.php
+servers:
+  - url: http://barasira.test
+    description: Local
+  - url: https://api.barasira.com
+    description: Production (placeholder)
+
+tags:
+  - name: Auth
+  - name: Users
+  - name: Service Categories
+  - name: Services
+  - name: Missions
+  - name: Reviews
+  - name: Resumes
+  - name: Portfolio Items
+
+paths:
+  /api/login:
+    post:
+      tags: [Auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: OK (session/cookie Sanctum)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthUser'
+        '422': { description: Validation error }
+
+  /api/register:
+    post:
+      tags: [Auth]
+      summary: Register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthUser'
+        '422': { description: Validation error }
+
+  /api/logout:
+    post:
+      tags: [Auth]
+      summary: Logout
+      responses:
+        '204': { description: No Content }
+        '401': { description: Unauthorized }
+
+  /api/me:
+    get:
+      tags: [Auth]
+      summary: Current user
+      responses:
+        '200':
+          description: Current authenticated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthUser'
+        '401': { description: Unauthorized }
+
+  /api/users:
+    get:
+      tags: [Users]
+      summary: List users
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+      responses:
+        '200':
+          description: OK
+    post:
+      tags: [Users]
+      summary: Create user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+      responses:
+        '201': { description: Created }
+
+  /api/users/{id}:
+    get:
+      tags: [Users]
+      summary: Get user
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200': { description: OK }
+        '404': { description: Not Found }
+    patch:
+      tags: [Users]
+      summary: Update user
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200': { description: OK }
+    delete:
+      tags: [Users]
+      summary: Delete user
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204': { description: No Content }
+
+  /api/service-categories:
+    get:
+      tags: [Service Categories]
+      summary: List service categories
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [Service Categories]
+      summary: Create service category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceCategoryRequest'
+      responses:
+        '201': { description: Created }
+
+  /api/service-categories/{id}:
+    get:
+      tags: [Service Categories]
+      summary: Get service category
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200': { description: OK }
+        '404': { description: Not Found }
+    patch:
+      tags: [Service Categories]
+      summary: Update service category
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceCategoryRequest'
+      responses:
+        '200': { description: OK }
+    delete:
+      tags: [Service Categories]
+      summary: Delete service category
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204': { description: No Content }
+
+  /api/services:
+    get:
+      tags: [Services]
+      summary: List services
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [Services]
+      summary: Create service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceRequest'
+      responses:
+        '201': { description: Created }
+
+  /api/services/{id}:
+    get:
+      tags: [Services]
+      summary: Get service
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200': { description: OK }
+        '404': { description: Not Found }
+    patch:
+      tags: [Services]
+      summary: Update service
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceRequest'
+      responses:
+        '200': { description: OK }
+    delete:
+      tags: [Services]
+      summary: Delete service
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204': { description: No Content }
+
+  /api/services-search:
+    get:
+      tags: [Services]
+      summary: Search services
+      parameters:
+        - in: query
+          name: query
+          schema: { type: string }
+        - in: query
+          name: service_category_id
+          schema: { type: integer }
+      responses:
+        '200': { description: OK }
+
+  /api/missions:
+    get:
+      tags: [Missions]
+      summary: List missions
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [Missions]
+      summary: Create mission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MissionRequest'
+      responses:
+        '201': { description: Created }
+
+  /api/missions/{id}:
+    get:
+      tags: [Missions]
+      summary: Get mission
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200': { description: OK }
+        '404': { description: Not Found }
+    patch:
+      tags: [Missions]
+      summary: Update mission
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MissionRequest'
+      responses:
+        '200': { description: OK }
+    delete:
+      tags: [Missions]
+      summary: Delete mission
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204': { description: No Content }
+
+  /api/reviews:
+    get:
+      tags: [Reviews]
+      summary: List reviews
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [Reviews]
+      summary: Create review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewRequest'
+      responses:
+        '201': { description: Created }
+
+  /api/reviews/{id}:
+    get:
+      tags: [Reviews]
+      summary: Get review
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200': { description: OK }
+        '404': { description: Not Found }
+    patch:
+      tags: [Reviews]
+      summary: Update review
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewRequest'
+      responses:
+        '200': { description: OK }
+    delete:
+      tags: [Reviews]
+      summary: Delete review
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204': { description: No Content }
+
+  /api/resumes:
+    get:
+      tags: [Resumes]
+      summary: List resumes
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [Resumes]
+      summary: Create resume
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResumeRequest'
+      responses:
+        '201': { description: Created }
+
+  /api/resumes/{id}:
+    get:
+      tags: [Resumes]
+      summary: Get resume
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200': { description: OK }
+        '404': { description: Not Found }
+    patch:
+      tags: [Resumes]
+      summary: Update resume
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResumeRequest'
+      responses:
+        '200': { description: OK }
+    delete:
+      tags: [Resumes]
+      summary: Delete resume
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204': { description: No Content }
+
+  /api/portfolio-items:
+    get:
+      tags: [Portfolio Items]
+      summary: List portfolio items
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [Portfolio Items]
+      summary: Create portfolio item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortfolioItemRequest'
+      responses:
+        '201': { description: Created }
+
+  /api/portfolio-items/{id}:
+    get:
+      tags: [Portfolio Items]
+      summary: Get portfolio item
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200': { description: OK }
+        '404': { description: Not Found }
+    patch:
+      tags: [Portfolio Items]
+      summary: Update portfolio item
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortfolioItemRequest'
+      responses:
+        '200': { description: OK }
+    delete:
+      tags: [Portfolio Items]
+      summary: Delete portfolio item
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '204': { description: No Content }
+
+components:
+  securitySchemes:
+    sanctumCookie:
+      type: apiKey
+      in: cookie
+      name: XSRF-TOKEN
+    csrfHeader:
+      type: apiKey
+      in: header
+      name: X-XSRF-TOKEN
+
+  parameters:
+    IdPath:
+      in: path
+      name: id
+      required: true
+      schema: { type: integer }
+    PageParam:
+      in: query
+      name: page
+      schema: { type: integer, minimum: 1 }
+
+  schemas:
+    AuthUser:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        email: { type: string, format: email }
+        role: { type: string, example: client }
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, format: password }
+    RegisterRequest:
+      type: object
+      required: [first_name, last_name, email, password]
+      properties:
+        first_name: { type: string }
+        last_name: { type: string }
+        email: { type: string, format: email }
+        password: { type: string, format: password }
+
+    UserCreateRequest:
+      type: object
+      properties:
+        name: { type: string }
+        email: { type: string, format: email }
+        password: { type: string, format: password }
+    UserUpdateRequest:
+      type: object
+      properties:
+        name: { type: string }
+        email: { type: string, format: email }
+
+    ServiceCategoryRequest:
+      type: object
+      properties:
+        name: { type: string }
+        description: { type: string }
+
+    ServiceRequest:
+      type: object
+      properties:
+        title: { type: string }
+        description: { type: string }
+        price: { type: number, format: float }
+        service_category_id: { type: integer }
+
+    MissionRequest:
+      type: object
+      properties:
+        title: { type: string }
+        description: { type: string }
+        budget: { type: number, format: float }
+        service_id: { type: integer }
+
+    ReviewRequest:
+      type: object
+      properties:
+        mission_id: { type: integer }
+        rating: { type: integer, minimum: 1, maximum: 5 }
+        comment: { type: string }
+
+    ResumeRequest:
+      type: object
+      properties:
+        title: { type: string }
+        summary: { type: string }
+
+    PortfolioItemRequest:
+      type: object
+      properties:
+        title: { type: string }
+        url: { type: string, format: uri }
+        description: { type: string }
+
+security:
+  - sanctumCookie: []
+  - csrfHeader: []

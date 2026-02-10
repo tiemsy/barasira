@@ -1,0 +1,402 @@
+openapi: 3.0.0
+info:
+  title: 'Bara Sira API'
+  description: "Documentation complète de l'API de Bara Sira avec Swagger"
+  version: 1.0.0
+servers:
+  -
+    url: 'http://barasira.test'
+    description: 'Serveur principal API'
+paths:
+  /api/missions:
+    get:
+      tags:
+        - Missions
+      summary: 'Liste des missions'
+      operationId: 59bb79fe27bbf0414b341550a7dccc5e
+      responses:
+        200:
+          description: 'Liste des missions'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mission'
+  /api/services:
+    get:
+      tags:
+        - Services
+      summary: 'Liste des services'
+      operationId: 97de511018def32ca0ccbc800756c538
+      responses:
+        200:
+          description: 'Liste des services'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+  /api/users:
+    get:
+      tags:
+        - Users
+      summary: 'Liste des utilisateurs'
+      operationId: 566aed8efb436ca506e0ef51a032ecd9
+      responses:
+        200:
+          description: 'Liste des utilisateurs avec les services liés'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      tags:
+        - Users
+      summary: 'Créer un utilisateur'
+      operationId: be551c1d694a01c164966f58bfa77013
+      parameters:
+        -
+          name: first_name
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: last_name
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: email
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: password
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: phone
+          in: path
+          schema:
+            type: string
+        -
+          name: role
+          in: path
+          schema:
+            type: string
+        -
+          name: bio
+          in: path
+          schema:
+            type: string
+        -
+          name: avatar_url
+          in: path
+          schema:
+            type: string
+        -
+          name: rating
+          in: path
+          schema:
+            type: decimal
+        -
+          name: verified
+          in: path
+          schema:
+            type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - first_name
+                - last_name
+                - email
+                - password
+              properties:
+                first_name:
+                  type: string
+                  example: Jean
+                last_name:
+                  type: string
+                  example: Dupont
+                email:
+                  type: string
+                  example: jean@example.com
+                password:
+                  type: string
+                  example: '******'
+                phone:
+                  type: string
+                  example: '0022374321256'
+                role:
+                  type: enum
+                  example: client
+                bio:
+                  type: text
+                  example: Biography
+                avatar_url:
+                  type: string
+                  example: /storage/john/doe/jeandupont.jpg
+                rating:
+                  type: decimal
+                  example: '4.5'
+                verified:
+                  type: boolean
+                  example: 'true'
+              type: object
+      responses:
+        201:
+          description: 'Utilisateur créé'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  '/api/users/{user}':
+    get:
+      tags:
+        - Users
+      summary: 'Obtenir un utilisateur par ID'
+      operationId: f310aa35b9243239c65dbc8b8f4b135e
+      parameters:
+        -
+          name: user
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Utilisateur trouvé'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: 'Utilisateur introuvable'
+    put:
+      tags:
+        - Users
+      summary: 'Mise à jour d’un utilisateur par ID'
+      operationId: f1f65c5e73cb0b10fdd850447b672c28
+      parameters:
+        -
+          name: user
+          in: path
+          schema:
+            type: integer
+        -
+          name: first_name
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                id:
+                  type: integer
+                  example: '1'
+                first_name:
+                  type: string
+                  example: jean
+                last_name:
+                  type: string
+                  example: Dupont
+                email:
+                  type: string
+                  example: jean@example.com
+                password:
+                  type: string
+                  example: '******'
+                phone:
+                  type: string
+                  example: '0022374321256'
+                role:
+                  type: enum
+                  example: client
+                bio:
+                  type: text
+                  example: Biography
+                avatar_url:
+                  type: string
+                  example: /storage/john/doe/jeandupont.jpg
+                rating:
+                  type: decimal
+                  example: '4.5'
+                verified:
+                  type: boolean
+                  example: 'true'
+              type: object
+      responses:
+        200:
+          description: 'Utilisateur modifié'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: 'Utilisateur introuvable'
+    delete:
+      tags:
+        - Users
+      summary: 'Suppression d’un utilisateur par ID'
+      operationId: cf641f0b739211ff3a1c21b1ef310591
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Utilisateur supprimé'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: 'Utilisateur introuvable'
+components:
+  schemas:
+    Mission:
+      title: Mission
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          example: 1
+        client_id:
+          type: integer
+          example: '1'
+        service_id:
+          type: integer
+          example: '2'
+        title:
+          type: string
+          example: 'Besoin jardinage'
+        description:
+          type: text
+          example: 'description de la mission'
+        address:
+          type: string
+          example: 'Adresse de la mission'
+        price:
+          type: integer
+          example: '50000'
+        date_start:
+          type: dateTime
+          example: ''
+        data_end:
+          type: dateTime
+          example: ''
+        status:
+          type: boolean
+          example: 'pending, in_progress...'
+      type: object
+    Service:
+      title: Service
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: '1'
+        service_category_id:
+          type: integer
+          example: '2'
+        city_id:
+          type: integer
+          example: '1'
+        municipality_id:
+          type: integer
+          example: '3'
+        name:
+          type: string
+          example: Plomberie
+        description:
+          type: text
+          example: 'description du service'
+        icon:
+          type: string
+          example: 'icône ou pictogramme optionnel'
+        price_min:
+          type: integer
+          example: '1000'
+        price_max:
+          type: integer
+          example: '50000'
+        is_active:
+          type: boolean
+          example: 'true'
+      type: object
+    User:
+      title: User
+      required:
+        - id
+        - name
+        - email
+      properties:
+        id:
+          type: integer
+          example: 1
+        first_name:
+          type: string
+          example: John
+        last_name:
+          type: string
+          example: Doe
+        email:
+          type: string
+          example: john@example.com
+        password:
+          type: string
+          example: '******'
+        phone:
+          type: string
+          example: '0022374321256'
+        role:
+          type: enum
+          example: "['client', 'prestataire', 'admin'], Defauft:client"
+        bio:
+          type: text
+          example: Biography
+        avatar_url:
+          type: string
+          example: /storage/john/doe/johndoe.jpg
+        rating:
+          type: decimal
+          example: '4.5'
+        verified:
+          type: boolean
+          example: 'true'
+      type: object
+tags:
+  -
+    name: Missions
+    description: Missions
+  -
+    name: Services
+    description: Services
+  -
+    name: Users
+    description: Users

@@ -1,0 +1,4 @@
+barasira.duckdns.org {
+    encode gzip
+    reverse_proxy barasira_nginx:80
+}
