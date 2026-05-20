@@ -21,6 +21,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
     ports:
       - "8081:80"
     environment:
@@ -32,6 +33,7 @@ services:
 
   mailpit:
     image: axllent/mailpit
+    container_name: mailpit
     ports:
       - "8025:8025"
       - "1025:1025"
