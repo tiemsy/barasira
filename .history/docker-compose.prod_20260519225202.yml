@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  nginx:
+    ports: []
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.barasira.rule=Host(`barasira.com`)
+      - traefik.http.services.barasira.loadbalancer.server.port=80
+
+  php:
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+
+  db:
+    restart: always
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  redis:
+    restart: always

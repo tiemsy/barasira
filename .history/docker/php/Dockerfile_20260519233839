@@ -44,4 +44,5 @@ RUN chown -R www-data:www-data /var/www/html \
 # Supervisor config
 COPY ./docker/php/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
+EXPOSE 9000
 CMD ["php-fpm"]

@@ -5,7 +5,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
-    container_name: php
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
@@ -14,7 +13,6 @@ services:
 
   nginx:
     image: nginx:stable-alpine
-    container_name: nginx
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
@@ -26,7 +24,6 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: db
     restart: always
     environment:
       MYSQL_DATABASE: barasira
@@ -40,7 +37,6 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: redis
     networks:
       - barasira
 
