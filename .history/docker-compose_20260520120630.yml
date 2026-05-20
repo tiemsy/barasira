@@ -19,8 +19,6 @@ services:
       - ./docker/nginx:/etc/nginx/conf.d
     depends_on:
       - php
-    expose:
-      - "80"
     networks:
       - barasira
 
