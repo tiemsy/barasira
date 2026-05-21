@@ -1,19 +1,17 @@
 version: "3.9"
 
 services:
-  php:
+  barasira_php:
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
-    expose:
-      - "9000"
     networks:
       - barasira
 
-  nginx:
+  barasira_nginx:
     image: nginx:stable-alpine
     working_dir: /var/www/html
     volumes:
@@ -26,7 +24,7 @@ services:
     networks:
       - barasira
 
-  db:
+  barasira_db:
     image: mysql:8.0
     restart: always
     environment:
@@ -39,7 +37,7 @@ services:
     networks:
       - barasira
 
-  redis:
+  barasira_redis:
     image: redis:7-alpine
     networks:
       - barasira

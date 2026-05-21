@@ -8,8 +8,6 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
-    expose:
-      - "9000"
     networks:
       - barasira
 
