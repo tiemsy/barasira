@@ -5,14 +5,11 @@ import path from 'path';
 
 export default defineConfig({
     server: {
-        host: true,
+        host: '0.0.0.0',
         port: 5173,
         strictPort: true,
         hmr: {
             host: process.env.VITE_HMR_HOST || 'localhost',
-        },
-        proxy: {
-            '/images': 'http://barasira_nginx:80'
         }
     },
 

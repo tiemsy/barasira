@@ -5,6 +5,10 @@ services:
     ports:
       - "8080:80"
 
+  php:
+    volumes:
+      - ./:/var/www/html
+
   node:
     image: node:20
     working_dir: /var/www/html

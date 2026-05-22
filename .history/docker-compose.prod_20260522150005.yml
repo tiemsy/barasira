@@ -6,23 +6,24 @@ services:
       context: .
       dockerfile: ./docker/php/Dockerfile
     working_dir: /var/www/html
-    volumes:
-      - ./:/var/www/html
-    expose:
-      - "9000"
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
     networks:
       - barasira
 
   nginx:
     image: nginx:stable-alpine
-    working_dir: /var/www/html
-    volumes:
-      - ./:/var/www/html
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - php
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d
     expose:
       - "80"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.barasira.rule=Host(`barasira.com`)
+      - traefik.http.services.barasira.loadbalancer.server.port=80
     networks:
       - barasira
 
@@ -39,8 +40,19 @@ services:
     networks:
       - barasira
 
+  node:
+    image: node:20
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - node_modules:/var/www/html/node_modules
+    command: sh -c "npm install && npm run build"
+    ports:
+      - "5173:5173"
+
   redis:
     image: redis:7-alpine
+    restart: always
     networks:
       - barasira
 
