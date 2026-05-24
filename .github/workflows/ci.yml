@@ -2,12 +2,19 @@ name: Barasira CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master, staging ]
   pull_request:
 
 jobs:
   laravel-tests:
     runs-on: ubuntu-latest
+
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: barasira
+      DB_USERNAME: barasira
+      DB_PASSWORD: barasira
 
     services:
       mysql:
@@ -20,7 +27,7 @@ jobs:
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h 127.0.0.1 -ubarasira -psecret"
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -ubarasira -pbarasira"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=10
@@ -41,6 +48,17 @@ jobs:
 
       - name: Generate key
         run: php artisan key:generate
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install npm deps
+        run: npm ci
+
+      - name: Build front assets (Vite)
+        run: npm run build
 
       - name: Run migrations
         run: php artisan migrate --force
