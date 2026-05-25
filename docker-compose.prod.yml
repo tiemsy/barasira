@@ -1,30 +1,27 @@
-# docker-compose.prod.yuml
+# docker-compose.prod.yml
+#
+# Architecture: single image containing nginx + php-fpm + horizon (via supervisor).
+# All build artefacts (vendor, public/build) are baked into the image via the
+# multi-stage Dockerfile, so no host volume mounts are needed and redeploys
+# always start from a clean, complete image.
 
 version: "3.9"
 
 services:
-  php:
+  # Single container exposing port 80. Service name kept as `nginx` to keep
+  # compatibility with the SERVICE_FQDN_NGINX env var Coolify already routes to.
+  nginx:
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
-    working_dir: /var/www/html
-    volumes:
-      - ./:/var/www/html
     environment:
       APP_ENV: ${APP_ENV:-production}
       APP_DEBUG: ${APP_DEBUG:-false}
-    networks:
-      - barasira
-
-  nginx:
-    image: nginx:stable-alpine
-    depends_on:
-      - php
-    volumes:
-      - ./:/var/www/html
-      - ./docker/nginx:/etc/nginx/conf.d
     expose:
       - "80"
+    depends_on:
+      - db
+      - redis
     networks:
       - barasira
 
@@ -40,16 +37,6 @@ services:
       - dbdata:/var/lib/mysql
     networks:
       - barasira
-
-  node:
-    image: node:20
-    working_dir: /var/www/html
-    volumes:
-      - ./:/var/www/html
-      - node_modules:/var/www/html/node_modules
-    command: sh -c "npm install && npm run build"
-    ports:
-      - "5173:5173"
 
   redis:
     image: redis:7-alpine
