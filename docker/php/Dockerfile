@@ -48,16 +48,15 @@ COPY . .
 COPY --from=vendor /app/vendor ./vendor
 COPY --from=assets /app/public/build ./public/build
 
-# Now that vendor + code are in place, regenerate optimized autoload
-RUN composer dump-autoload --no-dev --optimize-autoloader
-
-# Default .env if missing (Coolify overrides at runtime via env vars)
+# Default .env if missing (composer scripts and artisan need this to boot Laravel)
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
 
-# Clear stale caches (will be regenerated at runtime by config:cache etc.)
-RUN php artisan config:clear \
-    && php artisan route:clear \
-    && php artisan view:clear
+# Now that vendor + code are in place, regenerate optimized autoload.
+# --no-scripts: skip Laravel's post-autoload-dump which runs
+# `php artisan package:discover` — that boots Laravel and requires runtime
+# env (DB, cache, etc.) that is not available at build time. Package discovery
+# happens at runtime on first artisan call instead.
+RUN composer dump-autoload --no-dev --optimize-autoloader --no-scripts
 
 # Nginx + supervisor config
 COPY docker/nginx/default.conf /etc/nginx/sites-available/default
