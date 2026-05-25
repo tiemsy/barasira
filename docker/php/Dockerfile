@@ -13,7 +13,7 @@ RUN composer install \
 # ============================================================
 # Stage 2: assets (npm install + vite build)
 # ============================================================
-FROM node:20-alpine AS assets
+FROM node:20 AS assets
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
