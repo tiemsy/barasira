@@ -31,18 +31,11 @@ class Handler extends ExceptionHandler
     }
 
     public function render($request, Throwable $e)
-    {
-        if ($e instanceof NotFoundHttpException && $request->expectsJson() === false) {
-            return Inertia::render('Errors/NotFound')->toResponse($request);
-        }
-
-        if ($e instanceof \Illuminate\Auth\Middleware\EnsureEmailIsVerified) {
-
-            return response()->json([
-                'message' => 'Email non vérifié.'
-            ], 403);
-        }
-
-        return parent::render($request, $e);
+{
+    if ($e instanceof NotFoundHttpException && $request->expectsJson() === false) {
+        return Inertia::render('Errors/NotFound')->toResponse($request);
     }
+
+    return parent::render($request, $e);
+}
 }
