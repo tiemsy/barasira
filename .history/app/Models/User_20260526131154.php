@@ -42,7 +42,17 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new VerifyEmailCustom());
     }
 
-    public function missions(): HasMany
+    // public function missions(): HasMany
+    // {
+    //     return $this->hasMany(Mission::class, 'client_id');
+    // }
+
+    public function missionsAsPrestataire()
+    {
+        return $this->hasMany(Mission::class, 'prestataire_id');
+    }
+
+    public function missionsAsClient()
     {
         return $this->hasMany(Mission::class, 'client_id');
     }

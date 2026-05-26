@@ -59,13 +59,7 @@ Route::apiResource('portfolio-items', PortfolioItemController::class);
 // Auth
 Route::middleware('web')->post('/login', [ApiLoginController::class, 'store'])->middleware(['guest'])->name('api.login');
 Route::middleware('web')->post('/register', [ApiRegisterController::class, 'store'])->name('api.register');
-
-Route::middleware([
-        'auth:sanctum',
-        'verified'
-    ])->group(function () {
-    Route::get('/me', function (Request $request) {
-        return $request->user();
-    });
-    Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:sanctum')->name('api.logout');
+Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:sanctum')->name('api.logout');
+Route::get('/me', function (Request $request) {
+    return $request->user();
 });

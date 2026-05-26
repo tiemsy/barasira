@@ -46,10 +46,10 @@ COPY . .
 
 # Copy artefacts from build stages
 COPY --from=vendor /app/vendor ./vendor
-COPY --from=assets /app/public/build ./public/build
+# COPY --from=assets /app/public/build ./public/build
 
 # Now that vendor + code are in place, regenerate optimized autoload
-RUN composer dump-autoload
+RUN composer dump-autoload --no-dev --optimize
 
 # Default .env if missing (Coolify overrides at runtime via env vars)
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
