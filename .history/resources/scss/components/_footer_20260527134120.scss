@@ -1,0 +1,307 @@
+@use '../variables/globals' as *;
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+
+    background: var(--secondary);
+
+    color: white;
+
+    padding-top: $space-2xl;
+
+    margin-top: $space-2xl;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+/* =========================================================
+   BACKGROUND EFFECT
+========================================================= */
+
+.footer::before {
+
+    content: '';
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(99,102,241,.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(6,182,212,.12),
+            transparent 30%
+        );
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.footer-container {
+
+    position: relative;
+
+    z-index: 1;
+}
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.footer-top {
+
+    display: grid;
+
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+
+    gap: $space-2xl;
+
+    padding-bottom: $space-2xl;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.footer-brand {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: $space-md;
+}
+
+.footer-logo {
+
+    display: flex;
+    align-items: center;
+
+    gap: $space-sm;
+
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.footer-logo-dot {
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+    );
+}
+
+.footer-description {
+
+    color: rgba(255,255,255,.7);
+
+    line-height: 1.7;
+
+    max-width: 380px;
+}
+
+/* =========================================================
+   SOCIALS
+========================================================= */
+
+.footer-socials {
+
+    display: flex;
+
+    gap: $space-md;
+
+    margin-top: $space-md;
+}
+
+.footer-socials a {
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.08);
+
+    @include flex-center;
+
+    transition: var(--transition);
+}
+
+.footer-socials a:hover {
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-light)
+    );
+
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   COLUMN
+========================================================= */
+
+.footer-column h4 {
+
+    font-size: 18px;
+    font-weight: 700;
+
+    margin-bottom: $space-lg;
+}
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+.footer-links {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: $space-md;
+}
+
+.footer-links a {
+
+    color: rgba(255,255,255,.7);
+
+    transition: var(--transition);
+
+    width: fit-content;
+}
+
+.footer-links a:hover {
+
+    color: white;
+
+    transform: translateX(4px);
+}
+
+/* =========================================================
+   NEWSLETTER
+========================================================= */
+
+.footer-newsletter {
+
+    margin-top: $space-md;
+}
+
+.footer-newsletter-form {
+
+    display: flex;
+
+    gap: $space-sm;
+
+    margin-top: $space-md;
+}
+
+.footer-newsletter-form input {
+
+    background: rgba(255,255,255,.08);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    color: white;
+}
+
+.footer-newsletter-form input::placeholder {
+
+    color: rgba(255,255,255,.5);
+}
+
+.footer-newsletter-form input:focus {
+
+    border-color: var(--primary);
+}
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.footer-bottom {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: $space-md;
+
+    padding: $space-lg 0;
+
+    color: rgba(255,255,255,.6);
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   LEGAL
+========================================================= */
+
+.footer-legal {
+
+    display: flex;
+
+    gap: $space-lg;
+}
+
+.footer-legal a {
+
+    transition: var(--transition);
+}
+
+.footer-legal a:hover {
+
+    color: white;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@include mobile {
+
+    .footer-top {
+
+        grid-template-columns: 1fr;
+
+        gap: $space-xl;
+    }
+
+    .footer-bottom {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .footer-newsletter-form {
+
+        flex-direction: column;
+    }
+
+    .footer-legal {
+
+        flex-wrap: wrap;
+    }
+}

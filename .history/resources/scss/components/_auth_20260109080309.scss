@@ -1,0 +1,96 @@
+@use "../variables/colors" as c;
+@use "../variables/spacing" as s;
+@use "../variables/typography" as t;
+@use "../variables/mixins" as m;
+
+.login-section {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background: #f3f4f6; */
+
+    .login-card {
+        background: c.$white;
+        margin: 2rem 0;
+        padding: 2.5rem 3rem;
+        border-radius: 1rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .login-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .login-subtitle {
+        font-size: 1rem;
+        color: #6b7280;
+        margin-bottom: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.3rem;
+    }
+
+    .form-group input,
+    select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #d1d5db;
+        font-size: 1rem;
+    }
+
+    .input-error {
+        color: c.$error;
+    }
+
+    .error-text {
+        color: c.$error;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .success-text {
+        color: c.$success;
+        font-size: 0.95rem;
+        margin-top: 1rem;
+    }
+
+    .btn-primary {
+        background-color: c.$primary;
+        color: c.$white;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 1rem;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: c.$primary;
+    }
+
+    .login-footer {
+        font-size: 0.875rem;
+        margin-top: 1rem;
+    }
+
+    .login-footer a {
+        color: c.$primary;
+        font-weight: 500;
+    }
+}

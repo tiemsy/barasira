@@ -1,0 +1,31 @@
+// @use "base/reset";
+// // @use "base/global";
+
+// Variables et mixins
+@use 'variables/globals';
+@use "variables/mixins";
+
+@use "components/navbar";
+@use 'components/hero';
+@use 'components/services';
+@use 'components/service-show';
+@use 'components/categories';
+@use "components/sections";
+@use "components/auth";
+@use "components/buttons";
+@use "components/cards";
+@use "components/badge";
+@use "components/footer";
+
+
+// @use "layouts/auth";
+// @use "layouts/dashboard";
+// @use "layouts/public";
+
+
+@use "pages/home";
+@use "pages/login";
+@use "pages/missions";
+
+// admin pages
+@use 'components/admin/stats'
