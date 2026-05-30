@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    expose:
+      - "9000"
+    networks:
+      - barasira
+
+  nginx:
+    image: nginx:stable-alpine
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - php
+    expose:
+      - "80"
+    networks:
+      - barasira
+
+  db:
+    image: mysql:8.0
+    restart: always
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - barasira
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - barasira
+
+networks:
+  barasira:
+
+volumes:
+  dbdata:
