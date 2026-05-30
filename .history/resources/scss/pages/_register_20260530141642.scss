@@ -46,7 +46,7 @@
             rgba($c-primary, .88),
             rgba($c-secondary, .58)
         ),
-        url("../images/auth-bg.png") center / cover no-repeat;
+        url("/images/auth-bg.png") center / cover no-repeat;
 }
 
 .register-visual::before {

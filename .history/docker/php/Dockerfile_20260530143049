@@ -1,7 +1,17 @@
 # docker/php/Dockerfile
 
 # ============================================================
-# Stage 1: assets (npm install + vite build)
+# Stage 1: vendor (composer install)
+# ============================================================
+FROM composer:2 AS vendor
+WORKDIR /app
+COPY composer.json composer.lock ./
+RUN composer install \
+    --no-dev --no-interaction --no-progress \
+    --prefer-dist --no-scripts --no-autoloader
+
+# ============================================================
+# Stage 2: assets (npm install + vite build)
 # ============================================================
 FROM node:20 AS assets
 WORKDIR /app
