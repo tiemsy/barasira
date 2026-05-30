@@ -1,0 +1,542 @@
+@use "../variables/globals" as *;
+
+/* =========================================================
+   SERVICES PAGE
+========================================================= */
+
+.services-page {
+    min-height: 100vh;
+
+    background: $light;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.services-hero {
+    position: relative;
+
+    padding: 5rem 1.5rem 6rem;
+
+    background:
+        linear-gradient(
+            rgba(10, 37, 64, 0.72),
+            rgba(10, 37, 64, 0.72)
+        ),
+        url("../images/hero-services-barasira.png")
+        center / cover no-repeat;
+
+    color: $white;
+
+    text-align: center;
+}
+
+.services-hero__content {
+    max-width: 760px;
+
+    margin: auto;
+}
+
+.services-hero__badge {
+    display: inline-block;
+
+    background: rgba(255,255,255,.15);
+
+    padding: .55rem 1rem;
+
+    border-radius: 999px;
+
+    font-size: .95rem;
+
+    margin-bottom: 1rem;
+}
+
+.services-hero__title {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+
+    font-weight: 800;
+
+    margin-bottom: 1rem;
+}
+
+.services-hero__subtitle {
+    font-size: 1.1rem;
+
+    opacity: .92;
+
+    line-height: 1.7;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.services-search-section {
+    margin-top: -3rem;
+
+    position: relative;
+
+    z-index: 5;
+}
+
+.services-filters {
+    background: $white;
+
+    border-radius: 18px;
+
+    box-shadow: 0 18px 40px rgba(15, 23, 42, .08);
+
+    padding: 1rem;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 1rem;
+}
+
+.services-filter {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    background: $bg-card;
+
+    border-radius: 14px;
+
+    padding: 0 .9rem;
+
+    min-height: 60px;
+
+    i {
+        color: $primary;
+
+        margin-right: .75rem;
+    }
+
+    input,
+    select {
+        width: 100%;
+
+        border: none;
+
+        background: transparent;
+
+        outline: none;
+
+        font-size: .95rem;
+    }
+}
+
+.services-search-btn {
+    border: none;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        $primary,
+        $secondary
+    );
+
+    color: $white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    min-height: 60px;
+
+    transition: .25s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.services-topbar {
+    padding: 2rem 0 1rem;
+}
+
+.services-topbar__content {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    flex-wrap: wrap;
+}
+
+.services-results {
+    color: $dark;
+}
+
+.services-sort {
+    display: flex;
+
+    align-items: center;
+
+    gap: .75rem;
+
+    select {
+        border: 1px solid #e5e7eb;
+
+        border-radius: 10px;
+
+        padding: .6rem .9rem;
+    }
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.services-content {
+    padding-bottom: 4rem;
+}
+
+.services-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(320px, 1fr));
+
+    gap: 2rem;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.service-card {
+    display: flex;
+
+    flex-direction: column;
+
+    min-height: 560px;
+
+    background: $white;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    box-shadow: 0 14px 35px rgba(15, 23, 42, .06);
+
+    transition: .28s ease;
+
+    &:hover {
+        transform: translateY(-8px);
+
+        box-shadow: 0 24px 50px rgba(15, 23, 42, .10);
+    }
+}
+
+/* =========================================================
+   COVER
+========================================================= */
+
+.service-card__cover {
+    position: relative;
+
+    height: 220px;
+}
+
+.service-card__image,
+.service-card__placeholder {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.service-card__placeholder {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #dbeafe
+        );
+
+    font-size: 2.5rem;
+
+    color: $primary;
+}
+
+.service-card__category {
+    position: absolute;
+
+    top: 1rem;
+    left: 1rem;
+
+    background: rgba(255,255,255,.95);
+
+    padding: .45rem .85rem;
+
+    border-radius: 999px;
+
+    font-size: .85rem;
+
+    display: flex;
+    gap: .45rem;
+
+    align-items: center;
+}
+
+.service-card__status {
+    position: absolute;
+
+    top: 1rem;
+    right: 1rem;
+
+    display: flex;
+    align-items: center;
+
+    gap: .4rem;
+
+    font-size: .8rem;
+
+    border-radius: 999px;
+
+    padding: .45rem .8rem;
+
+    font-weight: 700;
+
+    &.active {
+        background: #dcfce7;
+        color: #15803d;
+    }
+
+    &.inactive {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+/* =========================================================
+   BODY
+========================================================= */
+
+.service-card__body {
+    flex: 1;
+
+    padding: 1.5rem;
+}
+
+.service-card__header {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+.service-card__title {
+    font-size: 1.2rem;
+
+    font-weight: 700;
+
+    color: $dark;
+}
+
+.service-card__rating {
+    color: #f59e0b;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.service-card__description {
+    color: #6b7280;
+
+    line-height: 1.7;
+
+    margin-bottom: 1.2rem;
+}
+
+.service-card__meta {
+    display: grid;
+
+    gap: .75rem;
+}
+
+.service-card__meta-item {
+    display: flex;
+
+    gap: .55rem;
+
+    align-items: center;
+
+    color: #475569;
+}
+
+.service-card__price {
+    font-weight: 700;
+
+    color: $primary;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.service-card__footer {
+    border-top: 1px solid #eef2f7;
+
+    padding: 1.2rem 1.5rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1rem;
+}
+
+.service-card__user {
+    display: flex;
+
+    align-items: center;
+
+    gap: .8rem;
+}
+
+.service-card__avatar {
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    background: #e2e8f0;
+}
+
+.service-card__avatar--placeholder {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: $primary;
+}
+
+.service-card__user-info {
+    display: flex;
+
+    flex-direction: column;
+
+    span {
+        font-size: .85rem;
+        color: #64748b;
+    }
+}
+
+.service-card__btn {
+    width: 100%;
+
+    justify-content: center;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .5rem;
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.services-empty {
+    text-align: center;
+
+    padding: 5rem 1rem;
+}
+
+.services-empty__icon {
+    font-size: 3rem;
+
+    margin-bottom: 1rem;
+}
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.services-loader {
+    text-align: center;
+
+    padding: 2rem;
+}
+
+.services-loader__spinner {
+    width: 38px;
+    height: 38px;
+
+    border: 3px solid #e2e8f0;
+
+    border-top-color: $primary;
+
+    border-radius: 50%;
+
+    margin: auto auto 1rem;
+
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@include mobile {
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        min-height: auto;
+    }
+
+    .services-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .services-topbar__content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

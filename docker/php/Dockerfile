@@ -32,10 +32,24 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Copy full application code (incl. composer.json, composer.lock, app/, etc.)
+
 COPY . .
 
-# Default .env so composer can run (Coolify overrides at runtime via env vars)
+# Copy artefacts from build stages
+COPY --from=vendor /app/vendor ./vendor
+COPY --from=assets /app/public/build ./public/build
+
+# Now that vendor + code are in place, regenerate optimized autoload
+
+RUN composer dump-autoload
+
+# Default .env if missing (Coolify overrides at runtime via env vars)
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
+
+# Clear stale caches (will be regenerated at runtime by config:cache etc.)
+RUN php artisan config:clear \
+    && php artisan route:clear \
+    && php artisan view:clear
 
 # Install PHP dependencies with full code present so any autoload classmap
 # can resolve. --no-scripts skips Laravel's package:discover (it needs runtime
