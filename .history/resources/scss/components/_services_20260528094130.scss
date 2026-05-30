@@ -1,0 +1,434 @@
+@use "../variables/globals" as *;
+
+/* =========================================================
+   SERVICES PAGE
+========================================================= */
+
+.services-page {
+    min-height: 100vh;
+    background: linear-gradient(
+        180deg,
+        rgba(248, 250, 252, .9),
+        rgba(255, 255, 255, 1)
+    );
+    padding-bottom: 100px;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.services-hero {
+    position: relative;
+    padding: 140px 0 120px;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+
+    background:
+        linear-gradient(135deg, rgba(15, 23, 42, .82), rgba(15, 23, 42, .72)),
+        url("../../images/hero-services-barasira.png") center / cover no-repeat;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at top left, rgba(99, 102, 241, .18), transparent 30%),
+            radial-gradient(circle at bottom right, rgba(6, 182, 212, .12), transparent 30%);
+        pointer-events: none;
+    }
+
+    .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    h1 {
+        font-size: clamp(44px, 5vw, 72px);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -1px;
+        margin-bottom: $space-md;
+    }
+
+    p {
+        max-width: 720px;
+        margin-inline: auto;
+        font-size: 19px;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, .78);
+    }
+}
+
+/* =========================================================
+   HERO SEARCH (compact + premium)
+========================================================= */
+
+.hero-search {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: $space-sm;
+
+    max-width: 680px;
+    margin: $space-xl auto 0;
+    padding: $space-md;
+
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, .08);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, .08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .18);
+
+    input {
+        height: 50px;
+        padding: 0 $space-md;
+        border: 1px solid rgba(255, 255, 255, .12);
+        border-radius: var(--radius-md);
+        background: rgba(255, 255, 255, .08);
+        color: white;
+        font-size: 15px;
+
+        &::placeholder {
+            color: rgba(255, 255, 255, .55);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, .22);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, .12);
+        }
+    }
+
+    button {
+        min-width: 160px;
+        height: 50px;
+        @include button-primary;
+        border-radius: var(--radius-md);
+        font-size: 15px;
+        font-weight: 700;
+        box-shadow: var(--shadow-lg);
+    }
+}
+
+/* =========================================================
+   FILTERS (compact + grid aligné)
+========================================================= */
+
+.services-filters {
+    position: sticky;
+    top: 92px;
+    z-index: 100;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: $space-sm;
+
+    max-width: 1280px;
+    margin: -30px auto 40px;
+    padding: 18px 22px;
+
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(226, 232, 240, .8);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
+
+    input,
+    select {
+        width: 100%;
+        height: 46px;
+        padding: 0 12px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: white;
+        font-size: 14px;
+        color: var(--text);
+        transition: var(--transition);
+
+        &:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, .12);
+        }
+    }
+
+    button {
+        height: 46px;
+        padding: 0 18px;
+        @include button-primary;
+        border-radius: var(--radius-md);
+        font-size: 15px;
+        font-weight: 700;
+    }
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.services-grid {
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: $space-lg;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: $space-xl;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.service-card {
+    @include card;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+    position: relative;
+
+    &:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    /* IMAGE */
+    &-image {
+        position: relative;
+        height: 240px;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s ease;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, .5), transparent);
+        }
+    }
+
+    &:hover .service-card-image img {
+        transform: scale(1.05);
+    }
+
+    /* HEADER */
+    &-header {
+        position: relative;
+        padding: $space-lg $space-lg $space-md;
+
+        h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: $space-sm;
+            line-height: 1.3;
+        }
+    }
+}
+
+.service-category {
+    display: inline-flex;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(79, 70, 229, .08);
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: $space-md;
+}
+
+.service-city {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* =========================================================
+   BODY
+========================================================= */
+
+.service-card-body {
+    padding: 0 $space-lg $space-lg;
+    flex: 1;
+
+    .service-description {
+        color: var(--text-light);
+        line-height: 1.8;
+        font-size: 15px;
+    }
+}
+
+/* =========================================================
+   META
+========================================================= */
+
+.service-meta {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    margin-top: $space-lg;
+    flex-wrap: wrap;
+
+    &-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-light);
+        font-size: 14px;
+    }
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.service-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-md;
+    padding: $space-lg;
+    border-top: 1px solid var(--border);
+}
+
+/* PRICE */
+
+.service-price {
+    display: flex;
+    flex-direction: column;
+
+    &-label {
+        font-size: 13px;
+        color: var(--text-light);
+    }
+
+    strong {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--primary);
+    }
+}
+
+/* USER */
+
+.service-user {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+
+    img {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &-info {
+        display: flex;
+        flex-direction: column;
+
+        strong {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        span {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+    }
+}
+
+/* =========================================================
+   LOADER / EMPTY
+========================================================= */
+
+.loader {
+    text-align: center;
+    padding: 80px 0;
+    color: var(--text-light);
+    font-size: 16px;
+}
+
+.services-empty {
+    @include card;
+    max-width: 620px;
+    margin: 80px auto 0;
+    padding: $space-2xl;
+    text-align: center;
+
+    &-icon {
+        font-size: 56px;
+        margin-bottom: $space-md;
+    }
+
+    h3 {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--secondary);
+        margin-bottom: $space-sm;
+    }
+
+    p {
+        color: var(--text-light);
+        line-height: 1.7;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@include mobile {
+    .services-hero {
+        padding: 120px 0 90px;
+
+        h1 {
+            font-size: 42px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+    }
+
+    .service-card-image {
+        height: 180px;
+    }
+
+    .hero-search {
+        grid-template-columns: 1fr;
+        padding: $space-sm;
+
+        button {
+            width: 100%;
+        }
+    }
+
+    .services-filters {
+        position: static;
+        margin: -30px $space-md $space-xl;
+        grid-template-columns: 1fr;
+    }
+
+    .services-grid {
+        padding-inline: $space-md;
+        grid-template-columns: 1fr;
+    }
+
+    .service-card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

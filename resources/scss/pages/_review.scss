@@ -1,0 +1,282 @@
+@use "../variables/globals" as *;
+
+/* =========================================================
+   REVIEWS PAGE
+========================================================= */
+
+.reviews-page {
+    min-height: 100vh;
+
+    background: var(--background);
+
+    padding: 4rem 1.5rem;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.reviews-header {
+    max-width: 760px;
+
+    margin: 0 auto 3rem;
+
+    text-align: center;
+}
+
+.reviews-header__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: .45rem .95rem;
+
+    border-radius: 999px;
+
+    background: rgba(79, 70, 229, .08);
+
+    color: var(--primary);
+
+    font-size: .9rem;
+    font-weight: 600;
+
+    margin-bottom: 1rem;
+}
+
+.reviews-header__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+
+    font-weight: 800;
+
+    color: var(--secondary);
+
+    margin-bottom: .75rem;
+}
+
+.reviews-header__subtitle {
+    font-size: 1.05rem;
+
+    line-height: 1.7;
+
+    color: var(--text-light);
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.reviews-stats {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 1.5rem;
+
+    margin-bottom: 3rem;
+}
+
+.reviews-stat-card {
+    @include card;
+
+    padding: 1.5rem;
+
+    text-align: center;
+}
+
+.reviews-stat-card__value {
+    font-size: 2rem;
+
+    font-weight: 800;
+
+    color: var(--primary);
+
+    margin-bottom: .5rem;
+}
+
+.reviews-stat-card__label {
+    color: var(--text-light);
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.reviews-grid {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+    gap: 1.75rem;
+}
+
+/* =========================================================
+   REVIEW CARD
+========================================================= */
+
+.review-card {
+    @include card;
+
+    padding: 1.5rem;
+
+    transition: var(--transition);
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: var(--shadow-lg);
+}
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.review-card__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+.review-card__user {
+    display: flex;
+    align-items: center;
+
+    gap: .9rem;
+}
+
+.review-card__avatar {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 800;
+
+    color: white;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-light)
+    );
+}
+
+.review-card__name {
+    font-size: 1rem;
+
+    font-weight: 700;
+
+    color: var(--secondary);
+
+    margin-bottom: .25rem;
+}
+
+.review-card__date {
+    font-size: .85rem;
+
+    color: var(--text-light);
+}
+
+/* =========================================================
+   COMMENT
+========================================================= */
+
+.review-card__comment {
+    color: var(--text-light);
+
+    line-height: 1.8;
+
+    font-size: .96rem;
+}
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.rating-stars {
+    display: inline-flex;
+    align-items: center;
+
+    gap: .5rem;
+}
+
+.rating-stars__icons {
+    display: flex;
+    align-items: center;
+
+    gap: .15rem;
+}
+
+.rating-stars i {
+    color: var(--warning);
+
+    font-size: 1rem;
+}
+
+.rating-stars i.empty {
+    color: #cbd5e1;
+}
+
+.rating-stars__value {
+    font-size: .85rem;
+
+    color: var(--text-light);
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.reviews-empty {
+    text-align: center;
+
+    padding: 5rem 1rem;
+}
+
+.reviews-empty__icon {
+    font-size: 3rem;
+
+    margin-bottom: 1rem;
+}
+
+.reviews-empty__title {
+    font-size: 1.4rem;
+
+    font-weight: 700;
+
+    color: var(--secondary);
+
+    margin-bottom: .5rem;
+}
+
+.reviews-empty__text {
+    color: var(--text-light);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@include mobile {
+
+    .reviews-page {
+        padding: 3rem 1rem;
+    }
+
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .review-card__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

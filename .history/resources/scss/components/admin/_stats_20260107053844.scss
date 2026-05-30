@@ -1,0 +1,82 @@
+@use "../../variables/colors" as c;
+@use "../../variables/spacing" as s;
+@use "../../variables/typography" as t;
+@use "../../variables/mixins" as m;
+
+.stats-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border-radius: 14px;
+    background: c.$white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .stats-card__icon {
+        font-size: 2.4rem;
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    .stats-card__content {
+        flex: 1;
+    }
+
+    .stats-card__title {
+        font-size: 0.95rem;
+        color: #6b7280;
+        margin: 0;
+    }
+
+    .stats-card__value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #111827;
+        margin: 0.25rem 0 0;
+    }
+
+    /* THEMES */
+    .stats-card--primary .stats-card__icon {
+        background: #e0f2fe;
+        color: #0284c7;
+    }
+
+    .stats-card--success .stats-card__icon {
+        background: #dcfce7;
+        color: #15803d;
+    }
+
+    .stats-card--warning .stats-card__icon {
+        background: #fef9c3;
+        color: #a16207;
+    }
+
+    .stats-card--danger .stats-card__icon {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .stats-card {
+        padding: 1.25rem;
+    }
+
+    .stats-card__value {
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,176 @@
+@use '../variables/globals' as *;
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge {
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: $space-xs;
+
+    padding: 6px 12px;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   VERIFIED BADGE
+========================================================= */
+
+.verified-badge {
+
+    @extend .badge;
+
+    background: rgba(16, 185, 129, 0.12);
+
+    color: var(--success);
+
+    border: 1px solid rgba(16, 185, 129, 0.2);
+
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.08);
+}
+
+.verified-badge svg,
+.verified-badge i {
+
+    font-size: 12px;
+}
+
+/* =========================================================
+   PRIMARY BADGE
+========================================================= */
+
+.badge-primary {
+
+    @extend .badge;
+
+    background: rgba(79, 70, 229, 0.1);
+
+    color: var(--primary);
+
+    border: 1px solid rgba(79, 70, 229, 0.15);
+}
+
+/* =========================================================
+   WARNING BADGE
+========================================================= */
+
+.badge-warning {
+
+    @extend .badge;
+
+    background: rgba(245, 158, 11, 0.12);
+
+    color: var(--warning);
+
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* =========================================================
+   DANGER BADGE
+========================================================= */
+
+.badge-danger {
+
+    @extend .badge;
+
+    background: rgba(239, 68, 68, 0.12);
+
+    color: var(--danger);
+
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* =========================================================
+   DARK BADGE
+========================================================= */
+
+.badge-dark {
+
+    @extend .badge;
+
+    background: rgba(15, 23, 42, 0.08);
+
+    color: var(--secondary);
+
+    border: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+/* =========================================================
+   OUTLINE BADGE
+========================================================= */
+
+.badge-outline {
+
+    @extend .badge;
+
+    background: transparent;
+
+    border: 1px solid var(--border);
+
+    color: var(--text-light);
+}
+
+/* =========================================================
+   STATUS BADGES
+========================================================= */
+
+.badge-online {
+
+    @extend .badge;
+
+    background: rgba(16, 185, 129, 0.1);
+
+    color: var(--success);
+}
+
+.badge-pending {
+
+    @extend .badge;
+
+    background: rgba(245, 158, 11, 0.1);
+
+    color: var(--warning);
+}
+
+.badge-offline {
+
+    @extend .badge;
+
+    background: rgba(148, 163, 184, 0.12);
+
+    color: #64748b;
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+.verified-badge {
+
+    animation: badgePop .35s ease;
+}
+
+@keyframes badgePop {
+
+    from {
+        opacity: 0;
+        transform: scale(.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

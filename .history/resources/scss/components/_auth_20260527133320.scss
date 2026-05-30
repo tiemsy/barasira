@@ -1,0 +1,300 @@
+@use '../variables/globals' as *;
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+.login-section {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: $space-2xl $space-md;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(99,102,241,.15),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(6,182,212,.12),
+            transparent 30%
+        ),
+        var(--background);
+}
+
+/* =========================================================
+   LOGIN CARD
+========================================================= */
+
+.login-card {
+
+    width: 100%;
+    max-width: 500px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-lg);
+
+    padding: $space-2xl;
+
+    box-shadow: var(--shadow-lg);
+
+    animation: fadeUp .5s ease;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.login-title {
+
+    font-size: 36px;
+    font-weight: 800;
+
+    color: var(--secondary);
+
+    margin-bottom: $space-sm;
+
+    text-align: center;
+}
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+
+.login-subtitle {
+
+    text-align: center;
+
+    color: var(--text-light);
+
+    margin-bottom: $space-xl;
+
+    font-size: 16px;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-group {
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: $space-lg;
+}
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.form-group label {
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: var(--secondary);
+
+    margin-bottom: $space-sm;
+}
+
+/* =========================================================
+   INPUT / SELECT
+========================================================= */
+
+.form-group input,
+.form-group select {
+
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-md);
+
+    background: white;
+
+    color: var(--text);
+
+    transition: var(--transition);
+
+    font-size: 15px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+
+    outline: none;
+
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 4px rgba(99,102,241,.15);
+}
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.form-group input::placeholder {
+
+    color: #94a3b8;
+}
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.input-error {
+
+    color: var(--danger);
+
+    font-size: 14px;
+
+    margin-top: $space-xs;
+
+    font-weight: 500;
+}
+
+/* =========================================================
+   LOGIN FOOTER
+========================================================= */
+
+.login-footer {
+
+    margin-top: $space-xl;
+
+    text-align: center;
+
+    color: var(--text-light);
+
+    font-size: 14px;
+}
+
+.login-footer a {
+
+    color: var(--primary);
+
+    font-weight: 600;
+
+    transition: var(--transition);
+}
+
+.login-footer a:hover {
+
+    opacity: .8;
+}
+
+/* =========================================================
+   AUTH BUTTON
+========================================================= */
+
+.auth-submit {
+
+    width: 100%;
+
+    padding: 14px 18px;
+
+    border-radius: var(--radius-md);
+
+    font-weight: 700;
+
+    @include button-primary;
+}
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.auth-divider {
+
+    display: flex;
+    align-items: center;
+
+    gap: $space-md;
+
+    margin: $space-xl 0;
+
+    color: var(--text-light);
+
+    font-size: 14px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+
+    content: '';
+
+    flex: 1;
+
+    height: 1px;
+
+    background: var(--border);
+}
+
+/* =========================================================
+   SOCIAL BUTTONS
+========================================================= */
+
+.social-auth {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: $space-md;
+}
+
+.social-btn {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: $space-sm;
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-md);
+
+    background: white;
+
+    transition: var(--transition);
+
+    font-weight: 600;
+}
+
+.social-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: var(--shadow-sm);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@include mobile {
+
+    .login-card {
+
+        padding: $space-xl;
+    }
+
+    .login-title {
+
+        font-size: 30px;
+    }
+}
