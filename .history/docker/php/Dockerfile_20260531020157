@@ -36,7 +36,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # Copy artefacts from build stages
-# COPY --from=vendor /app/vendor ./vendor
+COPY --from=vendor /app/vendor ./vendor
 COPY --from=assets /app/public/build ./public/build
 
 # Now that vendor + code are in place, regenerate optimized autoload
