@@ -241,8 +241,6 @@ import { reactive, ref } from 'vue'
 import { api } from '@/lib/api'
 import axios from 'axios'
 
-const appUrl = import.meta.env.VITE_APP_URL
-
 const errors = ref({})
 const loading = ref(false)
 
