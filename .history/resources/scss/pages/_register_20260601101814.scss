@@ -39,17 +39,14 @@
     padding: 4rem;
 
     color: $c-white;
-    background-size:cover;
-    background-position: center;
-    background-repeat: no-repeat;
 
-    // background:
-    //     linear-gradient(
-    //         135deg,
-    //         rgba($c-primary, .88),
-    //         rgba($c-secondary, .58)
-    //     ),
-    //     url('/images/auth-bg.png') center / cover no-repeat;
+    background:
+        linear-gradient(
+            135deg,
+            rgba($c-primary, .88),
+            rgba($c-secondary, .58)
+        ),
+        url("../../images/auth-bg.png") center / cover no-repeat;
 }
 
 .register-visual::before {

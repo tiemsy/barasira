@@ -5,13 +5,7 @@
             <div class="login-shell">
 
                 <!-- LEFT VISUAL -->
-                <div class="login-visual"
-                :style="{
-                backgroundImage: `
-                    linear-gradient(135deg, rgba(0,0,0,.86), rgba(0,0,0,.62)),
-                    url('${appUrl}/images/auth-bg.png')
-                `
-                }">
+                <div class="login-visual">
                     <div class="login-visual__content">
                         <span class="login-visual__badge">
                             🔐 Barasira sécurisé
@@ -240,8 +234,9 @@ import { useForm, usePage, router } from '@inertiajs/vue3'
 import { reactive, ref } from 'vue'
 import { api } from '@/lib/api'
 import axios from 'axios'
-
 const appUrl = import.meta.env.VITE_APP_URL
+
+
 
 const errors = ref({})
 const loading = ref(false)

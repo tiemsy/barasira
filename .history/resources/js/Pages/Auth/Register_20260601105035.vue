@@ -417,7 +417,6 @@ import { ref } from 'vue'
 import { api } from '@/lib/api'
 import { router, useForm } from '@inertiajs/vue3'
 import { useToastStore } from '@/stores/toast'
-const appUrl = import.meta.env.VITE_APP_URL
 
 const toast = useToastStore()
 

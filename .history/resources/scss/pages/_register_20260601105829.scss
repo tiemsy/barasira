@@ -37,11 +37,10 @@
     align-items: flex-end;
 
     padding: 4rem;
+    min-height: 100%;
+    width: 100%;
 
     color: $c-white;
-    background-size:cover;
-    background-position: center;
-    background-repeat: no-repeat;
 
     // background:
     //     linear-gradient(
