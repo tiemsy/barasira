@@ -216,10 +216,6 @@ const submit = async () => {
     try {
         await axios.get(`${baseURL}/sanctum/csrf-cookie`, {
             withCredentials: true,
-            headers: {
-                Accept: 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-            },
         })
         const res = await api.post('/login', form)
 

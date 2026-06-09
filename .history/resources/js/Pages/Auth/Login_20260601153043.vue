@@ -5,8 +5,9 @@
             <div class="login-shell">
 
                 <!-- LEFT VISUAL -->
-                <div class="login-visual" :style="{
-                    backgroundImage: `
+                <div class="login-visual"
+                :style="{
+                backgroundImage: `
                     linear-gradient(135deg, rgba(0,0,0,.86), rgba(0,0,0,.62)),
                     url('${appUrl}/images/auth-bg.png')
                 `
@@ -76,12 +77,18 @@
 
                         <!-- SSO -->
                         <div class="sso-login">
-                            <a href="/auth/google/redirect" class="sso-btn sso-btn--google">
+                            <a
+                                href="/auth/google/redirect"
+                                class="sso-btn sso-btn--google"
+                            >
                                 <i class="bi bi-google"></i>
                                 Continuer avec Google
                             </a>
 
-                            <a href="/auth/facebook/redirect" class="sso-btn sso-btn--facebook">
+                            <a
+                                href="/auth/facebook/redirect"
+                                class="sso-btn sso-btn--facebook"
+                            >
                                 <i class="bi bi-facebook"></i>
                                 Continuer avec Facebook
                             </a>
@@ -91,7 +98,10 @@
                             <span>ou connectez-vous avec votre email</span>
                         </div>
 
-                        <form class="login-form" @submit.prevent="submit">
+                        <form
+                            class="login-form"
+                            @submit.prevent="submit"
+                        >
 
                             <!-- EMAIL -->
                             <div class="form-group">
@@ -102,11 +112,19 @@
                                 <div class="input-wrapper">
                                     <i class="bi bi-envelope"></i>
 
-                                    <input id="email" v-model="form.email" type="email" placeholder="votre@email.com"
-                                        autocomplete="email" />
+                                    <input
+                                        id="email"
+                                        v-model="form.email"
+                                        type="email"
+                                        placeholder="votre@email.com"
+                                        autocomplete="email"
+                                    />
                                 </div>
 
-                                <p v-if="errors.email" class="input-error">
+                                <p
+                                    v-if="errors.email"
+                                    class="input-error"
+                                >
                                     {{ errors.email[0] }}
                                 </p>
                             </div>
@@ -120,21 +138,34 @@
                                 <div class="input-wrapper">
                                     <i class="bi bi-lock"></i>
 
-                                    <input id="password" v-model="form.password"
-                                        :type="showPassword ? 'text' : 'password'" placeholder="Mot de passe"
-                                        autocomplete="current-password" />
+                                    <input
+                                        id="password"
+                                        v-model="form.password"
+                                        :type="showPassword ? 'text' : 'password'"
+                                        placeholder="Mot de passe"
+                                        autocomplete="current-password"
+                                    />
 
-                                    <button type="button" class="password-toggle" @click="showPassword = !showPassword">
-                                        <i :class="[
-                                            'bi',
-                                            showPassword
-                                                ? 'bi-eye-slash'
-                                                : 'bi-eye'
-                                        ]"></i>
+                                    <button
+                                        type="button"
+                                        class="password-toggle"
+                                        @click="showPassword = !showPassword"
+                                    >
+                                        <i
+                                            :class="[
+                                                'bi',
+                                                showPassword
+                                                    ? 'bi-eye-slash'
+                                                    : 'bi-eye'
+                                            ]"
+                                        ></i>
                                     </button>
                                 </div>
 
-                                <p v-if="errors.password" class="input-error">
+                                <p
+                                    v-if="errors.password"
+                                    class="input-error"
+                                >
                                     {{ errors.password[0] }}
                                 </p>
                             </div>
@@ -142,25 +173,38 @@
                             <!-- OPTIONS -->
                             <div class="login-options">
                                 <label class="remember-me">
-                                    <input v-model="form.remember" type="checkbox" />
+                                    <input
+                                        v-model="form.remember"
+                                        type="checkbox"
+                                    />
 
                                     <span>
                                         {{ $t('auth.remember_me') }}
                                     </span>
                                 </label>
 
-                                <a href="/forgot-password" class="forgot-link">
+                                <a
+                                    href="/forgot-password"
+                                    class="forgot-link"
+                                >
                                     Mot de passe oublié ?
                                 </a>
                             </div>
 
                             <!-- GLOBAL ERROR -->
-                            <p v-if="errors.general" class="input-error input-error--global">
+                            <p
+                                v-if="errors.general"
+                                class="input-error input-error--global"
+                            >
                                 {{ errors.general[0] }}
                             </p>
 
                             <!-- SUBMIT -->
-                            <button type="submit" class="btn btn-primary login-submit" :disabled="form.processing">
+                            <button
+                                type="submit"
+                                class="btn btn-primary login-submit"
+                                :disabled="form.processing"
+                            >
                                 <span v-if="form.processing">
                                     Connexion...
                                 </span>
@@ -198,7 +242,6 @@ import { api } from '@/lib/api'
 import axios from 'axios'
 
 const appUrl = import.meta.env.VITE_APP_URL
-const baseURL = import.meta.env.VITE_API_URL
 
 const errors = ref({})
 const loading = ref(false)
@@ -210,40 +253,32 @@ const form = reactive({
 })
 
 const submit = async () => {
-    errors.value = {}
-    loading.value = true
+  errors.value = {}
+  loading.value = true
 
-    try {
-        await axios.get(`${baseURL}/sanctum/csrf-cookie`, {
-            withCredentials: true,
-            headers: {
-                Accept: 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-            },
-        })
-        const res = await api.post('/login', form)
+  try {
+    await axios.get('/sanctum/csrf-cookie', {
+  withCredentials: true,
+})
+    const res = await api.post('/login', form)
 
-        // console.log(res.data);
+    // console.log(res.data);
 
-        window.location.href = res.data.redirect
-        // router.push(res.data.redirect)
-    } catch (e) {
-        console.error('Erreur login:', e.response?.status, e.response?.data)
-
-        if (e.response?.status === 422) {
-            errors.value = e.response.data.errors || {}
-            //
-        } else if (e.response?.status === 403) {
-            errors.value.general = ['Veuillez valider votre boîte mail.']
-            router.push('/email/verify')
-        }
-        else {
-            errors.value.general = [
-                e.response?.data?.message || 'Erreur serveur. Veuillez réessayer.'
-            ]
-        }
-    } finally {
-        loading.value = false
+    window.location.href = res.data.redirect
+    // router.push(res.data.redirect)
+  } catch (e) {
+    if (e.response?.status === 422) {
+      errors.value = e.response.data.errors || {}
+    //
+    } else if(e.response?.status === 403) {
+        router.push('/email/verify')
     }
+    else {
+      errors.value.general = ['Email non valide. Veuillez valider votre boite mail.']
+      router.push('/email/verify')
+    }
+  } finally {
+    loading.value = false
+  }
 }
 </script>

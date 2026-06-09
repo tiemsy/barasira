@@ -19,14 +19,13 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Admin',
             'last_name' => 'Sira',
-            'email' => 'admin@barasira.com',
+            'email' => 'admin@barasira.local',
             'password' => bcrypt('admin123'),
             'role' => 'admin',
             'bio' => 'Administrateur principal de l’application Bara Sira.',
             'avatar_url' => null,
             'rating' => 5.0,
             'verified' => true,
-            'email_verified_at' => now()
         ]);
 
         $this->command->info('UserSeeder exécuté avec succès.');

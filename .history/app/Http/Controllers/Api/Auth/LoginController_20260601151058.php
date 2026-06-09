@@ -61,7 +61,6 @@ class LoginController extends Controller
             'superadmin', 'admin' => '/admin/dashboard',
             'prestataire' => '/provider/dashboard',
             'client' => '/dashboard',
-            default => '/dashboard',
         };
 
         // dd($redirect);

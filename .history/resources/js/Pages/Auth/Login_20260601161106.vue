@@ -216,10 +216,6 @@ const submit = async () => {
     try {
         await axios.get(`${baseURL}/sanctum/csrf-cookie`, {
             withCredentials: true,
-            headers: {
-                Accept: 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-            },
         })
         const res = await api.post('/login', form)
 
@@ -238,9 +234,8 @@ const submit = async () => {
             router.push('/email/verify')
         }
         else {
-            errors.value.general = [
-                e.response?.data?.message || 'Erreur serveur. Veuillez réessayer.'
-            ]
+            errors.value.general = ['Email non valide. Veuillez valider votre boite mail.']
+            router.push('/email/verify')
         }
     } finally {
         loading.value = false

@@ -26,7 +26,6 @@ class UserSeeder extends Seeder
             'avatar_url' => null,
             'rating' => 5.0,
             'verified' => true,
-            'email_verified_at' => now()
         ]);
 
         $this->command->info('UserSeeder exécuté avec succès.');
