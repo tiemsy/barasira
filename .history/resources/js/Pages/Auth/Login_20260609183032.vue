@@ -198,7 +198,10 @@ import { api } from '@/lib/api'
 import axios from 'axios'
 
 const appUrl = import.meta.env.VITE_APP_URL
+<<<<<<< HEAD
+=======
 const baseURL = import.meta.env.VITE_API_URL
+>>>>>>> master
 
 const errors = ref({})
 const loading = ref(false)
