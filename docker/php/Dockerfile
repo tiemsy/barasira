@@ -7,6 +7,7 @@ FROM node:22 AS assets
 WORKDIR /app
 
 COPY package.json package-lock.json ./
+
 ENV NODE_ENV=development
 RUN npm ci --no-audit --no-fund
 
