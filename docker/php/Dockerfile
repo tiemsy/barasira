@@ -3,16 +3,14 @@
 # ============================================================
 # Stage 1: assets
 # ============================================================
-FROM node:20 AS assets
+FROM node:22 AS assets
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-
 ENV NODE_ENV=development
 RUN npm ci --no-audit --no-fund
 
 COPY . .
-
 RUN npm run build
 
 # ============================================================
