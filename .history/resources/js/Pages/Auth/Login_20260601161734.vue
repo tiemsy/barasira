@@ -5,14 +5,8 @@
             <div class="login-shell">
 
                 <!-- LEFT VISUAL -->
-<<<<<<< HEAD
-                <div class="login-visual"
-                :style="{
-                backgroundImage: `
-=======
                 <div class="login-visual" :style="{
                     backgroundImage: `
->>>>>>> master
                     linear-gradient(135deg, rgba(0,0,0,.86), rgba(0,0,0,.62)),
                     url('${appUrl}/images/auth-bg.png')
                 `
@@ -204,10 +198,7 @@ import { api } from '@/lib/api'
 import axios from 'axios'
 
 const appUrl = import.meta.env.VITE_APP_URL
-<<<<<<< HEAD
-=======
 const baseURL = import.meta.env.VITE_API_URL
->>>>>>> master
 
 const errors = ref({})
 const loading = ref(false)

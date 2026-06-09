@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -21,12 +22,12 @@ class UserSeeder extends Seeder
             'last_name' => 'Sira',
             'email' => 'admin@barasira.com',
             'password' => bcrypt('admin123'),
-            'role' => 'admin',
+            'role' => 'superadmin',
             'bio' => 'Administrateur principal de l’application Bara Sira.',
             'avatar_url' => null,
             'rating' => 5.0,
             'verified' => true,
-            'email_verified_at' => now()
+            // 'email_verified_at' => now(),
         ]);
 
         $this->command->info('UserSeeder exécuté avec succès.');

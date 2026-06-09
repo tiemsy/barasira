@@ -69,14 +69,3 @@ Route::middleware([
     });
     Route::post('/logout', [LogoutController::class, 'logout'])->name('api.logout');
 });
-
-
-Route::get('/debug-auth', function (Request $request) {
-    return response()->json([
-        'user' => $request->user(),
-        'auth_id' => auth()->id(),
-        'has_session' => $request->hasSession(),
-        'session_id' => $request->hasSession() ? $request->session()->getId() : null,
-        'cookies' => $request->cookies->all(),
-    ]);
-});

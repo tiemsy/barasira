@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class UserSeeder extends Seeder
@@ -20,13 +22,13 @@ class UserSeeder extends Seeder
             'first_name' => 'Admin',
             'last_name' => 'Sira',
             'email' => 'admin@barasira.com',
-            'password' => bcrypt('admin123'),
-            'role' => 'admin',
+            'password' => Hash::make('admin123'),
+            'role' => 'superadmin',
             'bio' => 'Administrateur principal de l’application Bara Sira.',
             'avatar_url' => null,
             'rating' => 5.0,
             'verified' => true,
-            'email_verified_at' => now()
+            'email_verified_at' => now(),
         ]);
 
         $this->command->info('UserSeeder exécuté avec succès.');
