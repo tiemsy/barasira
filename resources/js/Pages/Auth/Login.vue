@@ -76,12 +76,17 @@
 
                         <!-- SSO -->
                         <div class="sso-login">
-                            <a href="/auth/google/redirect" class="sso-btn sso-btn--google">
+                            <!-- <a href="/api/auth/google/redirect" class="sso-btn sso-btn--google">
                                 <i class="bi bi-google"></i>
                                 Continuer avec Google
-                            </a>
+                            </a> -->
 
-                            <a href="/auth/facebook/redirect" class="sso-btn sso-btn--facebook">
+                            <button type="button" class="sso-btn sso-btn--google" @click="loginWithGoogle">
+                                <i class="fab fa-google"></i>
+                                Continuer avec Google
+                            </button>
+
+                            <a href="/api/auth/facebook/redirect" class="sso-btn sso-btn--facebook">
                                 <i class="bi bi-facebook"></i>
                                 Continuer avec Facebook
                             </a>
@@ -208,6 +213,11 @@ const form = reactive({
     password: '',
     remember: false,
 })
+
+const loginWithGoogle = () => {
+    window.location.href =
+        `${import.meta.env.VITE_API_URL}/api/auth/google/redirect`
+}
 
 const submit = async () => {
     errors.value = {}

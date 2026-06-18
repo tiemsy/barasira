@@ -54,7 +54,7 @@ RUN php artisan config:clear \
     && php artisan view:clear
 
 # Nginx + supervisor config
-COPY docker/nginx/default.conf /etc/nginx/sites-available/default
+COPY docker/nginx/prod.conf /etc/nginx/sites-available/default
 RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default \
     && rm -f /etc/nginx/sites-enabled/default.bak
 
