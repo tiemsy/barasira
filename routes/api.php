@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\MissionController;
 use App\Http\Controllers\Api\PortfolioItemController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\ResumeController;
+use App\Http\Controllers\Api\Auth\GoogleAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,12 @@ use App\Http\Controllers\Api\ResumeController;
 
 // USERS
 Route::apiResource('users', UserController::class);
+
+// GOOGLE SSO
+Route::middleware('web')->group(function () {
+    Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect']);
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
+});
 
 // USER SKILLS
 Route::apiResource('user-skills', UserSkillController::class);
@@ -64,11 +71,11 @@ Route::middleware([
         'auth:sanctum',
         'verified'
     ])->group(function () {
-    Route::get('/me', function (Request $request) {
-        return $request->user();
+        Route::get('/me', function (Request $request) {
+            return $request->user();
+        });
+        Route::post('/logout', [LogoutController::class, 'logout'])->name('api.logout');
     });
-    Route::post('/logout', [LogoutController::class, 'logout'])->name('api.logout');
-});
 
 
 Route::get('/debug-auth', function (Request $request) {

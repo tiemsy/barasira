@@ -1,7 +1,0 @@
-@use '../variables/_colors' as c;
-@use '../variables/spacing' as s;
-@use '../variables/mixins' as m;
-
-.card {
-  @include m.card;
-}
