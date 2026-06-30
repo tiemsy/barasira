@@ -1,8 +1,0 @@
-{
-    email admin@barasira.ml
-    auto_https on
-}
-
-import ./local.conf
-; import ./staging.conf
-; import ./prod.conf

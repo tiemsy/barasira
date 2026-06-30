@@ -98,7 +98,7 @@
 
 .hero-map-card .city {
     fill: var(--primary);
-    stroke: white;
+    // stroke: white;
     stroke-width: 2;
     cursor: pointer;
     transition: var(--transition);
@@ -291,11 +291,11 @@
 @media (max-width: 640px) {
     .hero-grid {
         background-image: url("../images/hero-mobile-barasira.png"); // image générée
-        padding-bottom: 30rem;
+        // padding-bottom: 30rem;
     }
 
     .hero-split {
-        padding: 5rem 0 3rem;
+        // padding: 5rem 0 3rem;
     }
 
     .hero-title {
@@ -306,9 +306,9 @@
         flex-direction: column;
     }
 
-    .hero-actions .btn {
-        width: 100%;
-    }
+    // .hero-actions .btn {
+    //     width: 100%;
+    // }
 
     .home-stats-grid {
         grid-template-columns: 1fr;

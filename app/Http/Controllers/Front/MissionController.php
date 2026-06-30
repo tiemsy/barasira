@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MissionStoreRequest;
 use App\Models\Mission;
 use App\Repositories\Eloquent\MissionRepositoryEloquent;
 use App\Repositories\Eloquent\UserRepositoryEloquent;
@@ -17,13 +18,14 @@ class MissionController extends Controller
 
     public function __construct(
         UserRepositoryEloquent $userRepository,
-        MissionRepositoryEloquent $missionRepository)
-    {
+        MissionRepositoryEloquent $missionRepository
+    ) {
         $this->missionRepository = $missionRepository;
         $this->userRepository = $userRepository;
     }
 
-    public function userMissions() {
+    public function userMissions()
+    {
         return Inertia::render('Missions/Index', [
             'missions' => $this->missionRepository->userMissions(Auth::user()),
             'prestataires' => $this->userRepository->missionProviders(Auth::user())
@@ -35,5 +37,10 @@ class MissionController extends Controller
         return Inertia::render('Missions/Show', [
             'mission' => $mission->load(['client', 'service', 'applications', 'payments', 'reviews', 'messages'])
         ]);
+    }
+
+    public function create(Request $request)
+    {
+        return Inertia::render('Missions/Create');
     }
 }
