@@ -75,10 +75,16 @@ class AuthenticatedSessionController extends Controller
         ]);
 
         // Connexion automatique
-        Auth::login($user);
+        $user = Auth::user();
 
         // Redirection Inertia
-        return redirect()->route('dashboard');
+        return response()->json([
+            'redirect' => match ($user->role) {
+                'admin' => '/admin/dashboard',
+                'prestataire' => '/provider/dashboard',
+                default => '/dashboard',
+            }
+        ]);
     }
 
     public function logout(Request $request)

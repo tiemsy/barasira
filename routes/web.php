@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Front\AuthenticatedSessionController;
 use App\Http\Controllers\Front\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\Front\Provider\DashboardController as ProviderDashboardController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,10 +40,10 @@ Route::controller(ServiceController::class)->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware('guest')->group(function () {
-    Route::get('/login', fn() => Inertia::render('Auth/Login'))->name('login');
+    Route::get('/login', fn () => Inertia::render('Auth/Login'))->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'login'])->middleware(['verified'])->name('login.store');
 
-    Route::get('/register', fn() => Inertia::render('Auth/Register'))->name('register');
+    Route::get('/register', fn () => Inertia::render('Auth/Register'))->name('register');
     Route::post('/register', [AuthenticatedSessionController::class, 'register'])->name('register.store');
 });
 
@@ -131,12 +132,12 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::middleware('auth')->post('/email/resend', function (Request $request) {
-    if ($request::user()->hasVerifiedEmail()) {
+    if ($request->user()->hasVerifiedEmail()) {
         return response()->json([
             'message' => 'Email déjà vérifié.'
         ], 400);
     }
-    $request::user()->sendEmailVerificationNotification();
+    $request->user()->sendEmailVerificationNotification();
     return response()->json([
         'message' => 'Email de vérification renvoyé. Vérifiez également votre SPAM si vous ne voyez pas le message dans votre boite de reception'
     ]);
