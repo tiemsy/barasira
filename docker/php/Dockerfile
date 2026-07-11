@@ -43,7 +43,7 @@ COPY --from=assets /app/public/build ./public/build
 
 # Now that vendor + code are in place, regenerate optimized autoload
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-interaction --prefer-dist --no-progress
 
 # Default .env if missing (Coolify overrides at runtime via env vars)
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
