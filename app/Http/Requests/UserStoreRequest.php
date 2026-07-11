@@ -37,8 +37,9 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'role.in' => 'Le rôle doit être : client, prestataire, admin ou superadmin.',
-            'first_name' => 'Le champs prénom est obligatoire',
-            'last_name' => 'Le champs nom de famille est obligatoire'
+            'first_name' => 'Le prénom est obligatoire',
+            'last_name' => 'Le nom de famille est obligatoire',
+            'email' => 'Le champs email est obligatoire',
         ];
     }
 }

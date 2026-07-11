@@ -52,7 +52,7 @@
                         <ol>
                             <li>
                                 <a href="/">
-                                    {{ $t('navigation.home') }}
+                                    {{ $t('n                avigation.home') }}
                                 </a>
                             </li>
 
@@ -191,7 +191,7 @@
                                         v-if="errors.first_name"
                                         class="input-error"
                                     >
-                                        {{ errors.first_name }}
+                                        {{ errors.first_name?.[0] }}
                                     </p>
                                 </div>
 
@@ -216,7 +216,7 @@
                                         v-if="errors.last_name"
                                         class="input-error"
                                     >
-                                        {{ errors.last_name }}
+                                        {{ errors.last_name?.[0] }}
                                     </p>
                                 </div>
 
@@ -244,7 +244,7 @@
                                     v-if="errors.email"
                                     class="input-error"
                                 >
-                                    {{ errors.email }}
+                                    {{ errors.email?.[0] }}
                                 </p>
                             </div>
 
@@ -270,7 +270,7 @@
                                     v-if="errors.phone"
                                     class="input-error"
                                 >
-                                    {{ errors.phone }}
+                                    {{ errors.phone?.[0] }}
                                 </p>
                             </div>
 
@@ -313,7 +313,7 @@
                                         v-if="errors.password"
                                         class="input-error"
                                     >
-                                        {{ errors.password }}
+                                        {{ errors.password?.[0] }}
                                     </p>
                                 </div>
 
@@ -353,7 +353,7 @@
                                         v-if="errors.password_confirmation"
                                         class="input-error"
                                     >
-                                        {{ errors.password_confirmation }}
+                                        {{ errors.password_confirmation?.[0] }}
                                     </p>
                                 </div>
 
@@ -364,7 +364,7 @@
                                 v-if="errors.general"
                                 class="input-error input-error--global"
                             >
-                                {{ errors.general[0] }}
+                                {{ errors.general }}
                             </p>
 
                             <!-- SUCCESS -->
@@ -437,40 +437,74 @@ const successMessage = ref(null)
 
 const submit = async () => {
     errors.value = {}
+    successMessage.value = null
+
+    // Vérification du mot de passe
+    if (!form.password || !form.password_confirmation) {
+        errors.value.password = ['Le mot de passe est obligatoire.']
+        errors.value.password_confirmation = ['La confirmation du mot de passe est obligatoire.']
+
+        toast.show('Veuillez renseigner les deux champs de mot de passe.', 'error')
+        return
+    } else if (form.password !== form.password_confirmation) {
+        errors.value.password_confirmation = [
+            'Les mots de passe ne correspondent pas.'
+        ]
+
+        toast.show('Les mots de passe ne correspondent pas.', 'error')
+        return
+    }
+
     loading.value = true
 
     try {
-        const response = await api.post('/register', form)
+        const response = await api.post('/register', {
+            first_name: form.first_name,
+            last_name: form.last_name,
+            email: form.email,
+            phone: form.phone,
+            password: form.password,
+            password_confirmation: form.password_confirmation,
+            role: form.role,
+        })
 
         if (response.data.success) {
-            // après inscription → page "vérifier email"
+            successMessage.value = response.data.message || 'Inscription réussie.'
 
-            router.push({
-                path: '/email/verify',
-                query: {
-                    success: response.data.message,
-                },
-            })
+            toast.show(successMessage.value, 'success')
 
-            successMessage.value = response.data.message
-            toast.show(successMessage.value)
+            // router.visit('/email/verify', {
+            //     data: {
+            //         success: successMessage.value,
+            //     },
+            // })
 
-            // ✅ redirection backend
-            // router.visit(res.data.redirect)
-            window.location.href = response.data.redirect
-
-            // Redirection Inertia vers le dashboard
-            //   Inertia.visit('/dashboard', {replace : true})
+            // return
+        } else {
+            errors.value.general = response.data.message || 'Inscription impossible.'
+        toast.show(errors.value.general, 'error')
         }
+
+
+
     } catch (err) {
-        if (err.response && err.response.data.errors) {
+        console.error('REGISTER ERROR:', err)
+
+        if (err.response?.data?.errors) {
             errors.value = err.response.data.errors
-        } else if (err.response && err.response.data.message) {
+
+            const messages = Object.values(err.response.data.errors).flat()
+            toast.show(messages.join('<br>'), 'error')
+
+        } else if (err.response?.data?.message) {
             errors.value.general = err.response.data.message
+            toast.show(err.response.data.message, 'error')
+
         } else {
             errors.value.general = 'Une erreur est survenue.'
             toast.show('Une erreur est survenue.', 'error')
         }
+
     } finally {
         loading.value = false
     }
