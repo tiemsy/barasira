@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             $this->call(ReviewSeeder::class);
         }
 
-        if (app()->environment('production') || app()->environment('staging')) {
+        if (app()->environment('production')) {
             $this->call(AdminSeeder::class);
         }
     }
