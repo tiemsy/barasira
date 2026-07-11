@@ -2,11 +2,22 @@ name: Barasira CI
 
 on:
   push:
-    branches: [ master, staging ]
+    branches:
+      - master
+      - staging
+
   pull_request:
+    branches:
+      - master
+      - staging
+
+permissions:
+  contents: read
+  pull-requests: read
 
 jobs:
   laravel-tests:
+    name: Tests et analyse SonarCloud
     runs-on: ubuntu-latest
 
     env:
@@ -33,38 +44,67 @@ jobs:
           --health-retries=10
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout du projet
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - uses: shivammathur/setup-php@v2
+      - name: Installer PHP
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
           extensions: mbstring, bcmath, pdo_mysql, gd, zip
+          coverage: pcov
+          tools: composer:v2
 
-      - name: Install Composer deps
-        run: composer install --no-interaction --prefer-dist
+      - name: Installer les dépendances Composer
+        run: composer install --no-interaction --prefer-dist --no-progress
 
-      - name: Copy env
+      - name: Copier le fichier d'environnement
         run: cp .env.example .env
 
-      - name: Generate key
+      - name: Générer la clé Laravel
         run: php artisan key:generate
 
-      - uses: actions/setup-node@v4
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install npm deps
+      - name: Installer les dépendances npm
         run: npm ci
 
-      - name: Build front assets (Vite)
+      - name: Compiler les assets Vite
         run: npm run build
 
-      - name: Run migrations
+      - name:Exécuter les migrations et les seeders
         run: php artisan migrate --force
 
-      - name: Run AdminSeeder
-        run: php artisan migrate --seed
+      - name: Run seeders
+        if: github.ref == 'refs/heads/staging' || github.event_name == 'pull_request'
+        run: php artisan db:seed --force
 
-      - name: Run tests
-        run: php artisan test
+      - name: Exécuter les tests avec couverture
+        run: php artisan test --coverage-clover=coverage.xml
+
+      - name: Vérifier la présence du rapport de couverture
+        run: test -f coverage.xml
+
+      - name: Analyse SonarCloud
+        uses: SonarSource/sonarqube-scan-action@v7
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.sources=app,routes,resources/js
+            -Dsonar.tests=tests
+            -Dsonar.php.coverage.reportPaths=coverage.xml
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.exclusions=vendor/**,node_modules/**,storage/**,bootstrap/cache/**,public/build/**
+            -Dsonar.coverage.exclusions=database/**,config/**,routes/**,resources/js/**/*
+            -Dsonar.qualitygate.wait=true
+
