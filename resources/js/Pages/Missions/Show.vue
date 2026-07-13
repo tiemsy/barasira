@@ -1,11 +1,11 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { ref, onMounted } from "vue"
-import { useRoute } from "vue-router"
+// import { useRoute } from "vue-router"
 import { router, Link } from '@inertiajs/vue3'
 import missionService from "@/composables/missionService"
 
-const route = useRoute()
+// const route = useRoute()
 // const mission = ref(null)
 const loading = ref(true)
 const props = defineProps({
@@ -95,12 +95,12 @@ onMounted(() => {
 
                     <div class="info-item">
                         <label>Catégorie</label>
-                        <p>{{ mission.category }}</p>
+                        <p>{{ mission.service?.category?.name  }}</p>
                     </div>
 
                     <div class="info-item">
                         <label>Localisation</label>
-                        <p>{{ mission.location }}</p>
+                        <p>{{ mission.address }}</p>
                     </div>
 
                 </div>

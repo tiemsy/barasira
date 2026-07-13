@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        if (app()->environment('local')) {
+        if (app()->environment('local') || app()->environment('staging')) {
             $this->call(UserSeeder::class);
             $this->call(UserSkillSeeder::class);
             $this->call(ServiceCategorySeeder::class);

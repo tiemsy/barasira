@@ -27,13 +27,20 @@ class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepos
             ->get();
     }
 
-    public function missionProviders($user)
+    public function missionProviders(User $user)
     {
         return $this->model
+            ->newQuery()
             ->where('role', 'prestataire')
-            ->whereHas('missionsAsPrestataire', function ($q) use ($user) {
-                $q->where('client_id', $user->id);
+            ->whereHas('missionsAsPrestataire', function ($query) use ($user) {
+                $query->where('client_id', $user->id);
             })
-        ->get();
+            ->select([
+                'id',
+                'first_name',
+                'last_name',
+            ])
+            ->orderBy('first_name')
+            ->get();
     }
 }
