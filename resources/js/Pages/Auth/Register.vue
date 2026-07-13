@@ -488,8 +488,6 @@ const submit = async () => {
 
 
     } catch (err) {
-        console.error('REGISTER ERROR:', err)
-
         if (err.response?.data?.errors) {
             errors.value = err.response.data.errors
 

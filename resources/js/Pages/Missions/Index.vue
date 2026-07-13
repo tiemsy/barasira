@@ -127,8 +127,16 @@ import { ref, watch, onMounted, onBeforeUnmount } from "vue"
 import missionService from "@/composables/missionService"
 import { Link } from '@inertiajs/vue3'
 
-defineProps({
-    prestataires: Object
+const props = defineProps({
+    missions: {
+        type: Object,
+        required: true,
+    },
+
+    prestataires: {
+        type: Array,
+        default: () => [],
+    },
 })
 
 const filters = ref({

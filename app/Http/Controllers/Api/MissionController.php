@@ -54,7 +54,9 @@ class MissionController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $missions = Mission::filter($request->all()) ->paginate(10);
+        $user = $request->user();
+
+        $missions = $this->missionRepository->userMissions($user, $request->all());
         return response()->json($missions);
     }
 
@@ -63,8 +65,31 @@ class MissionController extends Controller
      */
     public function store(MissionStoreRequest $request): JsonResponse
     {
-        $mission = $this->missionRepository->create($request->validated());
-        return response()->json($mission, 201);
+        // $mission = $this->missionRepository->create($request->validated());
+        // return response()->json($mission, 201);
+
+        $data = $request->validated();
+
+        $mission = Mission::create([
+            'client_id' => $request->user()->id,
+            'prestataire_id' => null,
+            'service_id' => $data['service_id'],
+            'title' => $data['title'],
+            'description' => $data['description'] ?? null,
+            'address' => $data['address'] ?? null,
+            'latitude' => $data['latitude'] ?? null,
+            'longitude' => $data['longitude'] ?? null,
+            'status' => 'pending',
+            'price' => $data['price'] ?? null,
+            'date_start' => $data['date_start'] ?? null,
+            'date_end' => $data['date_end'] ?? null,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'La mission a été créée avec succès.',
+            'data' => $mission,
+        ], 201);
     }
 
     /**
@@ -72,8 +97,20 @@ class MissionController extends Controller
      */
     public function show(Mission $mission): JsonResponse
     {
-        $mission->load(['client', 'service', 'applications', 'payments', 'reviews', 'messages']);
-        return response()->json($mission);
+        $mission->load([
+            'client',
+            'prestataire',
+            'service.category',
+            'applications',
+            'payments',
+            'reviews',
+            'messages',
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'mission' => $mission,
+        ]);
     }
 
     /**
