@@ -24,10 +24,12 @@ class MissionController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function userMissions()
+    public function userMissions(Request $request)
     {
+        $user = $request->user();
+
         return Inertia::render('Missions/Index', [
-            'missions' => $this->missionRepository->userMissions(Auth::user()),
+            'missions' => $this->missionRepository->userMissions($user, $request->all()),
             'prestataires' => $this->userRepository->missionProviders(Auth::user())
         ]);
     }
@@ -35,7 +37,15 @@ class MissionController extends Controller
     public function show(Mission $mission)
     {
         return Inertia::render('Missions/Show', [
-            'mission' => $mission->load(['client', 'service', 'applications', 'payments', 'reviews', 'messages'])
+            'mission' => $mission->load([
+                'client',
+                'prestataire',
+                'service.category',
+                'applications',
+                'payments',
+                'reviews',
+                'messages',
+            ])
         ]);
     }
 
