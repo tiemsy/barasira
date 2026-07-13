@@ -52,7 +52,7 @@
                         <ol>
                             <li>
                                 <a href="/">
-                                    {{ $t('n                avigation.home') }}
+                                    {{ $t('navigation.home') }}
                                 </a>
                             </li>
 
