@@ -3,13 +3,19 @@ $white: #ffffff;
 $black: #0f172a;
 $light: #f3f4f6;
 $dark: #111827;
+$muted: #6b7280;
+$border: #e5e7eb;
+$text: #374151;
 
 /* Brand colors */
-$primary: #182a5c;       // Bleu confiance (action, CTA)
+// $primary: #182a5c;       // Bleu confiance (action, CTA)
+$primary: #f59e0b;
 $primary-light: #14b8a6;
-$primary-dark: #0d5c56;
+// $primary-dark: #0d5c56;
+$primary-dark: #d97706;
 
-$secondary: #f97316;    // Orange énergie (Afrique, dynamisme)
+// $secondary: #f97316;
+$secondary: #111827;    // Orange énergie (Afrique, dynamisme)
 $secondary-light: #fbbf24;
 $secondary-dark: #b45309;
 
@@ -29,6 +35,7 @@ $success: #16a34a;
 $warning: #facc15;
 $error: #dc2626;
 $info: #0284c7;
+$danger: #dc2626;
 
 $bg-card: #ffffff;       // Couleur de fond des cards
 $bg-hero: linear-gradient(135deg, $primary, $secondary);;

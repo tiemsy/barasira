@@ -131,4 +131,6 @@ return [
         ],
     ],
 
+    'contact_address' => env('MAIL_CONTACT_ADDRESS','contact@barasira.com'),
+
 ];

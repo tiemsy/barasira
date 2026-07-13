@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { Head, usePage } from '@inertiajs/vue3'
+import { computed } from 'vue'
 
 defineProps({
     services: Array,
@@ -10,7 +11,7 @@ defineProps({
 
 const page = usePage()
 
-const user = page.props[1].auth?.user
+const user = computed(() => page.props.auth?.user ?? null)
 </script>
 
 <template>

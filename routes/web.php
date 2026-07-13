@@ -8,6 +8,7 @@ use App\Http\Controllers\Front\ServiceController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Front\AuthenticatedSessionController;
 use App\Http\Controllers\Front\Client\DashboardController as ClientDashboardController;
+use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\Provider\DashboardController as ProviderDashboardController;
 use Illuminate\Http\Request;
 
@@ -46,6 +47,17 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', fn () => Inertia::render('Auth/Register'))->name('register');
     Route::post('/register', [AuthenticatedSessionController::class, 'register'])->name('register.store');
 });
+
+Route::get('/contact-us', function () {
+    return Inertia::render('ContactUs', [
+        'contactEmail' => config('mail.contact_address', 'contact@barasira.com'),
+        'contactPhone' => '+223 00 00 00 00',
+    ]);
+})->name('contact.index');
+
+Route::post('/contact-us', [ContactController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('contact.store');
 
 /*
 |--------------------------------------------------------------------------

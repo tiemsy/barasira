@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { Link, usePage, router } from '@inertiajs/vue3'
 import { api } from '@/lib/api'
 import { useI18n } from 'vue-i18n'
@@ -13,11 +13,13 @@ const changeLang = (lang) => {
 const menuOpen = ref(false)
 const page = usePage()
 
-const user = page.props[1].auth?.user || null
+// const user = page.props[1].auth?.user || null
+const user = computed(() => page.props.auth?.user ?? null)
+const currentUser = ref(page.props.auth?.user ?? null)
 // const user = usePage().props.auth?.user || null
-const isAdmin = user?.role === 'admin'
-const isClient = user?.role === 'client'
-const isProvider = user?.role === 'prestataire'
+const isAdmin = computed(() => user.value?.role === 'admin')
+const isClient = computed(() => user.value?.role === 'client')
+const isProvider = computed(() => user.value?.role === 'prestataire')
 
 // start
 const activeSubmenu = ref(null)
@@ -156,7 +158,10 @@ const logout = () => {
                 </template>
 
                 <li>
-                    <button class="btn btn-primary">{{ $t('footer.contactUs') }}</button>
+                 <Link href="/contact-us" class="btn btn-primary">
+                        {{ $t('footer.contactUs') }}
+                    </Link>
+                    <!-- <button class="btn btn-primary">{{ $t('footer.contactUs') }}</button> -->
                 </li>
 
             </ul>
