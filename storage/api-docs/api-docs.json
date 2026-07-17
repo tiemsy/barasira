@@ -7,57 +7,188 @@
     },
     "servers": [
         {
-            "url": "http://barasira.test",
+            "url": "http://localhost:8080",
             "description": "Serveur principal API"
         }
     ],
     "paths": {
-        "/api/missions": {
+        "/api/auth/google/redirect": {
             "get": {
                 "tags": [
-                    "Missions"
+                    "Auth"
                 ],
-                "summary": "Liste des missions",
-                "operationId": "59bb79fe27bbf0414b341550a7dccc5e",
-                "responses": {
-                    "200": {
-                        "description": "Liste des missions",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Mission"
-                                    }
-                                }
-                            }
+                "summary": "L5-Swagger endpoint annotations.",
+                "description": "Controllers stay focused on HTTP behaviour; this class is the single source\nfor operation metadata and references the shared schemas in Schemas.php.",
+                "operationId": "google.redirect",
+                "parameters": [
+                    {
+                        "name": "intent",
+                        "in": "query",
+                        "description": "SSO entry point",
+                        "schema": {
+                            "type": "string",
+                            "default": "login",
+                            "enum": [
+                                "login",
+                                "register"
+                            ]
                         }
                     }
-                }
+                ],
+                "responses": {
+                    "302": {
+                        "description": "Redirect to Google"
+                    }
+                },
+                "security": []
             }
         },
-        "/api/services": {
+        "/api/auth/google/callback": {
             "get": {
                 "tags": [
-                    "Services"
+                    "Auth"
                 ],
-                "summary": "Liste des services",
-                "operationId": "97de511018def32ca0ccbc800756c538",
+                "description": "Authenticates an existing account by Google email. Unknown users are not created and are redirected to registration.",
+                "operationId": "google.callback",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
-                    "200": {
-                        "description": "Liste des services",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Service"
-                                    }
-                                }
+                    "302": {
+                        "description": "Dashboard or registration redirect"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "auth.login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
                             }
                         }
                     }
-                }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationError"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "auth.register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registered",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationError"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "auth.logout",
+                "responses": {
+                    "200": {
+                        "description": "Logged out"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/me": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "operationId": "auth.me",
+                "responses": {
+                    "200": {
+                        "description": "Current user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/api/users": {
@@ -65,185 +196,699 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Liste des utilisateurs",
-                "operationId": "566aed8efb436ca506e0ef51a032ecd9",
+                "operationId": "users.index",
                 "responses": {
                     "200": {
-                        "description": "Liste des utilisateurs avec les services liés",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/User"
-                                    }
-                                }
-                            }
-                        }
+                        "description": "Users"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Forbidden"
                     }
-                }
-            },
-            "post": {
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "Créer un utilisateur",
-                "operationId": "be551c1d694a01c164966f58bfa77013",
+                "operationId": "users.show",
                 "parameters": [
                     {
-                        "name": "first_name",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
                         }
                     },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    }
+                },
+                "security": [
                     {
-                        "name": "last_name",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "users.updatePut",
+                "parameters": [
                     {
-                        "name": "email",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "password",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "phone",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "role",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "bio",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "avatar_url",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "rating",
-                        "in": "path",
-                        "schema": {
-                            "type": "decimal"
-                        }
-                    },
-                    {
-                        "name": "verified",
-                        "in": "path",
-                        "schema": {
-                            "type": "boolean"
-                        }
+                        "$ref": "#/components/parameters/Id"
                     }
                 ],
                 "requestBody": {
                     "required": true,
                     "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "users.updatePost",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationError"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "users.updatePatch",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/service-categories": {
+            "get": {
+                "tags": [
+                    "Service categories"
+                ],
+                "operationId": "categories.index",
+                "responses": {
+                    "200": {
+                        "description": "Categories"
+                    }
+                },
+                "security": []
+            },
+            "post": {
+                "tags": [
+                    "Service categories"
+                ],
+                "operationId": "categories.store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "first_name",
-                                    "last_name",
-                                    "email",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "first_name": {
-                                        "type": "string",
-                                        "example": "Jean"
-                                    },
-                                    "last_name": {
-                                        "type": "string",
-                                        "example": "Dupont"
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "example": "jean@example.com"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "example": "******"
-                                    },
-                                    "phone": {
-                                        "type": "string",
-                                        "example": "0022374321256"
-                                    },
-                                    "role": {
-                                        "type": "enum",
-                                        "example": "client"
-                                    },
-                                    "bio": {
-                                        "type": "text",
-                                        "example": "Biography"
-                                    },
-                                    "avatar_url": {
-                                        "type": "string",
-                                        "example": "/storage/john/doe/jeandupont.jpg"
-                                    },
-                                    "rating": {
-                                        "type": "decimal",
-                                        "example": "4.5"
-                                    },
-                                    "verified": {
-                                        "type": "boolean",
-                                        "example": "true"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/ServiceCategoryRequest"
                             }
                         }
                     }
                 },
                 "responses": {
                     "201": {
-                        "description": "Utilisateur créé",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
+                        "description": "Created"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationError"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/service-categories/{id}": {
+            "get": {
+                "tags": [
+                    "Service categories"
+                ],
+                "operationId": "categories.show",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category"
+                    }
+                },
+                "security": []
+            },
+            "put": {
+                "tags": [
+                    "Service categories"
+                ],
+                "operationId": "categories.updatePut",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ServiceCategoryRequest"
                             }
                         }
                     }
-                }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                },
+                "security": []
+            },
+            "delete": {
+                "tags": [
+                    "Service categories"
+                ],
+                "operationId": "categories.destroy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                },
+                "security": []
+            },
+            "patch": {
+                "tags": [
+                    "Service categories"
+                ],
+                "operationId": "categories.updatePatch",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ServiceCategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                },
+                "security": []
             }
         },
-        "/api/users/{user}": {
+        "/api/services": {
             "get": {
                 "tags": [
-                    "Users"
+                    "Services"
                 ],
-                "summary": "Obtenir un utilisateur par ID",
-                "operationId": "f310aa35b9243239c65dbc8b8f4b135e",
+                "operationId": "services.index",
+                "responses": {
+                    "200": {
+                        "description": "Services"
+                    }
+                },
+                "security": []
+            },
+            "post": {
+                "tags": [
+                    "Services"
+                ],
+                "operationId": "services.store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ServiceRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/services-search": {
+            "get": {
+                "tags": [
+                    "Services"
+                ],
+                "operationId": "services.search",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Search results"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/services/{id}": {
+            "get": {
+                "tags": [
+                    "Services"
+                ],
+                "operationId": "services.show",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Service"
+                    }
+                },
+                "security": []
+            },
+            "put": {
+                "tags": [
+                    "Services"
+                ],
+                "operationId": "services.updatePut",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ServiceRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Services"
+                ],
+                "operationId": "services.destroy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Services"
+                ],
+                "operationId": "services.updatePatch",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ServiceRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/missions": {
+            "get": {
+                "tags": [
+                    "Missions"
+                ],
+                "operationId": "missions.index",
+                "responses": {
+                    "200": {
+                        "description": "Missions"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Missions"
+                ],
+                "operationId": "missions.store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MissionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/missions/{id}": {
+            "get": {
+                "tags": [
+                    "Missions"
+                ],
+                "operationId": "missions.show",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mission"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Missions"
+                ],
+                "operationId": "missions.updatePut",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MissionUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Missions"
+                ],
+                "operationId": "missions.destroy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Missions"
+                ],
+                "operationId": "missions.updatePatch",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MissionUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/missions/{id}/claim": {
+            "post": {
+                "tags": [
+                    "Missions"
+                ],
+                "operationId": "missions.claim",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Claimed"
+                    },
+                    "409": {
+                        "description": "Schedule conflict"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/missions/generate-with-ai": {
+            "post": {
+                "tags": [
+                    "AI"
+                ],
+                "operationId": "missions.generateAi",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MissionAiRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Generated mission"
+                    },
+                    "429": {
+                        "description": "Rate limited"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/messages": {
+            "get": {
+                "tags": [
+                    "Messages"
+                ],
+                "operationId": "messages.index",
+                "responses": {
+                    "200": {
+                        "description": "Conversations"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Messages"
+                ],
+                "operationId": "messages.store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MessageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sent"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationError"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/messages/conversation/{user}": {
+            "get": {
+                "tags": [
+                    "Messages"
+                ],
+                "operationId": "messages.conversation",
                 "parameters": [
                     {
                         "name": "user",
@@ -252,44 +897,65 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "mission_id",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "nullable": true
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Utilisateur trouvé",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
+                        "description": "Conversation"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/reviews": {
+            "post": {
+                "tags": [
+                    "Reviews"
+                ],
+                "operationId": "reviews.store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ReviewRequest"
                             }
                         }
-                    },
-                    "404": {
-                        "description": "Utilisateur introuvable"
                     }
-                }
-            },
-            "put": {
+                },
+                "responses": {
+                    "201": {
+                        "description": "Published"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/reviews/{id}": {
+            "patch": {
                 "tags": [
-                    "Users"
+                    "Reviews"
                 ],
-                "summary": "Mise à jour d’un utilisateur par ID",
-                "operationId": "f1f65c5e73cb0b10fdd850447b672c28",
+                "operationId": "reviews.update",
                 "parameters": [
                     {
-                        "name": "user",
-                        "in": "path",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "first_name",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Id"
                     }
                 ],
                 "requestBody": {
@@ -297,50 +963,374 @@
                     "content": {
                         "application/json": {
                             "schema": {
+                                "$ref": "#/components/schemas/ReviewUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Final revision"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/ai/translate": {
+            "post": {
+                "tags": [
+                    "AI"
+                ],
+                "operationId": "ai.translate",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TranslationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Translation"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/user-skills": {
+            "get": {
+                "tags": [
+                    "User skills"
+                ],
+                "operationId": "skills.index",
+                "responses": {
+                    "200": {
+                        "description": "Skills"
+                    }
+                },
+                "security": []
+            },
+            "post": {
+                "tags": [
+                    "User skills"
+                ],
+                "operationId": "skills.store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserSkillRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/user-skills/{id}": {
+            "get": {
+                "tags": [
+                    "User skills"
+                ],
+                "operationId": "skills.show",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Skill"
+                    }
+                },
+                "security": []
+            },
+            "put": {
+                "tags": [
+                    "User skills"
+                ],
+                "operationId": "skills.updatePut",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Not implemented"
+                    }
+                },
+                "security": []
+            },
+            "delete": {
+                "tags": [
+                    "User skills"
+                ],
+                "operationId": "skills.destroy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                },
+                "security": []
+            },
+            "patch": {
+                "tags": [
+                    "User skills"
+                ],
+                "operationId": "skills.updatePatch",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Not implemented"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/resumes": {
+            "get": {
+                "tags": [
+                    "Resumes"
+                ],
+                "operationId": "resumes.index",
+                "responses": {
+                    "200": {
+                        "description": "Not implemented"
+                    }
+                },
+                "security": []
+            },
+            "post": {
+                "tags": [
+                    "Resumes"
+                ],
+                "operationId": "resumes.store",
+                "responses": {
+                    "200": {
+                        "description": "Not implemented"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/resumes/{id}": {
+            "get": {
+                "tags": [
+                    "Resumes"
+                ],
+                "operationId": "resumes.show",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Not implemented"
+                    }
+                },
+                "security": []
+            },
+            "put": {
+                "tags": [
+                    "Resumes"
+                ],
+                "operationId": "resumes.updatePut",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Not implemented"
+                    }
+                },
+                "security": []
+            },
+            "delete": {
+                "tags": [
+                    "Resumes"
+                ],
+                "operationId": "resumes.destroy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Not implemented"
+                    }
+                },
+                "security": []
+            },
+            "patch": {
+                "tags": [
+                    "Resumes"
+                ],
+                "operationId": "resumes.updatePatch",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Not implemented"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/portfolio-items": {
+            "get": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "operationId": "portfolio.index",
+                "responses": {
+                    "200": {
+                        "description": "Portfolio items"
+                    }
+                },
+                "security": []
+            },
+            "post": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "operationId": "portfolio.store",
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/portfolio-items/{id}": {
+            "get": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "operationId": "portfolio.show",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Portfolio item"
+                    }
+                },
+                "security": []
+            },
+            "put": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "operationId": "portfolio.updatePut",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Not implemented"
+                    }
+                },
+                "security": []
+            },
+            "delete": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "operationId": "portfolio.destroy",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                },
+                "security": []
+            },
+            "patch": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "operationId": "portfolio.updatePatch",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Not implemented"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/api/payments/webhooks/cinetpay": {
+            "get": {
+                "tags": [
+                    "Payments"
+                ],
+                "operationId": "payments.cinetpayPing",
+                "responses": {
+                    "204": {
+                        "description": "Webhook availability"
+                    }
+                },
+                "security": []
+            },
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "operationId": "payments.cinetpayWebhook",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
                                 "properties": {
-                                    "id": {
-                                        "type": "integer",
-                                        "example": "1"
-                                    },
-                                    "first_name": {
-                                        "type": "string",
-                                        "example": "jean"
-                                    },
-                                    "last_name": {
-                                        "type": "string",
-                                        "example": "Dupont"
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "example": "jean@example.com"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "example": "******"
-                                    },
-                                    "phone": {
-                                        "type": "string",
-                                        "example": "0022374321256"
-                                    },
-                                    "role": {
-                                        "type": "enum",
-                                        "example": "client"
-                                    },
-                                    "bio": {
-                                        "type": "text",
-                                        "example": "Biography"
-                                    },
-                                    "avatar_url": {
-                                        "type": "string",
-                                        "example": "/storage/john/doe/jeandupont.jpg"
-                                    },
-                                    "rating": {
-                                        "type": "decimal",
-                                        "example": "4.5"
-                                    },
-                                    "verified": {
-                                        "type": "boolean",
-                                        "example": "true"
+                                    "cpm_trans_id": {
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
@@ -349,230 +1339,533 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Utilisateur modifié",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Utilisateur introuvable"
+                    "204": {
+                        "description": "Notification verified"
                     }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Suppression d’un utilisateur par ID",
-                "operationId": "cf641f0b739211ff3a1c21b1ef310591",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Utilisateur supprimé",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Utilisateur introuvable"
-                    }
-                }
+                },
+                "security": []
             }
         }
     },
     "components": {
         "schemas": {
-            "Mission": {
-                "title": "Mission",
-                "required": [
-                    "id",
-                    "name"
-                ],
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": 1
-                    },
-                    "client_id": {
-                        "type": "integer",
-                        "example": "1"
-                    },
-                    "service_id": {
-                        "type": "integer",
-                        "example": "2"
-                    },
-                    "title": {
-                        "type": "string",
-                        "example": "Besoin jardinage"
-                    },
-                    "description": {
-                        "type": "text",
-                        "example": "description de la mission"
-                    },
-                    "address": {
-                        "type": "string",
-                        "example": "Adresse de la mission"
-                    },
-                    "price": {
-                        "type": "integer",
-                        "example": "50000"
-                    },
-                    "date_start": {
-                        "type": "dateTime",
-                        "example": ""
-                    },
-                    "data_end": {
-                        "type": "dateTime",
-                        "example": ""
-                    },
-                    "status": {
-                        "type": "boolean",
-                        "example": "pending, in_progress..."
-                    }
-                },
-                "type": "object"
-            },
-            "Service": {
-                "title": "Service",
-                "required": [
-                    "id",
-                    "name"
-                ],
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": 1
-                    },
-                    "user_id": {
-                        "type": "integer",
-                        "example": "1"
-                    },
-                    "service_category_id": {
-                        "type": "integer",
-                        "example": "2"
-                    },
-                    "city_id": {
-                        "type": "integer",
-                        "example": "1"
-                    },
-                    "municipality_id": {
-                        "type": "integer",
-                        "example": "3"
-                    },
-                    "name": {
-                        "type": "string",
-                        "example": "Plomberie"
-                    },
-                    "description": {
-                        "type": "text",
-                        "example": "description du service"
-                    },
-                    "icon": {
-                        "type": "string",
-                        "example": "icône ou pictogramme optionnel"
-                    },
-                    "price_min": {
-                        "type": "integer",
-                        "example": "1000"
-                    },
-                    "price_max": {
-                        "type": "integer",
-                        "example": "50000"
-                    },
-                    "is_active": {
-                        "type": "boolean",
-                        "example": "true"
-                    }
-                },
-                "type": "object"
-            },
             "User": {
-                "title": "User",
-                "required": [
-                    "id",
-                    "name",
-                    "email"
-                ],
                 "properties": {
                     "id": {
-                        "type": "integer",
-                        "example": 1
+                        "type": "integer"
                     },
                     "first_name": {
-                        "type": "string",
-                        "example": "John"
+                        "type": "string"
                     },
                     "last_name": {
-                        "type": "string",
-                        "example": "Doe"
+                        "type": "string"
                     },
                     "email": {
                         "type": "string",
-                        "example": "john@example.com"
-                    },
-                    "password": {
-                        "type": "string",
-                        "example": "******"
+                        "format": "email"
                     },
                     "phone": {
                         "type": "string",
-                        "example": "0022374321256"
+                        "nullable": true
                     },
                     "role": {
-                        "type": "enum",
-                        "example": "['client', 'prestataire', 'admin'], Defauft:client"
-                    },
-                    "bio": {
-                        "type": "text",
-                        "example": "Biography"
+                        "type": "string",
+                        "enum": [
+                            "client",
+                            "prestataire",
+                            "admin",
+                            "superadmin"
+                        ]
                     },
                     "avatar_url": {
                         "type": "string",
-                        "example": "/storage/john/doe/johndoe.jpg"
-                    },
-                    "rating": {
-                        "type": "decimal",
-                        "example": "4.5"
-                    },
-                    "verified": {
-                        "type": "boolean",
-                        "example": "true"
+                        "nullable": true
                     }
                 },
                 "type": "object"
+            },
+            "AuthResponse": {
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "redirect": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginRequest": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "minLength": 6
+                    },
+                    "remember": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequest": {
+                "required": [
+                    "first_name",
+                    "last_name",
+                    "phone",
+                    "email",
+                    "password",
+                    "role"
+                ],
+                "properties": {
+                    "first_name": {
+                        "type": "string",
+                        "maxLength": 100
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "maxLength": 100
+                    },
+                    "phone": {
+                        "type": "string",
+                        "maxLength": 20
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "minLength": 6
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": [
+                            "client",
+                            "prestataire",
+                            "admin",
+                            "superadmin"
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "UserUpdateRequest": {
+                "required": [
+                    "first_name",
+                    "last_name",
+                    "email"
+                ],
+                "properties": {
+                    "first_name": {
+                        "type": "string",
+                        "maxLength": 100
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "maxLength": 100
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bio": {
+                        "type": "string",
+                        "maxLength": 2000,
+                        "nullable": true
+                    },
+                    "avatar": {
+                        "type": "string",
+                        "format": "binary",
+                        "nullable": true
+                    },
+                    "remove_avatar": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "ServiceCategoryRequest": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 150
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "icon": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ServiceRequest": {
+                "required": [
+                    "service_category_id",
+                    "name",
+                    "description",
+                    "price_min",
+                    "price_max"
+                ],
+                "properties": {
+                    "service_category_id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 150
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "icon": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "price_min": {
+                        "type": "number",
+                        "minimum": 0
+                    },
+                    "price_max": {
+                        "type": "number",
+                        "minimum": 0
+                    },
+                    "is_active": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "MissionRequest": {
+                "required": [
+                    "service_id",
+                    "title",
+                    "description",
+                    "city",
+                    "address",
+                    "date_start"
+                ],
+                "properties": {
+                    "service_id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "address": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "skills": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 10
+                    },
+                    "questions": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 5
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "price": {
+                        "type": "number",
+                        "minimum": 0,
+                        "nullable": true
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "MissionUpdateRequest": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/MissionRequest"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "enum": [
+                                    "pending",
+                                    "in_progress",
+                                    "completed",
+                                    "cancelled"
+                                ]
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "MissionAiRequest": {
+                "required": [
+                    "keywords"
+                ],
+                "properties": {
+                    "keywords": {
+                        "type": "string",
+                        "maxLength": 1000,
+                        "minLength": 3
+                    }
+                },
+                "type": "object"
+            },
+            "MessageRequest": {
+                "required": [
+                    "receiver_id",
+                    "message"
+                ],
+                "properties": {
+                    "receiver_id": {
+                        "type": "integer"
+                    },
+                    "mission_id": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "maxLength": 5000
+                    }
+                },
+                "type": "object"
+            },
+            "ReviewRequest": {
+                "required": [
+                    "mission_id",
+                    "rating"
+                ],
+                "properties": {
+                    "mission_id": {
+                        "type": "integer"
+                    },
+                    "rating": {
+                        "type": "integer",
+                        "maximum": 5,
+                        "minimum": 1
+                    },
+                    "comment": {
+                        "type": "string",
+                        "maxLength": 2000,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ReviewUpdateRequest": {
+                "required": [
+                    "rating"
+                ],
+                "properties": {
+                    "rating": {
+                        "type": "integer",
+                        "maximum": 5,
+                        "minimum": 1
+                    },
+                    "comment": {
+                        "type": "string",
+                        "maxLength": 2000,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "TranslationRequest": {
+                "required": [
+                    "text",
+                    "source_locale",
+                    "target_locale"
+                ],
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "maxLength": 10000
+                    },
+                    "source_locale": {
+                        "type": "string",
+                        "maxLength": 10
+                    },
+                    "target_locale": {
+                        "type": "string",
+                        "maxLength": 10
+                    },
+                    "context": {
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "UserSkillRequest": {
+                "required": [
+                    "user_id",
+                    "service_id",
+                    "level"
+                ],
+                "properties": {
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "service_id": {
+                        "type": "integer"
+                    },
+                    "level": {
+                        "type": "string",
+                        "maxLength": 50
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "Unauthenticated": {
+                "description": "Authentication required"
+            },
+            "Forbidden": {
+                "description": "Action forbidden"
+            },
+            "NotFound": {
+                "description": "Resource not found"
+            },
+            "ValidationError": {
+                "description": "Validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "Id": {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Laravel Sanctum session cookie",
+                "name": "laravel_session",
+                "in": "cookie"
             }
         }
     },
     "tags": [
         {
-            "name": "Missions",
-            "description": "Missions"
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
+        },
+        {
+            "name": "Service categories",
+            "description": "Service categories"
         },
         {
             "name": "Services",
             "description": "Services"
         },
         {
-            "name": "Users",
-            "description": "Users"
+            "name": "Missions",
+            "description": "Missions"
+        },
+        {
+            "name": "AI",
+            "description": "AI"
+        },
+        {
+            "name": "Messages",
+            "description": "Messages"
+        },
+        {
+            "name": "Reviews",
+            "description": "Reviews"
+        },
+        {
+            "name": "User skills",
+            "description": "User skills"
+        },
+        {
+            "name": "Resumes",
+            "description": "Resumes"
+        },
+        {
+            "name": "Portfolio",
+            "description": "Portfolio"
+        },
+        {
+            "name": "Payments",
+            "description": "Payments"
         }
     ]
 }

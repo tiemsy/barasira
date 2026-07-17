@@ -11,7 +11,7 @@ class ServiceStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return in_array($this->user()?->role, ['prestataire', 'admin'], true);
     }
 
     /**
@@ -22,13 +22,13 @@ class ServiceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => ['required', 'exists:service_categories,id'],
-            'name'        => ['required', 'string', 'max:150'],
+            'service_category_id' => ['required', 'exists:service_categories,id'],
+            'name' => ['required', 'string', 'max:150'],
             'description' => ['required', 'string'],
-            'icon'        => ['nullable', 'string', 'max:255'],
-            'price_min'   => ['required', 'numeric', 'min:0'],
-            'price_max'   => ['required', 'numeric', 'gte:price_min'],
-            'is_active'   => ['boolean'],
+            'icon' => ['nullable', 'string', 'max:255'],
+            'price_min' => ['required', 'numeric', 'min:0'],
+            'price_max' => ['required', 'numeric', 'gte:price_min'],
+            'is_active' => ['boolean'],
         ];
     }
 }

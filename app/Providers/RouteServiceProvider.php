@@ -42,17 +42,12 @@ class RouteServiceProvider extends ServiceProvider
                     'middleware' => [
                         'web',
                         'auth',
-                        'role:admin'
+                        'role:admin',
                     ],
-                    'namespace' => $this->namespace . '\Admin',
                 ],
                 base_path('routes/admin.php')
             );
         });
 
-        // Désactiver le model binding automatique pour User dans apiResource
-        Route::bind('user', function ($value) {
-            return $value; // On retourne seulement l’ID
-        });
     }
 }

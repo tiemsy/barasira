@@ -1,33 +1,15 @@
 <script setup>
 defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  value: {
-    type: [Number, String],
-    required: true,
-  },
-  icon: {
-    type: String,
-    default: '',
-  },
-  color: {
-    type: String,
-    default: 'primary', // primary | success | warning | danger
-  },
+    label: { type: String, required: true },
+    value: { type: [Number, String], required: true },
+    icon: { type: String, required: true },
+    tone: { type: String, default: 'green' },
 })
 </script>
 
 <template>
-  <div class="stats-card" :class="`stats-card--${color}`">
-    <div class="stats-card__icon" v-if="icon">
-      {{ icon }}
-    </div>
-
-    <div class="stats-card__content">
-      <p class="stats-card__title">{{ title }}</p>
-      <p class="stats-card__value">{{ value }}</p>
-    </div>
-  </div>
+    <article class="admin-stat-card">
+        <span :class="`admin-stat-card__icon admin-stat-card__icon--${tone}`"><i :class="`fas ${icon}`"></i></span>
+        <span class="admin-stat-card__copy"><small>{{ label }}</small><strong>{{ value }}</strong></span>
+    </article>
 </template>

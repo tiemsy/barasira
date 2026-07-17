@@ -1,84 +1,28 @@
 <script setup>
-defineProps({
-  users: {
-    type: Array,
-    required: true,
-  },
-})
+import { useI18n } from 'vue-i18n'
+
+defineProps({ users: { type: Array, default: () => [] } })
+const { t } = useI18n()
+const fullName = user => `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim()
+const roleLabel = role => t(`navbar.roles.${role === 'prestataire' ? 'provider' : role}`)
 </script>
 
 <template>
-  <div class="card">
-    <div class="card-header">
-      <h3>Derniers utilisateurs</h3>
-    </div>
-
-    <ul class="list">
-      <li v-for="user in users" :key="user.id" class="list-item">
-        <div class="avatar">
-          {{ user.first_name?.charAt(0) ?? '?' }}
-        </div>
-
-        <div class="info">
-          <p class="name">
-            {{ user.first_name }} {{ user.last_name }}
-          </p>
-          <p class="meta">
-            {{ user.email }} · {{ user.role }}
-          </p>
-        </div>
-      </li>
-    </ul>
-  </div>
+    <article class="admin-panel admin-recent-panel">
+        <header class="admin-panel__header">
+            <div><span>{{ $t('adminDashboard.latest') }}</span><h2>{{ $t('adminDashboard.recentUsers') }}</h2></div>
+            <i class="fas fa-users"></i>
+        </header>
+        <ul v-if="users.length" class="admin-recent-list">
+            <li v-for="user in users" :key="user.id">
+                <span class="admin-user-avatar">
+                    <img v-if="user.avatar_url" :src="user.avatar_url" alt="">
+                    <b v-else>{{ fullName(user).charAt(0) || '?' }}</b>
+                </span>
+                <span class="admin-recent-copy"><strong>{{ fullName(user) }}</strong><small>{{ user.email }}</small></span>
+                <span class="admin-role-badge">{{ roleLabel(user.role) }}</span>
+            </li>
+        </ul>
+        <p v-else class="admin-empty">{{ $t('adminDashboard.noRecentUsers') }}</p>
+    </article>
 </template>
-
-<style scoped>
-.card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 1.5rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,.06);
-}
-
-.card-header h3 {
-  margin: 0 0 1rem;
-  font-size: 1.1rem;
-}
-
-.list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.list-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: .75rem 0;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #e0f2fe;
-  color: #0369a1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-}
-
-.name {
-  font-weight: 600;
-  margin: 0;
-}
-
-.meta {
-  font-size: .85rem;
-  color: #6b7280;
-  margin: 0;
-}
-</style>

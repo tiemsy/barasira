@@ -13,16 +13,18 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         if (app()->environment('local') || app()->environment('staging')) {
-            $this->call(UserSeeder::class);
-            $this->call(UserSkillSeeder::class);
-            $this->call(ServiceCategorySeeder::class);
-            $this->call(CitySeeder::class);
-            $this->call(MunicipalitySeeder::class);
-            $this->call(ServiceSeeder::class);
-            $this->call(UserSkillSeeder::class);
-            $this->call(MissionSeeder::class);
-            // $this->call(ResumeSeeder::class);
-            $this->call(ReviewSeeder::class);
+            $this->call([
+                UserSeeder::class,
+                ServiceCategorySeeder::class,
+                CitySeeder::class,
+                MunicipalitySeeder::class,
+                ServiceSeeder::class,
+                UserSkillSeeder::class,
+                ResumeSeeder::class,
+                MissionSeeder::class,
+                ReviewSeeder::class,
+                PaymentSeeder::class,
+            ]);
         }
 
         if (app()->environment('production')) {

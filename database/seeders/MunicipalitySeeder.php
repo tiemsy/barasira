@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\City;
 use App\Models\Municipality;
 use Illuminate\Database\Seeder;
@@ -27,10 +26,9 @@ class MunicipalitySeeder extends Seeder
         ];
 
         foreach ($communes as $commune) {
-            Municipality::create([
+            Municipality::query()->updateOrCreate(['slug' => Str::slug($commune)], [
                 'city_id' => $bamako->id,
                 'name' => $commune,
-                'slug' => Str::slug($commune),
             ]);
         }
     }

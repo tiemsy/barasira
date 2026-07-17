@@ -22,21 +22,26 @@ class UserStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $googleProfile = $this->session()->get('google_registration');
+        $isGoogleRegistration = is_array($googleProfile)
+            && isset($googleProfile['google_id'], $googleProfile['email'])
+            && hash_equals((string) $googleProfile['email'], (string) $this->input('email'));
+
         return [
             'first_name' => ['required', 'string', 'max:100'],
-            'last_name'  => ['required', 'string', 'max:100'],
-            'phone'      => ['required', 'string', 'max:20', 'unique:users,phone'],
-            'email'      => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password'   => ['required', 'string', 'min:6'],
-            'password_confirmed' => 'Les mots de passe ne correspondent pas.',
-            'role'       => ['required', Rule::in(['client', 'prestataire', 'admin', 'superadmin'])],
+            'last_name' => ['required', 'string', 'max:100'],
+            'phone' => ['required', 'string', 'max:20', 'unique:users,phone'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => [$isGoogleRegistration ? 'nullable' : 'required', 'string', 'min:6', 'confirmed'],
+            'role' => ['required', Rule::in(['client', 'prestataire'])],
+            'device_name' => ['nullable', 'string', 'max:100'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'role.in' => 'Le rôle doit être : client, prestataire, admin ou superadmin.',
+            'role.in' => 'Le rôle doit être client ou prestataire.',
             'first_name' => 'Le prénom est obligatoire',
             'last_name' => 'Le nom de famille est obligatoire',
             'email' => 'Le champs email est obligatoire',

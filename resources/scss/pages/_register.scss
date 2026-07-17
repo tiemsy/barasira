@@ -39,17 +39,9 @@
     padding: 4rem;
 
     color: $c-white;
-    background-size:cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    // background:
-    //     linear-gradient(
-    //         135deg,
-    //         rgba($c-primary, .88),
-    //         rgba($c-secondary, .58)
-    //     ),
-    //     url('/images/auth-bg.png') center / cover no-repeat;
+    background:
+        linear-gradient(135deg, rgba($c-black, .86), rgba($c-black, .62)),
+        url('/images/auth-bg.png') center / cover no-repeat;
 }
 
 .register-visual::before {
@@ -501,4 +493,17 @@
     .sso-login {
         grid-template-columns: 1fr;
     }
+}
+.register-sso-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: .65rem;
+    margin: 0 0 1.25rem;
+    padding: .85rem 1rem;
+    border: 1px solid #f2d594;
+    border-radius: 12px;
+    background: #fff8e7;
+    color: #755310;
+    font-size: .9rem;
+    line-height: 1.5;
 }

@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Inertia\Inertia;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -32,15 +34,19 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        if ($e instanceof NotFoundHttpException && $request->expectsJson() === false) {
-            return Inertia::render('Errors/NotFound')->toResponse($request);
-        }
+        if (! $request->expectsJson()) {
+            if ($e instanceof NotFoundHttpException) {
+                return Inertia::render('Errors/NotFound')
+                    ->toResponse($request)
+                    ->setStatusCode(404);
+            }
 
-        if ($e instanceof \Illuminate\Auth\Middleware\EnsureEmailIsVerified) {
-
-            return response()->json([
-                'message' => 'Email non vérifié.'
-            ], 403);
+            if ($e instanceof AuthorizationException
+                || ($e instanceof HttpExceptionInterface && $e->getStatusCode() === 403)) {
+                return Inertia::render('Errors/Forbidden')
+                    ->toResponse($request)
+                    ->setStatusCode(403);
+            }
         }
 
         return parent::render($request, $e);

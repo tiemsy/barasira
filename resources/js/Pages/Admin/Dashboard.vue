@@ -1,122 +1,92 @@
 <script setup>
+import { computed } from 'vue'
+import { Head, Link, usePage } from '@inertiajs/vue3'
+import { useI18n } from 'vue-i18n'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import { Head, usePage } from '@inertiajs/vue3'
 import StatsCard from '@/Components/Admin/StatsCard.vue'
 import RecentUsers from '@/Components/Admin/RecentUsers.vue'
 import RecentServices from '@/Components/Admin/RecentServices.vue'
 import UsersChart from '@/Components/Admin/Charts/UsersChart.vue'
 import ServicesChart from '@/Components/Admin/Charts/ServicesChart.vue'
 
-defineProps({
-    stats: Object,
-    recentUsers: Array,
-    recentServices: Array,
-    userStats: Object,
-    serviceCategories: Array,
-    serviceCounts: Array,
+const props = defineProps({
+    stats: { type: Object, default: () => ({}) },
+    recentUsers: { type: Array, default: () => [] },
+    recentServices: { type: Array, default: () => [] },
+    userStats: { type: Object, default: () => ({}) },
+    missionStats: { type: Object, default: () => ({}) },
+    serviceStats: { type: Array, default: () => [] },
 })
 
 const page = usePage()
-// console.log(page.props[1].auth?.user);
-
-const user = page.props[1].auth?.user || null
+const { t } = useI18n()
+const user = computed(() => page.props?.auth?.user ?? null)
+const statCards = computed(() => [
+    { key: 'users', label: t('adminDashboard.stats.users'), value: props.stats.users ?? 0, icon: 'fa-users', tone: 'green' },
+    { key: 'providers', label: t('adminDashboard.stats.providers'), value: props.stats.providers ?? 0, icon: 'fa-user-gear', tone: 'blue' },
+    { key: 'clients', label: t('adminDashboard.stats.clients'), value: props.stats.clients ?? 0, icon: 'fa-user-group', tone: 'purple' },
+    { key: 'services', label: t('adminDashboard.stats.services'), value: props.stats.services ?? 0, icon: 'fa-layer-group', tone: 'amber' },
+    { key: 'missions', label: t('adminDashboard.stats.missions'), value: props.stats.missions ?? 0, icon: 'fa-briefcase', tone: 'rose' },
+    { key: 'active', label: t('adminDashboard.stats.activeMissions'), value: props.stats.active_missions ?? 0, icon: 'fa-bolt', tone: 'teal' },
+])
+const missionStatuses = computed(() => ['pending', 'in_progress', 'completed', 'cancelled'].map(status => ({
+    status,
+    value: props.missionStats[status] ?? 0,
+})))
 </script>
 
 <template>
-
-    <Head title="Dashboard" />
-
+    <Head :title="$t('adminDashboard.metaTitle')" />
     <AppLayout>
-        <!-- HERO -->
-        <section class="dashboard-hero">
-            <div class="container">
-                <h1 class="dashboard-title">
-                    👋 Bienvenue dans le tableau de bord Administrateur {{ user?.first_name }}
-                </h1>
-                <p class="dashboard-subtitle">
-                    Voici un aperçu de votre activité sur Barasira
-                </p>
-            </div>
-        </section>
+        <main class="admin-dashboard">
+            <section class="admin-dashboard__hero">
+                <div class="admin-dashboard__container admin-dashboard__hero-layout">
+                    <div>
+                        <span class="admin-dashboard__eyebrow"><i class="fas fa-shield-halved"></i>{{ $t('adminDashboard.eyebrow') }}</span>
+                        <h1>{{ $t('adminDashboard.welcome', { name: user?.firstname || user?.name || '' }) }}</h1>
+                        <p>{{ $t('adminDashboard.subtitle') }}</p>
+                    </div>
+                    <div class="admin-dashboard__hero-actions">
+                        <Link href="/admin/users" class="admin-action admin-action--secondary"><i class="fas fa-users-gear"></i>{{ $t('adminDashboard.actions.users') }}</Link>
+                        <Link href="/admin/services" class="admin-action admin-action--secondary"><i class="fas fa-layer-group"></i>{{ $t('adminDashboard.actions.services') }}</Link>
+                        <Link href="/missions/index" class="admin-action admin-action--primary"><i class="fas fa-briefcase"></i>{{ $t('adminDashboard.actions.missions') }}</Link>
+                    </div>
+                </div>
+            </section>
 
-        <!-- CONTENT -->
-        <section class="dashboard-content">
-            <div class="container grid">
-                <!-- STATS -->
-                <section class="stats-grid">
-                    <StatsCard title="Utilisateurs" :value="stats.users" icon="👤" color="primary" />
-                    <StatsCard title="Prestataires" :value="stats.providers" icon="🛠️" color="success" />
-                    <StatsCard title="Clients" :value="stats.clients" icon="👤" color="success" />
-                    <StatsCard title="Administrateurs" :value="stats.admins" icon="👤" color="warning" />
-                    <StatsCard title="Services" :value="stats.services" icon="📦" color="warning" />
-                    <StatsCard title="Missions" :value="stats.missions" icon="📋" color="danger" />
-                </section>
+            <section class="admin-dashboard__body">
+                <div class="admin-dashboard__container">
+                    <section class="admin-stat-grid" :aria-label="$t('adminDashboard.overview')">
+                        <StatsCard v-for="card in statCards" :key="card.key" v-bind="card" />
+                    </section>
 
-                <section class="grid two-cols">
-                    <UsersChart :data="userStats" />
-                    <ServicesChart :categories="serviceCategories" :counts="serviceCounts" />
-                </section>
+                    <section class="admin-dashboard__charts">
+                        <UsersChart :data="userStats" />
+                        <ServicesChart :items="serviceStats" />
+                    </section>
 
-                <!-- RECENT -->
-                <section class="dashboard-grid">
-                    <RecentServices :services="recentServices" />
-                    <RecentUsers :users="recentUsers" />
-                </section>
+                    <section class="admin-mission-overview">
+                        <header>
+                            <div><span>{{ $t('adminDashboard.activity') }}</span><h2>{{ $t('adminDashboard.missionDistribution') }}</h2></div>
+                            <strong>{{ stats.missions ?? 0 }}</strong>
+                        </header>
+                        <div class="admin-mission-statuses">
+                            <article v-for="item in missionStatuses" :key="item.status">
+                                <span :class="`admin-status-dot admin-status-dot--${item.status}`"></span>
+                                <small>{{ $t(`missions.status.${item.status}`) }}</small>
+                                <strong>{{ item.value }}</strong>
+                            </article>
+                        </div>
+                    </section>
 
-
-            </div>
-        </section>
+                    <section class="admin-dashboard__recent">
+                        <RecentServices :services="recentServices" />
+                        <RecentUsers :users="recentUsers" />
+                    </section>
+                </div>
+            </section>
+        </main>
     </AppLayout>
 </template>
 
-<style scoped>
-.dashboard-hero {
-    background: linear-gradient(135deg, #1e3a8a, #2563eb);
-    color: #fff;
-    padding: 4rem 1rem;
-}
-
-.dashboard-title {
-    font-size: 2.2rem;
-    font-weight: 700;
-}
-
-.dashboard-subtitle {
-    margin-top: 0.5rem;
-    opacity: 0.9;
-}
-
-.dashboard-content {
-    padding: 4rem 1rem;
-}
-
-.grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-
-.dash-card {
-    background: #fff;
-    border-radius: 18px;
-    padding: 2rem;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .08);
-    transition: transform .3s ease, box-shadow .3s ease;
-}
-
-.dash-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, .12);
-}
-
-.btn-primary {
-    display: inline-block;
-    margin-top: 1rem;
-    background: #2563eb;
-    color: #fff;
-    padding: .6rem 1.4rem;
-    border-radius: 999px;
-    text-decoration: none;
-    font-weight: 600;
-}
-</style>
+<style lang="scss" src="../../../scss/pages/admin/_dashboard.scss"></style>

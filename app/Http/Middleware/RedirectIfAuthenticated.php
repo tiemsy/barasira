@@ -24,13 +24,13 @@ class RedirectIfAuthenticated
                 $user = Auth::guard($guard)->user();
 
                 // Si l'utilisateur n'a pas vérifié son email → redirection
-                if (!$user->hasVerifiedEmail()) {
+                if (! $user->hasVerifiedEmail()) {
                     return redirect()->route('verification.notice');
                 }
 
                 // Redirection selon rôle
                 return match ($user->role) {
-                    'admin' => redirect('/admin/dashboard'),
+                    'admin', 'superadmin' => redirect('/admin/dashboard'),
                     'prestataire' => redirect('/provider/dashboard'),
                     'client' => redirect('/dashboard'),
                 };

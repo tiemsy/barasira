@@ -55,11 +55,15 @@ RUN php artisan config:clear \
 
 # Nginx + supervisor config
 COPY docker/nginx/prod.conf /etc/nginx/sites-available/default
+COPY docker/php/logging.ini /usr/local/etc/php/conf.d/zz-barasira-logging.ini
 RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default \
     && rm -f /etc/nginx/sites-enabled/default.bak
 
 # Permissions for runtime writable dirs
 RUN chown -R www-data:www-data /var/www/html \
+    && touch storage/logs/php-error.log \
+    && chown www-data:www-data storage/logs/php-error.log \
+    && chmod 664 storage/logs/php-error.log \
     && find storage -type d -exec chmod 775 {} \; \
     && find bootstrap/cache -type d -exec chmod 775 {} \;
 

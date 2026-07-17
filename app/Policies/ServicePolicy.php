@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Service;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class ServicePolicy
 {
@@ -13,7 +12,7 @@ class ServicePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 
     /**
@@ -29,7 +28,7 @@ class ServicePolicy
      */
     public function create(User $user): bool
     {
-        return $user->role === 'admin';
+        return $user->role === 'prestataire' || $user->isAdmin();
     }
 
     /**
@@ -37,7 +36,7 @@ class ServicePolicy
      */
     public function update(User $user, Service $service): bool
     {
-        return $user->id === $service->user_id || $user->role === 'admin';
+        return $user->id === $service->user_id || $user->isAdmin();
     }
 
     /**
@@ -45,7 +44,7 @@ class ServicePolicy
      */
     public function delete(User $user, Service $service): bool
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 
     /**

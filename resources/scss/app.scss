@@ -18,6 +18,5 @@
 @use "pages/login";
 @use "pages/register";
 @use "pages/missions";
-
-// admin pages
-@use 'components/admin/stats'
+@use "pages/contact";
+@use "pages/errors";

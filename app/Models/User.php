@@ -4,16 +4,17 @@ namespace App\Models;
 
 use App\Notifications\VerifyEmailCustom;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\{HasMany, BelongsToMany};
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, SoftDeletes, HasApiTokens;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'first_name',
@@ -26,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'avatar_url',
         'rating',
         'verified',
-        'email_verified_at'
+        'email_verified_at',
     ];
 
     protected $hidden = ['password', 'remember_token'];
@@ -39,7 +40,17 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyEmailCustom());
+        $this->notify(new VerifyEmailCustom);
+    }
+
+    public function isAdmin(): bool
+    {
+        return in_array($this->role, ['admin', 'superadmin'], true);
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'superadmin';
     }
 
     // public function missions(): HasMany
@@ -57,38 +68,41 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Mission::class, 'client_id');
     }
 
-
     public function applications(): HasMany
     {
         return $this->hasMany(Application::class);
     }
 
+    public function sentMessages(): HasMany
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function receivedMessages(): HasMany
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
 
     public function services(): BelongsToMany
     {
-        return $this->belongsToMany(Service::class, 'user_skills')
-            // ->withPivot(['certificate', 'years_experience'])
-        ;
+        return $this->belongsToMany(Service::class, 'user_skills');
+        // ->withPivot(['certificate', 'years_experience'])
     }
-
 
     public function favorites(): HasMany
     {
         return $this->hasMany(Favorite::class);
     }
 
-
     public function resume()
     {
         return $this->hasOne(Resume::class);
     }
 
-
     public function documents(): HasMany
     {
         return $this->hasMany(Document::class);
     }
-
 
     public function disputes(): HasMany
     {

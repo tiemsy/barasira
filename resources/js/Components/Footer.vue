@@ -1,16 +1,83 @@
-<template>
-  <footer class="footer">
-    <div class="container footer-inner">
-      <p>© {{ new Date().getFullYear() }} {{ $t('footer.copyright') }}</p>
-      <div class="footer-links">
-        <Link href="#">{{ $t('footer.terms') }}</Link>
-        <Link href="#">{{ $t('footer.privacy') }}</Link>
-        <Link href="#">{{ $t('footer.contactUs') }}</Link>
-      </div>
-    </div>
-  </footer>
-</template>
-
 <script setup>
-    import { Link } from '@inertiajs/vue3'
+import { computed } from 'vue'
+import { Link, usePage } from '@inertiajs/vue3'
+import logoUrl from '@/assets/logo-barasira.png'
+
+const page = usePage()
+const user = computed(() => page.props?.auth?.user ?? null)
+const dashboardUrl = computed(() => {
+    if (['admin', 'superadmin'].includes(user.value?.role)) return '/admin/dashboard'
+    if (user.value?.role === 'prestataire') return '/provider/dashboard'
+    return '/dashboard'
+})
+const currentYear = new Date().getFullYear()
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 </script>
+
+<template>
+    <footer class="footer">
+        <div class="footer__accent" aria-hidden="true"></div>
+
+        <div class="footer__container">
+            <div class="footer__main">
+                <div class="footer__brand">
+                    <Link href="/" class="footer__logo" :aria-label="$t('navbar.homeLabel')">
+                        <span><img :src="logoUrl" alt=""></span>
+                        <strong>{{ $t('app.name') }}</strong>
+                    </Link>
+                    <p>{{ $t('footer.description') }}</p>
+                    <div class="footer__promise">
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                        <span>{{ $t('footer.promise') }}</span>
+                    </div>
+                </div>
+
+                <nav class="footer__column" :aria-label="$t('footer.explore')">
+                    <h2>{{ $t('footer.explore') }}</h2>
+                    <Link href="/">{{ $t('navigation.home') }}</Link>
+                    <Link href="/services">{{ $t('navigation.services') }}</Link>
+                    <Link href="/contact-us">{{ $t('footer.contactUs') }}</Link>
+                </nav>
+
+                <nav class="footer__column" :aria-label="$t('footer.account')">
+                    <h2>{{ $t('footer.account') }}</h2>
+                    <template v-if="user">
+                        <Link :href="dashboardUrl">{{ $t('navigation.dashboard') }}</Link>
+                        <Link href="/messages">{{ $t('navigation.messages') }}</Link>
+                        <Link href="/profile">{{ $t('navigation.profile') }}</Link>
+                    </template>
+                    <template v-else>
+                        <Link href="/login">{{ $t('navigation.login') }}</Link>
+                        <Link href="/register">{{ $t('navigation.register') }}</Link>
+                    </template>
+                </nav>
+
+                <div class="footer__contact">
+                    <h2>{{ $t('footer.needHelp') }}</h2>
+                    <p>{{ $t('footer.helpDescription') }}</p>
+                    <Link href="/contact-us" class="footer__contact-link">
+                        <span><i class="fas fa-envelope" aria-hidden="true"></i></span>
+                        <span>
+                            <small>{{ $t('footer.writeToUs') }}</small>
+                            <strong>{{ $t('footer.contactUs') }}</strong>
+                        </span>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </Link>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <p>© {{ currentYear }} {{ $t('footer.copyright') }}</p>
+                <div>
+                    <span>{{ $t('footer.madeForMali') }}</span>
+                    <button type="button" :aria-label="$t('footer.backToTop')" @click="scrollToTop">
+                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+</template>

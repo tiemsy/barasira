@@ -1,0 +1,218 @@
+@use "../variables/globals" as *;
+
+.error-state {
+    position: relative;
+    min-height: calc(100vh - 76px);
+    display: grid;
+    overflow: hidden;
+    place-items: center;
+    padding: 4rem 1.5rem;
+    background:
+        radial-gradient(circle at 12% 15%, rgba($c-primary, .12), transparent 28%),
+        radial-gradient(circle at 88% 80%, rgba($c-secondary, .12), transparent 25%),
+        #f8faf9;
+}
+
+.error-state__ambient {
+    position: absolute;
+    border: 1px solid rgba($c-primary, .1);
+    border-radius: 50%;
+}
+
+.error-state__ambient--one {
+    top: -160px;
+    right: -120px;
+    width: 420px;
+    height: 420px;
+}
+
+.error-state__ambient--two {
+    bottom: -210px;
+    left: -140px;
+    width: 500px;
+    height: 500px;
+}
+
+.error-state__card {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 980px);
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    overflow: hidden;
+    border: 1px solid $c-gray-200;
+    border-radius: 30px;
+    background: rgba($c-white, .94);
+    box-shadow: 0 35px 90px rgba($c-black, .12);
+    backdrop-filter: blur(16px);
+}
+
+.error-state__visual {
+    position: relative;
+    min-height: 480px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 30% 25%, rgba($c-white, .15), transparent 24%),
+        linear-gradient(145deg, #10271b, $c-primary);
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        border: 1px solid rgba($c-white, .12);
+        border-radius: 50%;
+    }
+
+    &::before {
+        width: 330px;
+        height: 330px;
+    }
+
+    &::after {
+        width: 230px;
+        height: 230px;
+    }
+}
+
+.error-state__code {
+    position: absolute;
+    right: -8px;
+    bottom: -32px;
+    color: rgba($c-white, .07);
+    font-size: clamp(9rem, 21vw, 15rem);
+    font-weight: 950;
+    letter-spacing: -.09em;
+    line-height: 1;
+}
+
+.error-state__shield {
+    position: relative;
+    z-index: 2;
+    width: 124px;
+    height: 144px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba($c-white, .45);
+    border-radius: 50% 50% 42% 42% / 35% 35% 58% 58%;
+    background: rgba($c-white, .12);
+    box-shadow: 0 25px 55px rgba($c-black, .2);
+    backdrop-filter: blur(12px);
+
+    span {
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: $c-white;
+        color: $c-primary;
+        font-size: 1.7rem;
+        font-weight: 950;
+    }
+}
+
+.error-state__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(2rem, 6vw, 4.5rem);
+
+    h1 {
+        max-width: 520px;
+        margin: .8rem 0 1rem;
+        color: #12221a;
+        font-size: clamp(2.2rem, 5vw, 3.9rem);
+        font-weight: 950;
+        letter-spacing: -.055em;
+        line-height: 1.02;
+    }
+
+    > p {
+        max-width: 560px;
+        margin: 0;
+        color: $c-gray-500;
+        line-height: 1.75;
+    }
+}
+
+.error-state__eyebrow {
+    color: $c-primary;
+    font-size: .75rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.error-state__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .7rem;
+    margin-top: 2rem;
+}
+
+.error-state__primary,
+.error-state__secondary {
+    min-height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    padding: .75rem 1.1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 850;
+    text-decoration: none;
+}
+
+.error-state__primary {
+    border: 1px solid $c-primary;
+    background: $c-primary;
+    color: $c-white;
+    box-shadow: 0 10px 24px rgba($c-primary, .2);
+}
+
+.error-state__secondary {
+    border: 1px solid $c-gray-200;
+    background: $c-white;
+    color: $c-dark;
+}
+
+.error-state__help {
+    margin-top: 2rem !important;
+    font-size: .8rem;
+
+    a {
+        color: $c-primary;
+        font-weight: 800;
+    }
+}
+
+@media (max-width: 760px) {
+    .error-state {
+        padding: 2rem 1rem;
+    }
+
+    .error-state__card {
+        grid-template-columns: 1fr;
+    }
+
+    .error-state__visual {
+        min-height: 220px;
+    }
+
+    .error-state__shield {
+        width: 88px;
+        height: 104px;
+    }
+
+    .error-state__code {
+        font-size: 9rem;
+    }
+
+    .error-state__actions {
+        display: grid;
+    }
+}

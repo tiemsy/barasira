@@ -12,7 +12,12 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $authenticatedUser = $this->user();
+        $updatedUser = $this->route('user');
+
+        return $authenticatedUser !== null
+            && $updatedUser !== null
+            && ($authenticatedUser->is($updatedUser) || $authenticatedUser->isAdmin());
     }
 
     /**
@@ -25,28 +30,30 @@ class UserUpdateRequest extends FormRequest
         $userId = $this->route('user') ? $this->route('user')->id : null;
 
         return [
-            'first_name' => ['sometimes', 'string', 'max:100'],
-            'last_name'  => ['sometimes', 'string', 'max:100'],
-            'email'      => [
-                'sometimes',
+            'first_name' => ['required', 'string', 'max:100'],
+            'last_name' => ['required', 'string', 'max:100'],
+            'email' => [
+                'required',
                 'email',
                 'max:150',
                 Rule::unique('users', 'email')->ignore($userId),
             ],
-            'password'   => ['sometimes', 'nullable', 'string', 'min:6'],
-            'phone'      => ['sometimes', 'nullable', 'string', 'max:30'],
-            'role'       => ['sometimes', 'in:client,prestataire,admin'],
-            'bio'        => ['sometimes', 'nullable', 'string'],
-            'avatar_url' => ['sometimes', 'nullable', 'url', 'max:255'],
-            'rating'     => ['sometimes', 'numeric', 'between:0,5'],
-            'verified'   => ['sometimes', 'boolean'],
+            'phone' => ['sometimes', 'nullable', 'string', 'max:30'],
+            'bio' => ['sometimes', 'nullable', 'string', 'max:2000'],
+            'avatar' => ['sometimes', 'nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:3072'],
+            'remove_avatar' => ['sometimes', 'boolean'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'role.in' => 'Le rôle doit être : client ou prestataire',
+            'first_name.required' => 'Le prénom est obligatoire.',
+            'last_name.required' => 'Le nom est obligatoire.',
+            'email.required' => 'L’adresse e-mail est obligatoire.',
+            'avatar.image' => 'Le fichier sélectionné doit être une image.',
+            'avatar.mimes' => 'La photo doit être au format JPG, PNG ou WebP.',
+            'avatar.max' => 'La photo ne doit pas dépasser 3 Mo.',
         ];
     }
 }
