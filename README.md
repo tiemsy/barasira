@@ -121,7 +121,15 @@ Comptes principaux (mot de passe : `password`) :
 
 Le compte administrateur reste `admin@barasira.com` avec le mot de passe défini par `AdminSeeder`.
 
-En environnement local, un superadministrateur est également créé avec `superadmin@barasira.com` et le mot de passe `superadmin123`. En production, définissez `SUPERADMIN_EMAIL`, `SUPERADMIN_PASSWORD` et `SUPERADMIN_PHONE` avant d’exécuter `AdminSeeder` ; aucun mot de passe superadmin par défaut n’y est utilisé.
+En local, un superadministrateur est créé avec `superadmin@barasira.com` et le mot de passe `superadmin123`. En staging et en production, configurez obligatoirement `SUPERADMIN_EMAIL` et un `SUPERADMIN_PASSWORD` d’au moins 12 caractères. `SUPERADMIN_PHONE`, `SUPERADMIN_FIRST_NAME` et `SUPERADMIN_LAST_NAME` sont personnalisables.
+
+Le provisionnement est idempotent et peut être exécuté après chaque déploiement :
+
+```bash
+php artisan superadmin:ensure
+```
+
+La commande crée le compte, restaure un compte précédemment supprimé ou met à jour ses informations et son mot de passe. `php artisan db:seed --force` l’exécute aussi automatiquement en staging et en production.
 
 ## Rôles utilisateurs
 
@@ -300,6 +308,7 @@ Les tests locaux nécessitent une base de données accessible. La configuration 
 
 - Compiler les assets avec `npm run build`
 - Exécuter les migrations avec `php artisan migrate --force`
+- Provisionner le superadmin avec `php artisan superadmin:ensure`
 - Générer les caches Laravel
 - Configurer les variables d’environnement de la base, du mail, de Sanctum et des fournisseurs IA
 

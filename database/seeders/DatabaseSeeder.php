@@ -30,5 +30,9 @@ class DatabaseSeeder extends Seeder
         if (app()->environment('production')) {
             $this->call(AdminSeeder::class);
         }
+
+        if (app()->environment('local', 'staging', 'production')) {
+            $this->call(SuperAdminSeeder::class);
+        }
     }
 }
