@@ -7,79 +7,37 @@ use App\Models\Municipality;
 use App\Models\Service;
 use App\Models\ServiceCategory;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ServiceSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $categories = ServiceCategory::all();
-        $users = User::all();
-        $cities = City::all();
-        $municipalities = Municipality::all();
+        $services = [
+            ['ibrahim.electricien@barasira.test', 'Électricité', 'Bamako', 'commune-iv', 'Installation et dépannage électrique', 'Installation de tableaux, prises, éclairage et diagnostic de pannes pour maisons et bureaux.', 'fa-solid fa-bolt', 15000, 75000],
+            ['mariam.plombiere@barasira.test', 'Plomberie', 'Bamako', 'commune-v', 'Dépannage plomberie à domicile', 'Réparation de fuites, débouchage, remplacement de robinets et installation d’équipements sanitaires.', 'fa-solid fa-wrench', 7500, 45000],
+            ['oumar.transport@barasira.test', 'Transport', 'Ségou', null, 'Transport de marchandises et déménagement', 'Transport sécurisé de colis, meubles et marchandises à Ségou, Bamako et dans les villes voisines.', 'fa-solid fa-truck', 10000, 120000],
+            ['aissata.couture@barasira.test', 'Couture', 'Bamako', 'commune-ii', 'Couture traditionnelle et moderne', 'Confection sur mesure de boubous, robes, ensembles professionnels et retouches soignées.', 'fa-solid fa-scissors', 5000, 50000],
+            ['boubacar.informatique@barasira.test', 'Informatique', 'Bamako', 'commune-iii', 'Dépannage informatique et réseau', 'Installation de logiciels, nettoyage d’ordinateurs, récupération de données et configuration Wi-Fi.', 'fa-solid fa-laptop', 10000, 60000],
+        ];
 
-        if ($categories->isEmpty() || $users->isEmpty() || $cities->isEmpty() || $municipalities->isEmpty()) {
-            $this->command->warn('Catégorie ou user ou ville ou commune non trouvée : ServiceSeeder ignoré.');
-            return;
+        foreach ($services as [$email, $category, $city, $municipality, $name, $description, $icon, $minimum, $maximum]) {
+            Service::query()->updateOrCreate(
+                ['name' => $name],
+                [
+                    'user_id' => User::query()->where('email', $email)->value('id'),
+                    'service_category_id' => ServiceCategory::query()->where('name', $category)->value('id'),
+                    'city_id' => City::query()->where('name', $city)->value('id'),
+                    'municipality_id' => $municipality ? Municipality::query()->where('slug', $municipality)->value('id') : null,
+                    'description' => $description,
+                    'icon' => $icon,
+                    'price_min' => $minimum,
+                    'price_max' => $maximum,
+                    'is_active' => true,
+                ]
+            );
         }
 
-
-        // Exemple manuel de service pour plus de réalisme
-        Service::updateOrCreate([
-            'name' => 'Installation Électrique'
-        ], [
-            'user_id' => User::where('role', 'prestataire')->inRandomOrder()->first()->id,
-            'service_category_id' => $categories->where('name', 'Électricité')->first()->id ?? $categories->first()->id,
-            'city_id' => $cities->where('name', 'Bamako')->first()->id,
-            'municipality_id' => Municipality::inRandomOrder()->first()->id,
-            'description' => 'Installation complète du réseau électrique pour maison ou bureau.',
-            'icon' => 'fa-solid fa-bolt',
-            'price_min' => 15000,
-            'price_max' => 50000,
-            'is_active' => true,
-        ]);
-
-        Service::create([
-            'user_id' => User::where('role', 'prestataire')->inRandomOrder()->first()->id,
-            'service_category_id' => $categories->where('name', 'Plomberie')->first()->id,
-            'city_id' => $cities->where('name', 'Bamako')->first()->id,
-            'municipality_id' => Municipality::inRandomOrder()->first()->id,
-            'name' => 'Dépannage plomberie à domicile',
-            'description' => 'Réparation de fuites, remplacement de robinets et installation sanitaire.',
-            'price_min' => 5000,
-            'price_max' => 15000,
-            'is_active' => true,
-        ]);
-
-        Service::create([
-            'user_id' => User::where('role', 'prestataire')->inRandomOrder()->first()->id,
-            'service_category_id' => $categories->where('name', 'Transport')->first()->id,
-            'city_id' => $cities->where('name', 'Ségou')->first()->id,
-            'name' => 'Transport de marchandises locales',
-            'description' => 'Transport sécurisé de colis et marchandises entre quartiers.',
-            'price_min' => 7000,
-            'price_max' => 20000,
-            'is_active' => true,
-        ]);
-
-        Service::create([
-            'user_id' => User::where('role', 'prestataire')->inRandomOrder()->first()->id,
-            'service_category_id' => $categories->where('name', 'Couture')->first()->id,
-            'city_id' => $cities->where('name', 'Kita')->first()->id,
-            'name' => 'Couture traditionnelle et moderne',
-            'description' => 'Confection de boubous, robes et habits sur mesure.',
-            'price_min' => 4000,
-            'price_max' => 12000,
-            'is_active' => true,
-        ]);
-
-        // Générer 30 services aléatoires
-        Service::factory()->count(30)->create();
-
-        $this->command->info('ServiceSeeder exécuté avec succès.');
+        $this->command->info('Services de démonstration créés avec succès.');
     }
 }

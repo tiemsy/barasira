@@ -5,12 +5,7 @@
             <div class="login-shell">
 
                 <!-- LEFT VISUAL -->
-                <div class="login-visual" :style="{
-                    backgroundImage: `
-                    linear-gradient(135deg, rgba(0,0,0,.86), rgba(0,0,0,.62)),
-                    url('${appUrl}/images/auth-bg.png')
-                `
-                }">
+                <div class="login-visual">
                     <div class="login-visual__content">
                         <span class="login-visual__badge">
                             🔐 Barasira sécurisé
@@ -202,7 +197,6 @@ import { reactive, ref } from 'vue'
 import { api } from '@/lib/api'
 import axios from 'axios'
 
-const appUrl = import.meta.env.VITE_APP_URL
 const baseURL = import.meta.env.VITE_API_URL
 
 const errors = ref({})
@@ -216,7 +210,7 @@ const form = reactive({
 
 const loginWithGoogle = () => {
     window.location.href =
-        `${import.meta.env.VITE_API_URL}/api/auth/google/redirect`
+        `${import.meta.env.VITE_API_URL}/api/auth/google/redirect?intent=login`
 }
 
 const submit = async () => {

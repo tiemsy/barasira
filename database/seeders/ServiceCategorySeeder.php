@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\ServiceCategory;
+use Illuminate\Database\Seeder;
 
 class ServiceCategorySeeder extends Seeder
 {
@@ -14,14 +13,14 @@ class ServiceCategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name' => 'Plomberie', 'icon' => 'fa-solid fa-water', 'is_active' => true],
-            ['name' => 'Électricité', 'icon' => 'fa-solid fa-bolt', 'is_active' => true],
-            ['name' => 'Couture', 'icon' => 'fa-solid fa-scissors', 'is_active' => true],
-            ['name' => 'Transport', 'icon' => 'fa-solid fa-truck', 'is_active' => true],
-            ['name' => 'Jardinage', 'icon' => 'fa-solid fa-leaf', 'is_active' => true],
-            ['name' => 'Ménage', 'icon' => 'fa-solid fa-broom', 'is_active' => true],
-            ['name' => 'Informatique', 'icon' => 'fa-solid fa-laptop', 'is_active' => true],
-            ['name' => 'Bâtiment', 'icon' => 'fa-solid fa-building', 'is_active' => true],
+            ['name' => 'Plomberie', 'description' => 'Installation sanitaire, recherche de fuite et dépannage.', 'icon' => 'fa-solid fa-water', 'is_active' => true],
+            ['name' => 'Électricité', 'description' => 'Installation, mise aux normes et dépannage électrique.', 'icon' => 'fa-solid fa-bolt', 'is_active' => true],
+            ['name' => 'Couture', 'description' => 'Confection, retouche et création de vêtements sur mesure.', 'icon' => 'fa-solid fa-scissors', 'is_active' => true],
+            ['name' => 'Transport', 'description' => 'Livraison, déménagement et transport de marchandises.', 'icon' => 'fa-solid fa-truck', 'is_active' => true],
+            ['name' => 'Jardinage', 'description' => 'Entretien des espaces verts et aménagement extérieur.', 'icon' => 'fa-solid fa-leaf', 'is_active' => true],
+            ['name' => 'Ménage', 'description' => 'Nettoyage ponctuel ou régulier des logements et bureaux.', 'icon' => 'fa-solid fa-broom', 'is_active' => true],
+            ['name' => 'Informatique', 'description' => 'Dépannage, installation et assistance numérique.', 'icon' => 'fa-solid fa-laptop', 'is_active' => true],
+            ['name' => 'Bâtiment', 'description' => 'Maçonnerie, peinture, rénovation et petits travaux.', 'icon' => 'fa-solid fa-building', 'is_active' => true],
         ];
 
         foreach ($categories as $category) {

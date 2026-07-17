@@ -1,0 +1,4 @@
+.impersonation-banner { display: flex; position: sticky; z-index: 1100; top: 0; align-items: center; justify-content: center; gap: 1rem; padding: .65rem 1rem; background: #7c2d12; color: #fff; box-shadow: 0 5px 18px rgba(68, 27, 12, .22); font-size: .86rem; font-weight: 750; }
+.impersonation-banner span, .impersonation-banner button { display: inline-flex; align-items: center; gap: .5rem; }
+.impersonation-banner button { padding: .45rem .7rem; border: 1px solid rgba(255,255,255,.45); border-radius: 8px; background: #fff; color: #7c2d12; font: inherit; cursor: pointer; }
+@media (max-width: 600px) { .impersonation-banner { align-items: stretch; flex-direction: column; text-align: center; }.impersonation-banner span, .impersonation-banner button { justify-content: center; } }

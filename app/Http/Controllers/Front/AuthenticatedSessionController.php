@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
@@ -15,11 +15,11 @@ class AuthenticatedSessionController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email'    => ['required', 'email'],
+            'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if (!Auth::attempt($credentials, $request->boolean('remember'))) {
+        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages([
                 'email' => 'Email incorrect.',
                 'password' => 'Mot de passe incorrect.',
@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         // Email non vérifié → redirection
-        if (!$user->hasVerifiedEmail()) {
+        if (! $user->hasVerifiedEmail()) {
             return redirect()->route('verification.notice');
         }
 
@@ -44,10 +44,10 @@ class AuthenticatedSessionController extends Controller
 
         return response()->json([
             'redirect' => match ($user->role) {
-                'admin' => '/admin/dashboard',
+                'admin', 'superadmin' => '/admin/dashboard',
                 'prestataire' => '/provider/dashboard',
                 default => '/dashboard',
-            }
+            },
         ]);
     }
 
@@ -55,23 +55,23 @@ class AuthenticatedSessionController extends Controller
     {
         $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:100'],
-            'last_name'  => ['required', 'string', 'max:100'],
-            'phone'      => ['required', 'string', 'max:20', 'unique:users,phone'],
-            'email'      => ['nullable', 'email', 'max:255', 'unique:users,email'],
-            'password'   => ['required', 'confirmed', 'min:8'],
-            'role'       => ['required', Rule::in(['user', 'provider'])],
+            'last_name' => ['required', 'string', 'max:100'],
+            'phone' => ['required', 'string', 'max:20', 'unique:users,phone'],
+            'email' => ['nullable', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'confirmed', 'min:8'],
+            'role' => ['required', Rule::in(['user', 'provider'])],
         ]);
 
         // Création de l'utilisateur
         $user = User::create([
             'first_name' => $validated['first_name'],
-            'last_name'  => $validated['last_name'],
-            'phone'      => $validated['phone'],
-            'email'      => $validated['email'] ?? null,
-            'role'       => $validated['role'],
-            'password'   => Hash::make($validated['password']),
-            'verified'   => false,
-            'rating'     => 0,
+            'last_name' => $validated['last_name'],
+            'phone' => $validated['phone'],
+            'email' => $validated['email'] ?? null,
+            'role' => $validated['role'],
+            'password' => Hash::make($validated['password']),
+            'verified' => false,
+            'rating' => 0,
         ]);
 
         // Connexion automatique
@@ -80,10 +80,10 @@ class AuthenticatedSessionController extends Controller
         // Redirection Inertia
         return response()->json([
             'redirect' => match ($user->role) {
-                'admin' => '/admin/dashboard',
+                'admin', 'superadmin' => '/admin/dashboard',
                 'prestataire' => '/provider/dashboard',
                 default => '/dashboard',
-            }
+            },
         ]);
     }
 

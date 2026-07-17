@@ -5,12 +5,7 @@
             <div class="register-shell">
 
                 <!-- LEFT VISUAL -->
-                <div class="register-visual" :style="{
-                backgroundImage: `
-                    linear-gradient(135deg, rgba(0,0,0,.86), rgba(0,0,0,.62)),
-                    url('${appUrl}/images/auth-bg.png')
-                `
-                }">
+                <div class="register-visual">
                     <div class="register-visual__content">
 
                         <span class="register-visual__badge">
@@ -79,7 +74,7 @@
                         <!-- SSO -->
                         <div class="sso-login">
                             <a
-                                href="/auth/google/redirect"
+                                href="/api/auth/google/redirect?intent=register"
                                 class="sso-btn sso-btn--google"
                             >
                                 <i class="bi bi-google"></i>
@@ -98,6 +93,11 @@
                         <div class="auth-divider">
                             <span>ou créez un compte avec votre email</span>
                         </div>
+
+                        <p v-if="$page.props.flash?.error" class="register-sso-notice" role="alert">
+                            <i class="bi bi-info-circle"></i>
+                            {{ $page.props.flash.error }}
+                        </p>
 
                         <form
                             class="register-form"
@@ -168,7 +168,7 @@
                             </div>
 
                             <!-- NAMES -->
-                            <div class="form-grid">
+                            <div v-if="!googleRegistration" class="form-grid">
 
                                 <div class="form-group">
                                     <label for="first_name">
@@ -386,7 +386,7 @@
                                 </span>
 
                                 <span v-else>
-                                    {{ $t('auth.register_title') }}
+                                    {{ googleRegistration ? $t('auth.complete_google_registration') : $t('auth.register_title') }}
                                     <i class="bi bi-arrow-right"></i>
                                 </span>
                             </button>
@@ -417,14 +417,18 @@ import { ref } from 'vue'
 import { api } from '@/lib/api'
 import { router, useForm } from '@inertiajs/vue3'
 import { useToastStore } from '@/stores/toast'
-const appUrl = import.meta.env.VITE_APP_URL
+
+const props = defineProps({
+    googleProfile: { type: Object, default: null },
+})
 
 const toast = useToastStore()
+const googleRegistration = Boolean(props.googleProfile?.email)
 
 const form = useForm({
-    first_name: '',
-    last_name: '',
-    email: '',
+    first_name: props.googleProfile?.first_name ?? '',
+    last_name: props.googleProfile?.last_name ?? '',
+    email: props.googleProfile?.email ?? '',
     phone: '',
     password: '',
     password_confirmation: '',
@@ -440,13 +444,13 @@ const submit = async () => {
     successMessage.value = null
 
     // Vérification du mot de passe
-    if (!form.password || !form.password_confirmation) {
+    if (!googleRegistration && (!form.password || !form.password_confirmation)) {
         errors.value.password = ['Le mot de passe est obligatoire.']
         errors.value.password_confirmation = ['La confirmation du mot de passe est obligatoire.']
 
         toast.show('Veuillez renseigner les deux champs de mot de passe.', 'error')
         return
-    } else if (form.password !== form.password_confirmation) {
+    } else if (!googleRegistration && form.password !== form.password_confirmation) {
         errors.value.password_confirmation = [
             'Les mots de passe ne correspondent pas.'
         ]
@@ -472,6 +476,13 @@ const submit = async () => {
             successMessage.value = response.data.message || 'Inscription réussie.'
 
             toast.show(successMessage.value, 'success')
+            form.reset()
+            form.role = 'client'
+            errors.value = {}
+
+            if (response.data.redirect) {
+                router.visit(response.data.redirect)
+            }
 
             // router.visit('/email/verify', {
             //     data: {

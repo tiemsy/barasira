@@ -22,8 +22,8 @@ build:
     @$(NPM) run build
 
 swagger:
-    @$(ARTISAN) l5-swagger:generate
-    @echo "Swagger generated in storage/api-docs/"
+	@$(ARTISAN) swagger:generate
+	@echo "Swagger generated in storage/api-docs/"
 
 routes:
     @$(ARTISAN) route:list --path=api

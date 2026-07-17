@@ -1,0 +1,6 @@
+.new-message { max-width: 720px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+textarea { width: 100%; box-sizing: border-box; padding: 1rem; border: 1px solid #d8dce3; border-radius: 12px; resize: vertical; }
+button { margin-top: 1rem; padding: .8rem 1.2rem; border: 0; border-radius: 10px; background: #177245; color: white; font-weight: 700; }
+button:disabled { opacity: .55; }
+.error { color: #b42318; }
+.conversation-closed { padding: 1rem; border: 1px solid #ead9a7; border-radius: 12px; background: #fff8e6; color: #765b13; line-height: 1.5; }

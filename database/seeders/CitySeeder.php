@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\City;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 class CitySeeder extends Seeder
@@ -26,9 +25,8 @@ class CitySeeder extends Seeder
         ];
 
         foreach ($cities as [$name, $lat, $lng]) {
-            City::create([
+            City::query()->updateOrCreate(['slug' => Str::slug($name)], [
                 'name' => $name,
-                'slug' => Str::slug($name),
                 'lat' => $lat,
                 'lng' => $lng,
             ]);

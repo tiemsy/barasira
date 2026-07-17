@@ -15,7 +15,15 @@ class Review extends Model
         'reviewer_id', // utilisateur qui rédige l'avis
         'reviewed_id', // utilisateur qui reçoit l'avis
         'rating', // note : 1 à 5
-        'comment' // commentaire
+        'comment', // commentaire
+        'edit_count',
+        'revised_at',
+    ];
+
+    protected $casts = [
+        'rating' => 'integer',
+        'edit_count' => 'integer',
+        'revised_at' => 'datetime',
     ];
 
     /**

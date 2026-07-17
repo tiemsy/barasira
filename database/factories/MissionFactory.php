@@ -3,38 +3,58 @@
 namespace Database\Factories;
 
 use App\Models\Mission;
-use App\Models\User;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Mission>
- */
 class MissionFactory extends Factory
 {
     protected $model = Mission::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Mission $mission) {
+            if ($mission->prestataire_id) {
+                $mission->service()->update(['user_id' => $mission->prestataire_id]);
+            }
+        });
+    }
+
     public function definition(): array
     {
-        $statuses = ['pending', 'in_progress', 'completed', 'cancelled'];
+        $start = now()->addDays(7)->setHour(9)->startOfHour();
 
         return [
-            'client_id' => User::factory(),               // utilisateur client
-            'service_id' => Service::factory(),           // service demandé
-            'title' => $this->faker->sentence(3),         // titre de la mission
-            'description' => $this->faker->paragraph(),   // description détaillée
-            'address' => $this->faker->address(),         // adresse complète
-            'latitude' => $this->faker->latitude(),       // latitude aléatoire
-            'longitude' => $this->faker->longitude(),     // longitude aléatoire
-            'status' => $this->faker->randomElement($statuses), // statut de la mission
-            'price' => $this->faker->numberBetween(5000, 50000), // prix en CFA
-            'date_start' => $this->faker->dateTimeBetween('-1 month', '+1 month'),
-            'date_end' => $this->faker->dateTimeBetween('+1 day', '+2 months'),
+            'client_id' => User::factory()->client(),
+            'prestataire_id' => null,
+            'service_id' => Service::factory(),
+            'title' => 'Intervention à domicile '.$this->faker->unique()->numerify('###'),
+            'description' => 'Le client souhaite une intervention professionnelle, ponctuelle et conforme au besoin décrit.',
+            'city' => 'Bamako',
+            'skills' => ['Diagnostic', 'Travail soigné'],
+            'questions' => ['Le matériel est-il inclus dans le tarif ?'],
+            'address' => 'ACI 2000, Bamako',
+            'latitude' => 12.6392,
+            'longitude' => -8.0029,
+            'status' => 'pending',
+            'price' => 25000,
+            'date_start' => $start,
+            'date_end' => $start->copy()->addHours(3),
         ];
+    }
+
+    public function assigned(?User $provider = null): static
+    {
+        return $this->state(fn () => ['prestataire_id' => $provider?->id ?? User::factory()->provider(), 'status' => 'in_progress']);
+    }
+
+    public function completed(?User $provider = null): static
+    {
+        return $this->state(fn () => [
+            'prestataire_id' => $provider?->id ?? User::factory()->provider(),
+            'status' => 'completed',
+            'date_start' => now()->subDays(3)->setHour(9)->startOfHour(),
+            'date_end' => now()->subDays(3)->setHour(12)->startOfHour(),
+        ]);
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="modern-mission-card__top">
         <span class="modern-mission-card__badge">
-            Mission ouverte
+            {{ $t('missions.card.open') }}
         </span>
 
         <span class="modern-mission-card__budget">
@@ -15,20 +15,20 @@
 
     <p class="modern-mission-card__address">
         <i class="bi bi-geo-alt"></i>
-        {{ mission.address ?? 'Adresse non précisée' }}
+        {{ mission.address ?? $t('missions.card.addressMissing') }}
     </p>
 
     <div class="modern-mission-card__footer">
         <Link :href="`/missions/${mission.id}`" class="btn btn-primary modern-mission-card__btn">
-            Voir détails
+            {{ $t('missions.details') }}
             <i class="bi bi-arrow-right"></i>
         </Link>
     </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { Link, usePage } from '@inertiajs/vue3'
+import { Link } from '@inertiajs/vue3'
+import { useI18n } from 'vue-i18n'
 
 /**
  * Props
@@ -43,22 +43,13 @@ const props = defineProps({
 /**
  * Utilisateur connecté
  */
-const page = usePage()
-const user = computed(() => page.props.auth?.user ?? null)
-
-/**
- * Peut postuler ?
- * (exemple simple : prestataire connecté)
- */
-const canApply = computed(() => {
-    return user.value && user.value.role === 'prestataire'
-})
+const { locale } = useI18n()
 
 /**
  * Format FCFA
  */
 const formatPrice = (value) => {
     if (!value) return '0'
-    return new Intl.NumberFormat('fr-FR').format(value)
+    return new Intl.NumberFormat(locale.value).format(value)
 }
 </script>

@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
-use App\Models\Traits\Filterable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Mission extends Model
 {
-    use HasFactory, Filterable;
+    use Filterable, HasFactory;
 
     protected $filtersClass = \App\Filters\MissionFilters::class;
 
@@ -19,19 +20,24 @@ class Mission extends Model
         'service_id', // service demandé
         'title', // Titre de la mission
         'description', // Détails de la mission
+        'city', // Ville
+        'skills', // Détails de la mission
+        'questions', // Détails de la mission
         'address', // localisation
         'latitude', // localisation
         'longitude', // localisation
         'status', // workflow : pending, in_progress, completed, cancelled
         'price', // prix proposé
         'date_start', // période de la mission
-        'date_end' // période de la mission
+        'date_end', // période de la mission
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
         'latitude' => 'decimal:6',
         'longitude' => 'decimal:6',
+        'skills' => 'array',
+        'questions' => 'array',
         'date_start' => 'datetime',
         'date_end' => 'datetime',
     ];
@@ -43,7 +49,6 @@ class Mission extends Model
     {
         return $this->belongsTo(User::class, 'client_id');
     }
-
 
     /**
      * Prestataire lié à la mission

@@ -15,6 +15,7 @@ class LoginController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|string|min:6',
+            'device_name' => 'nullable|string|max:100',
         ]);
 
         $credentials = $request->only('email', 'password');
@@ -70,7 +71,11 @@ class LoginController extends Controller
             'success' => true,
             'message' => 'Connexion réussie',
             'redirect' => $redirect,
-            'user' => $user
+            'user' => $user,
+            // Les clients natifs utilisent un jeton Bearer; le site web conserve sa session cookie.
+            'token' => $request->filled('device_name')
+                ? $user->createToken($request->string('device_name')->toString())->plainTextToken
+                : null,
         ], 200);
 
         // Retour API JSON

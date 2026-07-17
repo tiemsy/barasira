@@ -12,9 +12,12 @@ export default {
         return api.post('/missions', data)
     },
     update(id, data) {
-        return api.put(`'/missions'/${id}`, data)
+        return api.patch(`/missions/${id}`, data)
+    },
+    claim(id) {
+        return api.post(`/missions/${id}/claim`)
     },
     remove(id) {
-        return api.delete(`'/missions'/${id}`)
+        return api.delete(`/missions/${id}`)
     }
 }

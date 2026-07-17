@@ -3,56 +3,33 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Eloquent\ReviewRepositoryEloquent;
-use Illuminate\Http\Request;
-use OpenApi\Annotations as OA;
+use App\Http\Requests\ReviewStoreRequest;
+use App\Http\Requests\ReviewUpdateRequest;
+use App\Models\Review;
+use App\Services\ReviewService;
+use Illuminate\Http\JsonResponse;
 
 class ReviewController extends Controller
 {
-    protected $reviewRepository;
+    public function __construct(private readonly ReviewService $reviewService) {}
 
-    public function __construct(ReviewRepositoryEloquent $reviewRepository)
+    public function store(ReviewStoreRequest $request): JsonResponse
     {
-        $this->reviewRepository = $reviewRepository;
+        $review = $this->reviewService->createForMission($request->user(), $request->validated());
+
+        return response()->json([
+            'message' => __('Merci, votre avis a été publié.'),
+            'review' => $review,
+        ], 201);
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function update(ReviewUpdateRequest $request, Review $review): JsonResponse
     {
-        //
-    }
+        $review = $this->reviewService->revise($review, $request->user(), $request->validated());
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json([
+            'message' => __('Votre avis a été modifié. Il est maintenant définitif.'),
+            'review' => $review,
+        ]);
     }
 }

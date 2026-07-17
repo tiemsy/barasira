@@ -1,4 +1,5 @@
 <template>
+    <ImpersonationBanner />
     <!-- Navbar -->
     <header class="navbar">
         <Navbar />
@@ -9,6 +10,9 @@
         <slot />
     </main>
 
+    <Toast />
+    <ConfirmDialog />
+
     <!-- Footer -->
     <Footer />
 </template>
@@ -18,6 +22,9 @@ import { defineProps } from 'vue'
 // import { Link, usePage } from '@inertiajs/vue3'
 import Navbar from '@/Components/Navbar.vue'
 import Footer from '@/Components/Footer.vue'
+import Toast from '@/Components/Toast.vue'
+import ImpersonationBanner from '@/Components/ImpersonationBanner.vue'
+import ConfirmDialog from '@/Components/ConfirmDialog.vue'
 
 /**
  * Utilisateur authentifié (si présent)

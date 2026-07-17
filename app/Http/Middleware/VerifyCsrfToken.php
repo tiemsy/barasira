@@ -12,6 +12,9 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        // Les applications natives s'authentifient avec un jeton Sanctum et ne
+        // disposent pas du cookie CSRF d'un navigateur.
+        'api/login',
+        'api/register',
     ];
 }
