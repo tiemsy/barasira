@@ -76,30 +76,4 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style scoped>
-.verify-wrapper {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* background: linear-gradient(135deg, #0d6efd, #20c997); */
-}
-
-.verify-card {
-    background: #fff;
-    padding: 40px;
-    border-radius: 14px;
-    max-width: 420px;
-    text-align: center;
-}
-
-.success {
-    color: #198754;
-    margin-top: 12px;
-}
-
-.error {
-    color: #dc3545;
-    margin-top: 12px;
-}
-</style>
+<style scoped lang="scss" src="../../../scss/pages/auth/_verify-email.scss"></style>

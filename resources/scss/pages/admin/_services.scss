@@ -1,0 +1,15 @@
+@use 'users';
+
+.admin-services-filters { grid-template-columns: minmax(220px, 1fr) 180px 150px auto auto; }
+.admin-services-table td:first-child { min-width: 230px; }
+.admin-service-table-icon { display: grid; flex: 0 0 40px; width: 40px; height: 40px; place-items: center; border-radius: 11px; background: #e5f5ec; color: #177245; }
+.admin-services-table td:nth-child(4) { min-width: 155px; }
+
+@media (max-width: 900px) {
+    .admin-services-filters { grid-template-columns: 1fr 1fr; }
+    .admin-services-filters label { grid-column: 1 / -1; }
+}
+
+@media (max-width: 560px) {
+    .admin-services-filters { grid-template-columns: 1fr; }
+}

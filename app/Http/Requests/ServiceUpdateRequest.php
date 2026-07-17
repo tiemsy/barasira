@@ -11,7 +11,7 @@ class ServiceUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('service')) ?? false;
     }
 
     /**
@@ -22,13 +22,13 @@ class ServiceUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => ['sometimes', 'exists:service_categories,id'],
-            'name'        => ['sometimes', 'string', 'max:150'],
+            'service_category_id' => ['sometimes', 'exists:service_categories,id'],
+            'name' => ['sometimes', 'string', 'max:150'],
             'description' => ['sometimes', 'string'],
-            'icon'        => ['sometimes', 'nullable', 'string', 'max:255'],
-            'price_min'   => ['sometimes', 'numeric', 'min:0'],
-            'price_max'   => ['sometimes', 'numeric', 'gte:price_min'],
-            'is_active'   => ['sometimes', 'boolean'],
+            'icon' => ['sometimes', 'nullable', 'string', 'max:255'],
+            'price_min' => ['sometimes', 'numeric', 'min:0'],
+            'price_max' => ['sometimes', 'numeric', 'gte:price_min'],
+            'is_active' => ['sometimes', 'boolean'],
         ];
     }
 }

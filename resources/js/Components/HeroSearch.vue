@@ -1,71 +1,62 @@
-<template>
-    <div class="hero-search">
-        <input type="text" v-model="filters.keyword" placeholder="Quel service recherchez-vous ?" />
-
-        <button @click="search">
-            Rechercher
-        </button>
-    </div>
-
-    <!-- FILTERS -->
-    <div class="hero-filters">
-        <select v-model="filters.category" class="hero-select">
-            <option value="">Toutes les catégories</option>
-            <option v-for="category in categories" :key="category.id" :value="category.id">
-                {{ category.name }}
-            </option>
-        </select>
-
-        <select v-model="filters.city" class="hero-select">
-            <option value="">Toutes les villes</option>
-            <option v-for="city in cities" :key="city.id" :value="city.id">
-                {{ city.name }}
-            </option>
-        </select>
-    </div>
-</template>
-
 <script setup>
-import { reactive, watch } from 'vue'
-import axios from 'axios';
+import { reactive } from 'vue'
+import { router } from '@inertiajs/vue3'
 
-const props = defineProps({
-    categories: {
-        type: Object,
-        required: true,
-    },
-
-    cities: {
-        type: Object,
-        required: true,
-    },
+defineProps({
+    categories: { type: Array, default: () => [] },
+    cities: { type: Array, default: () => [] },
 })
-
-const emit = defineEmits(['updateResults'])
 
 const filters = reactive({
     keyword: '',
     category: '',
-    city: ''
+    city: '',
 })
 
-// // const search = async () => {
-const search = () => {
+function search() {
+    const query = Object.fromEntries(
+        Object.entries(filters).filter(([, value]) => value !== '')
+    )
 
-
-    const { data } =  axios.get('/api/services-search', {
-        params: filters
+    router.visit('/services', {
+        data: query,
+        preserveState: true,
     })
-    emit('updateResults', data)
 }
-
-/* 🔁 Recherche live */
-// const fetchServices = async () => {
-//   const { data } = await axios.get('/api/services/search', {
-//     params: filters
-//   })
-//   emit('liveResults', data)
-// }
-
-// watch(filters, fetchServices, { deep: true })
 </script>
+
+<template>
+    <form class="hero-search" :aria-label="$t('home.search.formLabel')" @submit.prevent="search">
+        <div class="hero-search__main">
+            <span class="hero-search__icon" aria-hidden="true">⌕</span>
+            <input
+                v-model.trim="filters.keyword"
+                type="search"
+                :placeholder="$t('home.search.placeholder')"
+                :aria-label="$t('home.search.inputLabel')"
+            >
+            <button type="submit">{{ $t('home.search.submit') }}</button>
+        </div>
+
+        <div class="hero-filters">
+            <label>
+                <span>{{ $t('home.search.category') }}</span>
+                <select v-model="filters.category">
+                    <option value="">{{ $t('home.search.allCategories') }}</option>
+                    <option v-for="category in categories" :key="category.id" :value="category.id">
+                        {{ category.name }}
+                    </option>
+                </select>
+            </label>
+            <label>
+                <span>{{ $t('home.search.city') }}</span>
+                <select v-model="filters.city">
+                    <option value="">{{ $t('home.search.allCities') }}</option>
+                    <option v-for="city in cities" :key="city.id" :value="city.id">
+                        {{ city.name }}
+                    </option>
+                </select>
+            </label>
+        </div>
+    </form>
+</template>

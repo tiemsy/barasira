@@ -19,6 +19,4 @@
 @use "pages/register";
 @use "pages/missions";
 @use "pages/contact";
-
-// admin pages
-@use 'components/admin/stats'
+@use "pages/errors";

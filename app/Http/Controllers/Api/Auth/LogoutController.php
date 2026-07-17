@@ -10,6 +10,15 @@ class LogoutController extends Controller
 {
     public function logout(Request $request)
     {
+        if ($request->user()?->currentAccessToken()) {
+            $request->user()->currentAccessToken()->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Déconnecté',
+            ]);
+        }
+
         Auth::logout();
 
         $request->session()->invalidate();

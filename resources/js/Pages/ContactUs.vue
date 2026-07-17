@@ -2,25 +2,22 @@
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { computed } from 'vue'
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3'
-import { capitalize, fullName } from '@/utils/string'
 
 const page = usePage()
-const user = computed(() => page.props.auth?.user ?? null)
-
-console.log("AUTH USER", user.value);
-
+const user = computed(() => page.props?.auth?.user ?? null)
+const contactProfiles = ['client', 'prestataire']
 
 const form = useForm({
-    name: user.value?.name,
+    name: user.value?.name ?? '',
     email: user.value?.email ?? '',
     phone: user.value?.phone ?? '',
-    user_type: user.value?.role ?? '',
+    user_type: contactProfiles.includes(user.value?.role) ? user.value.role : '',
     subject: '',
     message: '',
     consent: false,
 })
 
-const props = defineProps({
+defineProps({
     contactEmail: {
         type: String,
         default: 'contact@barasira.com',
@@ -34,15 +31,12 @@ const props = defineProps({
 const messageLength = computed(() => form.message.length)
 
 const submit = () => {
-    form.post('contact-us', {
+    form.post('/contact-us', {
         preserveScroll: true,
-
-        onSuccess: () => {
-            form.reset()
-        },
-
-        onError: errors => {
-            console.error('Erreurs formulaire', errors)
+        onSuccess: response => {
+            if (response.props.flash?.success) {
+                form.reset('subject', 'message', 'consent')
+            }
         },
     })
 }
@@ -50,7 +44,7 @@ const submit = () => {
 
 <template>
 
-    <Head title="Nous contacter" />
+    <Head :title="$t('contact.metaTitle')" />
 
     <AppLayout>
         <main class="contact-page">
@@ -65,15 +59,13 @@ const submit = () => {
                     <div class="contact-hero__content">
                         <div class="contact-hero__text">
                             <span class="contact-hero__badge">
-                                Besoin d’aide ?
+                                {{ $t('contact.hero.badge') }}
                             </span>
 
-                            <h1>Contactez l’équipe Barasira</h1>
+                            <h1>{{ $t('contact.hero.title') }}</h1>
 
                             <p>
-                                Une question concernant une mission, votre compte,
-                                un prestataire ou le fonctionnement de la plateforme ?
-                                Notre équipe est à votre écoute.
+                                {{ $t('contact.hero.description') }}
                             </p>
                         </div>
 
@@ -99,14 +91,12 @@ const submit = () => {
                     <div class="contact-grid">
                         <aside class="contact-informations">
                             <div class="contact-informations__header">
-                                <span class="section-label">Nos coordonnées</span>
+                                <span class="section-label">{{ $t('contact.information.label') }}</span>
 
-                                <h2>Nous sommes disponibles pour vous accompagner</h2>
+                                <h2>{{ $t('contact.information.title') }}</h2>
 
                                 <p>
-                                    Vous pouvez nous contacter directement ou utiliser
-                                    le formulaire. Nous vous répondrons dans les meilleurs
-                                    délais.
+                                    {{ $t('contact.information.description') }}
                                 </p>
                             </div>
 
@@ -116,7 +106,7 @@ const submit = () => {
                                 </div>
 
                                 <div class="contact-card__content">
-                                    <span>E-mail</span>
+                                    <span>{{ $t('contact.information.email') }}</span>
 
                                     <a :href="`mailto:${contactEmail}`">
                                         {{ contactEmail }}
@@ -130,7 +120,7 @@ const submit = () => {
                                 </div>
 
                                 <div class="contact-card__content">
-                                    <span>Téléphone</span>
+                                    <span>{{ $t('contact.information.phone') }}</span>
 
                                     <a :href="`tel:${contactPhone.replace(/\s/g, '')}`">
                                         {{ contactPhone }}
@@ -144,8 +134,8 @@ const submit = () => {
                                 </div>
 
                                 <div class="contact-card__content">
-                                    <span>Zone d’intervention</span>
-                                    <strong>Mali</strong>
+                                    <span>{{ $t('contact.information.area') }}</span>
+                                    <strong>{{ $t('contact.information.country') }}</strong>
                                 </div>
                             </div>
 
@@ -155,26 +145,25 @@ const submit = () => {
                                 </div>
 
                                 <div class="contact-card__content">
-                                    <span>Horaires</span>
-                                    <strong>Lundi au samedi, de 8h à 18h</strong>
+                                    <span>{{ $t('contact.information.hoursLabel') }}</span>
+                                    <strong>{{ $t('contact.information.hours') }}</strong>
                                 </div>
                             </div>
 
-                            <div class="contact-help">
+                            <div v-if="!user" class="contact-help">
                                 <div class="contact-help__icon">
                                     <i class="fas fa-lightbulb"></i>
                                 </div>
 
                                 <div>
-                                    <h3>Vous avez déjà un compte ?</h3>
+                                    <h3>{{ $t('contact.account.title') }}</h3>
 
                                     <p>
-                                        Connectez-vous afin que nous puissions identifier
-                                        plus rapidement votre demande.
+                                        {{ $t('contact.account.description') }}
                                     </p>
 
                                     <Link href="/login" class="contact-help__link">
-                                        Se connecter
+                                        {{ $t('contact.account.login') }}
                                         <i class="fas fa-arrow-right"></i>
                                     </Link>
                                 </div>
@@ -183,28 +172,27 @@ const submit = () => {
 
                         <div class="contact-form-wrapper">
                             <div class="contact-form-header">
-                                <span class="section-label">Envoyer un message</span>
-                                <h2>Comment pouvons-nous vous aider ?</h2>
+                                <span class="section-label">{{ $t('contact.form.label') }}</span>
+                                <h2>{{ $t('contact.form.title') }}</h2>
 
                                 <p>
-                                    Complétez le formulaire ci-dessous en décrivant
-                                    précisément votre demande.
+                                    {{ $t('contact.form.description') }}
                                 </p>
                             </div>
 
-                            <div v-if="$page.props.flash?.success" class="alert alert-success">
+                            <div v-if="$page.props.flash?.success" class="alert alert-success" role="status" aria-live="polite">
                                 <i class="fas fa-check-circle"></i>
 
                                 <span>
-                                    {{ $page.props.flash.success }}
+                                    {{ $t('contact.form.success') }}
                                 </span>
                             </div>
 
-                            <div v-if="$page.props.flash?.error" class="alert alert-error">
+                            <div v-if="$page.props.flash?.error" class="alert alert-error" role="alert">
                                 <i class="fas fa-exclamation-circle"></i>
 
                                 <span>
-                                    {{ $page.props.flash.error }}
+                                    {{ $t('contact.form.error') }}
                                 </span>
                             </div>
 
@@ -212,7 +200,7 @@ const submit = () => {
                                 <div class="form-grid">
                                     <div class="form-group">
                                         <label for="name">
-                                            Nom complet
+                                            {{ $t('contact.form.name') }}
                                             <span>*</span>
                                         </label>
 
@@ -221,7 +209,8 @@ const submit = () => {
                                             <i class="fas fa-user"></i>
 
                                             <input id="name" v-model="form.name" type="text" name="name"
-                                                placeholder="Votre nom complet" autocomplete="name" />
+                                                :placeholder="$t('contact.form.namePlaceholder')" autocomplete="name" required
+                                                :aria-invalid="Boolean(form.errors.name)" />
                                         </div>
 
                                         <p v-if="form.errors.name" class="form-error">
@@ -231,7 +220,7 @@ const submit = () => {
 
                                     <div class="form-group">
                                         <label for="email">
-                                            Adresse e-mail
+                                            {{ $t('contact.form.email') }}
                                             <span>*</span>
                                         </label>
 
@@ -240,7 +229,8 @@ const submit = () => {
                                             <i class="fas fa-envelope"></i>
 
                                             <input id="email" v-model="form.email" type="email" name="email"
-                                                placeholder="exemple@email.com" autocomplete="email" />
+                                                :placeholder="$t('contact.form.emailPlaceholder')" autocomplete="email" required
+                                                :aria-invalid="Boolean(form.errors.email)" />
                                         </div>
 
                                         <p v-if="form.errors.email" class="form-error">
@@ -249,14 +239,14 @@ const submit = () => {
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="phone">Téléphone</label>
+                                        <label for="phone">{{ $t('contact.form.phone') }}</label>
 
                                         <div class="input-wrapper"
                                             :class="{ 'input-wrapper--error': form.errors.phone }">
                                             <i class="fas fa-phone"></i>
 
                                             <input id="phone" v-model="form.phone" type="tel" name="phone"
-                                                placeholder="+223..." autocomplete="tel" />
+                                                :placeholder="$t('contact.form.phonePlaceholder')" autocomplete="tel" />
                                         </div>
 
                                         <p v-if="form.errors.phone" class="form-error">
@@ -266,7 +256,7 @@ const submit = () => {
 
                                     <div class="form-group">
                                         <label for="user_type">
-                                            Votre profil
+                                            {{ $t('contact.form.profile') }}
                                         </label>
 
                                         <div class="input-wrapper"
@@ -275,23 +265,23 @@ const submit = () => {
 
                                             <select id="user_type" v-model="form.user_type" name="user_type">
                                                 <option value="">
-                                                    Sélectionnez votre profil
+                                                    {{ $t('contact.form.profilePlaceholder') }}
                                                 </option>
 
                                                 <option value="client">
-                                                    Client
+                                                    {{ $t('contact.form.profiles.client') }}
                                                 </option>
 
                                                 <option value="prestataire">
-                                                    Prestataire
+                                                    {{ $t('contact.form.profiles.provider') }}
                                                 </option>
 
                                                 <option value="visitor">
-                                                    Visiteur
+                                                    {{ $t('contact.form.profiles.visitor') }}
                                                 </option>
 
                                                 <option value="partner">
-                                                    Partenaire
+                                                    {{ $t('contact.form.profiles.partner') }}
                                                 </option>
                                             </select>
 
@@ -305,7 +295,7 @@ const submit = () => {
 
                                     <div class="form-group form-group--full">
                                         <label for="subject">
-                                            Sujet
+                                            {{ $t('contact.form.subject') }}
                                             <span>*</span>
                                         </label>
 
@@ -314,7 +304,8 @@ const submit = () => {
                                             <i class="fas fa-tag"></i>
 
                                             <input id="subject" v-model="form.subject" type="text" name="subject"
-                                                placeholder="Objet de votre demande" />
+                                                :placeholder="$t('contact.form.subjectPlaceholder')" maxlength="150" required
+                                                :aria-invalid="Boolean(form.errors.subject)" />
                                         </div>
 
                                         <p v-if="form.errors.subject" class="form-error">
@@ -325,7 +316,7 @@ const submit = () => {
                                     <div class="form-group form-group--full">
                                         <div class="form-label-line">
                                             <label for="message">
-                                                Votre message
+                                                {{ $t('contact.form.message') }}
                                                 <span>*</span>
                                             </label>
 
@@ -337,8 +328,9 @@ const submit = () => {
                                         <div class="textarea-wrapper"
                                             :class="{ 'textarea-wrapper--error': form.errors.message }">
                                             <textarea id="message" v-model="form.message" name="message"
-                                                maxlength="2000" rows="7"
-                                                placeholder="Décrivez votre demande avec le plus de détails possible..."></textarea>
+                                                minlength="10" maxlength="2000" rows="7" required
+                                                :aria-invalid="Boolean(form.errors.message)"
+                                                :placeholder="$t('contact.form.messagePlaceholder')"></textarea>
                                         </div>
 
                                         <p v-if="form.errors.message" class="form-error">
@@ -348,15 +340,15 @@ const submit = () => {
 
                                     <div class="form-group form-group--full">
                                         <label class="checkbox-label">
-                                            <input v-model="form.consent" type="checkbox" name="consent" />
+                                            <input v-model="form.consent" type="checkbox" name="consent" required
+                                                :aria-invalid="Boolean(form.errors.consent)" />
 
                                             <span class="checkbox-custom">
                                                 <i class="fas fa-check"></i>
                                             </span>
 
                                             <span class="checkbox-text">
-                                                J’accepte que mes informations soient
-                                                utilisées pour traiter ma demande.
+                                                {{ $t('contact.form.consent') }}
                                                 <span>*</span>
                                             </span>
                                         </label>
@@ -370,11 +362,11 @@ const submit = () => {
                                 <button type="submit" class="submit-button" :disabled="form.processing">
                                     <template v-if="form.processing">
                                         <i class="fas fa-spinner fa-spin"></i>
-                                        Envoi en cours...
+                                        {{ $t('contact.form.sending') }}
                                     </template>
 
                                     <template v-else>
-                                        Envoyer mon message
+                                        {{ $t('contact.form.submit') }}
                                         <i class="fas fa-paper-plane"></i>
                                     </template>
                                 </button>
@@ -388,19 +380,17 @@ const submit = () => {
                 <div class="contact-container">
                     <div class="contact-faq__content">
                         <div>
-                            <span class="section-label">Besoin d’une réponse rapide ?</span>
-                            <h2>Consultez les questions fréquentes</h2>
+                            <span class="section-label">{{ $t('contact.direct.badge') }}</span>
+                            <h2>{{ $t('contact.direct.title') }}</h2>
                             <p>
-                                Retrouvez les réponses aux principales questions sur
-                                les missions, les paiements, les comptes clients et
-                                prestataires.
+                                {{ $t('contact.direct.description') }}
                             </p>
                         </div>
 
-                        <Link href="/faq" class="faq-button">
-                            Consulter la FAQ
-                            <i class="fas fa-arrow-right"></i>
-                        </Link>
+                        <a :href="`mailto:${contactEmail}`" class="faq-button">
+                            {{ contactEmail }}
+                            <i class="fas fa-envelope"></i>
+                        </a>
                     </div>
                 </div>
             </section>

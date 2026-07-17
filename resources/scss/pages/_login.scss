@@ -39,17 +39,9 @@
     padding: 4rem;
 
     color: $c-white;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    // background:
-    //     linear-gradient(
-    //         135deg,
-    //         rgba($c-primary, .86),
-    //         rgba($c-secondary, .62)
-    //     ),
-    //     url('/images/auth-bg.png') center / cover no-repeat;
+    background:
+        linear-gradient(135deg, rgba($c-black, .86), rgba($c-black, .62)),
+        url('/images/auth-bg.png') center / cover no-repeat;
 }
 
 .login-visual::before {

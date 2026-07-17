@@ -3,19 +3,33 @@
 namespace App\Http\Controllers\Front\Client;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Service;
+use App\Models\Message;
+use App\Models\Mission;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
-        // Statistiques ou services spécifiques au client
-        $services = Service::latest()->take(5)->get();
+        $user = request()->user();
+        $missions = Mission::query()->where('client_id', $user->id);
 
         return Inertia::render('Dashboard', [
-            'services' => $services,
+            'stats' => [
+                'total' => (clone $missions)->count(),
+                'active' => (clone $missions)->whereIn('status', ['pending', 'in_progress'])->count(),
+                'completed' => (clone $missions)->where('status', 'completed')->count(),
+                'unread_messages' => Message::query()
+                    ->where('receiver_id', $user->id)
+                    ->where('read', false)
+                    ->count(),
+            ],
+            'recentMissions' => (clone $missions)
+                ->with(['prestataire:id,first_name,last_name', 'service:id,name'])
+                ->latest()
+                ->limit(5)
+                ->get(),
         ]);
     }
 }

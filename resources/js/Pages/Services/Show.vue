@@ -1,105 +1,113 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue'
-import RatingStars from '@/Components/RatingStars.vue'
-import UserBadge from '@/Components/UserBadge.vue'
 import { computed } from 'vue'
-import { router, Link } from '@inertiajs/vue3'
+import { Head, Link, router, usePage } from '@inertiajs/vue3'
+import { useI18n } from 'vue-i18n'
+import AppLayout from '@/Layouts/AppLayout.vue'
+import { useServiceCategoryLabel } from '@/composables/useServiceCategoryLabel'
 
 const props = defineProps({
-    service: {
-        type: Object,
-        required: true
-    }
+    service: { type: Object, required: true },
+    providerStats: { type: Object, default: () => ({}) },
 })
 
+const page = usePage()
+const { locale, t } = useI18n()
+const { categoryLabel } = useServiceCategoryLabel()
+const currentUser = computed(() => page.props?.auth?.user ?? null)
+const providerName = computed(() => `${props.service.user?.first_name ?? ''} ${props.service.user?.last_name ?? ''}`.trim())
+const providerInitials = computed(() => `${props.service.user?.first_name?.[0] ?? ''}${props.service.user?.last_name?.[0] ?? ''}`.toUpperCase())
+const location = computed(() => [props.service.municipality?.name, props.service.city?.name].filter(Boolean).join(', ') || t('serviceShow.mali'))
+const canContact = computed(() => currentUser.value?.role === 'client' && currentUser.value.id !== props.service.user_id)
+const isGuest = computed(() => !currentUser.value)
+const canAdminEdit = computed(() => ['admin', 'superadmin'].includes(currentUser.value?.role))
+const rating = computed(() => Number(props.service.user?.rating ?? 0))
+
+const formatMoney = value => new Intl.NumberFormat(locale.value).format(Number(value ?? 0))
+const formatPrice = value => t('serviceShow.currencyAmount', { amount: formatMoney(value) })
 const priceRange = computed(() => {
-    if (!props.service.price_min && !props.service.price_max) return 'Prix sur demande'
-    if (props.service.price_min === props.service.price_max) {
-        return `${props.service.price_min} FCFA`
-    }
-    return `${props.service.price_min} – ${props.service.price_max} FCFA`
+    const minimum = Number(props.service.price_min ?? 0)
+    const maximum = Number(props.service.price_max ?? 0)
+    if (!minimum && !maximum) return t('serviceShow.priceOnRequest')
+    if (minimum === maximum) return formatPrice(minimum)
+    return t('serviceShow.priceRange', { minimum: formatPrice(minimum), maximum: formatPrice(maximum) })
 })
+const publishedDate = computed(() => props.service.created_at
+    ? new Intl.DateTimeFormat(locale.value, { day: '2-digit', month: 'long', year: 'numeric' }).format(new Date(props.service.created_at))
+    : t('serviceShow.notSpecified'))
 
-const contactProvider = () => {
-    router.visit(`/messages/create?user=${props.service.user.id}`)
+function contactProvider() {
+    if (canContact.value) router.visit(`/messages/create?user=${props.service.user_id}`)
 }
 </script>
 
 <template>
-    <AppLayout title="Service">
+    <Head :title="service.name" />
+    <AppLayout>
+        <main class="service-show-page">
+            <section class="service-show-hero">
+                <div class="service-show-container">
+                    <nav class="service-show-breadcrumb" :aria-label="$t('serviceShow.breadcrumb')">
+                        <Link href="/">{{ $t('navigation.home') }}</Link><i class="fas fa-chevron-right"></i>
+                        <Link href="/services">{{ $t('navigation.services') }}</Link><i class="fas fa-chevron-right"></i>
+                        <span>{{ service.name }}</span>
+                    </nav>
 
-        <!-- HERO SERVICE -->
-        <section class="service-hero">
-            <span class="service-category">
-                {{ service.category?.name }}
-            </span>
-
-            <h1 class="service-title">
-                {{ service.name }}
-            </h1>
-
-            <p class="service-city">
-                📍 {{ service.city?.name ?? 'Mali' }}
-            </p>
-        </section>
-
-        <!-- CONTENT -->
-        <section class="service-content">
-
-            <nav class="breadcrumb">
-                <Link href="/" class="breadcrumb-link">Accueil</Link>
-                <span class="breadcrumb-separator">›</span>
-
-                <Link href="/services" class="breadcrumb-link">Services</Link>
-                <span class="breadcrumb-separator">›</span>
-
-                <span class="breadcrumb-current">
-                    {{ service.name }}
-                </span>
-            </nav>
-            <div class="container grid">
-
-                <!-- LEFT -->
-                <div class="service-main">
-
-                    <div class="card service-description">
-                        <h2>Description</h2>
-                        <p>{{ service.description }}</p>
+                    <div class="service-show-hero__content">
+                        <span class="service-show-icon"><i :class="service.icon || service.category?.icon || 'fas fa-screwdriver-wrench'"></i></span>
+                        <div>
+                            <div class="service-show-badges">
+                                <span>{{ service.category?.name ? categoryLabel(service.category.name) : $t('serviceShow.service') }}</span>
+                                <span :class="service.is_active ? 'is-active' : 'is-inactive'">{{ service.is_active ? $t('serviceShow.available') : $t('serviceShow.unavailable') }}</span>
+                            </div>
+                            <h1>{{ service.name }}</h1>
+                            <p><i class="fas fa-location-dot"></i>{{ location }}</p>
+                        </div>
+                        <Link v-if="canAdminEdit" :href="`/admin/services/${service.id}/edit`" class="service-show-admin-edit"><i class="fas fa-pen"></i>{{ $t('serviceShow.editService') }}</Link>
                     </div>
-
-                    <div class="card service-details">
-                        <h2>Détails</h2>
-
-                        <ul>
-
-                            <li><strong>Prix :</strong> <span class="service-price">💰 {{ priceRange }}</span></li>
-                            <li><strong>Disponibilité :</strong> {{ service.is_active ? 'Disponible' : 'Indisponible' }}
-                            </li>
-                            <li v-if="service.created_at">
-                                <strong>Publié :</strong> {{ new Date(service.created_at).toLocaleDateString() }}
-                            </li>
-                        </ul>
-                    </div>
-
                 </div>
+            </section>
 
-                <!-- RIGHT -->
-                <aside class="service-sidebar">
+            <section class="service-show-body">
+                <div class="service-show-container service-show-layout">
+                    <div class="service-show-main">
+                        <section class="service-show-highlights">
+                            <article><i class="fas fa-coins"></i><span><small>{{ $t('serviceShow.estimatedPrice') }}</small><strong>{{ priceRange }}</strong></span></article>
+                            <article><i class="fas fa-location-dot"></i><span><small>{{ $t('serviceShow.interventionArea') }}</small><strong>{{ location }}</strong></span></article>
+                            <article><i class="fas fa-calendar-check"></i><span><small>{{ $t('serviceShow.published') }}</small><strong>{{ publishedDate }}</strong></span></article>
+                        </section>
 
-                    <div class="card provider-card">
-                        <UserBadge :user="service.user" />
+                        <article class="service-show-panel service-show-description">
+                            <span class="service-show-section-label">{{ $t('serviceShow.presentation') }}</span>
+                            <h2>{{ $t('serviceShow.aboutService') }}</h2>
+                            <p>{{ service.description }}</p>
+                        </article>
 
-                        <RatingStars :rating="service.user.rating ?? 0" />
-
-                        <button class="btn-primary btn-block" @click="contactProvider">
-                            Contacter le prestataire
-                        </button>
+                        <article class="service-show-panel service-show-reassurance">
+                            <span class="service-show-reassurance__icon"><i class="fas fa-shield-heart"></i></span>
+                            <div><h2>{{ $t('serviceShow.exchangeSafely') }}</h2><p>{{ $t('serviceShow.exchangeSafelyHint') }}</p></div>
+                        </article>
                     </div>
 
-                </aside>
+                    <aside class="service-show-sidebar">
+                        <article class="service-provider-card">
+                            <span class="service-provider-card__label">{{ $t('serviceShow.provider') }}</span>
+                            <div class="service-provider-card__identity">
+                                <span class="service-provider-avatar"><img v-if="service.user?.avatar_url" :src="service.user.avatar_url" alt=""><b v-else>{{ providerInitials || '?' }}</b></span>
+                                <div><h2>{{ providerName || $t('serviceShow.provider') }}</h2><p v-if="service.user?.verified"><i class="fas fa-circle-check"></i>{{ $t('serviceShow.verifiedProfile') }}</p></div>
+                            </div>
 
-            </div>
-        </section>
+                            <div class="service-provider-rating"><span aria-hidden="true">★</span><strong>{{ rating ? rating.toFixed(1) : $t('serviceShow.newProvider') }}</strong><small v-if="providerStats.reviews">({{ $t('serviceShow.reviews', { count: providerStats.reviews }) }})</small></div>
+                            <p v-if="service.user?.bio" class="service-provider-bio">{{ service.user.bio }}</p>
+                            <dl class="service-provider-stats"><div><dt>{{ $t('serviceShow.activeServices') }}</dt><dd>{{ providerStats.active_services ?? 0 }}</dd></div><div><dt>{{ $t('serviceShow.rating') }}</dt><dd>{{ rating ? $t('serviceShow.ratingOutOfFive', { rating: rating.toFixed(1) }) : '—' }}</dd></div></dl>
 
+                            <button v-if="canContact" type="button" :disabled="!service.is_active" @click="contactProvider"><i class="fas fa-comment-dots"></i>{{ service.is_active ? $t('serviceShow.contactProvider') : $t('serviceShow.unavailable') }}</button>
+                            <Link v-else-if="isGuest" href="/login" class="service-provider-login"><i class="fas fa-arrow-right-to-bracket"></i>{{ $t('serviceShow.loginToContact') }}</Link>
+                            <p v-else-if="currentUser?.id === service.user_id" class="service-provider-note">{{ $t('serviceShow.yourService') }}</p>
+                            <p v-else class="service-provider-note">{{ $t('serviceShow.clientOnlyContact') }}</p>
+                        </article>
+                    </aside>
+                </div>
+            </section>
+        </main>
     </AppLayout>
 </template>

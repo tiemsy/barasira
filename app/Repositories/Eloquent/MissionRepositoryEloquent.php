@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Mission;
+use App\Models\Service;
 use App\Models\User;
 use App\Repositories\Interface\MissionRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
@@ -26,8 +27,21 @@ class MissionRepositoryEloquent extends BaseRepositoryEloquent implements Missio
     {
         $query = $this->model
             ->newQuery()
-            ->where('client_id', $user->id)
+            ->when($user->role === 'client', fn ($query) => $query->where('client_id', $user->id))
+            ->when($user->role === 'prestataire', function ($query) use ($user) {
+                $serviceIds = Service::query()->activeForProvider($user)->select('id');
+
+                $query->where(function ($query) use ($user, $serviceIds) {
+                    $query->where('prestataire_id', $user->id)
+                        ->orWhere(function ($query) use ($serviceIds) {
+                            $query->whereNull('prestataire_id')
+                                ->where('status', 'pending')
+                                ->whereIn('service_id', $serviceIds);
+                        });
+                });
+            })
             ->with([
+                'client',
                 'prestataire',
                 'service.category',
             ]);

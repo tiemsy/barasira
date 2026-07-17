@@ -22,6 +22,9 @@ return [
     'allowed_origins' => [
         'http://localhost:5173',
         'http://localhost:8080',
+        'http://localhost:8082',
+        'https://staging.barasira.com',
+        'https://barasira.com'
     ],
 
     'allowed_origins_patterns' => [],

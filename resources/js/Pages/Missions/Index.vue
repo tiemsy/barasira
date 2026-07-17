@@ -1,708 +1,361 @@
-<template>
-    <AppLayout>
-        <div class="missions">
-
-            <h2>Gestion des missions</h2>
-            <!-- FILTRES -->
-            <div class="filters-header">
-                <div class="filters">
-                    <!-- Recherche -->
-                    <input v-model="filters.search" type="text" placeholder="Rechercher une mission..."
-                        class="filter-input" />
-
-                    <!-- Statuts (chips animées) -->
-                    <div class="chips">
-                        <span v-for="s in statusList" :key="s.value" class="chip"
-                            :class="{ active: filters.statuses.includes(s.value) }" @click="toggleStatus(s.value)">
-                            {{ s.label }}
-                        </span>
-                    </div>
-
-                    <!-- Date range -->
-                    <div class="date-range">
-                        <input type="date" v-model="filters.date_start" class="filter-input" />
-                        <input type="date" v-model="filters.date_end" class="filter-input" />
-                    </div>
-
-                    <!-- Prestataire -->
-                    <select v-model="filters.prestataire_id" class="filter-select">
-                        <option value="">Tous les prestataires</option>
-                        <option v-for="p in prestataires" :key="p.id" :value="p.id">
-                            {{ p.first_name }} {{ p.last_name }}
-                        </option>
-                    </select>
-
-                    <!-- Prix -->
-                    <div class="price-range">
-                        <input type="number" v-model="filters.price_min" placeholder="Prix min" class="filter-input" />
-                        <input type="number" v-model="filters.price_max" placeholder="Prix max" class="filter-input" />
-                    </div>
-
-                    <!-- Catégorie -->
-                    <!-- <select v-model="filters.category" class="filter-select">
-                        <option value="">Catégorie</option>
-                        <option v-for="c in categories" :key="c">{{ c }}</option>
-                    </select> -->
-
-                    <!-- Localisation -->
-                    <!-- <select v-model="filters.location" class="filter-select">
-                        <option value="">Localisation</option>
-                        <option v-for="l in locations" :key="l">{{ l }}</option>
-                    </select> -->
-
-                    <!-- TRI -->
-                    <select v-model="filters.sort" class="filter-select">
-                        <option value="date_desc">Date ↓</option>
-                        <option value="date_asc">Date ↑</option>
-                        <option value="price_asc">Prix ↑</option>
-                        <option value="price_desc">Prix ↓</option>
-                        <option value="distance_asc">Distance ↑</option>
-                    </select>
-
-                    <!-- RESET -->
-                    <button class="reset-btn" @click="resetFilters">Réinitialiser</button>
-                </div>
-            </div>
-
-            <!-- LISTE des missions -->
-            <div class="missions-container">
-
-                <!-- Skeleton loader -->
-                <template v-if="loading && missions.length === 0">
-                    <div class="skeleton-card" v-for="i in 6" :key="i"></div>
-                </template>
-
-                <!-- Cards -->
-                <div v-for="mission in missions" :key="mission.id" class="mission-card">
-                    <h3 class="mission-title">{{ truncate(mission.title, 20) }}</h3>
-                    <div class="dates" :class="getDurationColor(mission.status)">
-
-                        <div class="date-item">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M6.75 3v2.25M17.25 3v2.25M3 9h18M4.5 7.5h15 M6 12h.008v.008H6V12Zm3 0h.008v.008H9V12Zm3 0h.008v.008H12V12Z" />
-                            </svg>
-                            <span class="label">Début</span>
-                            <span class="value">{{ formatDate(mission.date_start) }}</span>
-                        </div>
-
-                        <div class="date-item">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 6v6l4 2M12 3a9 9 0 110 18 9 9 0 010-18z" />
-                            </svg>
-                            <span class="label">Fin</span>
-                            <span class="value">{{ formatDate(mission.date_end) }}</span>
-                        </div>
-
-                    </div>
-
-                    <p class="status-badge" :class="mission.status"> Status : {{ statusLabels[mission.status] }}</p>
-
-
-                    <p>{{ mission.description }}</p>
-                    <p>
-                        <Link :href="`/missions/${mission.id}`" class="btn-show">
-                            Voir la mission
-                        </Link>
-                    </p>
-                </div>
-
-                <!-- PAGINATION -->
-                <div ref="loadMoreTrigger" class="loader">
-                    <span v-if="loading">Chargement...</span>
-                    <span v-else-if="noMore">Fin des missions</span>
-                </div>
-            </div>
-
-        </div>
-    </AppLayout>
-</template>
-
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
-import { ref, watch, onMounted, onBeforeUnmount } from "vue"
-import missionService from "@/composables/missionService"
-import { Link } from '@inertiajs/vue3'
+import CancelIcon from '@/Components/Icons/CancelIcon.vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { Head, Link } from '@inertiajs/vue3'
+import { useI18n } from 'vue-i18n'
+import missionService from '@/composables/missionService'
+import { useToastStore } from '@/stores/toast'
+import { useConfirmDialog } from '@/composables/useConfirmDialog'
 
 const props = defineProps({
     missions: {
         type: Object,
         required: true,
     },
-
     prestataires: {
         type: Array,
         default: () => [],
     },
 })
 
-const filters = ref({
-    search: "",
-    statuses: [], // ex: ["pending", "completed"]
-    date_start: null,
-    date_end: null,
-    prestataire_id: null,
-    price_min: null,
-    price_max: null,
-    category: "",
-    location: "",
-    sort: "date_desc" // tri par défaut
+const { locale, t } = useI18n()
+const toast = useToastStore()
+const { confirm } = useConfirmDialog()
+const defaultFilters = () => ({
+    search: '',
+    statuses: [],
+    date_start: '',
+    date_end: '',
+    prestataire_id: '',
+    price_min: '',
+    price_max: '',
+    sort: 'date_desc',
 })
 
-const statusList = [
-    { label: "En attente", value: "pending" },
-    { label: "En cours", value: "in_progress" },
-    { label: "Terminée", value: "completed" },
-    { label: "Annulée", value: "cancelled" }
-]
-
-const statusLabels = Object.fromEntries(
-    statusList.map(s => [s.value, s.label])
-)
-
-const categories = ["Électricité", "Plomberie", "Ménage", "Sécurité", "Transport"]
-const locations = ["Bamako", "Kayes", "Sikasso", "Ségou", "Mopti"]
-
-function toggleStatus(status) {
-    const list = filters.value.statuses
-    filters.value.statuses = list.includes(status)
-        ? list.filter(s => s !== status)
-        : [...list, status]
-}
-
-// ----------------------
-// Reset filters
-// ----------------------
-function resetFilters() {
-    filters.value = {
-        search: "",
-        statuses: [],
-        date_start: null,
-        date_end: null,
-        prestataire_id: null,
-        price_min: null,
-        price_max: null,
-        category: "",
-        location: "",
-        sort: "date_desc"
-    }
-}
-
-// ----------------------
-// Missions + Scroll infini
-// ----------------------
-const missions = ref([])
-const page = ref(1)
+const filters = ref(defaultFilters())
+const missionItems = ref(props.missions.data ?? [])
+const currentPage = ref(props.missions.current_page ?? 1)
+const nextPageUrl = ref(props.missions.next_page_url ?? null)
 const loading = ref(false)
-const noMore = ref(false)
+const filtersOpen = ref(false)
 const loadMoreTrigger = ref(null)
 let observer = null
+let filterTimer = null
+let requestVersion = 0
 
-const loadMissions = async () => {
-    if (loading.value || noMore.value) return
-    loading.value = true
+const statuses = computed(() => [
+    { value: 'pending', label: t('missions.status.pending') },
+    { value: 'in_progress', label: t('missions.status.in_progress') },
+    { value: 'completed', label: t('missions.status.completed') },
+    { value: 'cancelled', label: t('missions.status.cancelled') },
+])
 
-    const response = await missionService.get({
-        page: page.value,
-        ...filters.value
-    })
-    const data = await response.data
-    missions.value.push(...data.data)
+const statusLabel = status => statuses.value.find(item => item.value === status)?.label ?? status
+const hasActiveFilters = computed(() => Object.entries(filters.value).some(([key, value]) => {
+    if (key === 'sort') return value !== 'date_desc'
+    return Array.isArray(value) ? value.length > 0 : Boolean(value)
+}))
+const visibleStats = computed(() => ({
+    total: missionItems.value.length,
+    active: missionItems.value.filter(item => ['pending', 'in_progress'].includes(item.status)).length,
+    completed: missionItems.value.filter(item => item.status === 'completed').length,
+}))
 
-    if (!data.next_page_url) {
-        noMore.value = true
-    } else {
-        page.value++
-    }
-    loading.value = false
+function toggleStatus(status) {
+    filters.value.statuses = filters.value.statuses.includes(status)
+        ? filters.value.statuses.filter(item => item !== status)
+        : [...filters.value.statuses, status]
 }
 
-// Reset auto quand un filtre change
+function resetFilters() {
+    filters.value = defaultFilters()
+}
+
+async function loadMissions({ reset = false } = {}) {
+    if (loading.value && !reset) return
+
+    const version = ++requestVersion
+    loading.value = true
+
+    try {
+        const page = reset ? 1 : currentPage.value + 1
+        const { data } = await missionService.get({ page, ...filters.value })
+
+        if (version !== requestVersion) return
+
+        missionItems.value = reset ? data.data : [...missionItems.value, ...data.data]
+        currentPage.value = data.current_page
+        nextPageUrl.value = data.next_page_url
+    } catch {
+        if (version === requestVersion) {
+            toast.show(t('missions.index.loadError'), 'error')
+        }
+    } finally {
+        if (version === requestVersion) loading.value = false
+    }
+}
+
+async function cancelMission(mission) {
+    if (!await confirm({ title: t('confirmDialog.cancelActionTitle'), message: t('missions.index.cancelConfirm'), confirmLabel: t('confirmDialog.confirmAction'), tone: 'warning' })) return
+
+    try {
+        const { data } = await missionService.update(mission.id, { status: 'cancelled' })
+        Object.assign(mission, data.data)
+        toast.show(t('missions.messages.cancelled_success'))
+    } catch {
+        toast.show(t('missions.index.cancelError'), 'error')
+    }
+}
+
+async function deleteMission(mission) {
+    if (!await confirm({ title: t('confirmDialog.deleteTitle'), message: t('missions.index.deleteConfirm'), confirmLabel: t('confirmDialog.delete') })) return
+
+    try {
+        await missionService.remove(mission.id)
+        missionItems.value = missionItems.value.filter(item => item.id !== mission.id)
+        toast.show(t('missions.index.deleted'))
+    } catch {
+        toast.show(t('missions.index.deleteError'), 'error')
+    }
+}
+
+function formatDate(value) {
+    if (!value) return t('missions.index.notDefined')
+
+    return new Intl.DateTimeFormat(locale.value, {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+    }).format(new Date(value))
+}
+
+function formatPrice(value) {
+    if (value === null || value === undefined || value === '') return t('missions.index.priceOnRequest')
+
+    return new Intl.NumberFormat(locale.value, {
+        style: 'currency',
+        currency: 'XOF',
+        maximumFractionDigits: 0,
+    }).format(Number(value))
+}
+
+function providerName(provider) {
+    if (!provider) return t('missions.index.unassigned')
+    return provider.name ?? [provider.first_name, provider.last_name].filter(Boolean).join(' ')
+}
+
 watch(filters, () => {
-    missions.value = []
-    page.value = 1
-    noMore.value = false
-    loadMissions()
+    window.clearTimeout(filterTimer)
+    filterTimer = window.setTimeout(() => loadMissions({ reset: true }), 350)
 }, { deep: true })
 
 onMounted(() => {
-    loadMissions()
     observer = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) {
-            loadMissions()
-        }
-    })
+        if (entries[0]?.isIntersecting && nextPageUrl.value) loadMissions()
+    }, { rootMargin: '240px' })
 
-    if (loadMoreTrigger.value) {
-        observer.observe(loadMoreTrigger.value)
-    }
+    if (loadMoreTrigger.value) observer.observe(loadMoreTrigger.value)
 })
 
 onBeforeUnmount(() => {
-    if (observer && loadMoreTrigger.value) {
-        observer.unobserve(loadMoreTrigger.value)
-    }
+    window.clearTimeout(filterTimer)
+    observer?.disconnect()
 })
-
-// ----------------------
-// Utils
-// ----------------------
-function formatDate(dateStr) {
-    const date = new Date(dateStr)
-    return date.toLocaleDateString("fr-FR", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric"
-    }).replace('.', '') // retire le point après "janv."
-}
-
-function getDurationColor(status) {
-    // const d1 = new Date(start)
-    // const d2 = new Date(end)
-    // const diffDays = (d2 - d1) / (1000 * 60 * 60 * 24)
-
-    if (status === "pending") return "date-pending"
-    if (status === "in_progress") return "date-in-progress"
-    if (status === "completed") return "date-completed"
-    // if (diffDays <= 3) return "short"
-    // if (diffDays <= 10) return "medium"
-    return "date-cancelled"
-}
-
-function truncate(text, max = 30) {
-    if (!text) return ""
-    return text.length > max ? text.substring(0, max) + "…" : text
-}
-
 </script>
 
-<style lang="scss" scoped>
-.missions {
-    padding: 2rem;
-    background: #f9fafb;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-
-    h2 {
-        font-size: 1.6rem;
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        color: #111827;
-    }
-
-    /* ============================
-   HEADER STICKY
-============================ */
-    .filters-header {
-        position: sticky;
-        top: 4rem;
-        z-index: 50;
-        background: #ffffffcc;
-        /* léger transparent */
-        backdrop-filter: blur(8px);
-        border-bottom: 1px solid #e5e7eb;
-        padding: 0.8rem 0;
-    }
-
-    /* ============================ ACCORDION ============================ */
-    .accordion-header {
-        display: flex;
-        justify-content: space-between;
-        padding: 1rem;
-        cursor: pointer;
-
-        h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .chevron {
-            transition: 0.3s;
-
-            &.open {
-                transform: rotate(180deg);
-            }
-        }
-    }
-
-    /* ============================
-   CONTAINER DES FILTRES
-============================ */
-    .filters {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-        padding: 0 1rem;
-
-        @media (min-width: 768px) {
-            gap: 1rem;
-            padding: 0 1.5rem;
-        }
-    }
-
-    /* ============================
-   INPUTS & SELECTS
-============================ */
-    .filter-input,
-    .filter-select {
-        padding: 0.65rem 0.9rem;
-        border-radius: 10px;
-        border: 1px solid #e5e7eb;
-        background: #fff;
-        font-size: 0.9rem;
-        min-width: 140px;
-        // flex: 1;
-
-        transition: 0.2s ease;
-
-        &:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-            outline: none;
-        }
-
-        @media (min-width: 768px) {
-            // flex: unset;
-        }
-    }
-
-    /* ============================
-   CHIPS (TAGS ANIMÉS)
-============================ */
-    .chips {
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-
-        .chip {
-            padding: 0.45rem 0.9rem;
-            border-radius: 20px;
-            background: #f3f4f6;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: 0.25s ease;
-            user-select: none;
-
-            &:hover {
-                transform: translateY(-2px);
-                background: #e5e7eb;
-            }
-
-            &.active {
-                background: #2563eb;
-                color: white;
-                transform: scale(1.05);
-                box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
-            }
-        }
-    }
-
-    /* ============================
-   GROUPES (DATE RANGE, PRIX)
-============================ */
-    .date-range,
-    .price-range {
-        display: flex;
-        gap: 0.5rem;
-        width: 100%;
-
-        @media (min-width: 768px) {
-            width: auto;
-        }
-
-        input {
-            flex: 1;
-        }
-    }
-
-    /* Reset button */
-    .reset-btn {
-        padding: 0.6rem 1rem;
-        background: #ef4444;
-        color: white;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-        font-weight: 600;
-        transition: 0.2s;
-
-        &:hover {
-            background: #dc2626;
-        }
-    }
-
-    /* ============================ SKELETON LOADER ============================ */
-    .skeleton-card {
-        height: 140px;
-        border-radius: 14px;
-        background: linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 50%, #f3f4f6 100%);
-        background-size: 200% 100%;
-        animation: shimmer 1.5s infinite;
-    }
-
-    @keyframes shimmer {
-        0% {
-            background-position: 200% 0;
-        }
-
-        100% {
-            background-position: -200% 0;
-        }
-    }
-
-    /* ============================
-   RESPONSIVE GLOBAL
-============================ */
-
-    /* Mobile : tout en colonne */
-    @media (max-width: 480px) {
-
-        .filters {
-            flex-direction: column;
-        }
-
-        .date-range,
-        .price-range {
-            flex-direction: column;
-        }
-    }
-
-    /* Tablette : 2 colonnes fluides */
-    @media (min-width: 375px) and (max-width: 900px) {
-
-        .filters-header {
-            position: relative;
-            top: 0;
-        }
-    }
-
-    /* Desktop : layout horizontal fluide */
-    @media (min-width: 901px) {
-        .filters {
-            flex-wrap: wrap;
-            align-items: center;
-        }
-    }
-
-    /* LISTE DES MISSIONS */
-    .missions-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 1rem;
-
-        @media (min-width: 700px) {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        @media (min-width: 1100px) {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .mission-card {
-            background: white;
-            border-radius: 14px;
-            padding: 1.2rem;
-            border: 1px solid #f1f1f1;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-            transition: 0.25s ease;
-
-            &:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            }
-
-            p {
-                margin: 0;
-                color: #4b5563;
-                font-size: 0.95rem;
-                line-height: 1.4;
-            }
-
-            .dates {
-                display: flex;
-                flex-direction: column;
-                gap: 0.6rem;
-                padding: 0.8rem 1rem;
-                border-radius: 12px;
-                background: #f9fafb;
-                transition: background 0.3s ease;
-
-                @media (min-width: 500px) {
-                    flex-direction: row;
-                    justify-content: space-between;
-                }
-
-                /* Couleurs dynamiques selon la durée */
-                &.date-pending {
-                    border-left: 4px solid #f59e0b;
-                }
-
-                &.date-in-progress {
-                    border-left: 4px solid #3b82f6;
-                }
-
-                &.date-completed {
-                    border-left: 4px solid #10b981;
-                }
-
-                &.date-cancelled {
-                    border-left: 4px solid #ef4444;
-                }
-
-                .date-item {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.4rem;
-
-                    .icon {
-                        width: 20px;
-                        height: 20px;
-                        color: #6b7280;
-                    }
-
-                    .label {
-                        font-size: 0.8rem;
-                        font-weight: 600;
-                        color: #6b7280;
-                    }
-
-                    .value {
-                        font-size: 0.95rem;
-                        font-weight: 700;
-                        color: #111827;
-                    }
-                }
-            }
-
-            /* Badges de statut */
-            .status-badge {
-                display: inline-block;
-                padding: 0.35rem 0.7rem;
-                border-radius: 8px;
-                font-size: 0.8rem;
-                font-weight: 600;
-                margin: 0.4rem 0;
-                color: #fff;
-                text-transform: capitalize;
-                width: fit-content;
-
-                &.pending {
-                    background: #f59e0b;
-                }
-
-                &.in_progress {
-                    background: #3b82f6;
-                }
-
-                &.completed {
-                    background: #10b981;
-                }
-
-                &.cancelled {
-                    background: #ef4444;
-                }
-            }
-
-            .btn-show {
-                display: inline-block;
-                padding: 0.45rem 0.9rem;
-                background: #2563eb;
-                color: white;
-                border-radius: 8px;
-                font-size: 0.85rem;
-                font-weight: 600;
-                transition: 0.2s ease;
-                text-align: center;
-                cursor: pointer;
-
-                &:hover {
-                    background: #1e40af;
-                    transform: translateY(-2px);
-                }
-            }
-        }
-
-        /* Loader */
-        .loader {
-            grid-column: 1 / -1;
-            /* occupe toute la largeur */
-            text-align: center;
-            padding: 1rem;
-            font-size: 0.95rem;
-            color: #6b7280;
-
-            span {
-                display: inline-block;
-                padding: 0.6rem 1rem;
-                background: #f3f4f6;
-                border-radius: 8px;
-            }
-        }
-    }
-
-    /* PAGINATION */
-    .pagination {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-
-        button {
-            padding: 0.5rem 1rem;
-            background: #e5e7eb;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-
-            &:hover:not(:disabled) {
-                background: #d1d5db;
-            }
-
-            &:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-        }
-
-        span {
-            font-size: 0.95rem;
-            color: #374151;
-            font-weight: 500;
-        }
-    }
-
-    .status-badge {
-        display: inline-block;
-        padding: 0.25rem 0.6rem;
-        font-size: 0.8rem;
-        font-weight: 600;
-        border-radius: 6px;
-        text-transform: capitalize;
-        color: #fff;
-        letter-spacing: 0.3px;
-
-        &.pending {
-            background-color: #f59e0b; // jaune
-        }
-
-        &.in_progress,
-        &.in-progress {
-            background-color: #3b82f6; // bleu
-        }
-
-        &.completed {
-            background-color: #10b981; // vert
-        }
-
-        &.cancelled {
-            background-color: #ef4444; // rouge
-        }
-    }
-
-}
-</style>
+<template>
+    <Head :title="$t('missions.my_missions')" />
+
+    <AppLayout>
+        <main class="mission-index">
+            <section class="mission-index__hero">
+                <div class="mission-index__container">
+                    <div class="mission-index__hero-content">
+                        <div>
+                            <span class="mission-index__eyebrow">{{ $t('missions.index.eyebrow') }}</span>
+                            <h1>{{ $t('missions.my_missions') }}</h1>
+                            <p>{{ $t('missions.index.subtitle') }}</p>
+                        </div>
+
+                        <Link href="/missions/create" class="mission-index__create">
+                            <span aria-hidden="true">＋</span>
+                            {{ $t('missions.create') }}
+                        </Link>
+                    </div>
+
+                    <div class="mission-index__stats">
+                        <article>
+                            <span>{{ $t('missions.index.visible') }}</span>
+                            <strong>{{ visibleStats.total }}</strong>
+                        </article>
+                        <article>
+                            <span>{{ $t('missions.index.active') }}</span>
+                            <strong>{{ visibleStats.active }}</strong>
+                        </article>
+                        <article>
+                            <span>{{ $t('missions.status.completed') }}</span>
+                            <strong>{{ visibleStats.completed }}</strong>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mission-index__body">
+                <div class="mission-index__container">
+                    <div class="mission-index__toolbar">
+                        <label class="mission-search">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                            <span class="sr-only">{{ $t('missions.index.search') }}</span>
+                            <input v-model="filters.search" type="search" :placeholder="$t('missions.index.searchPlaceholder')">
+                        </label>
+
+                        <button
+                            type="button"
+                            class="mission-filter-toggle"
+                            :class="{ active: hasActiveFilters }"
+                            :aria-expanded="filtersOpen"
+                            @click="filtersOpen = !filtersOpen"
+                        >
+                            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+                            {{ $t('missions.index.filters') }}
+                            <span v-if="hasActiveFilters" class="mission-filter-toggle__dot"></span>
+                        </button>
+
+                        <select v-model="filters.sort" class="mission-sort" :aria-label="$t('missions.index.sort')">
+                            <option value="date_desc">{{ $t('missions.index.sortNewest') }}</option>
+                            <option value="date_asc">{{ $t('missions.index.sortOldest') }}</option>
+                            <option value="price_asc">{{ $t('missions.index.sortPriceAsc') }}</option>
+                            <option value="price_desc">{{ $t('missions.index.sortPriceDesc') }}</option>
+                        </select>
+                    </div>
+
+                    <div class="mission-status-tabs" :aria-label="$t('missions.index.statusFilters')">
+                        <button
+                            v-for="status in statuses"
+                            :key="status.value"
+                            type="button"
+                            :class="{ active: filters.statuses.includes(status.value) }"
+                            @click="toggleStatus(status.value)"
+                        >
+                            <span :class="`mission-status-dot mission-status-dot--${status.value}`"></span>
+                            {{ status.label }}
+                        </button>
+                    </div>
+
+                    <div v-show="filtersOpen" class="mission-filters">
+                        <label>
+                            <span>{{ $t('missions.index.startDate') }}</span>
+                            <input v-model="filters.date_start" type="date">
+                        </label>
+                        <label>
+                            <span>{{ $t('missions.index.endDate') }}</span>
+                            <input v-model="filters.date_end" type="date">
+                        </label>
+                        <label>
+                            <span>{{ $t('missions.fields.provider') }}</span>
+                            <select v-model="filters.prestataire_id">
+                                <option value="">{{ $t('missions.index.allProviders') }}</option>
+                                <option v-for="provider in prestataires" :key="provider.id" :value="provider.id">
+                                    {{ providerName(provider) }}
+                                </option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>{{ $t('missions.index.minimumPrice') }}</span>
+                            <input v-model="filters.price_min" type="number" min="0" placeholder="0">
+                        </label>
+                        <label>
+                            <span>{{ $t('missions.index.maximumPrice') }}</span>
+                            <input v-model="filters.price_max" type="number" min="0" placeholder="0">
+                        </label>
+                        <button v-if="hasActiveFilters" type="button" class="mission-filters__reset" @click="resetFilters">
+                            {{ $t('missions.index.reset') }}
+                        </button>
+                    </div>
+
+                    <div v-if="loading && missionItems.length === 0" class="mission-grid" aria-busy="true">
+                        <div v-for="item in 6" :key="item" class="mission-card-skeleton"></div>
+                    </div>
+
+                    <div v-else-if="missionItems.length" class="mission-grid">
+                        <article v-for="mission in missionItems" :key="mission.id" class="mission-list-card">
+                            <div class="mission-list-card__top">
+                                <span :class="`mission-status mission-status--${mission.status}`">
+                                    {{ statusLabel(mission.status) }}
+                                </span>
+                                <span class="mission-list-card__id">#{{ mission.id }}</span>
+                            </div>
+
+                            <div class="mission-list-card__content">
+                                <h2>{{ mission.title }}</h2>
+                                <p>{{ mission.description }}</p>
+                            </div>
+
+                            <div class="mission-list-card__meta">
+                                <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i>{{ mission.city || mission.address || $t('missions.index.notDefined') }}</span>
+                                <span><i class="fas fa-wallet" aria-hidden="true"></i>{{ formatPrice(mission.price) }}</span>
+                            </div>
+
+                            <div class="mission-list-card__timeline">
+                                <div>
+                                    <span>{{ $t('missions.index.startDate') }}</span>
+                                    <strong>{{ formatDate(mission.date_start) }}</strong>
+                                </div>
+                                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                <div>
+                                    <span>{{ $t('missions.index.endDate') }}</span>
+                                    <strong>{{ formatDate(mission.date_end) }}</strong>
+                                </div>
+                            </div>
+
+                            <div class="mission-list-card__footer">
+                                <div class="mission-provider">
+                                    <span class="mission-provider__avatar" aria-hidden="true">
+                                        {{ providerName(mission.prestataire).charAt(0).toUpperCase() }}
+                                    </span>
+                                    <span>
+                                        <small>{{ $t('missions.fields.provider') }}</small>
+                                        <strong>{{ providerName(mission.prestataire) }}</strong>
+                                    </span>
+                                </div>
+
+                                <div class="mission-list-card__actions">
+                                    <Link :href="`/missions/${mission.id}`" class="mission-action mission-action--primary">
+                                        {{ $t('missions.actions.view') }}
+                                    </Link>
+                                    <Link v-if="mission.status === 'pending'" :href="`/missions/${mission.id}/edit`" class="mission-action" :aria-label="$t('missions.edit')">
+                                        <i class="fas fa-pen" aria-hidden="true"></i>
+                                    </Link>
+                                    <button v-if="['pending', 'in_progress'].includes(mission.status)" type="button" class="mission-action" :aria-label="$t('missions.actions.cancel')" @click="cancelMission(mission)">
+                                        <CancelIcon />
+                                    </button>
+                                    <button v-if="mission.status === 'pending'" type="button" class="mission-action mission-action--danger" :aria-label="$t('missions.index.delete')" @click="deleteMission(mission)">
+                                        <i class="fas fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div v-else class="mission-empty">
+                        <span class="mission-empty__icon"><i class="fas fa-clipboard-list" aria-hidden="true"></i></span>
+                        <h2>{{ hasActiveFilters ? $t('missions.index.noResults') : $t('missions.no_missions') }}</h2>
+                        <p>{{ hasActiveFilters ? $t('missions.index.noResultsDescription') : $t('missions.index.emptyDescription') }}</p>
+                        <button v-if="hasActiveFilters" type="button" class="mission-index__create" @click="resetFilters">
+                            {{ $t('missions.index.reset') }}
+                        </button>
+                        <Link v-else href="/missions/create" class="mission-index__create">{{ $t('missions.create') }}</Link>
+                    </div>
+
+                    <div ref="loadMoreTrigger" class="mission-loader" aria-live="polite">
+                        <span v-if="loading"><i class="fas fa-spinner fa-spin" aria-hidden="true"></i>{{ $t('missions.index.loading') }}</span>
+                        <span v-else-if="missionItems.length && !nextPageUrl">{{ $t('missions.index.end') }}</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </AppLayout>
+</template>
+
+<style scoped lang="scss" src="../../../scss/pages/missions/_index.scss"></style>

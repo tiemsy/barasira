@@ -15,7 +15,7 @@ class Message extends Model
         'receiver_id', // utilisateur qui reçoit le message
         'mission_id',  // optionnel : lien vers la mission
         'message', // contenu du message
-        'read' // booléen indiquant si le message a été lu (true ou false)
+        'read', // booléen indiquant si le message a été lu (true ou false)
     ];
 
     protected $casts = ['read' => 'boolean'];
@@ -28,12 +28,16 @@ class Message extends Model
         return $this->belongsTo(User::class, 'sender_id');
     }
 
-
     /**
      * L'utilisateur qui reçoit le message
      */
     public function receiver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver_id');
+    }
+
+    public function mission(): BelongsTo
+    {
+        return $this->belongsTo(Mission::class);
     }
 }

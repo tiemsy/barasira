@@ -15,7 +15,9 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        if (!in_array(auth()->user()->role, $roles)) {
+        $user = $request->user();
+
+        if (! $user || (! $user->isSuperAdmin() && ! in_array($user->role, $roles, true))) {
             abort(403);
         }
 

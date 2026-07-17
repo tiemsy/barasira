@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Service;
-use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ServiceStoreRequest;
 use App\Http\Requests\ServiceUpdateRequest;
+use App\Models\Service;
 use App\Repositories\Eloquent\ServiceRepositoryEloquent;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
 /**
@@ -17,6 +17,7 @@ use OpenApi\Annotations as OA;
  * type="object",
  * title="Service",
  * required={"id", "name"},
+ *
  * @OA\Property(property="id", type="integer", example=1),
  * @OA\Property(property="user_id", type="integer", example="1"),
  * @OA\Property(property="service_category_id", type="integer", example="2"),
@@ -47,18 +48,25 @@ class ServiceController extends Controller
      *     path="/api/services",
      *     tags={"Services"},
      *     summary="Liste des services",
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Liste des services",
+     *
      *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Service"))
      *     )
      * )
-     * @param Request $request
-     * @return JsonResponse
+     *
+     * @param  Request  $request
      */
     public function index(): JsonResponse
     {
-        $services = $this->serviceRepository->all();
+        $services = Service::query()
+            ->where('is_active', true)
+            ->select(['id', 'name', 'service_category_id', 'user_id'])
+            ->orderBy('name')
+            ->get();
+
         return response()->json($services);
     }
 
@@ -67,7 +75,11 @@ class ServiceController extends Controller
      */
     public function store(ServiceStoreRequest $request): JsonResponse
     {
-        $service = $this->serviceRepository->create($request->validated());
+        $this->authorize('create', Service::class);
+        $service = $this->serviceRepository->create($request->validated() + [
+            'user_id' => $request->user()->id,
+        ]);
+
         return response()->json($service, 201);
     }
 
@@ -77,6 +89,7 @@ class ServiceController extends Controller
     public function show(Service $service): JsonResponse
     {
         $service->load(['category', 'city', 'municipality', 'missions', 'providers']);
+
         return response()->json($service);
     }
 
@@ -85,38 +98,57 @@ class ServiceController extends Controller
      */
     public function update(ServiceUpdateRequest $request, Service $service): JsonResponse
     {
+        $this->authorize('update', $service);
         $service->update($request->validated());
+
         return response()->json($service);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Service $service): JsonResponse
+    public function destroy(Request $request, Service $service): JsonResponse
     {
+        $this->authorize('delete', $service);
+
+        if ($service->missions()->exists()) {
+            return response()->json([
+                'message' => __('Ce service est lié à une mission et ne peut pas être supprimé.'),
+            ], 422);
+        }
+
         $service->delete();
+
         return response()->json(null, 204);
     }
 
     public function search(Request $request)
     {
         $services = Service::with(['city', 'municipality', 'category', 'user'])
+            ->where('is_active', true)
             ->when(
                 $request->keyword,
-                fn($q) =>
-                $q->where('name', 'like', "%{$request->keyword}%")
+                fn ($query) => $query->where(function ($search) use ($request) {
+                    $search
+                        ->where('name', 'like', "%{$request->keyword}%")
+                        ->orWhere('description', 'like', "%{$request->keyword}%");
+                })
             )
             ->when(
                 $request->city,
-                fn($q) =>
-                $q->where('city_id', $request->city)
+                fn ($query) => $query->where('city_id', $request->city)
             )
             ->when(
                 $request->category,
-                fn($q) =>
-                $q->where('service_category_id', $request->category)
+                fn ($query) => $query->where('service_category_id', $request->category)
             )
-            ->get();
+            ->when(
+                $request->sort === 'price_asc',
+                fn ($query) => $query->orderBy('price_min'),
+                fn ($query) => $query->latest()
+            )
+            ->paginate(12)
+            ->withQueryString();
 
         return response()->json($services);
     }

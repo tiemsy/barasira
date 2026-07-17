@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Swagger;
+
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\SecurityScheme(securityScheme="sanctum", type="apiKey", in="cookie", name="laravel_session", description="Laravel Sanctum session cookie")
+ *
+ * @OA\Parameter(parameter="Id", name="id", in="path", required=true, @OA\Schema(type="integer", minimum=1))
+ *
+ * @OA\Response(response="Unauthenticated", description="Authentication required")
+ * @OA\Response(response="Forbidden", description="Action forbidden")
+ * @OA\Response(response="NotFound", description="Resource not found")
+ * @OA\Response(response="ValidationError", description="Validation error", @OA\JsonContent(@OA\Property(property="message", type="string"), @OA\Property(property="errors", type="object")))
+ *
+ * @OA\Schema(schema="User", type="object", @OA\Property(property="id", type="integer"), @OA\Property(property="first_name", type="string"), @OA\Property(property="last_name", type="string"), @OA\Property(property="email", type="string", format="email"), @OA\Property(property="phone", type="string", nullable=true), @OA\Property(property="role", type="string", enum={"client","prestataire","admin","superadmin"}), @OA\Property(property="avatar_url", type="string", nullable=true))
+ * @OA\Schema(schema="AuthResponse", type="object", @OA\Property(property="success", type="boolean"), @OA\Property(property="message", type="string"), @OA\Property(property="redirect", type="string"), @OA\Property(property="user", ref="#/components/schemas/User"))
+ * @OA\Schema(schema="LoginRequest", type="object", required={"email","password"}, @OA\Property(property="email", type="string", format="email"), @OA\Property(property="password", type="string", format="password", minLength=6), @OA\Property(property="remember", type="boolean"))
+ * @OA\Schema(schema="RegisterRequest", type="object", required={"first_name","last_name","phone","email","password","role"}, @OA\Property(property="first_name", type="string", maxLength=100), @OA\Property(property="last_name", type="string", maxLength=100), @OA\Property(property="phone", type="string", maxLength=20), @OA\Property(property="email", type="string", format="email"), @OA\Property(property="password", type="string", format="password", minLength=6), @OA\Property(property="role", type="string", enum={"client","prestataire","admin","superadmin"}))
+ * @OA\Schema(schema="UserUpdateRequest", type="object", required={"first_name","last_name","email"}, @OA\Property(property="first_name", type="string", maxLength=100), @OA\Property(property="last_name", type="string", maxLength=100), @OA\Property(property="email", type="string", format="email"), @OA\Property(property="phone", type="string", nullable=true), @OA\Property(property="bio", type="string", maxLength=2000, nullable=true), @OA\Property(property="avatar", type="string", format="binary", nullable=true), @OA\Property(property="remove_avatar", type="boolean"))
+ * @OA\Schema(schema="ServiceCategoryRequest", type="object", required={"name"}, @OA\Property(property="name", type="string", maxLength=150), @OA\Property(property="description", type="string", nullable=true), @OA\Property(property="icon", type="string", maxLength=255, nullable=true))
+ * @OA\Schema(schema="ServiceRequest", type="object", required={"service_category_id","name","description","price_min","price_max"}, @OA\Property(property="service_category_id", type="integer"), @OA\Property(property="name", type="string", maxLength=150), @OA\Property(property="description", type="string"), @OA\Property(property="icon", type="string", nullable=true), @OA\Property(property="price_min", type="number", minimum=0), @OA\Property(property="price_max", type="number", minimum=0), @OA\Property(property="is_active", type="boolean"))
+ * @OA\Schema(schema="MissionRequest", type="object", required={"service_id","title","description","city","address","date_start"}, @OA\Property(property="service_id", type="integer"), @OA\Property(property="title", type="string", maxLength=255), @OA\Property(property="description", type="string"), @OA\Property(property="city", type="string", maxLength=50), @OA\Property(property="address", type="string", maxLength=255), @OA\Property(property="skills", type="array", maxItems=10, @OA\Items(type="string")), @OA\Property(property="questions", type="array", maxItems=5, @OA\Items(type="string")), @OA\Property(property="latitude", type="number", nullable=true), @OA\Property(property="longitude", type="number", nullable=true), @OA\Property(property="price", type="number", minimum=0, nullable=true), @OA\Property(property="date_start", type="string", format="date-time"), @OA\Property(property="date_end", type="string", format="date-time", nullable=true))
+ * @OA\Schema(schema="MissionUpdateRequest", allOf={@OA\Schema(ref="#/components/schemas/MissionRequest"), @OA\Schema(@OA\Property(property="status", type="string", enum={"pending","in_progress","completed","cancelled"}))})
+ * @OA\Schema(schema="MissionAiRequest", type="object", required={"keywords"}, @OA\Property(property="keywords", type="string", minLength=3, maxLength=1000))
+ * @OA\Schema(schema="MessageRequest", type="object", required={"receiver_id","message"}, @OA\Property(property="receiver_id", type="integer"), @OA\Property(property="mission_id", type="integer", nullable=true), @OA\Property(property="message", type="string", maxLength=5000))
+ * @OA\Schema(schema="ReviewRequest", type="object", required={"mission_id","rating"}, @OA\Property(property="mission_id", type="integer"), @OA\Property(property="rating", type="integer", minimum=1, maximum=5), @OA\Property(property="comment", type="string", maxLength=2000, nullable=true))
+ * @OA\Schema(schema="ReviewUpdateRequest", type="object", required={"rating"}, @OA\Property(property="rating", type="integer", minimum=1, maximum=5), @OA\Property(property="comment", type="string", maxLength=2000, nullable=true))
+ * @OA\Schema(schema="TranslationRequest", type="object", required={"text","source_locale","target_locale"}, @OA\Property(property="text", type="string", maxLength=10000), @OA\Property(property="source_locale", type="string", maxLength=10), @OA\Property(property="target_locale", type="string", maxLength=10), @OA\Property(property="context", type="object"))
+ * @OA\Schema(schema="UserSkillRequest", type="object", required={"user_id","service_id","level"}, @OA\Property(property="user_id", type="integer"), @OA\Property(property="service_id", type="integer"), @OA\Property(property="level", type="string", maxLength=50))
+ */
+class Schemas {}

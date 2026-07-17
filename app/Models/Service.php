@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{HasMany, BelongsToMany};
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
@@ -12,7 +14,7 @@ class Service extends Model
 
     protected $fillable = [
         'user_id',
-        'category_id',    // catégorie du service (ex : plomberie, électricité…)
+        'service_category_id', // catégorie du service (ex : plomberie, électricité…)
         'city_id',
         'municipality_id',
         'name',           // nom du service
@@ -28,6 +30,13 @@ class Service extends Model
         'price_min' => 'decimal:2',
         'price_max' => 'decimal:2',
     ];
+
+    public function scopeActiveForProvider(Builder $query, User|int $provider): Builder
+    {
+        $providerId = $provider instanceof User ? $provider->id : $provider;
+
+        return $query->where('user_id', $providerId)->where('is_active', true);
+    }
 
     public function user()
     {
