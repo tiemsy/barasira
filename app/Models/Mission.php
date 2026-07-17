@@ -42,14 +42,6 @@ class Mission extends Model
         'date_end' => 'datetime',
     ];
 
-    protected $casts = [
-        'price' => 'decimal:2',
-        'latitude' => 'decimal:6',
-        'longitude' => 'decimal:6',
-        'date_start' => 'datetime',
-        'date_end' => 'datetime',
-    ];
-
     /**
      * Client qui a publié la mission
      */
