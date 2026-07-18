@@ -45,6 +45,16 @@ class SuperAdminProvisioningTest extends TestCase
         $this->assertDatabaseMissing('users', ['email' => 'root@barasira.test']);
     }
 
+    public function test_command_reports_an_empty_email_separately(): void
+    {
+        config()->set('superadmin.email', '');
+        config()->set('superadmin.password', 'a-secure-password');
+
+        $this->artisan('superadmin:ensure')
+            ->expectsOutput('SUPERADMIN_EMAIL est absent. Définissez cette variable puis régénérez le cache de configuration.')
+            ->assertFailed();
+    }
+
     public function test_command_restores_a_deleted_superadmin(): void
     {
         config()->set('superadmin', [

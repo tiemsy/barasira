@@ -123,6 +123,8 @@ Le compte administrateur reste `admin@barasira.com` avec le mot de passe défini
 
 En local, un superadministrateur est créé avec `superadmin@barasira.com` et le mot de passe `superadmin123`. En staging et en production, configurez obligatoirement `SUPERADMIN_EMAIL` et un `SUPERADMIN_PASSWORD` d’au moins 12 caractères. `SUPERADMIN_PHONE`, `SUPERADMIN_FIRST_NAME` et `SUPERADMIN_LAST_NAME` sont personnalisables.
 
+Après toute modification de ces variables sur un environnement utilisant le cache Laravel, exécutez `php artisan config:clear` avant le provisionnement, puis régénérez le cache avec `php artisan config:cache`.
+
 Le provisionnement est idempotent et peut être exécuté après chaque déploiement :
 
 ```bash
