@@ -30,28 +30,6 @@ class AdminSeeder extends Seeder
             ]
         );
 
-        $superAdminPassword = env('SUPERADMIN_PASSWORD', app()->environment('production') ? null : 'superadmin123');
-
-        if ($superAdminPassword) {
-            User::updateOrCreate(
-                ['email' => env('SUPERADMIN_EMAIL', 'superadmin@barasira.com')],
-                [
-                    'first_name' => 'Super',
-                    'last_name' => 'Admin',
-                    'phone' => env('SUPERADMIN_PHONE', '+223 70 00 00 00'),
-                    'password' => Hash::make($superAdminPassword),
-                    'role' => 'superadmin',
-                    'bio' => 'Superadministrateur de la plateforme Barasira.',
-                    'avatar_url' => null,
-                    'rating' => 0,
-                    'verified' => true,
-                    'email_verified_at' => now(),
-                ]
-            );
-        } else {
-            $this->command->warn('SUPERADMIN_PASSWORD absent : compte superadmin non créé en production.');
-        }
-
         $this->command->info('AdminSeeder exécuté avec succès.');
     }
 }
