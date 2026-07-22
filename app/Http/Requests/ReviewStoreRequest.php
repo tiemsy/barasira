@@ -8,7 +8,7 @@ class ReviewStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()?->role === 'client';
+        return in_array($this->user()?->role, ['client', 'admin', 'superadmin'], true);
     }
 
     public function rules(): array

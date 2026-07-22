@@ -7,7 +7,7 @@
           Barasira
         </Link>
         <p class="text-sm text-gray-500">
-          Les services de confiance, près de chez vous
+          {{ $t('footer.description') }}
         </p>
       </div>
 

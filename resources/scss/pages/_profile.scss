@@ -35,6 +35,9 @@
 }
 
 .profile-identity { flex: 1; }
+.profile-verified { display:inline-flex;align-items:center;gap:.4rem;margin-top:.55rem;padding:.4rem .65rem;border-radius:999px;background:#e5f5ec;color:#146c43;font-size:.78rem;font-weight:850; }
+.profile-verified svg { width:17px;height:17px; }
+.profile-verified.is-unverified { background:#fff3d6;color:#946411; }
 .profile-eyebrow { color: #177245; font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .profile-identity h1,
 .profile-form-header h1 { margin: .3rem 0; font-size: clamp(1.75rem, 4vw, 2.6rem); }
@@ -94,6 +97,20 @@
 .profile-fields-card footer button { padding: .85rem 1.2rem; border: 0; border-radius: 11px; background: #177245; color: #fff; font-weight: 800; cursor: pointer; }
 .profile-fields-card footer button:disabled { opacity: .65; cursor: wait; }
 
+.profile-completed { margin-top: 1.25rem; padding: 1.6rem; border: 1px solid #e2eae5; border-radius: 18px; background: #fff; box-shadow: 0 12px 36px rgba(20, 65, 42, .06); }
+.profile-completed > header h2 { margin: .35rem 0; }
+.profile-completed > header p { margin: 0 0 1.25rem; color: #647269; }
+.profile-completed-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.profile-completed-card { overflow: hidden; border: 1px solid #e2eae5; border-radius: 15px; background: #fbfdfc; }
+.profile-completed-card > div:last-child { padding: 1rem; }
+.profile-completed-card small,
+.profile-completed-card time { color: #647269; font-size: .78rem; }
+.profile-completed-card h3 { margin: .35rem 0; font-size: 1.05rem; }
+.profile-completed-card p { display: -webkit-box; margin: .4rem 0; overflow: hidden; color: #647269; line-height: 1.55; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.profile-mission-gallery { display: grid; grid-template-columns: repeat(5, 1fr); height: 150px; background: #edf3ef; }
+.profile-mission-gallery img { width: 100%; height: 100%; min-width: 0; object-fit: cover; }
+.profile-completed-empty { padding: 2rem; border-radius: 12px; background: #f5f8f6; color: #647269; text-align: center; }
+
 @media (max-width: 760px) {
     .profile-hero { align-items: flex-start; flex-wrap: wrap; }
     .profile-edit-button { width: 100%; }
@@ -101,5 +118,6 @@
     .profile-form { grid-template-columns: 1fr; }
     .profile-field-grid { grid-template-columns: 1fr; }
     .profile-field-grid .full-width { grid-column: auto; }
+    .profile-completed-grid { grid-template-columns: 1fr; }
     .profile-form-header { align-items: flex-start; }
 }

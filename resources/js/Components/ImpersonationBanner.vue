@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const page = usePage()
 const impersonation = computed(() => page.props?.auth?.impersonation ?? null)
@@ -9,8 +10,8 @@ const user = computed(() => page.props?.auth?.user ?? null)
 
 <template>
     <aside v-if="impersonation" class="impersonation-banner" role="status">
-        <span><i class="fas fa-user-secret"></i>{{ $t('impersonation.active', { name: user?.name }) }}</span>
-        <Link href="/impersonation/stop" method="post" as="button"><i class="fas fa-arrow-right-from-bracket"></i>{{ $t('impersonation.stop') }}</Link>
+        <span><DashboardIcon name="impersonation" />{{ $t('impersonation.active', { name: user?.name }) }}</span>
+        <Link href="/impersonation/stop" method="post" as="button"><DashboardIcon name="logout" />{{ $t('impersonation.stop') }}</Link>
     </aside>
 </template>
 

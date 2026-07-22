@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Notifications\Channels\WhatsAppChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -32,6 +33,16 @@ class VerifyEmailCustom extends VerifyEmail
                 'hash' => sha1($notifiable->getEmailForVerification()),
             ]
         );
+    }
+
+    public function via($notifiable): array
+    {
+        return ['mail', WhatsAppChannel::class];
+    }
+
+    public function toWhatsApp($notifiable): string
+    {
+        return 'Bienvenue sur Barasira, '.$notifiable->first_name.'. Confirmez votre adresse e-mail avec ce lien valable 60 minutes : '.$this->verificationUrl($notifiable);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Filterable;
+use App\Models\Traits\HasUniqueSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Mission extends Model
 {
-    use Filterable, HasFactory;
+    use Filterable, HasFactory, HasUniqueSlug;
 
     protected $filtersClass = \App\Filters\MissionFilters::class;
 
@@ -41,6 +42,11 @@ class Mission extends Model
         'date_start' => 'datetime',
         'date_end' => 'datetime',
     ];
+
+    protected function slugSource(): string
+    {
+        return $this->title;
+    }
 
     /**
      * Client qui a publié la mission
@@ -80,6 +86,21 @@ class Mission extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(MissionImage::class)->orderBy('sort_order');
+    }
+
+    public function invitations(): HasMany
+    {
+        return $this->hasMany(MissionInvitation::class);
+    }
+
+    public function unassignments(): HasMany
+    {
+        return $this->hasMany(MissionUnassignment::class);
     }
 
     /**

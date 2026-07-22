@@ -18,7 +18,7 @@ class ReviewController extends Controller
         $review = $this->reviewService->createForMission($request->user(), $request->validated());
 
         return response()->json([
-            'message' => __('Merci, votre avis a été publié.'),
+            'message' => __('messages.review_published'),
             'review' => $review,
         ], 201);
     }
@@ -28,7 +28,7 @@ class ReviewController extends Controller
         $review = $this->reviewService->revise($review, $request->user(), $request->validated());
 
         return response()->json([
-            'message' => __('Votre avis a été modifié. Il est maintenant définitif.'),
+            'message' => __('messages.review_updated'),
             'review' => $review,
         ]);
     }

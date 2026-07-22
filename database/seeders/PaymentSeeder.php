@@ -14,7 +14,11 @@ class PaymentSeeder extends Seeder
             ->where('status', 'completed')
             ->whereNotNull('prestataire_id')
             ->get()
-            ->each(function (Mission $mission) {
+            ->values()
+            ->each(function (Mission $mission, int $index) {
+                $methods = ['orange_money', 'moov_money', 'carte', 'paypal'];
+                $method = $methods[$index % count($methods)];
+
                 Payment::query()->updateOrCreate(
                     ['transaction_id' => 'DEMO-'.$mission->id],
                     [
@@ -23,7 +27,9 @@ class PaymentSeeder extends Seeder
                         'receiver_id' => $mission->prestataire_id,
                         'amount' => $mission->price,
                         'status' => 'effectue',
-                        'method' => 'carte',
+                        'method' => $method,
+                        'provider' => $method === 'paypal' ? 'paypal' : 'cinetpay',
+                        'paid_at' => $mission->date_end ?? $mission->updated_at,
                     ]
                 );
             });

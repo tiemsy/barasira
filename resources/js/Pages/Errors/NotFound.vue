@@ -4,12 +4,12 @@ import ErrorState from '@/Components/ErrorState.vue'
 </script>
 
 <template>
-    <AppLayout title="Page introuvable">
+    <AppLayout :title="$t('ui.errors.notFoundEyebrow')">
         <ErrorState
             code="404"
-            eyebrow="Page introuvable"
-            title="Cette page semble avoir disparu."
-            description="L’adresse est peut-être incorrecte ou la page a été déplacée. Vous pouvez revenir à l’accueil ou consulter la page précédente."
+            :eyebrow="$t('ui.errors.notFoundEyebrow')"
+            :title="$t('ui.errors.notFoundTitle')"
+            :description="$t('ui.errors.notFoundDescription')"
         />
     </AppLayout>
 </template>

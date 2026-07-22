@@ -3,6 +3,8 @@ import { computed } from 'vue'
 import { Link } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
 import { useServiceCategoryLabel } from '@/composables/useServiceCategoryLabel'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
+import { serviceIconName } from '@/composables/useServiceIcon'
 
 const props = defineProps({
     service: { type: Object, required: true },
@@ -30,7 +32,7 @@ const providerInitials = computed(() =>
     <article class="service-card">
         <div class="service-card__top">
             <span class="service-card__icon">
-                <i :class="service.icon || service.category?.icon || 'bi bi-grid'" />
+                <DashboardIcon :name="serviceIconName(service)" />
             </span>
             <span class="service-card__availability">{{ $t('serviceCard.available') }}</span>
         </div>
@@ -42,7 +44,7 @@ const providerInitials = computed(() =>
         <dl class="service-card__details">
             <div>
                 <dt>{{ $t('serviceCard.location') }}</dt>
-                <dd>⌖ {{ service.city?.name ?? $t('serviceCard.mali') }}</dd>
+                <dd><DashboardIcon name="location" /> {{ service.city?.name ?? $t('serviceCard.mali') }}</dd>
             </div>
             <div>
                 <dt>{{ $t('serviceCard.estimatedPrice') }}</dt>
@@ -59,7 +61,7 @@ const providerInitials = computed(() =>
                     <small>★ {{ service.user?.rating || $t('serviceCard.newProvider') }}</small>
                 </div>
             </div>
-            <Link :href="`/services/${service.id}`" class="service-card__link" :aria-label="$t('serviceCard.view', { name: service.name })">
+            <Link :href="`/services/${service.slug}`" class="service-card__link" :aria-label="$t('serviceCard.view', { name: service.name })">
                 →
             </Link>
         </footer>

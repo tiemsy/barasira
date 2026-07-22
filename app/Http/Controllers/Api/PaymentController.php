@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Mission;
 use App\Models\Payment;
+use App\Services\MissionImageService;
 use App\Services\Payments\PaymentGatewayService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -14,7 +15,10 @@ use Throwable;
 
 class PaymentController extends Controller
 {
-    public function __construct(private readonly PaymentGatewayService $gateway) {}
+    public function __construct(
+        private readonly PaymentGatewayService $gateway,
+        private readonly MissionImageService $missionImages,
+    ) {}
 
     public function store(Request $request, Mission $mission): JsonResponse
     {
@@ -26,13 +30,28 @@ class PaymentController extends Controller
             403
         );
 
-        $data = $request->validate(['method' => ['required', 'in:orange_money,moov_money,carte,paypal']]);
+        $data = $request->validate([
+            'method' => ['required', 'in:orange_money,moov_money,carte,paypal'],
+            'images' => ['required', 'array', 'min:1', 'max:5'],
+            'images.*' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+        ], [
+            'images.required' => __('missions.images.required'),
+            'images.array' => __('missions.images.required'),
+            'images.min' => __('missions.images.count'),
+            'images.max' => __('missions.images.count'),
+            'images.*.required' => __('missions.images.required'),
+            'images.*.image' => __('missions.images.invalid'),
+            'images.*.mimes' => __('missions.images.format'),
+            'images.*.max' => __('missions.images.size'),
+        ]);
         if ($data['method'] !== 'paypal' && ((int) $mission->price % 5 !== 0 || (float) $mission->price !== (float) (int) $mission->price)) {
-            return response()->json(['message' => 'Le montant doit être un nombre entier multiple de 5 FCFA.'], 422);
+            return response()->json(['message' => __('messages.payment_multiple_of_five')], 422);
         }
         if ($mission->payments()->where('status', 'effectue')->exists()) {
-            return response()->json(['message' => 'Cette mission est déjà payée.'], 409);
+            return response()->json(['message' => __('messages.mission_already_paid')], 409);
         }
+        $this->missionImages->replace($mission, $data['images']);
+
         $pendingPayment = $mission->payments()
             ->where('payer_id', $request->user()->id)
             ->where('method', $data['method'])

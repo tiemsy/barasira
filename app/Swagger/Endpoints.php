@@ -44,7 +44,7 @@ use OpenApi\Annotations as OA;
  * @OA\Post(path="/api/services", operationId="services.store", tags={"Services"}, security={{"sanctum":{}}}, @OA\RequestBody(required=true, @OA\JsonContent(ref="#/components/schemas/ServiceRequest")), @OA\Response(response=201, description="Created"))
  *
  * @OA\Get(path="/api/services-search", operationId="services.search", tags={"Services"}, security={}, @OA\Parameter(name="query", in="query", @OA\Schema(type="string")), @OA\Response(response=200, description="Search results"))
- * @OA\Get(path="/api/services/{id}", operationId="services.show", tags={"Services"}, security={}, @OA\Parameter(ref="#/components/parameters/Id"), @OA\Response(response=200, description="Service"))
+ * @OA\Get(path="/api/services/{slug}", operationId="services.show", tags={"Services"}, security={}, @OA\Parameter(name="slug", in="path", required=true, @OA\Schema(type="string")), @OA\Response(response=200, description="Service"))
  *
  * @OA\Put(path="/api/services/{id}", operationId="services.updatePut", tags={"Services"}, security={{"sanctum":{}}}, @OA\Parameter(ref="#/components/parameters/Id"), @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/ServiceRequest")), @OA\Response(response=200, description="Updated"))
  *
@@ -56,7 +56,7 @@ use OpenApi\Annotations as OA;
  *
  * @OA\Post(path="/api/missions", operationId="missions.store", tags={"Missions"}, security={{"sanctum":{}}}, @OA\RequestBody(required=true, @OA\JsonContent(ref="#/components/schemas/MissionRequest")), @OA\Response(response=201, description="Created"))
  *
- * @OA\Get(path="/api/missions/{id}", operationId="missions.show", tags={"Missions"}, security={{"sanctum":{}}}, @OA\Parameter(ref="#/components/parameters/Id"), @OA\Response(response=200, description="Mission"))
+ * @OA\Get(path="/api/missions/{slug}", operationId="missions.show", tags={"Missions"}, security={{"sanctum":{}}}, @OA\Parameter(name="slug", in="path", required=true, @OA\Schema(type="string")), @OA\Response(response=200, description="Mission"))
  *
  * @OA\Put(path="/api/missions/{id}", operationId="missions.updatePut", tags={"Missions"}, security={{"sanctum":{}}}, @OA\Parameter(ref="#/components/parameters/Id"), @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/MissionUpdateRequest")), @OA\Response(response=200, description="Updated"))
  *
@@ -112,6 +112,11 @@ use OpenApi\Annotations as OA;
  * @OA\Patch(path="/api/portfolio-items/{id}", operationId="portfolio.updatePatch", tags={"Portfolio"}, security={}, @OA\Parameter(ref="#/components/parameters/Id"), @OA\Response(response=200, description="Not implemented"))
  *
  * @OA\Delete(path="/api/portfolio-items/{id}", operationId="portfolio.destroy", tags={"Portfolio"}, security={}, @OA\Parameter(ref="#/components/parameters/Id"), @OA\Response(response=204, description="Deleted"))
+ *
+ * @OA\Post(path="/api/missions/{id}/payments", operationId="payments.store", tags={"Payments"}, security={{"sanctum":{}}}, description="Initialise un paiement pour une mission en cours appartenant au client authentifié. Une à cinq photos de réalisation sont obligatoires.", @OA\Parameter(ref="#/components/parameters/Id"), @OA\RequestBody(required=true, @OA\MediaType(mediaType="multipart/form-data", @OA\Schema(ref="#/components/schemas/PaymentCreateRequest"))), @OA\Response(response=201, description="Paiement initialisé", @OA\JsonContent(ref="#/components/schemas/PaymentResponse")), @OA\Response(response=403, ref="#/components/responses/Forbidden"), @OA\Response(response=409, description="Mission déjà payée"), @OA\Response(response=422, ref="#/components/responses/ValidationError"), @OA\Response(response=502, description="Passerelle de paiement indisponible"))
+ * @OA\Get(path="/api/payments/{id}", operationId="payments.show", tags={"Payments"}, security={{"sanctum":{}}}, description="Retourne un paiement appartenant au client authentifié.", @OA\Parameter(ref="#/components/parameters/Id"), @OA\Response(response=200, description="Paiement", @OA\JsonContent(ref="#/components/schemas/PaymentResponse")), @OA\Response(response=403, ref="#/components/responses/Forbidden"))
+ * @OA\Get(path="/api/payments/mobile/return/{id}", operationId="payments.mobileReturn", tags={"Payments"}, security={}, description="Capture si nécessaire le paiement PayPal puis redirige vers barasira://payments/{id}.", @OA\Parameter(ref="#/components/parameters/Id"), @OA\Response(response=302, description="Redirection vers l’application mobile"))
+ * @OA\Get(path="/api/payments/mobile/cancel/{id}", operationId="payments.mobileCancel", tags={"Payments"}, security={}, description="Annule un paiement encore en attente puis redirige vers barasira://payments/{id}.", @OA\Parameter(ref="#/components/parameters/Id"), @OA\Response(response=302, description="Redirection vers l’application mobile"))
  *
  * @OA\Get(path="/api/payments/webhooks/cinetpay", operationId="payments.cinetpayPing", tags={"Payments"}, security={}, @OA\Response(response=204, description="Webhook availability"))
  *

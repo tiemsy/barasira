@@ -310,7 +310,7 @@ class UserController extends Controller
         }
 
         return response()->json([
-            'message' => __('Profil mis à jour avec succès.'),
+            'message' => __('messages.profile_updated'),
             'requires_email_verification' => $emailChanged,
             'user' => $user->fresh(),
         ]);

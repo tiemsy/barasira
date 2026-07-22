@@ -1,0 +1,19 @@
+@use "../variables/globals" as *;
+.partners-page { min-height: 70vh; background: #f7faf9; }
+.partners-hero { padding: 5.5rem 5%; text-align: center; background: linear-gradient(135deg, #113f37, #19705f); color: #fff; }
+.partners-hero > div { width: min(760px, 100%); margin: auto; }
+.partners-hero span { color: #f0c45c; text-transform: uppercase; letter-spacing: .14em; font-weight: 800; }
+.partners-hero h1 { margin: .6rem 0 1rem; font-size: clamp(2.4rem, 6vw, 4.5rem); }
+.partners-hero p { margin: 0; color: rgba(255,255,255,.82); font-size: 1.1rem; }
+.partners-content { width: min(92%, 1180px); margin: 0 auto; padding: 4.5rem 0 6rem; }
+.partners-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+.partner-card { padding: 1.6rem; border: 1px solid #e0e9e6; border-radius: 22px; background: #fff; box-shadow: 0 10px 30px rgba(20,60,51,.05); }
+.partner-card__logo { height: 130px; display: grid; place-items: center; padding: 1rem; border-radius: 16px; background: #f7faf9; color: $c-primary; font-size: 3rem; }
+.partner-card__logo img { width: 100%; height: 100%; object-fit: contain; }
+.partner-card h2 { margin: 1.25rem 0 .6rem; color: #123f37; }
+.partner-card p { color: #687a76; }
+.partner-card__link { display: inline-flex; align-items: center; gap: .4rem; color: $c-primary; font-weight: 800; }
+.partners-empty { text-align: center; padding: 5rem 1rem; color: #667772; }.partners-empty > svg { font-size: 4rem; color: $c-primary; }
+@media(max-width:850px){.partners-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.partners-grid{grid-template-columns:1fr}.partners-hero{padding:4rem 5%}}
+.partner-sponsorship-link { display: inline-flex; margin-top: 1.25rem; padding: .8rem 1.1rem; border-radius: 10px; background: #fff; color: #176b5b; font-weight: 850; text-decoration: none; }

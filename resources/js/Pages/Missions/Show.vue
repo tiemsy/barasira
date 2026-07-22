@@ -1,7 +1,8 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
-import { computed, ref, onMounted } from "vue"
-import { Link, usePage } from '@inertiajs/vue3'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
+import { computed, ref, onBeforeUnmount, onMounted, watch } from "vue"
+import { Link, router, usePage } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
 import missionService from '@/composables/missionService'
 import reviewService from '@/composables/reviewService'
@@ -17,13 +18,26 @@ const reviewing = ref(false)
 const reviewError = ref('')
 const reviewSuccess = ref('')
 const editingReview = ref(false)
+const missionImages = ref([])
+const missionImagePreviews = ref([])
+const missionImageError = ref('')
+const savingMissionImages = ref(false)
+const selectedProviderId = ref('')
+const invitingProvider = ref(false)
+const invitationError = ref('')
+const unassigningProvider = ref(false)
+const unassignError = ref('')
+const unassignModalOpen = ref(false)
+const unassignForm = ref({ reason: '', details: '' })
 const page = usePage()
 const { locale, t } = useI18n()
 const props = defineProps({
     mission: {
         type: Object,
         required: true
-    }
+    },
+    providers: { type: Array, default: () => [] },
+    pendingInvitation: { type: Object, default: null }
 })
 const currentMission = ref(props.mission)
 const canClaim = computed(() => page.props?.auth?.user?.role === 'prestataire'
@@ -34,11 +48,30 @@ const canValidateAndPay = computed(() => page.props?.auth?.user?.role === 'clien
     && currentMission.value.status === 'in_progress'
     && currentMission.value.prestataire_id
     && Number(currentMission.value.price) > 0)
+const canManageMissionImages = computed(() => page.props?.auth?.user?.role === 'client'
+    && page.props?.auth?.user?.id === currentMission.value.client_id
+    && currentMission.value.status === 'completed')
+const canInviteProvider = computed(() => page.props?.auth?.user?.role === 'client'
+    && page.props?.auth?.user?.id === currentMission.value.client_id
+    && currentMission.value.status === 'pending'
+    && !currentMission.value.prestataire_id)
+const canUnassignProvider = computed(() => page.props?.auth?.user?.role === 'client'
+    && page.props?.auth?.user?.id === currentMission.value.client_id
+    && currentMission.value.status === 'in_progress'
+    && currentMission.value.prestataire_id)
+const assignedProviderName = computed(() => {
+    const provider = currentMission.value.prestataire
+
+    return provider
+        ? `${provider.first_name} ${provider.last_name}`.trim()
+        : t('missions.fields.provider')
+})
 const currentReview = computed(() => currentMission.value.reviews?.find(
     review => review.reviewer_id === page.props?.auth?.user?.id
 ) ?? null)
-const canReview = computed(() => page.props?.auth?.user?.role === 'client'
-    && page.props?.auth?.user?.id === currentMission.value.client_id
+const canReview = computed(() => ['client', 'admin', 'superadmin'].includes(page.props?.auth?.user?.role)
+    && (page.props?.auth?.user?.role !== 'client'
+        || page.props?.auth?.user?.id === currentMission.value.client_id)
     && currentMission.value.status === 'completed'
     && currentMission.value.prestataire_id
     && !currentReview.value)
@@ -73,6 +106,105 @@ function formatDate(dateStr) {
         year: "numeric",
         hour: "2-digit",
         minute: "2-digit"
+    })
+}
+
+function chooseMissionImages(event) {
+    missionImagePreviews.value.forEach(URL.revokeObjectURL)
+    const selected = Array.from(event.target.files ?? [])
+    missionImageError.value = ''
+
+    if (selected.length < 1 || selected.length > 5) {
+        missionImages.value = []
+        missionImagePreviews.value = []
+        missionImageError.value = t('missions.show.imagesCountError')
+        event.target.value = ''
+        return
+    }
+
+    missionImages.value = selected
+    missionImagePreviews.value = selected.map(URL.createObjectURL)
+}
+
+function saveMissionImages() {
+    if (!missionImages.value.length) {
+        missionImageError.value = t('missions.show.imagesCountError')
+        return
+    }
+
+    savingMissionImages.value = true
+    router.post(`/missions/${currentMission.value.id}/images`, { images: missionImages.value }, {
+        forceFormData: true,
+        preserveScroll: true,
+        onError: errors => {
+            missionImageError.value = errors.images || errors['images.0'] || t('missions.show.imagesSaveError')
+        },
+        onSuccess: () => {
+            missionImagePreviews.value.forEach(URL.revokeObjectURL)
+            missionImages.value = []
+            missionImagePreviews.value = []
+            missionImageError.value = ''
+        },
+        onFinish: () => { savingMissionImages.value = false },
+    })
+}
+
+function inviteProvider() {
+    if (!selectedProviderId.value) {
+        invitationError.value = t('missions.show.selectProviderError')
+        return
+    }
+
+    invitingProvider.value = true
+    invitationError.value = ''
+    router.post(`/missions/${currentMission.value.id}/invite-provider`, {
+        provider_id: selectedProviderId.value,
+    }, {
+        preserveScroll: true,
+        onError: errors => { invitationError.value = errors.provider_id || errors.mission || t('missions.show.invitationError') },
+        onFinish: () => { invitingProvider.value = false },
+    })
+}
+
+function openUnassignModal() {
+    unassignForm.value = { reason: '', details: '' }
+    unassignError.value = ''
+    unassignModalOpen.value = true
+}
+
+function closeUnassignModal() {
+    if (unassigningProvider.value) return
+    unassignModalOpen.value = false
+}
+
+function handleUnassignModalKeydown(event) {
+    if (event.key === 'Escape' && unassignModalOpen.value) closeUnassignModal()
+}
+
+function unassignProvider() {
+    if (!unassignForm.value.reason) {
+        unassignError.value = t('missions.unassignmentForm.reasonRequired')
+        return
+    }
+
+    if (unassignForm.value.reason === 'other' && unassignForm.value.details.trim().length < 10) {
+        unassignError.value = t('missions.unassignmentForm.detailsRequired')
+        return
+    }
+
+    unassigningProvider.value = true
+    unassignError.value = ''
+    router.delete(`/missions/${currentMission.value.id}/provider`, {
+        data: {
+            reason: unassignForm.value.reason,
+            details: unassignForm.value.reason === 'other' ? unassignForm.value.details.trim() : null,
+        },
+        preserveScroll: true,
+        onError: errors => {
+            unassignError.value = errors.reason || errors.details || errors.mission || t('missions.show.unassignError')
+        },
+        onSuccess: () => { unassignModalOpen.value = false },
+        onFinish: () => { unassigningProvider.value = false },
     })
 }
 
@@ -153,6 +285,14 @@ async function loadMission() {
 
 onMounted(() => {
     loadMission()
+    document.addEventListener('keydown', handleUnassignModalKeydown)
+})
+watch(() => props.mission, mission => { currentMission.value = mission })
+watch(unassignModalOpen, open => document.body.classList.toggle('unassign-modal-open', open))
+onBeforeUnmount(() => {
+    missionImagePreviews.value.forEach(URL.revokeObjectURL)
+    document.body.classList.remove('unassign-modal-open')
+    document.removeEventListener('keydown', handleUnassignModalKeydown)
 })
 </script>
 
@@ -232,18 +372,84 @@ onMounted(() => {
                     <p v-if="claimError" class="claim-feedback error" role="alert">{{ claimError }}</p>
                 </div>
 
+                <section v-if="canInviteProvider" class="provider-invitation-panel">
+                    <header>
+                        <span>{{ $t('missions.show.providersEyebrow') }}</span>
+                        <h2>{{ $t('missions.show.assignProviderTitle') }}</h2>
+                        <p>{{ $t('missions.show.assignProviderHint') }}</p>
+                    </header>
+                    <p v-if="pendingInvitation" class="pending-invitation">
+                        {{ $t('missions.show.pendingInvitation', { provider: `${pendingInvitation.provider.first_name} ${pendingInvitation.provider.last_name}` }) }}
+                    </p>
+                    <div class="provider-invitation-form">
+                        <select v-model="selectedProviderId" :aria-label="$t('missions.show.selectProvider')">
+                            <option value="">{{ $t('missions.show.selectProvider') }}</option>
+                            <option v-for="provider in providers" :key="provider.id" :value="provider.id">
+                                {{ provider.first_name }} {{ provider.last_name }} · {{ Number(provider.rating || 0).toFixed(1) }}/5
+                            </option>
+                        </select>
+                        <button type="button" :disabled="invitingProvider || !providers.length" @click="inviteProvider">
+                            {{ invitingProvider ? $t('missions.show.sendingInvitation') : $t('missions.show.sendInvitation') }}
+                        </button>
+                    </div>
+                    <p v-if="!providers.length" class="invitation-feedback">{{ $t('missions.show.noProviders') }}</p>
+                    <p v-if="invitationError" class="invitation-feedback error" role="alert">{{ invitationError }}</p>
+                </section>
+
+                <section v-if="canUnassignProvider" class="provider-unassignment-panel">
+                    <div class="provider-unassignment-panel__icon" aria-hidden="true">
+                        <DashboardIcon name="delete" />
+                    </div>
+                    <div class="provider-unassignment-panel__content">
+                        <span>{{ $t('missions.show.unassignEyebrow') }}</span>
+                        <h2>{{ $t('missions.show.unassignTitle') }}</h2>
+                        <p>{{ $t('missions.show.unassignHint') }}</p>
+                    </div>
+                    <button class="provider-unassignment-panel__action" type="button" @click="openUnassignModal">
+                        <DashboardIcon name="delete" />
+                        {{ $t('missions.show.unassignProvider') }}
+                    </button>
+                    <p v-if="unassignError" class="unassign-error" role="alert">
+                        <DashboardIcon name="warning" />
+                        {{ unassignError }}
+                    </p>
+                </section>
+
                 <div v-if="canValidateAndPay" class="payment-panel">
                     <div>
                         <h2>{{ $t('missions.show.validateTitle') }}</h2>
                         <p>{{ $t('missions.show.validateHint') }}</p>
                     </div>
                     <Link :href="`/payments/${currentMission.id}`" class="payment-panel__action">
-                        <i class="fas fa-lock"></i>
+                        <DashboardIcon name="shield" />
                         {{ $t('missions.actions.validateAndPay') }}
                     </Link>
                 </div>
 
-                <section v-if="canReview || currentReview" class="review-panel">
+                <section v-if="currentMission.images?.length || canManageMissionImages" class="mission-images-panel">
+                    <header>
+                        <span>{{ $t('missions.show.imagesEyebrow') }}</span>
+                        <h2>{{ canManageMissionImages ? (currentMission.images?.length ? $t('missions.show.editImagesTitle') : $t('missions.show.addImagesTitle')) : $t('missions.show.imagesTitle') }}</h2>
+                        <p>{{ canManageMissionImages ? $t('missions.show.imagesHint') : $t('missions.show.imagesReadOnlyHint') }}</p>
+                    </header>
+                    <div v-if="currentMission.images?.length && !missionImagePreviews.length" class="mission-images-grid">
+                        <img v-for="image in currentMission.images" :key="image.id" :src="image.url" :alt="currentMission.title">
+                    </div>
+                    <div v-if="missionImagePreviews.length" class="mission-images-grid">
+                        <img v-for="preview in missionImagePreviews" :key="preview" :src="preview" :alt="currentMission.title">
+                    </div>
+                    <label v-if="canManageMissionImages" class="mission-images-picker">
+                        <input type="file" accept="image/jpeg,image/png,image/webp" multiple @change="chooseMissionImages">
+                        <span>{{ currentMission.images?.length ? $t('missions.show.replaceImages') : $t('missions.show.chooseImages') }}</span>
+                        <small>{{ $t('missions.show.imagesFormats') }}</small>
+                    </label>
+                    <p v-if="canManageMissionImages && missionImageError" class="review-feedback error" role="alert">{{ missionImageError }}</p>
+                    <button v-if="canManageMissionImages" type="button" class="mission-images-save" :disabled="savingMissionImages || !missionImages.length" @click="saveMissionImages">
+                        {{ savingMissionImages ? $t('missions.show.savingImages') : $t('missions.show.saveImages') }}
+                    </button>
+                </section>
+
+                <section v-if="canReview || currentReview" id="review" class="review-panel">
                     <div class="review-panel__heading">
                         <span>{{ $t('reviews.eyebrow') }}</span>
                         <h2>{{ currentReview ? $t('reviews.yourReview') : $t('reviews.title') }}</h2>
@@ -252,7 +458,7 @@ onMounted(() => {
 
                     <div v-if="currentReview && !editingReview" class="review-summary">
                         <div class="review-stars" :aria-label="$t('reviews.ratingValue', { rating: currentReview.rating })">
-                            <i v-for="star in 5" :key="star" class="fas fa-star" :class="{ muted: star > currentReview.rating }"></i>
+                            <span v-for="star in 5" :key="star" aria-hidden="true" :class="{ muted: star > currentReview.rating }">★</span>
                         </div>
                         <p v-if="currentReview.comment">{{ currentReview.comment }}</p>
                         <button v-if="currentReview.edit_count < 1" type="button" class="review-edit-button" @click="editReview">
@@ -272,7 +478,7 @@ onMounted(() => {
                                     :class="{ selected: star <= reviewForm.rating }"
                                     :aria-label="$t('reviews.selectRating', { rating: star })"
                                     @click="reviewForm.rating = star"
-                                ><i class="fas fa-star"></i></button>
+                                ><span aria-hidden="true">★</span></button>
                             </div>
                         </fieldset>
                         <label>
@@ -298,6 +504,48 @@ onMounted(() => {
                 >
                     {{ contactUser.role === 'prestataire' ? $t('missions.show.contactProvider') : $t('missions.show.contactClient') }}
                 </Link>
+
+                <div class="unassign-modal-host">
+                    <Transition name="unassign-modal">
+                        <div v-if="unassignModalOpen" class="unassign-modal__backdrop" @mousedown.self="closeUnassignModal">
+                            <section class="unassign-modal" role="dialog" aria-modal="true" aria-labelledby="unassign-modal-title">
+                                <button type="button" class="unassign-modal__close" :aria-label="$t('confirmDialog.close')" :disabled="unassigningProvider" @click="closeUnassignModal">×</button>
+                                <div class="unassign-modal__icon" aria-hidden="true"><DashboardIcon name="delete" /></div>
+                                <div class="unassign-modal__heading">
+                                    <span>{{ $t('missions.show.unassignEyebrow') }}</span>
+                                    <h2 id="unassign-modal-title">{{ $t('missions.show.unassignTitle') }}</h2>
+                                    <p>{{ $t('missions.unassignmentForm.hint', { provider: assignedProviderName }) }}</p>
+                                </div>
+
+                                <form @submit.prevent="unassignProvider">
+                                    <fieldset>
+                                        <legend>{{ $t('missions.unassignmentForm.reasonLabel') }}</legend>
+                                        <label v-for="reason in ['unavailable', 'poor_communication', 'lateness', 'disagreement', 'client_change', 'other']" :key="reason" class="unassign-reason">
+                                            <input v-model="unassignForm.reason" type="radio" name="unassign_reason" :value="reason" @change="unassignError = ''">
+                                            <span>{{ $t(`missions.unassignmentForm.reasons.${reason}`) }}</span>
+                                        </label>
+                                    </fieldset>
+
+                                    <label v-if="unassignForm.reason === 'other'" class="unassign-modal__details">
+                                        <span>{{ $t('missions.unassignmentForm.detailsLabel') }}</span>
+                                        <textarea v-model="unassignForm.details" rows="4" maxlength="1000" :placeholder="$t('missions.unassignmentForm.detailsPlaceholder')"></textarea>
+                                        <small>{{ unassignForm.details.length }}/1000</small>
+                                    </label>
+
+                                    <p v-if="unassignError" class="unassign-modal__error" role="alert"><DashboardIcon name="warning" />{{ unassignError }}</p>
+
+                                    <div class="unassign-modal__actions">
+                                        <button type="button" class="secondary" :disabled="unassigningProvider" @click="closeUnassignModal">{{ $t('confirmDialog.cancel') }}</button>
+                                        <button type="submit" class="danger" :disabled="unassigningProvider || !unassignForm.reason">
+                                            <DashboardIcon :name="unassigningProvider ? 'loading' : 'delete'" />
+                                            {{ unassigningProvider ? $t('missions.show.unassigning') : $t('missions.show.unassignProvider') }}
+                                        </button>
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
+                    </Transition>
+                </div>
 
             </div>
         </div>

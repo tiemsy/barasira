@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Connexion">
+    <AppLayout :title="$t('auth.login_title')">
         <section class="login-page">
 
             <div class="login-shell">
@@ -8,31 +8,31 @@
                 <div class="login-visual">
                     <div class="login-visual__content">
                         <span class="login-visual__badge">
-                            🔐 Barasira sécurisé
+                            🔐 {{ $t('ui.auth.secureBadge') }}
                         </span>
 
                         <h2>
-                            Connectez-vous et trouvez le bon prestataire rapidement.
+                            {{ $t('ui.auth.loginHeroTitle') }}
                         </h2>
 
                         <p>
-                            Accédez à vos missions, services, messages et recommandations personnalisées.
+                            {{ $t('ui.auth.loginHeroText') }}
                         </p>
 
                         <div class="login-visual__features">
                             <span>
-                                <i class="bi bi-check-circle-fill"></i>
-                                Prestataires vérifiés
+                                <DashboardIcon name="verified" />
+                                {{ $t('ui.auth.verifiedProviders') }}
                             </span>
 
                             <span>
-                                <i class="bi bi-check-circle-fill"></i>
-                                Missions sécurisées
+                                <DashboardIcon name="verified" />
+                                {{ $t('ui.auth.secureMissions') }}
                             </span>
 
                             <span>
-                                <i class="bi bi-check-circle-fill"></i>
-                                Support rapide
+                                <DashboardIcon name="verified" />
+                                {{ $t('ui.auth.fastSupport') }}
                             </span>
                         </div>
                     </div>
@@ -65,30 +65,25 @@
                             </h1>
 
                             <p class="login-subtitle">
-                                Accédez à votre compte Barasira
+                                {{ $t('ui.auth.loginSubtitle') }}
                             </p>
                         </div>
 
                         <!-- SSO -->
                         <div class="sso-login">
-                            <!-- <a href="/api/auth/google/redirect" class="sso-btn sso-btn--google">
-                                <i class="bi bi-google"></i>
-                                Continuer avec Google
-                            </a> -->
-
                             <button type="button" class="sso-btn sso-btn--google" @click="loginWithGoogle">
-                                <i class="fab fa-google"></i>
-                                Continuer avec Google
+                                <DashboardIcon name="google" />
+                                {{ $t('ui.auth.continueGoogle') }}
                             </button>
 
                             <a href="/api/auth/facebook/redirect" class="sso-btn sso-btn--facebook">
-                                <i class="bi bi-facebook"></i>
-                                Continuer avec Facebook
+                                <DashboardIcon name="facebook" />
+                                {{ $t('ui.auth.continueFacebook') }}
                             </a>
                         </div>
 
                         <div class="auth-divider">
-                            <span>ou connectez-vous avec votre email</span>
+                            <span>{{ $t('ui.auth.loginEmailDivider') }}</span>
                         </div>
 
                         <form class="login-form" @submit.prevent="submit">
@@ -100,9 +95,9 @@
                                 </label>
 
                                 <div class="input-wrapper">
-                                    <i class="bi bi-envelope"></i>
+                                    <DashboardIcon name="mail" />
 
-                                    <input id="email" v-model="form.email" type="email" placeholder="votre@email.com"
+                                    <input id="email" v-model="form.email" type="email" :placeholder="$t('ui.auth.emailPlaceholder')"
                                         autocomplete="email" />
                                 </div>
 
@@ -118,19 +113,14 @@
                                 </label>
 
                                 <div class="input-wrapper">
-                                    <i class="bi bi-lock"></i>
+                                    <DashboardIcon name="lock" />
 
                                     <input id="password" v-model="form.password"
-                                        :type="showPassword ? 'text' : 'password'" placeholder="Mot de passe"
+                                        :type="showPassword ? 'text' : 'password'" :placeholder="$t('auth.password')"
                                         autocomplete="current-password" />
 
                                     <button type="button" class="password-toggle" @click="showPassword = !showPassword">
-                                        <i :class="[
-                                            'bi',
-                                            showPassword
-                                                ? 'bi-eye-slash'
-                                                : 'bi-eye'
-                                        ]"></i>
+                                        <DashboardIcon :name="showPassword ? 'eye-off' : 'eye'" />
                                     </button>
                                 </div>
 
@@ -150,7 +140,7 @@
                                 </label>
 
                                 <a href="/forgot-password" class="forgot-link">
-                                    Mot de passe oublié ?
+                                    {{ $t('ui.auth.forgotPassword') }}
                                 </a>
                             </div>
 
@@ -162,17 +152,17 @@
                             <!-- SUBMIT -->
                             <button type="submit" class="btn btn-primary login-submit" :disabled="form.processing">
                                 <span v-if="form.processing">
-                                    Connexion...
+                                    {{ $t('ui.auth.loggingIn') }}
                                 </span>
 
                                 <span v-else>
                                     {{ $t('navigation.login') }}
-                                    <i class="bi bi-arrow-right"></i>
+                                    <DashboardIcon name="arrow" />
                                 </span>
                             </button>
 
                             <p class="login-footer">
-                                Pas encore de compte ?
+                                {{ $t('ui.auth.noAccount') }}
 
                                 <a href="/register">
                                     {{ $t('auth.no_account') }}
@@ -196,11 +186,14 @@ import { useForm, usePage, router } from '@inertiajs/vue3'
 import { reactive, ref } from 'vue'
 import { api } from '@/lib/api'
 import axios from 'axios'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
+import { useI18n } from 'vue-i18n'
 
 const baseURL = import.meta.env.VITE_API_URL
 
 const errors = ref({})
 const loading = ref(false)
+const { t } = useI18n()
 
 const form = reactive({
     email: '',
@@ -238,12 +231,12 @@ const submit = async () => {
             errors.value = e.response.data.errors || {}
             //
         } else if (e.response?.status === 403) {
-            errors.value.general = ['Veuillez valider votre boîte mail.']
+            errors.value.general = [t('ui.auth.verifyEmail')]
             router.push('/email/verify')
         }
         else {
             errors.value.general = [
-                e.response?.data?.message || 'Erreur serveur. Veuillez réessayer.'
+                e.response?.data?.message || t('ui.auth.serverError')
             ]
         }
     } finally {

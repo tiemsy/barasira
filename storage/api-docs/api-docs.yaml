@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
   title: 'Bara Sira API'
-  description: "Documentation complète de l'API de Bara Sira avec Swagger"
-  version: 1.0.0
+  description: 'API Barasira : authentification, utilisateurs, services, missions, messagerie, avis, IA, CV, portfolio et paiements.'
+  version: 1.1.0
 servers:
   -
     url: 'http://localhost:8080'
@@ -335,18 +335,23 @@ paths:
         200:
           description: 'Search results'
       security: []
-  '/api/services/{id}':
+  '/api/services/{slug}':
     get:
       tags:
         - Services
       operationId: services.show
       parameters:
         -
-          $ref: '#/components/parameters/Id'
+          name: slug
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Service
       security: []
+  '/api/services/{id}':
     put:
       tags:
         - Services
@@ -423,20 +428,25 @@ paths:
       security:
         -
           sanctum: []
-  '/api/missions/{id}':
+  '/api/missions/{slug}':
     get:
       tags:
         - Missions
       operationId: missions.show
       parameters:
         -
-          $ref: '#/components/parameters/Id'
+          name: slug
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Mission
       security:
         -
           sanctum: []
+  '/api/missions/{id}':
     put:
       tags:
         - Missions
@@ -820,6 +830,86 @@ paths:
         200:
           description: 'Not implemented'
       security: []
+  '/api/missions/{id}/payments':
+    post:
+      tags:
+        - Payments
+      description: 'Initialise un paiement pour une mission en cours appartenant au client authentifié. Une à cinq photos de réalisation sont obligatoires.'
+      operationId: payments.store
+      parameters:
+        -
+          $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PaymentCreateRequest'
+      responses:
+        201:
+          description: 'Paiement initialisé'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          description: 'Mission déjà payée'
+        422:
+          $ref: '#/components/responses/ValidationError'
+        502:
+          description: 'Passerelle de paiement indisponible'
+      security:
+        -
+          sanctum: []
+  '/api/payments/{id}':
+    get:
+      tags:
+        - Payments
+      description: 'Retourne un paiement appartenant au client authentifié.'
+      operationId: payments.show
+      parameters:
+        -
+          $ref: '#/components/parameters/Id'
+      responses:
+        200:
+          description: Paiement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        403:
+          $ref: '#/components/responses/Forbidden'
+      security:
+        -
+          sanctum: []
+  '/api/payments/mobile/return/{id}':
+    get:
+      tags:
+        - Payments
+      description: 'Capture si nécessaire le paiement PayPal puis redirige vers barasira://payments/{id}.'
+      operationId: payments.mobileReturn
+      parameters:
+        -
+          $ref: '#/components/parameters/Id'
+      responses:
+        302:
+          description: 'Redirection vers l’application mobile'
+      security: []
+  '/api/payments/mobile/cancel/{id}':
+    get:
+      tags:
+        - Payments
+      description: 'Annule un paiement encore en attente puis redirige vers barasira://payments/{id}.'
+      operationId: payments.mobileCancel
+      parameters:
+        -
+          $ref: '#/components/parameters/Id'
+      responses:
+        302:
+          description: 'Redirection vers l’application mobile'
+      security: []
   /api/payments/webhooks/cinetpay:
     get:
       tags:
@@ -870,6 +960,11 @@ components:
             - superadmin
         avatar_url:
           type: string
+          nullable: true
+        identity_verified_at:
+          description: 'Présent lorsqu’une pièce d’identité du prestataire a été validée par l’administration.'
+          type: string
+          format: date-time
           nullable: true
       type: object
     AuthResponse:
@@ -1149,6 +1244,68 @@ components:
         level:
           type: string
           maxLength: 50
+      type: object
+    PaymentCreateRequest:
+      required:
+        - method
+        - images
+      properties:
+        method:
+          type: string
+          enum:
+            - orange_money
+            - moov_money
+            - carte
+            - paypal
+        images:
+          type: array
+          items:
+            type: string
+            format: binary
+          maxItems: 5
+          minItems: 1
+      type: object
+    Payment:
+      properties:
+        id:
+          type: integer
+        mission_id:
+          type: integer
+        amount:
+          type: number
+          format: float
+        status:
+          type: string
+          enum:
+            - en_attente
+            - effectue
+            - echoue
+            - annule
+        method:
+          type: string
+          enum:
+            - orange_money
+            - moov_money
+            - carte
+            - paypal
+        provider:
+          type: string
+          enum:
+            - cinetpay
+            - paypal
+        paid_at:
+          type: string
+          format: date-time
+          nullable: true
+      type: object
+    PaymentResponse:
+      properties:
+        payment:
+          $ref: '#/components/schemas/Payment'
+        payment_url:
+          type: string
+          format: uri
+          nullable: true
       type: object
   responses:
     Unauthenticated:

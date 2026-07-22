@@ -5,11 +5,11 @@
 <template>
     <main>
         <header>
-            <Link href="/">Accueil</Link>
-            <Link href="/services">Service</Link>
-            <Link href="/missions">Missions</Link>
-            <Link href="/">Devenir prestataire</Link>
-            <Link href="/login">Connexion</Link>
+            <Link href="/">{{ $t('navigation.home') }}</Link>
+            <Link href="/services">{{ $t('navigation.services') }}</Link>
+            <Link href="/missions">{{ $t('navigation.missions') }}</Link>
+            <Link href="/register">{{ $t('home.heroBtnBecomeProvider') }}</Link>
+            <Link href="/login">{{ $t('navigation.login') }}</Link>
         </header>
         <article>
             <slot />

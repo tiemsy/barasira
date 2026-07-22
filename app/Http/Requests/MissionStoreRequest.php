@@ -102,27 +102,27 @@ class MissionStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'service_id.required' => 'Le service est obligatoire.',
-            'service_id.exists' => 'Le service sélectionné est invalide.',
+            'service_id.required' => __('missions.validation.service_required'),
+            'service_id.exists' => __('missions.validation.service_invalid'),
 
-            'title.required' => 'Le titre de la mission est obligatoire.',
+            'title.required' => __('missions.validation.title_required'),
 
-            'price.numeric' => 'Le prix doit être un nombre.',
-            'price.min' => 'Le prix ne peut pas être négatif.',
+            'price.numeric' => __('missions.validation.price_numeric'),
+            'price.min' => __('missions.validation.price_min'),
 
-            'date_start.date' => 'La date de début est invalide.',
-            'date_end.date' => 'La date de fin est invalide.',
-            'date_end.after_or_equal' => 'La date de fin doit être égale ou postérieure à la date de début.',
+            'date_start.date' => __('missions.validation.start_date_invalid'),
+            'date_end.date' => __('missions.validation.end_date_invalid'),
+            'date_end.after_or_equal' => __('missions.validation.end_date_after_start'),
 
-            'skills.array' => 'Les compétences doivent être fournies sous forme de liste.',
-            'skills.max' => 'Une mission ne peut contenir plus de 10 compétences.',
-            'skills.*.string' => 'Chaque compétence doit être une chaîne de caractères.',
-            'skills.*.max' => 'Une compétence ne peut pas dépasser 100 caractères.',
+            'skills.array' => __('missions.validation.skills_array'),
+            'skills.max' => __('missions.validation.skills_max'),
+            'skills.*.string' => __('missions.validation.skill_string'),
+            'skills.*.max' => __('missions.validation.skill_max'),
 
-            'questions.array' => 'Les questions doivent être fournies sous forme de liste.',
-            'questions.max' => 'Une mission ne peut contenir plus de 5 questions.',
-            'questions.*.string' => 'Chaque question doit être une chaîne de caractères.',
-            'questions.*.max' => 'Une question ne peut pas dépasser 500 caractères.',
+            'questions.array' => __('missions.validation.questions_array'),
+            'questions.max' => __('missions.validation.questions_max'),
+            'questions.*.string' => __('missions.validation.question_string'),
+            'questions.*.max' => __('missions.validation.question_max'),
         ];
     }
 }

@@ -11,7 +11,7 @@ class ReviewUpdateRequest extends FormRequest
     {
         $review = $this->route('review');
 
-        return $this->user()?->role === 'client'
+        return in_array($this->user()?->role, ['client', 'admin', 'superadmin'], true)
             && $review instanceof Review
             && $review->reviewer_id === $this->user()->id;
     }
