@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import TranslateButton from '@/Components/Ai/TranslateButton.vue'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 import { firstValidationError } from '@/utils/missionForm'
 import { loadGoogleMapsPlaces } from '@/lib/googleMaps'
 
@@ -187,12 +188,12 @@ onBeforeUnmount(() => {
         <div class="form-group">
             <label for="address">{{ $t('missions.form.address') }} <em>*</em></label>
             <div class="mission-address-field">
-                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                <DashboardIcon name="location" />
                 <input id="address" ref="addressInput" v-model.trim="form.address" type="text" maxlength="255"
                     autocomplete="off" :class="{ invalid: errors.address }"
                     :placeholder="$t('missions.form.addressPlaceholder')" @input="handleManualAddressInput">
                 <span v-if="autocompleteReady" class="mission-address-field__status" :title="$t('missions.form.autocompleteReady')">
-                    <i class="fas fa-location-arrow" aria-hidden="true"></i>
+                    <DashboardIcon name="applications" />
                 </span>
             </div>
             <small v-if="autocompleteReady" class="field-hint">{{ $t('missions.form.addressAutocompleteHint') }}</small>

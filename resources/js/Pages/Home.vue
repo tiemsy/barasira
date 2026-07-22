@@ -7,6 +7,8 @@ import MissionCard from '@/Components/MissionCard.vue'
 import maliMap from '@/assets/mali-map.svg?raw'
 import heroImage from '@/assets/hero-barasira.png'
 import { useI18n } from 'vue-i18n'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
+import { serviceIconName } from '@/composables/useServiceIcon'
 
 const props = defineProps({
     categories: { type: Array, default: () => [] },
@@ -163,7 +165,7 @@ function onMapClick(event) {
                             class="home-category-card"
                         >
                             <span class="home-category-card__icon">
-                                <i :class="category.icon || 'bi bi-grid'" />
+                                <DashboardIcon :name="serviceIconName({ category })" />
                             </span>
                             <span>
                                 <strong>{{ category.name }}</strong>

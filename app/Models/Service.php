@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasUniqueSlug;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUniqueSlug;
 
     protected $fillable = [
         'user_id',
@@ -30,6 +31,11 @@ class Service extends Model
         'price_min' => 'decimal:2',
         'price_max' => 'decimal:2',
     ];
+
+    protected function slugSource(): string
+    {
+        return $this->name;
+    }
 
     public function scopeActiveForProvider(Builder $query, User|int $provider): Builder
     {

@@ -48,7 +48,8 @@ Route::apiResource('user-skills', UserSkillController::class);
 Route::apiResource('service-categories', ServiceCategoryController::class);
 
 // SERVICES
-Route::apiResource('services', ServiceController::class)->only(['index', 'show']);
+Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+Route::get('/services/{service:slug}', [ServiceController::class, 'show'])->name('services.show');
 Route::get('services-search', [ServiceController::class, 'search'])->name('services.search');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -57,7 +58,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::delete('/services/{service}', [ServiceController::class, 'destroy']);
     Route::match(['post', 'put', 'patch'], '/users/{user}', [UserController::class, 'update']);
     Route::post('/missions/{mission}/claim', [MissionController::class, 'claim']);
-    Route::apiResource('missions', MissionController::class);
+    Route::apiResource('missions', MissionController::class)->except('show');
+    Route::get('/missions/{mission:slug}', [MissionController::class, 'show'])->name('missions.show');
     Route::get('/messages', [MessageController::class, 'index']);
     Route::get('/messages/conversation/{user}', [MessageController::class, 'conversation']);
     Route::post('/messages', [MessageController::class, 'store']);

@@ -14,6 +14,18 @@ class PaymentWorkflowTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_payment_allocates_ten_percent_to_barasira_and_ninety_percent_to_provider(): void
+    {
+        $mission = Mission::factory()->completed()->create(['price' => 10000]);
+        $payment = Payment::factory()->create([
+            'mission_id' => $mission->id,
+            'amount' => 10000,
+        ]);
+
+        $this->assertSame('1000.00', $payment->fresh()->platform_fee);
+        $this->assertSame('9000.00', $payment->fresh()->provider_amount);
+    }
+
     public function test_client_can_open_payment_selection_for_an_in_progress_mission(): void
     {
         $client = User::factory()->client()->create();

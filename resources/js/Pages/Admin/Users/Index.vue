@@ -4,6 +4,7 @@ import { Head, Link, router, usePage } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import UserActionIcon from '@/Components/Admin/UserActionIcon.vue'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 import { useConfirmDialog } from '@/composables/useConfirmDialog'
 
 const props = defineProps({
@@ -48,14 +49,14 @@ const fullName = user => `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim
                     <h1>{{ $t('adminUsers.title') }}</h1>
                     <p>{{ $t('adminUsers.subtitle') }}</p>
                 </div>
-                <Link href="/admin/users/create" class="admin-users-primary"><i class="fas fa-user-plus"></i>{{ $t('adminUsers.add') }}</Link>
+                <Link href="/admin/users/create" class="admin-users-primary"><DashboardIcon name="user-plus" />{{ $t('adminUsers.add') }}</Link>
             </section>
 
             <section class="admin-users-card">
                 <form class="admin-users-filters" @submit.prevent="applyFilters">
                     <label>
                         <span class="sr-only">{{ $t('adminUsers.search') }}</span>
-                        <i class="fas fa-search"></i>
+                        <DashboardIcon name="search" />
                         <input v-model.trim="filters.search" type="search" :placeholder="$t('adminUsers.searchPlaceholder')">
                     </label>
                     <select v-model="filters.role" :aria-label="$t('adminUsers.filterRole')">

@@ -11,11 +11,15 @@ class Payment extends Model
 {
     use HasFactory;
 
+    public const PLATFORM_FEE_RATE = 0.10;
+
     protected $fillable = [
         'mission_id', // mission concernée
         'payer_id', // utilisateur qui effectue le paiement
         'receiver_id', // utilisateur qui reçoit le paiement
         'amount', // montant payé
+        'platform_fee', // commission Barasira (10 %)
+        'provider_amount', // montant attribué au prestataire (90 %)
         'status', // pending, completed, failed, refunded
         'method', // méthode de paiement (card, mobile_money, cash)
         'provider',
@@ -25,7 +29,25 @@ class Payment extends Model
         'paid_at',
     ];
 
-    protected $casts = ['amount' => 'decimal:2', 'provider_data' => 'array', 'paid_at' => 'datetime'];
+    protected $casts = [
+        'amount' => 'decimal:2',
+        'platform_fee' => 'decimal:2',
+        'provider_amount' => 'decimal:2',
+        'provider_data' => 'array',
+        'paid_at' => 'datetime',
+    ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (Payment $payment): void {
+            if ($payment->isDirty('amount') || $payment->platform_fee === null || $payment->provider_amount === null) {
+                $amount = round((float) $payment->amount, 2);
+                $fee = round($amount * self::PLATFORM_FEE_RATE, 2);
+                $payment->platform_fee = $fee;
+                $payment->provider_amount = round($amount - $fee, 2);
+            }
+        });
+    }
 
     /**
      * La mission associée au paiement

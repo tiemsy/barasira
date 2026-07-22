@@ -14,7 +14,8 @@
 .admin-user-form-card { padding: 1.5rem; border: 1px solid #e1e9e4; border-radius: 18px; background: #fff; box-shadow: 0 12px 36px rgba(23, 72, 45, .07); }
 .admin-users-filters { display: grid; grid-template-columns: minmax(240px, 1fr) 190px auto auto; gap: .75rem; margin-bottom: 1.25rem; }
 .admin-users-filters label { position: relative; }
-.admin-users-filters label i { position: absolute; top: 50%; left: .85rem; color: #718078; transform: translateY(-50%); }
+.admin-users-filters label i,
+.admin-users-filters label > .dashboard-icon { position: absolute; top: 50%; left: .85rem; width: 16px; height: 16px; color: #718078; transform: translateY(-50%); }
 .admin-users-filters input { padding-left: 2.45rem !important; }
 .admin-users-filters input,
 .admin-users-filters select,

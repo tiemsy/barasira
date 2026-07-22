@@ -7,8 +7,10 @@ use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\MessageController;
 use App\Http\Controllers\Front\MissionController;
+use App\Http\Controllers\Front\MissionInvitationController;
 use App\Http\Controllers\Front\PaymentController;
 use App\Http\Controllers\Front\ProfileController;
+use App\Http\Controllers\Front\ProfileCredentialController;
 use App\Http\Controllers\Front\Provider\DashboardController as ProviderDashboardController;
 use App\Http\Controllers\Front\ServiceController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -35,7 +37,7 @@ Route::controller(HomeController::class)->group(function () {
 // Services
 Route::controller(ServiceController::class)->group(function () {
     Route::get('/services', 'index')->name('front.services.index');
-    Route::get('/services/{service}', 'show')->name('front.services.show');
+    Route::get('/services/{service:slug}', 'show')->name('front.services.show');
 });
 
 /*
@@ -87,14 +89,37 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/messages/create', [MessageController::class, 'create'])->name('messages.create');
 
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::middleware(['role:prestataire', 'throttle:30,1'])->prefix('/profile')->group(function () {
+        Route::post('/educations', [ProfileCredentialController::class, 'storeEducation'])->name('profile.educations.store');
+        Route::put('/educations/{education}', [ProfileCredentialController::class, 'updateEducation'])->name('profile.educations.update');
+        Route::delete('/educations/{education}', [ProfileCredentialController::class, 'destroyEducation'])->name('profile.educations.destroy');
+        Route::post('/experiences', [ProfileCredentialController::class, 'storeExperience'])->name('profile.experiences.store');
+        Route::put('/experiences/{experience}', [ProfileCredentialController::class, 'updateExperience'])->name('profile.experiences.update');
+        Route::delete('/experiences/{experience}', [ProfileCredentialController::class, 'destroyExperience'])->name('profile.experiences.destroy');
+        Route::post('/certifications', [ProfileCredentialController::class, 'storeCertification'])->name('profile.certifications.store');
+        Route::put('/certifications/{certification}', [ProfileCredentialController::class, 'updateCertification'])->name('profile.certifications.update');
+        Route::delete('/certifications/{certification}', [ProfileCredentialController::class, 'destroyCertification'])->name('profile.certifications.destroy');
+    });
 
     // Missions (client)
     Route::controller(MissionController::class)->group(function () {
         Route::get('/missions/index', 'userMissions')->name('front.missions.index');
         Route::get('/missions/create', 'create')->name('front.missions.create');
         Route::get('/missions/{mission}/edit', 'edit')->name('front.missions.edit');
-        Route::get('/missions/{mission}', 'show')->name('front.missions.show');
+        Route::post('/missions/{mission}/images', 'replaceImages')->middleware('throttle:10,1')->name('front.missions.images.replace');
+        Route::delete('/missions/{mission}/provider', 'unassignProvider')->middleware(['role:client', 'throttle:10,1'])->name('front.missions.provider.unassign');
+        Route::get('/missions/{mission:slug}', 'show')->name('front.missions.show');
     });
+
+    Route::post('/missions/{mission}/invite-provider', [MissionInvitationController::class, 'store'])
+        ->middleware(['role:client', 'throttle:10,1'])
+        ->name('front.missions.invite-provider');
+    Route::get('/mission-invitations/{invitation}', [MissionInvitationController::class, 'show'])
+        ->middleware(['role:prestataire', 'signed'])
+        ->name('front.mission-invitations.show');
+    Route::post('/mission-invitations/{invitation}/accept', [MissionInvitationController::class, 'accept'])
+        ->middleware(['role:prestataire', 'throttle:10,1'])
+        ->name('front.mission-invitations.accept');
 
     // Paiement
     Route::get('/payments/{mission}', [PaymentController::class, 'show'])->name('payments.select');

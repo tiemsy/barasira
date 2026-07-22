@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mission;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -11,8 +12,31 @@ class ProfileController extends Controller
 {
     public function show(Request $request): Response
     {
+        $user = $request->user();
+
         return Inertia::render('Profile/Show', [
             'profile' => $this->profileData($request),
+            'resume' => $user->role === 'prestataire'
+                ? $user->resume()->with([
+                    'educations' => fn ($query) => $query->latest('end_year'),
+                    'experiences' => fn ($query) => $query->latest('start_date'),
+                    'certifications' => fn ($query) => $query->latest('issue_date'),
+                ])->first()
+                : null,
+            'completedMissions' => $user->role === 'prestataire'
+                ? Mission::query()
+                    ->where('prestataire_id', $user->id)
+                    ->where('status', 'completed')
+                    ->whereHas('payments', fn ($query) => $query->where('status', 'effectue'))
+                    ->whereHas('images')
+                    ->with([
+                        'service:id,name',
+                        'images:id,mission_id,path,sort_order',
+                    ])
+                    ->latest('date_end')
+                    ->limit(12)
+                    ->get(['id', 'service_id', 'title', 'description', 'city', 'date_end'])
+                : [],
         ]);
     }
 

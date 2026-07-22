@@ -22,17 +22,17 @@
 
                         <div class="register-visual__features">
                             <span>
-                                <i class="bi bi-check-circle-fill"></i>
+                                <DashboardIcon name="verified" />
                                 Profil vérifié
                             </span>
 
                             <span>
-                                <i class="bi bi-check-circle-fill"></i>
+                                <DashboardIcon name="verified" />
                                 Missions et services
                             </span>
 
                             <span>
-                                <i class="bi bi-check-circle-fill"></i>
+                                <DashboardIcon name="verified" />
                                 Messagerie intégrée
                             </span>
                         </div>
@@ -77,7 +77,7 @@
                                 href="/api/auth/google/redirect?intent=register"
                                 class="sso-btn sso-btn--google"
                             >
-                                <i class="bi bi-google"></i>
+                                <DashboardIcon name="google" />
                                 Continuer avec Google
                             </a>
 
@@ -85,7 +85,7 @@
                                 href="/auth/facebook/redirect"
                                 class="sso-btn sso-btn--facebook"
                             >
-                                <i class="bi bi-facebook"></i>
+                                <DashboardIcon name="facebook" />
                                 Continuer avec Facebook
                             </a>
                         </div>
@@ -95,7 +95,7 @@
                         </div>
 
                         <p v-if="$page.props.flash?.error" class="register-sso-notice" role="alert">
-                            <i class="bi bi-info-circle"></i>
+                            <DashboardIcon name="info" />
                             {{ $page.props.flash.error }}
                         </p>
 
@@ -122,7 +122,7 @@
                                     />
 
                                     <span class="role-card__icon">
-                                        <i class="bi bi-person"></i>
+                                        <DashboardIcon name="profile" />
                                     </span>
 
                                     <span>
@@ -151,7 +151,7 @@
                                     />
 
                                     <span class="role-card__icon">
-                                        <i class="bi bi-briefcase"></i>
+                                        <DashboardIcon name="experience" />
                                     </span>
 
                                     <span>
@@ -168,7 +168,7 @@
                             </div>
 
                             <!-- NAMES -->
-                            <div v-if="!googleRegistration" class="form-grid">
+                            <div class="form-grid">
 
                                 <div class="form-group">
                                     <label for="first_name">
@@ -176,7 +176,7 @@
                                     </label>
 
                                     <div class="input-wrapper">
-                                        <i class="bi bi-person"></i>
+                                        <DashboardIcon name="profile" />
 
                                         <input
                                             id="first_name"
@@ -184,6 +184,7 @@
                                             type="text"
                                             placeholder="Prénom"
                                             autocomplete="given-name"
+                                            required
                                         />
                                     </div>
 
@@ -201,7 +202,7 @@
                                     </label>
 
                                     <div class="input-wrapper">
-                                        <i class="bi bi-person-badge"></i>
+                                        <DashboardIcon name="identity" />
 
                                         <input
                                             id="last_name"
@@ -209,6 +210,7 @@
                                             type="text"
                                             placeholder="Nom"
                                             autocomplete="family-name"
+                                            required
                                         />
                                     </div>
 
@@ -229,7 +231,7 @@
                                 </label>
 
                                 <div class="input-wrapper">
-                                    <i class="bi bi-envelope"></i>
+                                    <DashboardIcon name="mail" />
 
                                     <input
                                         id="email"
@@ -255,7 +257,7 @@
                                 </label>
 
                                 <div class="input-wrapper">
-                                    <i class="bi bi-telephone"></i>
+                                    <DashboardIcon name="phone" />
 
                                     <input
                                         id="phone"
@@ -283,7 +285,7 @@
                                     </label>
 
                                     <div class="input-wrapper">
-                                        <i class="bi bi-lock"></i>
+                                        <DashboardIcon name="lock" />
 
                                         <input
                                             id="password"
@@ -298,14 +300,7 @@
                                             class="password-toggle"
                                             @click="showPassword = !showPassword"
                                         >
-                                            <i
-                                                :class="[
-                                                    'bi',
-                                                    showPassword
-                                                        ? 'bi-eye-slash'
-                                                        : 'bi-eye'
-                                                ]"
-                                            ></i>
+                                            <DashboardIcon :name="showPassword ? 'eye-off' : 'eye'" />
                                         </button>
                                     </div>
 
@@ -323,7 +318,7 @@
                                     </label>
 
                                     <div class="input-wrapper">
-                                        <i class="bi bi-shield-lock"></i>
+                                        <DashboardIcon name="shield-lock" />
 
                                         <input
                                             id="password_confirmation"
@@ -338,14 +333,7 @@
                                             class="password-toggle"
                                             @click="showPasswordConfirmation = !showPasswordConfirmation"
                                         >
-                                            <i
-                                                :class="[
-                                                    'bi',
-                                                    showPasswordConfirmation
-                                                        ? 'bi-eye-slash'
-                                                        : 'bi-eye'
-                                                ]"
-                                            ></i>
+                                            <DashboardIcon :name="showPasswordConfirmation ? 'eye-off' : 'eye'" />
                                         </button>
                                     </div>
 
@@ -387,7 +375,7 @@
 
                                 <span v-else>
                                     {{ googleRegistration ? $t('auth.complete_google_registration') : $t('auth.register_title') }}
-                                    <i class="bi bi-arrow-right"></i>
+                                    <DashboardIcon name="arrow" />
                                 </span>
                             </button>
 
@@ -417,6 +405,7 @@ import { ref } from 'vue'
 import { api } from '@/lib/api'
 import { router, useForm } from '@inertiajs/vue3'
 import { useToastStore } from '@/stores/toast'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const props = defineProps({
     googleProfile: { type: Object, default: null },

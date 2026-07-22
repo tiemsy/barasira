@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
 import logoUrl from '@/assets/logo-barasira.png'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const page = usePage()
 const { locale, t } = useI18n()
@@ -142,10 +143,10 @@ onBeforeUnmount(() => document.removeEventListener('keydown', closeOnEscape))
                     @click="closeNavigation"
                 >
                     <span class="navbar-contact__icon" aria-hidden="true">
-                        <i class="fas fa-envelope"></i>
+                        <DashboardIcon name="mail" />
                     </span>
                     <span>{{ $t('footer.contactUs') }}</span>
-                    <i class="fas fa-arrow-right navbar-contact__arrow" aria-hidden="true"></i>
+                    <DashboardIcon name="arrow" class="navbar-contact__arrow" />
                 </Link>
 
                 <label class="language-control">
@@ -182,7 +183,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', closeOnEscape))
                             </li>
                             <li v-if="isSuperAdmin">
                                 <Link href="/admin/logs" class="submenu-link">
-                                    <span class="submenu-icon"><i class="fas fa-terminal"></i></span>
+                                    <span class="submenu-icon"><DashboardIcon name="terminal" /></span>
                                     <span><strong>{{ $t('navbar.systemLogs') }}</strong><small>{{ $t('navbar.systemLogsHint') }}</small></span>
                                 </Link>
                             </li>

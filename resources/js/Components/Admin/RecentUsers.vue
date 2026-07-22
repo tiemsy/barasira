@@ -1,5 +1,6 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 defineProps({ users: { type: Array, default: () => [] } })
 const { t } = useI18n()
@@ -11,7 +12,7 @@ const roleLabel = role => t(`navbar.roles.${role === 'prestataire' ? 'provider' 
     <article class="admin-panel admin-recent-panel">
         <header class="admin-panel__header">
             <div><span>{{ $t('adminDashboard.latest') }}</span><h2>{{ $t('adminDashboard.recentUsers') }}</h2></div>
-            <i class="fas fa-users"></i>
+            <DashboardIcon name="users" />
         </header>
         <ul v-if="users.length" class="admin-recent-list">
             <li v-for="user in users" :key="user.id">

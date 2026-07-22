@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 import logoUrl from '@/assets/logo-barasira.png'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const page = usePage()
 const user = computed(() => page.props?.auth?.user ?? null)
@@ -30,7 +31,7 @@ function scrollToTop() {
                     </Link>
                     <p>{{ $t('footer.description') }}</p>
                     <div class="footer__promise">
-                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                        <DashboardIcon name="shield" />
                         <span>{{ $t('footer.promise') }}</span>
                     </div>
                 </div>
@@ -59,12 +60,12 @@ function scrollToTop() {
                     <h2>{{ $t('footer.needHelp') }}</h2>
                     <p>{{ $t('footer.helpDescription') }}</p>
                     <Link href="/contact-us" class="footer__contact-link">
-                        <span><i class="fas fa-envelope" aria-hidden="true"></i></span>
+                        <span><DashboardIcon name="mail" /></span>
                         <span>
                             <small>{{ $t('footer.writeToUs') }}</small>
                             <strong>{{ $t('footer.contactUs') }}</strong>
                         </span>
-                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        <DashboardIcon name="arrow" />
                     </Link>
                 </div>
             </div>
@@ -74,7 +75,7 @@ function scrollToTop() {
                 <div>
                     <span>{{ $t('footer.madeForMali') }}</span>
                     <button type="button" :aria-label="$t('footer.backToTop')" @click="scrollToTop">
-                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                        <DashboardIcon name="arrow-up" />
                     </button>
                 </div>
             </div>

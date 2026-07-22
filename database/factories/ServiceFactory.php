@@ -21,7 +21,7 @@ class ServiceFactory extends Factory
             'municipality_id' => null,
             'name' => 'Dépannage professionnel '.$this->faker->unique()->numerify('###'),
             'description' => 'Diagnostic du besoin, intervention soignée et conseils d’entretien après la prestation.',
-            'icon' => 'fa-solid fa-tools',
+            'icon' => 'tools',
             'price_min' => 10000,
             'price_max' => 50000,
             'is_active' => true,

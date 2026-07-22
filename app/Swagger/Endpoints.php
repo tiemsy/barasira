@@ -44,7 +44,7 @@ use OpenApi\Annotations as OA;
  * @OA\Post(path="/api/services", operationId="services.store", tags={"Services"}, security={{"sanctum":{}}}, @OA\RequestBody(required=true, @OA\JsonContent(ref="#/components/schemas/ServiceRequest")), @OA\Response(response=201, description="Created"))
  *
  * @OA\Get(path="/api/services-search", operationId="services.search", tags={"Services"}, security={}, @OA\Parameter(name="query", in="query", @OA\Schema(type="string")), @OA\Response(response=200, description="Search results"))
- * @OA\Get(path="/api/services/{id}", operationId="services.show", tags={"Services"}, security={}, @OA\Parameter(ref="#/components/parameters/Id"), @OA\Response(response=200, description="Service"))
+ * @OA\Get(path="/api/services/{slug}", operationId="services.show", tags={"Services"}, security={}, @OA\Parameter(name="slug", in="path", required=true, @OA\Schema(type="string")), @OA\Response(response=200, description="Service"))
  *
  * @OA\Put(path="/api/services/{id}", operationId="services.updatePut", tags={"Services"}, security={{"sanctum":{}}}, @OA\Parameter(ref="#/components/parameters/Id"), @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/ServiceRequest")), @OA\Response(response=200, description="Updated"))
  *
@@ -56,7 +56,7 @@ use OpenApi\Annotations as OA;
  *
  * @OA\Post(path="/api/missions", operationId="missions.store", tags={"Missions"}, security={{"sanctum":{}}}, @OA\RequestBody(required=true, @OA\JsonContent(ref="#/components/schemas/MissionRequest")), @OA\Response(response=201, description="Created"))
  *
- * @OA\Get(path="/api/missions/{id}", operationId="missions.show", tags={"Missions"}, security={{"sanctum":{}}}, @OA\Parameter(ref="#/components/parameters/Id"), @OA\Response(response=200, description="Mission"))
+ * @OA\Get(path="/api/missions/{slug}", operationId="missions.show", tags={"Missions"}, security={{"sanctum":{}}}, @OA\Parameter(name="slug", in="path", required=true, @OA\Schema(type="string")), @OA\Response(response=200, description="Mission"))
  *
  * @OA\Put(path="/api/missions/{id}", operationId="missions.updatePut", tags={"Missions"}, security={{"sanctum":{}}}, @OA\Parameter(ref="#/components/parameters/Id"), @OA\RequestBody(@OA\JsonContent(ref="#/components/schemas/MissionUpdateRequest")), @OA\Response(response=200, description="Updated"))
  *

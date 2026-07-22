@@ -1,8 +1,9 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'
 import CancelIcon from '@/Components/Icons/CancelIcon.vue'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { Head, Link } from '@inertiajs/vue3'
+import { Head, Link, usePage } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
 import missionService from '@/composables/missionService'
 import { useToastStore } from '@/stores/toast'
@@ -20,6 +21,7 @@ const props = defineProps({
 })
 
 const { locale, t } = useI18n()
+const page = usePage()
 const toast = useToastStore()
 const { confirm } = useConfirmDialog()
 const defaultFilters = () => ({
@@ -145,6 +147,24 @@ function providerName(provider) {
     return provider.name ?? [provider.first_name, provider.last_name].filter(Boolean).join(' ')
 }
 
+function missionReview(mission) {
+    return mission.reviews?.find(review => review.reviewer_id === page.props.auth?.user?.id) ?? null
+}
+
+function canAccessReview(mission) {
+    return page.props.auth?.user?.role === 'client'
+        && mission.client_id === page.props.auth.user.id
+        && mission.status === 'completed'
+        && Boolean(mission.prestataire_id)
+}
+
+function reviewActionLabel(mission) {
+    const review = missionReview(mission)
+
+    if (!review) return t('reviews.rateAction')
+    return review.edit_count < 1 ? t('reviews.editAction') : t('reviews.viewAction')
+}
+
 watch(filters, () => {
     window.clearTimeout(filterTimer)
     filterTimer = window.setTimeout(() => loadMissions({ reset: true }), 350)
@@ -205,7 +225,7 @@ onBeforeUnmount(() => {
                 <div class="mission-index__container">
                     <div class="mission-index__toolbar">
                         <label class="mission-search">
-                            <i class="fas fa-search" aria-hidden="true"></i>
+                            <DashboardIcon name="search" />
                             <span class="sr-only">{{ $t('missions.index.search') }}</span>
                             <input v-model="filters.search" type="search" :placeholder="$t('missions.index.searchPlaceholder')">
                         </label>
@@ -217,7 +237,7 @@ onBeforeUnmount(() => {
                             :aria-expanded="filtersOpen"
                             @click="filtersOpen = !filtersOpen"
                         >
-                            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+                            <DashboardIcon name="filters" />
                             {{ $t('missions.index.filters') }}
                             <span v-if="hasActiveFilters" class="mission-filter-toggle__dot"></span>
                         </button>
@@ -293,8 +313,8 @@ onBeforeUnmount(() => {
                             </div>
 
                             <div class="mission-list-card__meta">
-                                <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i>{{ mission.city || mission.address || $t('missions.index.notDefined') }}</span>
-                                <span><i class="fas fa-wallet" aria-hidden="true"></i>{{ formatPrice(mission.price) }}</span>
+                                <span><DashboardIcon name="location" />{{ mission.city || mission.address || $t('missions.index.notDefined') }}</span>
+                                <span><DashboardIcon name="wallet" />{{ formatPrice(mission.price) }}</span>
                             </div>
 
                             <div class="mission-list-card__timeline">
@@ -302,7 +322,7 @@ onBeforeUnmount(() => {
                                     <span>{{ $t('missions.index.startDate') }}</span>
                                     <strong>{{ formatDate(mission.date_start) }}</strong>
                                 </div>
-                                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                <DashboardIcon name="arrow" />
                                 <div>
                                     <span>{{ $t('missions.index.endDate') }}</span>
                                     <strong>{{ formatDate(mission.date_end) }}</strong>
@@ -321,17 +341,25 @@ onBeforeUnmount(() => {
                                 </div>
 
                                 <div class="mission-list-card__actions">
-                                    <Link :href="`/missions/${mission.id}`" class="mission-action mission-action--primary">
+                                    <Link
+                                        v-if="canAccessReview(mission)"
+                                        :href="`/missions/${mission.slug}#review`"
+                                        class="mission-action mission-action--review"
+                                    >
+                                        <DashboardIcon name="rating" />
+                                        {{ reviewActionLabel(mission) }}
+                                    </Link>
+                                    <Link :href="`/missions/${mission.slug}`" class="mission-action mission-action--primary">
                                         {{ $t('missions.actions.view') }}
                                     </Link>
-                                    <Link v-if="mission.status === 'pending'" :href="`/missions/${mission.id}/edit`" class="mission-action" :aria-label="$t('missions.edit')">
-                                        <i class="fas fa-pen" aria-hidden="true"></i>
+                                    <Link v-if="mission.status === 'pending'" :href="`/missions/${mission.id}/edit`" class="mission-action mission-action--edit" :aria-label="$t('missions.edit')">
+                                        <DashboardIcon name="edit" />
                                     </Link>
                                     <button v-if="['pending', 'in_progress'].includes(mission.status)" type="button" class="mission-action" :aria-label="$t('missions.actions.cancel')" @click="cancelMission(mission)">
                                         <CancelIcon />
                                     </button>
                                     <button v-if="mission.status === 'pending'" type="button" class="mission-action mission-action--danger" :aria-label="$t('missions.index.delete')" @click="deleteMission(mission)">
-                                        <i class="fas fa-trash" aria-hidden="true"></i>
+                                        <DashboardIcon name="delete" />
                                     </button>
                                 </div>
                             </div>
@@ -339,7 +367,7 @@ onBeforeUnmount(() => {
                     </div>
 
                     <div v-else class="mission-empty">
-                        <span class="mission-empty__icon"><i class="fas fa-clipboard-list" aria-hidden="true"></i></span>
+                        <span class="mission-empty__icon"><DashboardIcon name="list" /></span>
                         <h2>{{ hasActiveFilters ? $t('missions.index.noResults') : $t('missions.no_missions') }}</h2>
                         <p>{{ hasActiveFilters ? $t('missions.index.noResultsDescription') : $t('missions.index.emptyDescription') }}</p>
                         <button v-if="hasActiveFilters" type="button" class="mission-index__create" @click="resetFilters">
@@ -349,7 +377,7 @@ onBeforeUnmount(() => {
                     </div>
 
                     <div ref="loadMoreTrigger" class="mission-loader" aria-live="polite">
-                        <span v-if="loading"><i class="fas fa-spinner fa-spin" aria-hidden="true"></i>{{ $t('missions.index.loading') }}</span>
+                        <span v-if="loading"><DashboardIcon name="loading" />{{ $t('missions.index.loading') }}</span>
                         <span v-else-if="missionItems.length && !nextPageUrl">{{ $t('missions.index.end') }}</span>
                     </div>
                 </div>

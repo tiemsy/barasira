@@ -7,6 +7,14 @@ use Illuminate\Validation\Rule;
 
 class UserStoreRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'first_name' => trim((string) $this->input('first_name')),
+            'last_name' => trim((string) $this->input('last_name')),
+        ]);
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -42,9 +50,9 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'role.in' => 'Le rôle doit être client ou prestataire.',
-            'first_name' => 'Le prénom est obligatoire',
-            'last_name' => 'Le nom de famille est obligatoire',
-            'email' => 'Le champs email est obligatoire',
+            'first_name.required' => 'Le prénom est obligatoire.',
+            'last_name.required' => 'Le nom de famille est obligatoire.',
+            'email.required' => 'Le champ email est obligatoire.',
         ];
     }
 }

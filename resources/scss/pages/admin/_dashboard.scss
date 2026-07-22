@@ -85,7 +85,8 @@
 .admin-mission-overview header span { color: #177245; font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .admin-panel__header h2,
 .admin-mission-overview h2 { margin: .25rem 0 0; font-size: 1.15rem; }
-.admin-panel__header > i { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 11px; background: #edf7f1; color: #177245; }
+.admin-panel__header > i,
+.admin-panel__header > .dashboard-icon { box-sizing: border-box; width: 40px; height: 40px; padding: 10px; border-radius: 11px; background: #edf7f1; color: #177245; }
 
 .admin-mission-overview { margin-top: 1.25rem; }
 .admin-mission-overview > header > strong { font-size: 2rem; color: #177245; }
@@ -97,6 +98,31 @@
 .admin-status-dot--in_progress { background: #3b82f6; }
 .admin-status-dot--completed { background: #177245; }
 .admin-status-dot--cancelled { background: #dc4962; }
+
+.admin-transaction-overview { margin-top: 1.25rem; padding: 1.5rem; border: 1px solid #e1e9e4; border-radius: 18px; background: #fff; box-shadow: 0 10px 30px rgba(23, 72, 45, .055); }
+.admin-transaction-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+.admin-transaction-cards article { display: grid; gap: .35rem; padding: 1rem; border-radius: 13px; background: #f3f8f5; }
+.admin-transaction-cards small { color: #647269; font-weight: 700; }
+.admin-transaction-cards strong { color: #145c39; font-size: 1.25rem; }
+.admin-transaction-breakdowns { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.25rem; }
+.admin-transaction-breakdowns h3,
+.admin-transaction-table-wrap h3 { margin: 0 0 .75rem; font-size: 1rem; }
+.admin-transaction-breakdowns ul { margin: 0; padding: 0; list-style: none; }
+.admin-transaction-breakdowns li { display: grid; grid-template-columns: 1fr auto auto; gap: 1rem; padding: .7rem .8rem; border-top: 1px solid #edf1ee; }
+.admin-transaction-breakdowns li:first-child { border-top: 0; }
+.admin-transaction-breakdowns li span { text-transform: capitalize; }
+.admin-transaction-breakdowns li small { min-width: 110px; color: #647269; text-align: right; }
+.admin-transaction-table-wrap { margin-top: 1.5rem; overflow-x: auto; }
+.admin-transaction-table { width: 100%; border-collapse: collapse; font-size: .8rem; white-space: nowrap; }
+.admin-transaction-table th,
+.admin-transaction-table td { padding: .75rem; border-bottom: 1px solid #edf1ee; text-align: left; }
+.admin-transaction-table th { color: #647269; font-size: .7rem; letter-spacing: .04em; text-transform: uppercase; }
+.admin-payment-status { display: inline-flex; padding: .3rem .5rem; border-radius: 999px; background: #f0f3f1; font-weight: 800; }
+.admin-payment-status--effectue { background: #e5f5ec; color: #146c43; }
+.admin-payment-status--en_attente { background: #fff4d8; color: #986817; }
+.admin-payment-status--echoue,
+.admin-payment-status--annule { background: #ffe8ec; color: #b4233c; }
+.admin-payment-status--rembourse { background: #e8f1ff; color: #2459a9; }
 
 .admin-recent-list { margin: 0; padding: 0; list-style: none; }
 .admin-recent-list li { display: flex; align-items: center; gap: .8rem; padding: .85rem 0; border-top: 1px solid #edf1ee; }
@@ -124,6 +150,8 @@
     .admin-dashboard__charts,
     .admin-dashboard__recent { grid-template-columns: 1fr; }
     .admin-mission-statuses { grid-template-columns: 1fr 1fr; }
+    .admin-transaction-cards,
+    .admin-transaction-breakdowns { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 560px) {
@@ -133,6 +161,8 @@
     .admin-stat-grid { grid-template-columns: 1fr 1fr; }
     .admin-stat-card { align-items: flex-start; flex-direction: column; }
     .admin-mission-statuses { grid-template-columns: 1fr; }
+    .admin-transaction-cards,
+    .admin-transaction-breakdowns { grid-template-columns: 1fr; }
     .admin-panel,
     .admin-mission-overview { padding: 1.15rem; }
     .admin-role-badge,

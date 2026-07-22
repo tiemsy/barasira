@@ -21,17 +21,17 @@
 
                         <div class="login-visual__features">
                             <span>
-                                <i class="bi bi-check-circle-fill"></i>
+                                <DashboardIcon name="verified" />
                                 Prestataires vérifiés
                             </span>
 
                             <span>
-                                <i class="bi bi-check-circle-fill"></i>
+                                <DashboardIcon name="verified" />
                                 Missions sécurisées
                             </span>
 
                             <span>
-                                <i class="bi bi-check-circle-fill"></i>
+                                <DashboardIcon name="verified" />
                                 Support rapide
                             </span>
                         </div>
@@ -71,18 +71,13 @@
 
                         <!-- SSO -->
                         <div class="sso-login">
-                            <!-- <a href="/api/auth/google/redirect" class="sso-btn sso-btn--google">
-                                <i class="bi bi-google"></i>
-                                Continuer avec Google
-                            </a> -->
-
                             <button type="button" class="sso-btn sso-btn--google" @click="loginWithGoogle">
-                                <i class="fab fa-google"></i>
+                                <DashboardIcon name="google" />
                                 Continuer avec Google
                             </button>
 
                             <a href="/api/auth/facebook/redirect" class="sso-btn sso-btn--facebook">
-                                <i class="bi bi-facebook"></i>
+                                <DashboardIcon name="facebook" />
                                 Continuer avec Facebook
                             </a>
                         </div>
@@ -100,7 +95,7 @@
                                 </label>
 
                                 <div class="input-wrapper">
-                                    <i class="bi bi-envelope"></i>
+                                    <DashboardIcon name="mail" />
 
                                     <input id="email" v-model="form.email" type="email" placeholder="votre@email.com"
                                         autocomplete="email" />
@@ -118,19 +113,14 @@
                                 </label>
 
                                 <div class="input-wrapper">
-                                    <i class="bi bi-lock"></i>
+                                    <DashboardIcon name="lock" />
 
                                     <input id="password" v-model="form.password"
                                         :type="showPassword ? 'text' : 'password'" placeholder="Mot de passe"
                                         autocomplete="current-password" />
 
                                     <button type="button" class="password-toggle" @click="showPassword = !showPassword">
-                                        <i :class="[
-                                            'bi',
-                                            showPassword
-                                                ? 'bi-eye-slash'
-                                                : 'bi-eye'
-                                        ]"></i>
+                                        <DashboardIcon :name="showPassword ? 'eye-off' : 'eye'" />
                                     </button>
                                 </div>
 
@@ -167,7 +157,7 @@
 
                                 <span v-else>
                                     {{ $t('navigation.login') }}
-                                    <i class="bi bi-arrow-right"></i>
+                                    <DashboardIcon name="arrow" />
                                 </span>
                             </button>
 
@@ -196,6 +186,7 @@ import { useForm, usePage, router } from '@inertiajs/vue3'
 import { reactive, ref } from 'vue'
 import { api } from '@/lib/api'
 import axios from 'axios'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const baseURL = import.meta.env.VITE_API_URL
 

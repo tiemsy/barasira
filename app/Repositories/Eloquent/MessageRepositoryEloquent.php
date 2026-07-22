@@ -16,40 +16,52 @@ class MessageRepositoryEloquent extends BaseRepositoryEloquent implements Messag
 
     public function conversationsFor(User $user): Collection
     {
-        $messages = $this->model->newQuery()
+        $baseQuery = $this->model->newQuery()
             ->where(fn ($query) => $query
                 ->where('sender_id', $user->id)
-                ->orWhere('receiver_id', $user->id))
+                ->orWhere('receiver_id', $user->id));
+
+        $latestIds = (clone $baseQuery)
+            ->selectRaw('MAX(id) as id')
+            ->groupByRaw('CASE WHEN sender_id = ? THEN receiver_id ELSE sender_id END', [$user->id])
+            ->groupBy('mission_id')
+            ->pluck('id');
+
+        if ($latestIds->isEmpty()) {
+            return collect();
+        }
+
+        $unreadCounts = (clone $baseQuery)
+            ->where('receiver_id', $user->id)
+            ->where('read', false)
+            ->selectRaw('sender_id, mission_id, COUNT(*) as total')
+            ->groupBy('sender_id', 'mission_id')
+            ->get()
+            ->mapWithKeys(fn (Message $message) => [implode(':', [
+                $message->sender_id,
+                $message->mission_id ?? 'direct',
+            ]) => (int) $message->total]);
+
+        return $this->model->newQuery()
+            ->whereKey($latestIds)
             ->with([
                 'sender:id,first_name,last_name,avatar_url,role',
                 'receiver:id,first_name,last_name,avatar_url,role',
                 'mission:id,title,status',
             ])
             ->latest()
-            ->get();
-
-        return $messages
-            ->groupBy(fn (Message $message) => implode(':', [
-                $message->sender_id === $user->id ? $message->receiver_id : $message->sender_id,
-                $message->mission_id ?? 'direct',
-            ]))
-            ->map(function (Collection $conversation) use ($user) {
-                $latest = $conversation->first();
-                $participant = $latest->sender_id === $user->id
-                    ? $latest->receiver
-                    : $latest->sender;
+            ->get(['id', 'sender_id', 'receiver_id', 'mission_id', 'message', 'read', 'created_at'])
+            ->map(function (Message $latest) use ($user, $unreadCounts) {
+                $participant = $latest->sender_id === $user->id ? $latest->receiver : $latest->sender;
+                $key = implode(':', [$participant->id, $latest->mission_id ?? 'direct']);
 
                 return [
                     'participant' => $participant,
                     'mission' => $latest->mission,
                     'latest_message' => $latest,
-                    'unread_count' => $conversation
-                        ->where('receiver_id', $user->id)
-                        ->where('read', false)
-                        ->count(),
+                    'unread_count' => $unreadCounts->get($key, 0),
                 ];
-            })
-            ->values();
+            });
     }
 
     public function conversation(User $user, User $participant, ?int $missionId = null): Collection

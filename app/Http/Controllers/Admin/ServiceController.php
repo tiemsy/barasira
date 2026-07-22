@@ -39,6 +39,10 @@ class ServiceController extends Controller
             ->when($filters['category'] ?? null, fn ($query, int $category) => $query->where('service_category_id', $category))
             ->when($filters['status'] ?? null, fn ($query, string $status) => $query->where('is_active', $status === 'active'))
             ->latest()
+            ->select([
+                'id', 'user_id', 'service_category_id', 'city_id', 'name', 'icon',
+                'price_min', 'price_max', 'is_active', 'created_at',
+            ])
             ->paginate(12)
             ->withQueryString();
 

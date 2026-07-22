@@ -31,9 +31,11 @@ class HomeController extends Controller
 
     public function index()
     {
+        $categories = $this->serviceCategory->all();
+
         return Inertia::render('Home', [
-            'randomCategories' => $this->serviceCategory->randomServiceCategories(),
-            'categories' => $this->serviceCategory->all(),
+            'randomCategories' => $categories->shuffle()->take(4)->values(),
+            'categories' => $categories,
             'cities' => $this->cityRepository->all(),
             'missions' => $this->missionRepository->homeMissions(),
         ]);
