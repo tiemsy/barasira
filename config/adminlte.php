@@ -237,7 +237,7 @@ return [
     */
 
     'right_sidebar' => false,
-    'right_sidebar_icon' => 'fas fa-cogs',
+    'right_sidebar_icon' => '',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
     'right_sidebar_push' => true,
@@ -323,7 +323,7 @@ return [
         [
             'text' => 'pages',
             'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => '',
             'label' => 4,
             'label_color' => 'success',
         ],
@@ -331,16 +331,16 @@ return [
         [
             'text' => 'profile',
             'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => '',
         ],
         [
             'text' => 'change_password',
             'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => '',
         ],
         [
             'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => '',
             'submenu' => [
                 [
                     'text' => 'level_one',

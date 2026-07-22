@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Business Model — Barasira</title>
+<style>
+@page { size: A4; margin: 15mm 16mm 15mm; }
+* { box-sizing: border-box; }
+body { margin: 0; color: #172022; font: 10.5pt/1.48 Arial, sans-serif; background: white; }
+h1,h2,h3,p { margin-top: 0; }
+h1 { font-size: 28pt; line-height: 1.08; color: #123e37; margin-bottom: 8mm; }
+h2 { font-size: 18pt; color: #123e37; border-bottom: 2px solid #e5b84b; padding-bottom: 3mm; margin: 0 0 6mm; }
+h3 { font-size: 11.5pt; color: #176b5b; margin: 0 0 2mm; }
+p { margin-bottom: 3mm; }
+.page { page-break-after: always; min-height: 260mm; position: relative; }
+.page:last-child { page-break-after: auto; }
+.cover { min-height: 267mm; padding: 15mm 12mm; background: linear-gradient(145deg,#103d36 0 58%,#176b5b 58% 76%,#edbd48 76%); color:white; }
+.cover img { width: 58mm; background: white; border-radius: 5mm; padding: 4mm; margin-bottom: 25mm; }
+.cover h1 { color: white; font-size: 36pt; margin-bottom: 4mm; }
+.cover .lead { font-size: 16pt; max-width: 130mm; }
+.cover .meta { position:absolute; bottom: 19mm; left:12mm; color:#123e37; font-weight:bold; }
+.eyebrow { text-transform: uppercase; letter-spacing: 1.5px; color:#dba82f; font-size:8.5pt; font-weight:bold; margin-bottom:2mm; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:5mm; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:4mm; }
+.card { border:1px solid #dfe8e5; border-radius:3mm; padding:4mm; background:#fbfdfc; break-inside:avoid; }
+.card.accent { border-top:4px solid #e5b84b; }
+.number { color:#176b5b; font-size:24pt; font-weight:bold; line-height:1; }
+.muted { color:#63716e; }
+.pill { display:inline-block; background:#e7f3f0; color:#155d50; padding:1.5mm 3mm; border-radius:10mm; font-weight:bold; margin:0 1mm 1.5mm 0; }
+ul { margin:0 0 4mm; padding-left:5mm; }
+li { margin-bottom:1.5mm; }
+table { width:100%; border-collapse:collapse; margin:3mm 0 5mm; font-size:9.5pt; }
+.financial { font-size:8.2pt; }
+.financial th,.financial td { padding:1.8mm; }
+th { background:#123e37; color:white; text-align:left; padding:2.6mm; }
+td { border-bottom:1px solid #dfe8e5; padding:2.5mm; vertical-align:top; }
+tr:nth-child(even) td { background:#f6faf9; }
+.canvas { display:grid; grid-template-columns:repeat(3,1fr); gap:3mm; }
+.canvas .card { min-height:42mm; padding:3mm; font-size:9pt; }
+.canvas h3 { font-size:10pt; }
+.callout { border-left:5px solid #e5b84b; background:#fff9e9; padding:4mm; margin:5mm 0; }
+.formula { background:#123e37; color:white; padding:5mm; border-radius:3mm; text-align:center; font-size:14pt; font-weight:bold; }
+.footer { position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:space-between; border-top:1px solid #dfe8e5; padding-top:2mm; color:#71807d; font-size:8pt; }
+.roadmap { border-left:3px solid #176b5b; margin-left:3mm; padding-left:6mm; }
+.roadmap div { margin-bottom:5mm; position:relative; }
+.roadmap div:before { content:""; width:3mm; height:3mm; border-radius:50%; background:#e5b84b; position:absolute; left:-7.6mm; top:1mm; }
+.risk-high { color:#a53b2f; font-weight:bold; }.risk-med { color:#9b6b08; font-weight:bold; }
+.org { display:flex; flex-direction:column; align-items:center; gap:5mm; margin:6mm 0; }
+.org-row { display:flex; justify-content:center; gap:4mm; width:100%; position:relative; }
+.org-box { border:1px solid #cbded9; border-top:4px solid #176b5b; background:#fff; border-radius:3mm; padding:3mm; text-align:center; width:31%; min-height:18mm; }
+.org-box.lead { width:46%; color:#fff; background:#123e37; border-color:#e5b84b; }
+.org-box strong { display:block; }.org-box small { color:#6f7e7a; }.org-box.lead small { color:#d8e8e4; }
+.big-need { background:linear-gradient(135deg,#123e37,#176b5b); color:white; border-radius:4mm; padding:7mm; text-align:center; margin:5mm 0; }
+.big-need strong { display:block; color:#f0c45c; font-size:29pt; line-height:1.1; }
+.compact { font-size:9.2pt; line-height:1.33; }
+.compact h2 { margin-bottom:3mm; }.compact h3 { margin-bottom:1mm; }
+.compact p,.compact ul { margin-bottom:2mm; }.compact li { margin-bottom:.8mm; }
+.compact .callout { margin:2.5mm 0; padding:3mm; }.compact .card { padding:3mm; }
+.compact table { margin:2mm 0 3mm; }.compact th,.compact td { padding:1.25mm; }
+</style>
+</head>
+<body>
+
+<section class="page cover">
+  <img src="../public/images/logo-barasira.png" alt="Barasira">
+  <div class="eyebrow" style="color:#f3c85e">Document stratégique</div>
+  <h1>Business Model<br>Barasira</h1>
+  <p class="lead">La marketplace de confiance qui connecte les particuliers et les professionnels de services au Mali.</p>
+  <div class="meta">Version 1.6 · 22 juillet 2026<br>Document de travail — confidentiel</div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">01 · Synthèse</div><h2>Résumé exécutif</h2>
+  <p>Barasira organise un marché encore largement informel : trouver rapidement un prestataire compétent, vérifier son parcours, convenir d’une mission, payer de façon sécurisée et évaluer la prestation. La plateforme transforme ce parcours fragmenté en une expérience numérique unique.</p>
+  <div class="grid3">
+    <div class="card accent"><div class="number">10 %</div><h3>Commission plateforme</h3><p class="muted">Prélevée sur le montant d’une mission payée ; 90 % sont attribués au prestataire.</p></div>
+    <div class="card accent"><div class="number">2</div><h3>Faces du marché</h3><p class="muted">Clients en recherche de confiance et prestataires en recherche de missions.</p></div>
+    <div class="card accent"><div class="number">XOF</div><h3>Paiements locaux</h3><p class="muted">Mobile money, carte bancaire et PayPal selon les parcours disponibles.</p></div>
+  </div>
+  <div class="callout"><strong>Thèse d’investissement.</strong> La valeur de Barasira augmente avec la densité locale : davantage de prestataires qualifiés réduit le temps de mise en relation ; davantage de clients améliore le revenu et la fidélité des prestataires ; les avis et historiques de paiement renforcent ensuite la confiance.</div>
+  <h3>Priorité stratégique</h3>
+  <p>Concentrer le lancement sur Bamako et quelques catégories à forte fréquence avant toute expansion géographique. L’objectif initial n’est pas le volume d’inscriptions, mais le nombre de missions effectivement payées et satisfaisantes.</p>
+  <h3>Avantage produit déjà matérialisé</h3>
+  <p><span class="pill">Profils vérifiés</span><span class="pill">Diplômes & certifications</span><span class="pill">Missions</span><span class="pill">Invitations</span><span class="pill">Messagerie</span><span class="pill">Paiement sécurisé</span><span class="pill">Avis</span><span class="pill">E-mail & WhatsApp</span><span class="pill">Réseau partenaires</span><span class="pill">Multilingue</span></p>
+  <div class="footer"><span>Business Model Barasira</span><span>2</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">02 · Marché</div><h2>Problème, clients et proposition de valeur</h2>
+  <div class="grid2">
+    <div class="card"><h3>Clients particuliers / donneurs d’ordre</h3><ul><li>Difficulté à évaluer les compétences et la fiabilité.</li><li>Disponibilité et prix peu transparents.</li><li>Peu de recours en cas de mauvaise prestation.</li><li>Paiement et suivi souvent hors plateforme.</li></ul></div>
+    <div class="card"><h3>Prestataires indépendants / TPE</h3><ul><li>Acquisition client irrégulière et coûteuse.</li><li>Réputation difficile à rendre visible.</li><li>Temps perdu à négocier et relancer.</li><li>Accès limité aux outils numériques de gestion.</li></ul></div>
+  </div>
+  <h3>Promesse client</h3><p><strong>« Trouver et engager un professionnel crédible, payer simplement et garder une trace de la prestation. »</strong></p>
+  <h3>Promesse prestataire</h3><p><strong>« Transformer ses compétences en missions rémunérées et construire une réputation professionnelle portable. »</strong></p>
+  <table><thead><tr><th>Segment prioritaire</th><th>Besoin principal</th><th>Réponse Barasira</th></tr></thead><tbody>
+    <tr><td>Ménages urbains</td><td>Urgence, confiance, simplicité</td><td>Recherche locale, profils, avis, paiement</td></tr>
+    <tr><td>Propriétaires / gestionnaires</td><td>Prestataires récurrents et traçabilité</td><td>Historique des missions, messagerie, favoris</td></tr>
+    <tr><td>Artisans et indépendants</td><td>Flux de demandes qualifiées</td><td>Services publiés, invitations, candidatures</td></tr>
+    <tr><td>Petites entreprises</td><td>Sous-traitance flexible</td><td>Missions structurées et profils vérifiables</td></tr>
+  </tbody></table>
+  <p class="muted"><strong>Périmètre initial conseillé :</strong> plomberie, électricité, climatisation, ménage, réparation et petits travaux — à confirmer par entretiens et analyse des recherches.</p>
+  <div class="footer"><span>Business Model Barasira</span><span>3</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">03 · Modèle</div><h2>Business Model Canvas</h2>
+  <div class="canvas">
+    <div class="card"><h3>Partenaires clés</h3><ul><li>Opérateurs mobile money</li><li>CinetPay / PayPal</li><li>Écoles et organismes métiers</li><li>Événementiel et éducation</li><li>Partenaires KYC et assurance</li></ul></div>
+    <div class="card"><h3>Activités clés</h3><ul><li>Acquisition et activation</li><li>Matching client–prestataire</li><li>Confiance et modération</li><li>Paiement et support</li><li>Amélioration produit</li></ul></div>
+    <div class="card"><h3>Ressources clés</h3><ul><li>Plateforme web/API</li><li>Base de prestataires qualifiés</li><li>Données de réputation</li><li>Marque et réseau partenaires</li><li>Équipe opérations</li></ul></div>
+    <div class="card"><h3>Proposition de valeur</h3><ul><li>Accès rapide à des profils détaillés</li><li>Parcours mission de bout en bout</li><li>Paiement sécurisé et traçable</li><li>Réputation fondée sur les missions</li><li>Opportunités commerciales qualifiées</li></ul></div>
+    <div class="card"><h3>Relation client</h3><ul><li>Self-service assisté</li><li>Notifications e-mail et WhatsApp</li><li>Support litiges</li><li>Relance et récurrence</li><li>Programme de fidélité futur</li></ul></div>
+    <div class="card"><h3>Canaux</h3><ul><li>Site web et SEO local</li><li>Réseaux sociaux</li><li>WhatsApp / recommandation</li><li>Pages et événements partenaires</li><li>Ambassadeurs métiers</li></ul></div>
+    <div class="card"><h3>Segments</h3><ul><li>Particuliers urbains</li><li>Propriétaires et TPE</li><li>Artisans indépendants</li><li>Professionnels de proximité</li></ul></div>
+    <div class="card"><h3>Structure de coûts</h3><ul><li>Produit et infrastructure</li><li>Acquisition</li><li>Support et modération</li><li>Frais de paiement</li><li>Vérification et conformité</li></ul></div>
+    <div class="card"><h3>Revenus</h3><ul><li>Commission de 10 %</li><li>Mise en avant sponsorisée</li><li>Abonnement Pro futur</li><li>Offres B2B futures</li></ul></div>
+  </div>
+  <div class="footer"><span>Business Model Barasira</span><span>4</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">04 · Économie</div><h2>Revenus et unit economics</h2>
+  <div class="formula">Revenu transactionnel = volume de missions payées × 10 %</div>
+  <h3 style="margin-top:6mm">Scénarios mensuels illustratifs</h3>
+  <table><thead><tr><th>Scénario</th><th>Missions payées</th><th>Panier moyen</th><th>GMV mensuel</th><th>Revenu brut Barasira</th></tr></thead><tbody>
+    <tr><td>Validation</td><td>200</td><td>25 000 FCFA</td><td>5 000 000 FCFA</td><td>500 000 FCFA</td></tr>
+    <tr><td>Traction</td><td>1 000</td><td>30 000 FCFA</td><td>30 000 000 FCFA</td><td>3 000 000 FCFA</td></tr>
+    <tr><td>Échelle locale</td><td>5 000</td><td>35 000 FCFA</td><td>175 000 000 FCFA</td><td>17 500 000 FCFA</td></tr>
+  </tbody></table>
+  <p class="muted">GMV = valeur totale des missions payées. Ces chiffres sont des hypothèses de travail à tester ; ils n’incluent ni frais de paiement, ni remboursements, ni taxes, ni promotions.</p>
+  <div class="grid2">
+    <div class="card accent"><h3>Moteurs de marge</h3><ul><li>Hausse du taux mission publiée → mission payée.</li><li>Récurrence des clients sans nouveau coût d’acquisition.</li><li>Automatisation du support et de la vérification.</li><li>Densité par catégorie et quartier.</li></ul></div>
+    <div class="card accent"><h3>Extensions de revenus — après traction</h3><ul><li>Pack Pro : visibilité, statistiques, outils de gestion.</li><li>Frais de service client clairement affichés.</li><li>Assurance ou garantie optionnelle en partenariat.</li><li>Comptes entreprise et achats récurrents.</li></ul></div>
+  </div>
+  <div class="callout"><strong>Garde-fou :</strong> ne pas multiplier les sources de revenus avant d’avoir prouvé la liquidité du marché. La commission transactionnelle aligne directement Barasira avec la réussite des deux parties.</div>
+  <div class="footer"><span>Business Model Barasira</span><span>5</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">05 · Exécution</div><h2>Go-to-market et indicateurs</h2>
+  <div class="grid2">
+    <div><h3>1. Construire l’offre</h3><ul><li>Recruter 50–100 prestataires actifs dans 3–5 catégories.</li><li>Vérifier identité, diplômes, références et disponibilité.</li><li>Aider à créer des profils complets et des prix indicatifs.</li></ul><h3>2. Générer la demande</h3><ul><li>SEO par service et zone.</li><li>Contenus démonstratifs et témoignages.</li><li>Co-acquisition avec les partenaires publiés.</li><li>Assistance WhatsApp vers le parcours Barasira.</li></ul></div>
+    <div><h3>3. Assurer la liquidité</h3><ul><li>Réponse à une mission en moins de 15 minutes sur les catégories prioritaires.</li><li>Relance des prestataires disponibles.</li><li>Support humain sur les premières transactions.</li></ul><h3>4. Créer la récurrence</h3><ul><li>Rappel d’entretien et re-réservation.</li><li>Favoris et prestataire habituel.</li><li>Avantages liés au paiement sur plateforme.</li></ul></div>
+  </div>
+  <h3>North Star Metric</h3><div class="formula">Nombre de missions payées et évaluées positivement par mois</div>
+  <table><thead><tr><th>Étape</th><th>KPI</th><th>Cible initiale indicative</th></tr></thead><tbody>
+    <tr><td>Acquisition</td><td>Coût par client activé / prestataire actif</td><td>Suivi hebdomadaire par canal</td></tr>
+    <tr><td>Activation</td><td>Profils complets ; missions recevant une réponse</td><td>&gt; 70 % ; &gt; 80 %</td></tr>
+    <tr><td>Conversion</td><td>Mission publiée → mission payée</td><td>&gt; 25 % au démarrage</td></tr>
+    <tr><td>Qualité</td><td>Note moyenne ; litiges ; annulations</td><td>≥ 4,5/5 ; &lt; 3 % ; &lt; 10 %</td></tr>
+    <tr><td>Rétention</td><td>Clients avec une 2e mission à 90 jours</td><td>&gt; 30 %</td></tr>
+    <tr><td>Économie</td><td>LTV/CAC ; marge contributive</td><td>&gt; 3 ; positive par cohorte</td></tr>
+  </tbody></table>
+  <div class="footer"><span>Business Model Barasira</span><span>6</span></div>
+</section>
+
+<section class="page compact">
+  <div class="eyebrow">06 · Marketing</div><h2>Stratégie marketing</h2>
+  <div class="callout"><strong>Positionnement :</strong> « Barasira, le moyen simple et sûr de trouver un professionnel local crédible, réaliser une mission et payer avec traçabilité. » La communication doit privilégier les preuves — profils, qualifications, avis et missions réalisées — plutôt que les promesses générales.</div>
+  <div class="grid2">
+    <div class="card"><h3>Audiences prioritaires</h3><ul><li>Ménages urbains avec un besoin urgent ou planifié.</li><li>Propriétaires, gestionnaires et petites entreprises.</li><li>Artisans souhaitant des missions régulières.</li><li>Organisations partenaires et communautés métiers.</li></ul></div>
+    <div class="card"><h3>Messages par audience</h3><ul><li><strong>Clients :</strong> confiance, rapidité et recours.</li><li><strong>Prestataires :</strong> missions, réputation et paiement.</li><li><strong>Entreprises :</strong> flexibilité et traçabilité.</li><li><strong>Partenaires :</strong> impact local et visibilité qualifiée.</li></ul></div>
+  </div>
+  <h3>Répartition du budget marketing — année 1</h3>
+  <table class="financial"><thead><tr><th>Levier</th><th>Budget</th><th>Part</th><th>Objectif</th></tr></thead><tbody>
+    <tr><td>Publicités sociales géolocalisées</td><td>3,0 M</td><td>25 %</td><td>Créer la demande par catégorie et quartier</td></tr>
+    <tr><td>Activation terrain et événements</td><td>2,4 M</td><td>20 %</td><td>Recruter et vérifier clients et prestataires</td></tr>
+    <tr><td>Parrainage et offres de lancement</td><td>2,4 M</td><td>20 %</td><td>Accélérer la première mission et la recommandation</td></tr>
+    <tr><td>Contenus, témoignages et SEO local</td><td>1,8 M</td><td>15 %</td><td>Construire la confiance et l’acquisition organique</td></tr>
+    <tr><td>Co-marketing partenaires</td><td>1,2 M</td><td>10 %</td><td>Mutualiser les audiences et événements</td></tr>
+    <tr><td>Mesure, outils et expérimentation</td><td>1,2 M</td><td>10 %</td><td>Attribuer les conversions et optimiser les campagnes</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>12,0 M FCFA</strong></td><td><strong>100 %</strong></td><td>Budget cohérent avec le plan de financement</td></tr>
+  </tbody></table>
+  <h3>Tunnel et rythme d’exécution</h3>
+  <p><span class="pill">Notoriété</span><span class="pill">Visite qualifiée</span><span class="pill">Mission publiée</span><span class="pill">Prestataire affecté</span><span class="pill">Paiement</span><span class="pill">Avis & récurrence</span></p>
+  <table class="financial"><thead><tr><th>Période</th><th>Priorité</th><th>Indicateurs de décision</th></tr></thead><tbody>
+    <tr><td>Jours 1–30</td><td>Pré-lancement : offre, ambassadeurs, contenus et listes d’attente</td><td>Prestataires vérifiés, profils complets, coût d’activation</td></tr>
+    <tr><td>Jours 31–60</td><td>Lancement concentré sur 3–5 catégories et une zone précise</td><td>Réponse aux missions, conversion et CAC par canal</td></tr>
+    <tr><td>Jours 61–90</td><td>Optimisation, témoignages, parrainage et réactivation</td><td>Missions payées, note, répétition et LTV/CAC</td></tr>
+  </tbody></table>
+  <p class="muted"><strong>Cibles initiales :</strong> coût marketing par mission payée ≤ 4 000 FCFA, taux mission publiée → payée &gt; 25 %, réponse qualifiée &gt; 80 %, réachat à 90 jours &gt; 30 % et LTV/CAC &gt; 3.</p>
+  <div class="footer"><span>Business Model Barasira</span><span>7</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">07 · Ressources</div><h2>Équipe et moyens nécessaires au démarrage</h2>
+  <p>Le lancement doit rester compact mais couvrir six fonctions critiques : direction, technologie, opérations de confiance, acquisition, support et pilotage financier. Les fondateurs peuvent cumuler certains rôles durant les six premiers mois, sans supprimer la responsabilité associée.</p>
+  <div class="org">
+    <div class="org-row"><div class="org-box lead"><strong>Direction générale / CEO</strong><small>Vision, financement, grands partenariats et pilotage</small></div></div>
+    <div class="org-row"><div class="org-box"><strong>CTO / Responsable produit</strong><small>Produit, architecture, sécurité et données</small></div><div class="org-box"><strong>Responsable opérations</strong><small>Qualité, vérification, missions et litiges</small></div><div class="org-box"><strong>Growth & partenariats</strong><small>Acquisition, marque, réseau et ventes B2B</small></div></div>
+    <div class="org-row"><div class="org-box"><strong>Développeur full-stack</strong><small>Évolutions, tests et maintenance</small></div><div class="org-box"><strong>Support & communauté</strong><small>Clients, prestataires et animation</small></div><div class="org-box"><strong>Finance / juridique externalisé</strong><small>Comptabilité, paie, contrats et conformité</small></div></div>
+  </div>
+  <table><thead><tr><th>Ressource</th><th>Besoin de départ</th><th>Finalité</th></tr></thead><tbody>
+    <tr><td>Équipe cœur</td><td>6 personnes + experts externalisés</td><td>Exécuter rapidement tout en gardant des responsabilités claires</td></tr>
+    <tr><td>Technologie</td><td>Cloud, sauvegardes, supervision, sécurité, SMS/e-mail, analytics</td><td>Disponibilité, confiance et mesure du funnel</td></tr>
+    <tr><td>Matériel</td><td>6 ordinateurs, téléphones de test, réseau secouru, mobilier léger</td><td>Continuité de service et travail hybride</td></tr>
+    <tr><td>Opérations terrain</td><td>Vérification, déplacements, ateliers prestataires, support</td><td>Construire une offre locale fiable</td></tr>
+    <tr><td>Cadre administratif</td><td>Société, contrats, comptabilité, assurance, protection des données</td><td>Réduire le risque légal et financier</td></tr>
+  </tbody></table>
+  <div class="footer"><span>Business Model Barasira</span><span>8</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">08 · Financement</div><h2>Besoin pour démarrer et tenir douze mois</h2>
+  <div class="big-need"><span>Financement de démarrage recommandé</span><strong>85 000 000 FCFA</strong><span>soit environ 7,1 M FCFA de capacité mensuelle moyenne</span></div>
+  <table><thead><tr><th>Poste sur 12 mois</th><th>Montant</th><th>Part</th><th>Hypothèse</th></tr></thead><tbody>
+    <tr><td>Salaires et charges provisionnées</td><td>36 000 000</td><td>42 %</td><td>Équipe cœur progressive, rémunération locale maîtrisée</td></tr>
+    <tr><td>Marketing et acquisition</td><td>12 000 000</td><td>14 %</td><td>Terrain, digital, contenus, parrainage et événements</td></tr>
+    <tr><td>Technologie et sécurité</td><td>6 000 000</td><td>7 %</td><td>Cloud, SMS, e-mail, sauvegardes, monitoring et audits</td></tr>
+    <tr><td>Équipements de départ</td><td>7 000 000</td><td>8 %</td><td>Ordinateurs, téléphones, réseau et mobilier</td></tr>
+    <tr><td>Locaux, énergie et connectivité</td><td>5 000 000</td><td>6 %</td><td>Espace léger avec solution de continuité électrique</td></tr>
+    <tr><td>Juridique, comptabilité et assurance</td><td>3 000 000</td><td>4 %</td><td>Création, contrats, paie, conformité et conseil</td></tr>
+    <tr><td>Opérations terrain et formation</td><td>4 000 000</td><td>5 %</td><td>Vérification et activation des prestataires</td></tr>
+    <tr><td>Réserve support, incidents et remboursements</td><td>2 000 000</td><td>2 %</td><td>Protection de l’expérience client</td></tr>
+    <tr><td>Trésorerie de sécurité</td><td>10 000 000</td><td>12 %</td><td>Retards, inflation, change fournisseur et imprévus</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>85 000 000</strong></td><td><strong>100 %</strong></td><td>Runway de 12 mois sans dépendre du chiffre d’affaires</td></tr>
+  </tbody></table>
+  <div class="callout"><strong>Fourchette de décision :</strong> un lancement extrêmement frugal peut viser 60–65 M FCFA, mais avec plus de dépendance aux fondateurs. Pour « tenir un an sans problème » avec une vraie réserve, 85 M FCFA constitue la cible recommandée. Un coussin renforcé porterait le tour à 95 M FCFA.</div>
+  <div class="footer"><span>Business Model Barasira</span><span>9</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">09 · Prévisions</div><h2>Compte de résultat prévisionnel sur cinq ans</h2>
+  <p>Scénario central en millions de FCFA. Il suppose une commission de 10 %, le développement progressif des mises en avant, offres Pro/B2B et une expansion géographique maîtrisée à partir de la troisième année.</p>
+  <table class="financial"><thead><tr><th>Indicateur</th><th>Année 1</th><th>Année 2</th><th>Année 3</th><th>Année 4</th><th>Année 5</th></tr></thead><tbody>
+    <tr><td>Missions payées</td><td>3 000</td><td>18 000</td><td>70 000</td><td>150 000</td><td>280 000</td></tr>
+    <tr><td>Panier moyen</td><td>30 000</td><td>32 000</td><td>35 000</td><td>38 000</td><td>40 000</td></tr>
+    <tr><td>GMV</td><td>90</td><td>576</td><td>2 450</td><td>5 700</td><td>11 200</td></tr>
+    <tr><td>Commissions transactionnelles</td><td>9</td><td>57,6</td><td>245</td><td>570</td><td>1 120</td></tr>
+    <tr><td>Pro / B2B / sponsoring</td><td>2</td><td>12,4</td><td>35</td><td>80</td><td>180</td></tr>
+    <tr><td><strong>Chiffre d’affaires</strong></td><td><strong>11</strong></td><td><strong>70</strong></td><td><strong>280</strong></td><td><strong>650</strong></td><td><strong>1 300</strong></td></tr>
+    <tr><td>Personnel</td><td>36</td><td>68</td><td>105</td><td>160</td><td>240</td></tr>
+    <tr><td>Marketing et ventes</td><td>12</td><td>28</td><td>48</td><td>85</td><td>145</td></tr>
+    <tr><td>Technologie et sécurité</td><td>6</td><td>14</td><td>25</td><td>45</td><td>75</td></tr>
+    <tr><td>Opérations, paiement et support</td><td>7</td><td>12</td><td>20</td><td>55</td><td>110</td></tr>
+    <tr><td>Administration et locaux</td><td>8</td><td>6</td><td>12</td><td>25</td><td>40</td></tr>
+    <tr><td><strong>Charges opérationnelles</strong></td><td><strong>69</strong></td><td><strong>128</strong></td><td><strong>210</strong></td><td><strong>370</strong></td><td><strong>610</strong></td></tr>
+    <tr><td><strong>EBITDA</strong></td><td><strong>-58</strong></td><td><strong>-58</strong></td><td><strong>70</strong></td><td><strong>280</strong></td><td><strong>690</strong></td></tr>
+    <tr><td>Amortissements</td><td>2</td><td>7</td><td>10</td><td>15</td><td>22</td></tr>
+    <tr><td>Impôts provisionnels</td><td>0</td><td>0</td><td>10</td><td>70</td><td>180</td></tr>
+    <tr><td><strong>Résultat net indicatif</strong></td><td><strong>-60</strong></td><td><strong>-65</strong></td><td><strong>50</strong></td><td><strong>195</strong></td><td><strong>488</strong></td></tr>
+  </tbody></table>
+  <div class="callout"><strong>Point critique :</strong> le scénario n’atteint l’équilibre qu’en année 3. Une levée relais d’environ 65 M FCFA est donc prévue en année 2, sauf si les revenus, subventions ou économies sont supérieurs aux hypothèses.</div>
+  <div class="footer"><span>Business Model Barasira</span><span>10</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">10 · Bilan</div><h2>Bilan et trésorerie prévisionnels sur cinq ans</h2>
+  <p>Montants en millions de FCFA, en fin d’exercice. Cette présentation de pilotage doit être transformée en états financiers complets par un expert-comptable selon la forme juridique et les règles fiscales retenues.</p>
+  <table class="financial"><thead><tr><th>ACTIF</th><th>Année 1</th><th>Année 2</th><th>Année 3</th><th>Année 4</th><th>Année 5</th></tr></thead><tbody>
+    <tr><td>Trésorerie disponible</td><td>20</td><td>14</td><td>52</td><td>235</td><td>700</td></tr>
+    <tr><td>Créances et charges d’avance</td><td>2</td><td>5</td><td>10</td><td>20</td><td>35</td></tr>
+    <tr><td>Immobilisations nettes</td><td>5</td><td>10</td><td>18</td><td>30</td><td>53</td></tr>
+    <tr><td><strong>Total actif</strong></td><td><strong>27</strong></td><td><strong>29</strong></td><td><strong>80</strong></td><td><strong>285</strong></td><td><strong>788</strong></td></tr>
+  </tbody></table>
+  <table class="financial"><thead><tr><th>PASSIF</th><th>Année 1</th><th>Année 2</th><th>Année 3</th><th>Année 4</th><th>Année 5</th></tr></thead><tbody>
+    <tr><td>Capitaux apportés cumulés</td><td>85</td><td>150</td><td>150</td><td>150</td><td>150</td></tr>
+    <tr><td>Résultats cumulés</td><td>-60</td><td>-125</td><td>-75</td><td>120</td><td>608</td></tr>
+    <tr><td>Capitaux propres</td><td>25</td><td>25</td><td>75</td><td>270</td><td>758</td></tr>
+    <tr><td>Dettes d’exploitation</td><td>2</td><td>4</td><td>5</td><td>15</td><td>30</td></tr>
+    <tr><td><strong>Total passif</strong></td><td><strong>27</strong></td><td><strong>29</strong></td><td><strong>80</strong></td><td><strong>285</strong></td><td><strong>788</strong></td></tr>
+  </tbody></table>
+  <h3>Trajectoire de trésorerie</h3>
+  <table class="financial"><thead><tr><th>Fin d’exercice</th><th>Année 1</th><th>Année 2</th><th>Année 3</th><th>Année 4</th><th>Année 5</th></tr></thead><tbody><tr><td>Trésorerie</td><td>20 M</td><td>14 M</td><td>52 M</td><td>235 M</td><td>700 M</td></tr><tr><td>Lecture</td><td>Coussin initial</td><td>Après levée relais</td><td>Retour positif</td><td>Autofinancement</td><td>Capacité d’expansion</td></tr></tbody></table>
+  <div class="callout"><strong>Discipline recommandée :</strong> déclencher la préparation de la levée suivante dès que la trésorerie descend sous neuf mois de charges fixes ; ne jamais confondre le GMV, qui transite pour les prestataires, avec le chiffre d’affaires propre de Barasira.</div>
+  <div class="footer"><span>Business Model Barasira</span><span>11</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">11 · Écosystème</div><h2>Stratégie partenaires</h2>
+  <p>Barasira dispose d’un espace administrable permettant d’enregistrer une entreprise, son contact principal, son logo, son site web et son statut de publication. Les partenaires publiés bénéficient d’une présence sur la page d’accueil et dans un annuaire public dédié. Une mise en avant sponsorisée peut être planifiée ; jusqu’à deux campagnes actives sont classées selon le montant payé. Une page commerciale permet au partenaire de choisir une formule et d’envoyer directement sa demande à l’équipe.</p>
+  <h3>Grille de publication sponsorisée</h3>
+  <table><thead><tr><th>Formule</th><th>Durée</th><th>Tarif public</th><th>Usage conseillé</th></tr></thead><tbody>
+    <tr><td>Découverte</td><td>7 jours</td><td>50 000 FCFA</td><td>Événement ou test de visibilité</td></tr>
+    <tr><td>Visibilité</td><td>30 jours</td><td>150 000 FCFA</td><td>Campagne continue et acquisition</td></tr>
+    <tr><td>Impact</td><td>90 jours</td><td>350 000 FCFA</td><td>Présence de marque et partenariat durable</td></tr>
+  </tbody></table>
+  <div class="grid2">
+    <div class="card accent"><h3>Valeur pour Barasira</h3><ul><li>Accès à de nouvelles communautés de clients et prestataires.</li><li>Renforcement de la crédibilité institutionnelle.</li><li>Co-organisation d’actions terrain et de contenus.</li><li>Création future d’offres B2B et de programmes métiers.</li></ul></div>
+    <div class="card accent"><h3>Valeur pour le partenaire</h3><ul><li>Visibilité qualifiée auprès de l’écosystème Barasira.</li><li>Lien direct vers son site lorsqu’il existe.</li><li>Association à une initiative d’emploi et de services locaux.</li><li>Possibilités de campagnes et d’événements communs.</li></ul></div>
+  </div>
+  <h3>Partenaires de Barasira</h3>
+  <table><thead><tr><th>Partenaire</th><th>Positionnement dans l’écosystème</th><th>Activation possible</th></tr></thead><tbody>
+    <tr><td>Urgol Events Mali</td><td>Événementiel</td><td>Événements de recrutement, visibilité et rencontres métiers</td></tr>
+    <tr><td>Les Petits Stylos</td><td>Éducation et créativité</td><td>Sensibilisation, contenus et actions communautaires</td></tr>
+  </tbody></table>
+  <div class="callout"><strong>Gouvernance recommandée :</strong> valider avec Urgol Events Mali et Les Petits Stylos les coordonnées, le logo, le droit de publication, la durée des campagnes et les conditions financières avant chaque mise en avant.</div>
+  <div class="footer"><span>Business Model Barasira</span><span>12</span></div>
+</section>
+
+<section class="page">
+  <div class="eyebrow">12 · Maîtrise</div><h2>Risques et feuille de route</h2>
+  <table><thead><tr><th>Risque</th><th>Niveau</th><th>Réponse recommandée</th></tr></thead><tbody>
+    <tr><td>Contournement après mise en relation</td><td class="risk-high">Élevé</td><td>Garantie, paiement protégé, historique et avantages réservés à la plateforme.</td></tr>
+    <tr><td>Qualité hétérogène</td><td class="risk-high">Élevé</td><td>Vérification graduée, essais terrain, avis liés à une mission payée.</td></tr>
+    <tr><td>Marché insuffisamment liquide</td><td class="risk-high">Élevé</td><td>Focalisation géographique et catégories limitées au lancement.</td></tr>
+    <tr><td>Litiges et remboursements</td><td class="risk-med">Moyen</td><td>Preuves, photos, règles claires, médiation et réserve opérationnelle.</td></tr>
+    <tr><td>Dépendance aux paiements</td><td class="risk-med">Moyen</td><td>Plusieurs moyens de paiement, rapprochement et suivi des échecs.</td></tr>
+    <tr><td>Données personnelles / conformité</td><td class="risk-med">Moyen</td><td>Cookies marketing sur consentement, documents privés, accès contrôlé, audit des actions et politique de conservation.</td></tr>
+  </tbody></table>
+  <div class="roadmap">
+    <div><h3>0–3 mois · Valider</h3><p>Entretiens utilisateurs, cohortes pilotes, instrumentation du funnel, procédure de vérification et support des premières missions.</p></div>
+    <div><h3>3–6 mois · Densifier</h3><p>Optimiser catégories gagnantes, réputation, relances, paiement et acquisition locale. Mesurer la rétention par cohorte.</p></div>
+    <div><h3>6–12 mois · Rentabiliser</h3><p>Améliorer la marge contributive, lancer prudemment le pack Pro et des partenariats B2B.</p></div>
+    <div><h3>12–24 mois · Étendre</h3><p>Dupliquer le playbook dans d’autres zones uniquement si liquidité, qualité et économie unitaire sont démontrées.</p></div>
+  </div>
+  <div class="callout"><strong>Décision des 90 prochains jours :</strong> sécuriser une première tranche de financement, sélectionner 3 à 5 catégories, définir une zone précise à Bamako, recruter une cohorte vérifiée et obtenir 100 missions payées avec mesure complète de la satisfaction et des coûts.</div>
+  <p class="muted"><strong>Référence macroéconomique :</strong> BCEAO, Rapport sur la politique monétaire dans l’UMOA, juin 2026 — inflation moyenne projetée à 1,6 % en 2026 et 2,1 % en 2027. Le budget conserve néanmoins une réserve supérieure pour absorber les risques opérationnels locaux.</p>
+  <div class="footer"><span>Business Model Barasira</span><span>13</span></div>
+</section>
+
+</body></html>

@@ -14,14 +14,14 @@
     </h3>
 
     <p class="modern-mission-card__address">
-        <i class="bi bi-geo-alt"></i>
+        <DashboardIcon name="location" />
         {{ mission.address ?? $t('missions.card.addressMissing') }}
     </p>
 
     <div class="modern-mission-card__footer">
-        <Link :href="`/missions/${mission.id}`" class="btn btn-primary modern-mission-card__btn">
+        <Link :href="`/missions/${mission.slug}`" class="btn btn-primary modern-mission-card__btn">
             {{ $t('missions.details') }}
-            <i class="bi bi-arrow-right"></i>
+            <DashboardIcon name="arrow" />
         </Link>
     </div>
 </template>
@@ -29,6 +29,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 /**
  * Props

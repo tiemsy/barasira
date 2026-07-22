@@ -42,7 +42,7 @@ async function submit() {
     try {
         await missionService.update(props.mission.id, normalizeMissionPayload(form.value))
         toast.show(t('missions.messages.updated_success'))
-        router.visit(`/missions/${props.mission.id}`)
+        router.visit(`/missions/${props.mission.slug}`)
     } catch (error) {
         errors.value = error.response?.data?.errors ?? {
             general: [t('missions.editPage.updateError')],

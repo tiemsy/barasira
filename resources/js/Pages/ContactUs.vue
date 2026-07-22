@@ -2,6 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { computed } from 'vue'
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const page = usePage()
 const user = computed(() => page.props?.auth?.user ?? null)
@@ -71,15 +72,15 @@ const submit = () => {
 
                         <div class="contact-hero__illustration" aria-hidden="true">
                             <div class="contact-hero__icon">
-                                <i class="fas fa-headset"></i>
+                                <DashboardIcon name="headset" />
                             </div>
 
                             <div class="contact-hero__bubble contact-hero__bubble--one">
-                                <i class="fas fa-comment-dots"></i>
+                                <DashboardIcon name="messages" />
                             </div>
 
                             <div class="contact-hero__bubble contact-hero__bubble--two">
-                                <i class="fas fa-envelope"></i>
+                                <DashboardIcon name="mail" />
                             </div>
                         </div>
                     </div>
@@ -102,7 +103,7 @@ const submit = () => {
 
                             <div class="contact-card">
                                 <div class="contact-card__icon">
-                                    <i class="fas fa-envelope"></i>
+                                    <DashboardIcon name="mail" />
                                 </div>
 
                                 <div class="contact-card__content">
@@ -116,7 +117,7 @@ const submit = () => {
 
                             <div class="contact-card">
                                 <div class="contact-card__icon">
-                                    <i class="fas fa-phone-alt"></i>
+                                    <DashboardIcon name="phone" />
                                 </div>
 
                                 <div class="contact-card__content">
@@ -130,7 +131,7 @@ const submit = () => {
 
                             <div class="contact-card">
                                 <div class="contact-card__icon">
-                                    <i class="fas fa-map-marker-alt"></i>
+                                    <DashboardIcon name="location" />
                                 </div>
 
                                 <div class="contact-card__content">
@@ -141,7 +142,7 @@ const submit = () => {
 
                             <div class="contact-card">
                                 <div class="contact-card__icon">
-                                    <i class="fas fa-clock"></i>
+                                    <DashboardIcon name="clock" />
                                 </div>
 
                                 <div class="contact-card__content">
@@ -152,7 +153,7 @@ const submit = () => {
 
                             <div v-if="!user" class="contact-help">
                                 <div class="contact-help__icon">
-                                    <i class="fas fa-lightbulb"></i>
+                                    <DashboardIcon name="lightbulb" />
                                 </div>
 
                                 <div>
@@ -164,7 +165,7 @@ const submit = () => {
 
                                     <Link href="/login" class="contact-help__link">
                                         {{ $t('contact.account.login') }}
-                                        <i class="fas fa-arrow-right"></i>
+                                        <DashboardIcon name="arrow" />
                                     </Link>
                                 </div>
                             </div>
@@ -181,7 +182,7 @@ const submit = () => {
                             </div>
 
                             <div v-if="$page.props.flash?.success" class="alert alert-success" role="status" aria-live="polite">
-                                <i class="fas fa-check-circle"></i>
+                                <DashboardIcon name="verified" />
 
                                 <span>
                                     {{ $t('contact.form.success') }}
@@ -189,7 +190,7 @@ const submit = () => {
                             </div>
 
                             <div v-if="$page.props.flash?.error" class="alert alert-error" role="alert">
-                                <i class="fas fa-exclamation-circle"></i>
+                                <DashboardIcon name="alert" />
 
                                 <span>
                                     {{ $t('contact.form.error') }}
@@ -206,7 +207,7 @@ const submit = () => {
 
                                         <div class="input-wrapper"
                                             :class="{ 'input-wrapper--error': form.errors.name }">
-                                            <i class="fas fa-user"></i>
+                                            <DashboardIcon name="profile" />
 
                                             <input id="name" v-model="form.name" type="text" name="name"
                                                 :placeholder="$t('contact.form.namePlaceholder')" autocomplete="name" required
@@ -226,7 +227,7 @@ const submit = () => {
 
                                         <div class="input-wrapper"
                                             :class="{ 'input-wrapper--error': form.errors.email }">
-                                            <i class="fas fa-envelope"></i>
+                                            <DashboardIcon name="mail" />
 
                                             <input id="email" v-model="form.email" type="email" name="email"
                                                 :placeholder="$t('contact.form.emailPlaceholder')" autocomplete="email" required
@@ -243,7 +244,7 @@ const submit = () => {
 
                                         <div class="input-wrapper"
                                             :class="{ 'input-wrapper--error': form.errors.phone }">
-                                            <i class="fas fa-phone"></i>
+                                            <DashboardIcon name="phone" />
 
                                             <input id="phone" v-model="form.phone" type="tel" name="phone"
                                                 :placeholder="$t('contact.form.phonePlaceholder')" autocomplete="tel" />
@@ -261,7 +262,7 @@ const submit = () => {
 
                                         <div class="input-wrapper"
                                             :class="{ 'input-wrapper--error': form.errors.user_type }">
-                                            <i class="fas fa-users"></i>
+                                            <DashboardIcon name="users" />
 
                                             <select id="user_type" v-model="form.user_type" name="user_type">
                                                 <option value="">
@@ -285,7 +286,7 @@ const submit = () => {
                                                 </option>
                                             </select>
 
-                                            <i class="fas fa-chevron-down select-arrow"></i>
+                                            <DashboardIcon name="chevron-down" class="select-arrow" />
                                         </div>
 
                                         <p v-if="form.errors.user_type" class="form-error">
@@ -301,7 +302,7 @@ const submit = () => {
 
                                         <div class="input-wrapper"
                                             :class="{ 'input-wrapper--error': form.errors.subject }">
-                                            <i class="fas fa-tag"></i>
+                                            <DashboardIcon name="tag" />
 
                                             <input id="subject" v-model="form.subject" type="text" name="subject"
                                                 :placeholder="$t('contact.form.subjectPlaceholder')" maxlength="150" required
@@ -344,7 +345,7 @@ const submit = () => {
                                                 :aria-invalid="Boolean(form.errors.consent)" />
 
                                             <span class="checkbox-custom">
-                                                <i class="fas fa-check"></i>
+                                                <DashboardIcon name="check" />
                                             </span>
 
                                             <span class="checkbox-text">
@@ -361,13 +362,13 @@ const submit = () => {
 
                                 <button type="submit" class="submit-button" :disabled="form.processing">
                                     <template v-if="form.processing">
-                                        <i class="fas fa-spinner fa-spin"></i>
+                                        <DashboardIcon name="loading" />
                                         {{ $t('contact.form.sending') }}
                                     </template>
 
                                     <template v-else>
                                         {{ $t('contact.form.submit') }}
-                                        <i class="fas fa-paper-plane"></i>
+                                        <DashboardIcon name="send" />
                                     </template>
                                 </button>
                             </form>
@@ -389,7 +390,7 @@ const submit = () => {
 
                         <a :href="`mailto:${contactEmail}`" class="faq-button">
                             {{ contactEmail }}
-                            <i class="fas fa-envelope"></i>
+                            <DashboardIcon name="mail" />
                         </a>
                     </div>
                 </div>

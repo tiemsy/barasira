@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { router } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import messageService from '@/composables/messageService'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps({
     recipient: { type: Object, default: null },
@@ -12,6 +13,7 @@ const props = defineProps({
 const body = ref('')
 const loading = ref(false)
 const error = ref('')
+const { t } = useI18n()
 const conversationClosed = computed(() => props.mission?.status === 'completed')
 
 const fullName = user => `${user?.first_name ?? ''} ${user?.last_name ?? ''}`.trim()
@@ -31,7 +33,7 @@ async function send() {
     } catch (requestError) {
         error.value = Object.values(requestError.response?.data?.errors ?? {}).flat()[0]
             ?? requestError.response?.data?.message
-            ?? 'Impossible d’envoyer le message.'
+            ?? t('ui.messages.sendError')
     } finally {
         loading.value = false
     }
@@ -39,24 +41,24 @@ async function send() {
 </script>
 
 <template>
-    <AppLayout title="Nouveau message">
+    <AppLayout :title="$t('ui.messages.newTitle')">
         <section class="new-message">
-            <h1>Nouveau message</h1>
+            <h1>{{ $t('ui.messages.newTitle') }}</h1>
             <template v-if="recipient">
-                <p>À : <strong>{{ fullName(recipient) }}</strong></p>
-                <p v-if="mission">Mission : <strong>{{ mission.title }}</strong></p>
+                <p>{{ $t('ui.messages.to') }} : <strong>{{ fullName(recipient) }}</strong></p>
+                <p v-if="mission">{{ $t('ui.messages.mission') }} : <strong>{{ mission.title }}</strong></p>
                 <p v-if="conversationClosed" class="conversation-closed" role="status">
                     {{ $t('messages.mission_completed') }}
                 </p>
                 <form v-else @submit.prevent="send">
-                    <textarea v-model="body" rows="8" maxlength="5000" placeholder="Écrivez votre message…" />
+                    <textarea v-model="body" rows="8" maxlength="5000" :placeholder="$t('ui.messages.placeholder')" />
                     <p v-if="error" class="error">{{ error }}</p>
                     <button type="submit" :disabled="loading || !body.trim()">
-                        {{ loading ? 'Envoi…' : 'Envoyer le message' }}
+                        {{ loading ? $t('ui.messages.sending') : $t('ui.messages.sendMessage') }}
                     </button>
                 </form>
             </template>
-            <p v-else class="error">Le destinataire est introuvable.</p>
+            <p v-else class="error">{{ $t('ui.messages.recipientMissing') }}</p>
         </section>
     </AppLayout>
 </template>

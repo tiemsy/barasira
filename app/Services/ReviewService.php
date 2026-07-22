@@ -10,12 +10,12 @@ use Illuminate\Validation\ValidationException;
 
 class ReviewService
 {
-    public function createForMission(User $client, array $data): Review
+    public function createForMission(User $reviewer, array $data): Review
     {
-        return DB::transaction(function () use ($client, $data) {
+        return DB::transaction(function () use ($reviewer, $data) {
             $mission = Mission::query()->lockForUpdate()->findOrFail($data['mission_id']);
 
-            if ($mission->client_id !== $client->id) {
+            if (! $reviewer->isAdmin() && $mission->client_id !== $reviewer->id) {
                 throw ValidationException::withMessages([
                     'mission_id' => __('Vous ne pouvez noter que vos propres missions.'),
                 ]);
@@ -27,7 +27,7 @@ class ReviewService
                 ]);
             }
 
-            if (Review::query()->where('mission_id', $mission->id)->where('reviewer_id', $client->id)->exists()) {
+            if (Review::query()->where('mission_id', $mission->id)->where('reviewer_id', $reviewer->id)->exists()) {
                 throw ValidationException::withMessages([
                     'mission_id' => __('Vous avez déjà donné votre avis pour cette mission.'),
                 ]);
@@ -35,7 +35,7 @@ class ReviewService
 
             $review = Review::query()->create([
                 'mission_id' => $mission->id,
-                'reviewer_id' => $client->id,
+                'reviewer_id' => $reviewer->id,
                 'reviewed_id' => $mission->prestataire_id,
                 'rating' => $data['rating'],
                 'comment' => $data['comment'] ?? null,
@@ -47,12 +47,12 @@ class ReviewService
         });
     }
 
-    public function revise(Review $review, User $client, array $data): Review
+    public function revise(Review $review, User $reviewer, array $data): Review
     {
-        return DB::transaction(function () use ($review, $client, $data) {
+        return DB::transaction(function () use ($review, $reviewer, $data) {
             $review = Review::query()->lockForUpdate()->findOrFail($review->id);
 
-            if ($review->reviewer_id !== $client->id) {
+            if ($review->reviewer_id !== $reviewer->id) {
                 throw ValidationException::withMessages([
                     'review' => __('Vous ne pouvez modifier que votre propre avis.'),
                 ]);

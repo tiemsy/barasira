@@ -7,12 +7,18 @@ import MissionCard from '@/Components/MissionCard.vue'
 import maliMap from '@/assets/mali-map.svg?raw'
 import heroImage from '@/assets/hero-barasira.png'
 import { useI18n } from 'vue-i18n'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
+import { serviceIconName } from '@/composables/useServiceIcon'
 
 const props = defineProps({
     categories: { type: Array, default: () => [] },
     cities: { type: Array, default: () => [] },
     randomCategories: { type: Array, default: () => [] },
     missions: { type: Array, default: () => [] },
+    partners: { type: Array, default: () => [] },
+    featuredPartners: { type: Array, default: () => [] },
+    platformReviews: { type: Array, default: () => [] },
+    platformReviewStats: { type: Object, default: () => ({ average: 0, count: 0 }) },
 })
 
 const page = usePage()
@@ -38,6 +44,17 @@ function onMapClick(event) {
 <template>
     <AppLayout :title="$t('navigation.home')">
         <div class="home-page">
+            <section v-if="featuredPartners.length" class="home-featured-partners">
+                <div class="home-container">
+                    <div class="home-featured-partners__heading"><span>{{ $t('partners.featuredEyebrow') }}</span><p>{{ $t('partners.featuredText') }}</p></div>
+                    <div class="home-featured-partners__grid">
+                        <article v-for="partner in featuredPartners" :key="partner.id" class="home-featured-partner">
+                            <a :href="partner.website_url || '/partners'" :target="partner.website_url ? '_blank' : undefined" :rel="partner.website_url ? 'noopener noreferrer' : undefined" class="home-featured-partner__logo"><img v-if="partner.logo_url" :src="partner.logo_url" :alt="partner.company_name"><span v-else>{{ partner.company_name }}</span></a>
+                            <div><span class="home-featured-partner__badge">{{ $t('partners.featuredBadge') }}</span><h2>{{ partner.company_name }}</h2><p v-if="partner.description">{{ partner.description }}</p><a v-if="partner.website_url" :href="partner.website_url" target="_blank" rel="noopener noreferrer">{{ $t('partners.visitWebsite') }} →</a></div>
+                        </article>
+                    </div>
+                </div>
+            </section>
             <section class="home-hero">
                 <div class="home-container home-hero__grid">
                     <div class="home-hero__content">
@@ -163,7 +180,7 @@ function onMapClick(event) {
                             class="home-category-card"
                         >
                             <span class="home-category-card__icon">
-                                <i :class="category.icon || 'bi bi-grid'" />
+                                <DashboardIcon :name="serviceIconName({ category })" />
                             </span>
                             <span>
                                 <strong>{{ category.name }}</strong>
@@ -215,6 +232,55 @@ function onMapClick(event) {
                         <article v-for="mission in missions.slice(0, 4)" :key="mission.id" class="modern-mission-card">
                             <MissionCard :mission="mission" />
                         </article>
+                    </div>
+                </div>
+            </section>
+
+            <section v-if="partners.length" class="home-section home-partners">
+                <div class="home-container">
+                    <header class="home-section__heading home-section__heading--inline">
+                        <div><span class="home-kicker">{{ $t('partners.eyebrow') }}</span><h2>{{ $t('partners.homeTitle') }}</h2></div>
+                        <Link href="/partners" class="home-text-link">{{ $t('partners.viewAll') }} →</Link>
+                    </header>
+                    <div class="home-partners__grid">
+                        <a v-for="partner in partners" :key="partner.id" :href="partner.website_url || undefined" :target="partner.website_url ? '_blank' : undefined" :rel="partner.website_url ? 'noopener noreferrer' : undefined" class="home-partner-logo" :aria-label="partner.company_name">
+                            <img v-if="partner.logo_url" :src="partner.logo_url" :alt="partner.company_name"><span v-else>{{ partner.company_name }}</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section v-if="platformReviews.length" class="home-section home-platform-reviews">
+                <div class="home-container">
+                    <header class="home-section__heading home-section__heading--inline">
+                        <div>
+                            <span class="home-kicker">{{ $t('platformReviews.eyebrow') }}</span>
+                            <h2>{{ $t('platformReviews.homeTitle') }}</h2>
+                            <p>{{ $t('platformReviews.homeSubtitle') }}</p>
+                        </div>
+                        <div class="home-platform-reviews__summary">
+                            <strong>★ {{ platformReviewStats.average }}/5</strong>
+                            <span>{{ $t('platformReviews.count', { count: platformReviewStats.count }) }}</span>
+                        </div>
+                    </header>
+                    <div class="home-platform-reviews__grid">
+                        <article v-for="review in platformReviews" :key="review.id">
+                            <div class="home-platform-review__top">
+                                <span class="home-platform-review__avatar">
+                                    <img v-if="review.user.avatar_url" :src="review.user.avatar_url" :alt="review.user.first_name">
+                                    <template v-else>{{ review.user.first_name?.charAt(0) }}{{ review.user.last_name?.charAt(0) }}</template>
+                                </span>
+                                <div>
+                                    <strong>{{ review.user.first_name }} {{ review.user.last_name?.charAt(0) }}.</strong>
+                                    <small>{{ $t(`platformReviews.roles.${review.user.role}`) }}</small>
+                                </div>
+                                <span class="home-platform-review__rating" :aria-label="`${review.rating}/5`">★ {{ review.rating }}/5</span>
+                            </div>
+                            <p>“{{ review.comment }}”</p>
+                        </article>
+                    </div>
+                    <div class="home-platform-reviews__action">
+                        <Link href="/avis" class="home-button home-button--primary">{{ $t('platformReviews.viewAll') }} →</Link>
                     </div>
                 </div>
             </section>

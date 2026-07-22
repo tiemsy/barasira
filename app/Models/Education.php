@@ -9,6 +9,8 @@ class Education extends Model
 {
     use HasFactory;
 
+    protected $table = 'educations';
+
     protected $fillable = [
         'resume_id', // lien vers le CV
         'school_name', // nom de l’établissement

@@ -7,8 +7,8 @@ defineProps({
     title: { type: String, required: true },
     description: { type: String, required: true },
     primaryHref: { type: String, default: '/' },
-    primaryLabel: { type: String, default: 'Retour à l’accueil' },
-    secondaryLabel: { type: String, default: 'Page précédente' },
+    primaryLabel: { type: String, default: '' },
+    secondaryLabel: { type: String, default: '' },
 })
 
 function goBack() {
@@ -41,17 +41,17 @@ function goBack() {
 
                 <div class="error-state__actions">
                     <Link :href="primaryHref" class="error-state__primary">
-                        {{ primaryLabel }}
+                        {{ primaryLabel || $t('ui.errors.backHome') }}
                         <span aria-hidden="true">→</span>
                     </Link>
                     <button type="button" class="error-state__secondary" @click="goBack">
-                        ← {{ secondaryLabel }}
+                        ← {{ secondaryLabel || $t('ui.errors.previous') }}
                     </button>
                 </div>
 
                 <p class="error-state__help">
-                    Vous pensez qu’il s’agit d’une erreur ?
-                    <Link href="/contact-us">Contactez notre équipe.</Link>
+                    {{ $t('ui.errors.mistake') }}
+                    <Link href="/contact-us">{{ $t('ui.errors.contact') }}</Link>
                 </p>
             </div>
         </div>

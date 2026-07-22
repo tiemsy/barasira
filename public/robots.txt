@@ -1,2 +1,14 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /provider/
+Disallow: /profile
+Disallow: /messages
+Disallow: /missions/
+Disallow: /login
+Disallow: /register
+Allow: /avis
+
+Sitemap: https://barasira.com/sitemap.xml

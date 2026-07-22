@@ -18,6 +18,11 @@ class MissionPolicy
         return $user->isAdmin()
             || $mission->client_id === $user->id
             || $mission->prestataire_id === $user->id
+            || ($user->role === 'prestataire' && $mission->invitations()
+                ->where('provider_id', $user->id)
+                ->where('status', 'pending')
+                ->where('expires_at', '>', now())
+                ->exists())
             || ($user->role === 'prestataire'
                 && $mission->status === 'pending'
                 && $mission->prestataire_id === null

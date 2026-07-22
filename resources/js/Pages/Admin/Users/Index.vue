@@ -1,9 +1,10 @@
 <script setup>
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { Head, Link, router, usePage } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import UserActionIcon from '@/Components/Admin/UserActionIcon.vue'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 import { useConfirmDialog } from '@/composables/useConfirmDialog'
 
 const props = defineProps({
@@ -14,6 +15,7 @@ const page = usePage()
 const { t } = useI18n()
 const { confirm } = useConfirmDialog()
 const filters = reactive({ search: props.filters.search ?? '', role: props.filters.role ?? '' })
+const exportUrl = computed(() => `/admin/exports/users?${new URLSearchParams(Object.entries(filters).filter(([, value]) => value)).toString()}`)
 
 function applyFilters() {
     router.get('/admin/users', filters, { preserveState: true, replace: true })
@@ -48,14 +50,14 @@ const fullName = user => `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim
                     <h1>{{ $t('adminUsers.title') }}</h1>
                     <p>{{ $t('adminUsers.subtitle') }}</p>
                 </div>
-                <Link href="/admin/users/create" class="admin-users-primary"><i class="fas fa-user-plus"></i>{{ $t('adminUsers.add') }}</Link>
+                <Link href="/admin/users/create" class="admin-users-primary"><DashboardIcon name="user-plus" />{{ $t('adminUsers.add') }}</Link>
             </section>
 
             <section class="admin-users-card">
                 <form class="admin-users-filters" @submit.prevent="applyFilters">
                     <label>
                         <span class="sr-only">{{ $t('adminUsers.search') }}</span>
-                        <i class="fas fa-search"></i>
+                        <DashboardIcon name="search" />
                         <input v-model.trim="filters.search" type="search" :placeholder="$t('adminUsers.searchPlaceholder')">
                     </label>
                     <select v-model="filters.role" :aria-label="$t('adminUsers.filterRole')">
@@ -67,6 +69,7 @@ const fullName = user => `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim
                     </select>
                     <button type="submit">{{ $t('adminUsers.filter') }}</button>
                     <button type="button" class="is-ghost" @click="resetFilters">{{ $t('adminUsers.reset') }}</button>
+                    <a :href="exportUrl" class="admin-export">{{ $t('ui.common.exportExcel') }}</a>
                 </form>
 
                 <p v-if="page.props?.errors?.user" class="admin-users-error" role="alert">{{ page.props.errors.user }}</p>

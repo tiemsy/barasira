@@ -11,6 +11,38 @@
     margin: 0 auto;
 }
 
+.home-partners { background: #fff; }
+.home-partners__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.home-partner-logo { min-height: 110px; display: grid; place-items: center; padding: 1.25rem; border: 1px solid #e3ebe8; border-radius: 18px; background: #fbfdfc; color: $c-primary; font-weight: 800; text-align: center; transition: transform .2s ease, box-shadow .2s ease; }
+.home-partner-logo:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(21, 74, 62, .1); }
+.home-partner-logo img { width: 100%; height: 70px; object-fit: contain; }
+.home-platform-reviews { background: linear-gradient(180deg, #f2f8f4, #fff); }
+.home-platform-reviews .home-section__heading p { max-width: 620px; margin: .65rem 0 0; color: $c-gray-500; line-height: 1.6; }
+.home-platform-reviews__summary { display: grid; justify-items: end; }
+.home-platform-reviews__summary strong { color: #a77300; font-size: 1.25rem; }
+.home-platform-reviews__summary span { color: $c-gray-500; font-size: .85rem; }
+.home-platform-reviews__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.15rem; }
+.home-platform-reviews__grid article { padding: 1.4rem; border: 1px solid #dfe9e2; border-radius: 18px; background: #fff; box-shadow: 0 14px 36px rgba(21, 74, 62, .07); }
+.home-platform-reviews__grid article > p { margin: 1.1rem 0 0; color: #3e4a43; line-height: 1.7; overflow-wrap: anywhere; }
+.home-platform-review__top { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .7rem; }
+.home-platform-review__top div { display: grid; min-width: 0; }
+.home-platform-review__top small { color: $c-gray-500; }
+.home-platform-review__avatar { width: 43px; height: 43px; display: grid; place-items: center; overflow: hidden; border-radius: 50%; background: #e0f0e5; color: $c-primary; font-size: .75rem; font-weight: 900; }
+.home-platform-review__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.home-platform-review__rating { color: #a77300; font-size: .82rem; font-weight: 900; white-space: nowrap; }
+.home-platform-reviews__action { display: flex; justify-content: center; margin-top: 1.5rem; }
+@media (max-width: 850px) { .home-platform-reviews__grid { grid-template-columns: 1fr; } .home-platform-reviews__summary { justify-items: start; } }
+.home-featured-partners { padding: 1.25rem 0; color: #fff; background: linear-gradient(110deg, #0e3b34, #176b5b); }
+.home-featured-partners__heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .85rem; }
+.home-featured-partners__heading span { color: #f2c55c; font-weight: 900; text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; }
+.home-featured-partners__heading p { margin: 0; color: rgba(255,255,255,.7); font-size: .85rem; }
+.home-featured-partners__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .85rem; }
+.home-featured-partner { display: grid; grid-template-columns: 125px 1fr; gap: 1rem; align-items: center; padding: 1rem; border: 1px solid rgba(255,255,255,.14); border-radius: 18px; background: rgba(255,255,255,.08); }
+.home-featured-partner__logo { height: 92px; display: grid; place-items: center; padding: .65rem; color: #123e37; font-weight: 800; text-align: center; border-radius: 13px; background: #fff; }
+.home-featured-partner__logo img { width: 100%; height: 100%; object-fit: contain; }
+.home-featured-partner__badge { color: #f2c55c; font-size: .7rem; font-weight: 900; text-transform: uppercase; letter-spacing: .1em; }
+.home-featured-partner h2 { margin: .2rem 0; font-size: 1.15rem; }.home-featured-partner p { margin: 0 0 .4rem; color: rgba(255,255,255,.76); font-size: .82rem; line-height: 1.4; }.home-featured-partner div > a { color: #fff; font-size: .8rem; font-weight: 800; }
+
 .home-hero {
     position: relative;
     padding: 5.5rem 0 4rem;
@@ -769,6 +801,9 @@
         grid-template-columns: 1fr 1fr;
     }
 
+    .home-partners__grid { grid-template-columns: repeat(2, 1fr); }
+    .home-featured-partners__grid { grid-template-columns: 1fr; }
+
     .home-proof__grid article:nth-child(2) {
         border-right: 0;
     }
@@ -811,6 +846,9 @@
     .missions-grid--premium {
         grid-template-columns: 1fr;
     }
+
+    .home-partners__grid { grid-template-columns: 1fr; }
+    .home-featured-partners__heading { align-items: flex-start; flex-direction: column; }.home-featured-partner { grid-template-columns: 92px 1fr; }.home-featured-partner__logo { height: 76px; }
 
     .home-proof__grid article {
         border-right: 0;

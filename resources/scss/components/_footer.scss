@@ -33,8 +33,8 @@
 
     &__main {
         display: grid;
-        grid-template-columns: minmax(260px, 1.35fr) .65fr .65fr minmax(250px, 1fr);
-        gap: 55px;
+        grid-template-columns: minmax(240px, 1.25fr) .55fr .55fr .85fr minmax(230px, 1fr);
+        gap: 38px;
         padding: 68px 0 52px;
     }
 
@@ -222,12 +222,20 @@
                 transform: translateY(-2px);
             }
         }
+
+        .footer__cookies {
+            width: auto;
+            padding: 0 12px;
+            color: rgba($c-white, .7);
+            font-size: 10px;
+            font-weight: 700;
+        }
     }
 }
 
 @media (max-width: 900px) {
     .footer__main {
-        grid-template-columns: 1.4fr 1fr 1fr;
+        grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
 
         .footer__contact { grid-column: 1 / -1; }
     }

@@ -16,9 +16,10 @@ use OpenApi\Annotations as OA;
  * schema="Service",
  * type="object",
  * title="Service",
- * required={"id", "name"},
+ * required={"id", "slug", "name"},
  *
  * @OA\Property(property="id", type="integer", example=1),
+ * @OA\Property(property="slug", type="string", example="plomberie"),
  * @OA\Property(property="user_id", type="integer", example="1"),
  * @OA\Property(property="service_category_id", type="integer", example="2"),
  * @OA\Property(property="city_id", type="integer", example="1"),
@@ -63,7 +64,7 @@ class ServiceController extends Controller
     {
         $services = Service::query()
             ->where('is_active', true)
-            ->select(['id', 'name', 'service_category_id', 'user_id'])
+            ->select(['id', 'slug', 'name', 'service_category_id', 'user_id'])
             ->orderBy('name')
             ->get();
 
@@ -88,7 +89,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service): JsonResponse
     {
-        $service->load(['category', 'city', 'municipality', 'missions', 'providers']);
+        $service->load(['category', 'city', 'municipality', 'missions', 'user']);
 
         return response()->json($service);
     }

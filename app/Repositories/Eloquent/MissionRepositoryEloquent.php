@@ -41,9 +41,12 @@ class MissionRepositoryEloquent extends BaseRepositoryEloquent implements Missio
                 });
             })
             ->with([
-                'client',
-                'prestataire',
-                'service.category',
+                'client:id,first_name,last_name',
+                'prestataire:id,first_name,last_name',
+                'service:id,name,service_category_id',
+                'reviews' => fn ($query) => $query
+                    ->where('reviewer_id', $user->id)
+                    ->select(['id', 'mission_id', 'reviewer_id', 'rating', 'comment', 'edit_count']),
             ]);
 
         if (!empty($filters['search'])) {

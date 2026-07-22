@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Mission;
 use App\Models\Payment;
+use App\Services\MissionImageService;
 use App\Services\Payments\PaymentGatewayService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,7 +16,10 @@ use Throwable;
 
 class PaymentController extends Controller
 {
-    public function __construct(private readonly PaymentGatewayService $gateway) {}
+    public function __construct(
+        private readonly PaymentGatewayService $gateway,
+        private readonly MissionImageService $missionImages,
+    ) {}
 
     public function show(Request $request, Mission $mission): Response
     {
@@ -27,13 +31,28 @@ class PaymentController extends Controller
     public function store(Request $request, Mission $mission): RedirectResponse
     {
         $this->authorizePayment($request, $mission);
-        $data = $request->validate(['method' => ['required', 'in:orange_money,moov_money,carte,paypal']]);
+        $data = $request->validate([
+            'method' => ['required', 'in:orange_money,moov_money,carte,paypal'],
+            'images' => ['required', 'array', 'min:1', 'max:5'],
+            'images.*' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+        ], [
+            'images.required' => __('missions.images.required'),
+            'images.array' => __('missions.images.required'),
+            'images.min' => __('missions.images.count'),
+            'images.max' => __('missions.images.count'),
+            'images.*.required' => __('missions.images.required'),
+            'images.*.image' => __('missions.images.invalid'),
+            'images.*.mimes' => __('missions.images.format'),
+            'images.*.max' => __('missions.images.size'),
+        ]);
         if ($data['method'] !== 'paypal' && ((int) $mission->price % 5 !== 0 || (float) $mission->price !== (float) (int) $mission->price)) {
-            return back()->with('error', 'Le montant CinetPay doit être un nombre entier multiple de 5 FCFA.');
+            return back()->with('error', __('messages.payment_multiple_of_five_cinetpay'));
         }
         if ($mission->payments()->where('status', 'effectue')->exists()) {
-            return back()->with('error', 'Cette mission est déjà payée.');
+            return back()->with('error', __('messages.mission_already_paid'));
         }
+        $this->missionImages->replace($mission, $data['images']);
+
         $pendingPayment = $mission->payments()
             ->where('payer_id', $request->user()->id)
             ->where('method', $data['method'])

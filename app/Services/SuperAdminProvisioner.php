@@ -17,8 +17,12 @@ class SuperAdminProvisioner
             $password = 'superadmin123';
         }
 
+        if ($email === '') {
+            throw new RuntimeException('SUPERADMIN_EMAIL est absent. Définissez cette variable puis régénérez le cache de configuration.');
+        }
+
         if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new RuntimeException('SUPERADMIN_EMAIL doit contenir une adresse e-mail valide.');
+            throw new RuntimeException("SUPERADMIN_EMAIL contient une adresse invalide : {$email}");
         }
 
         if (strlen($password) < 12) {

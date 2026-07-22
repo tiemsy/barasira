@@ -15,7 +15,7 @@ class LogoutController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Déconnecté',
+                'message' => __('messages.logout_success'),
             ]);
         }
 
@@ -26,7 +26,7 @@ class LogoutController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Déconnecté',
+            'message' => __('messages.logout_success'),
         ]);
     }
 }

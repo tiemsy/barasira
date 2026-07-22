@@ -19,9 +19,10 @@ use OpenApi\Annotations as OA;
  * schema="Mission",
  * type="object",
  * title="Mission",
- * required={"id", "name"},
+ * required={"id", "slug", "title"},
  *
  * @OA\Property(property="id", type="integer", example=1),
+ * @OA\Property(property="slug", type="string", example="besoin-jardinage"),
  * @OA\Property(property="client_id", type="integer", example="1"),
  * @OA\Property(property="service_id", type="integer", example="2"),
  * @OA\Property(property="title", type="string", example="Besoin jardinage"),
@@ -80,7 +81,7 @@ class MissionController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'La mission a été créée avec succès.',
+            'message' => __('missions.created'),
             'data' => $mission,
         ], 201);
     }
@@ -124,7 +125,7 @@ class MissionController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => __('La mission vous a été attribuée.'),
+            'message' => __('missions.assigned'),
             'data' => $mission,
         ]);
     }
@@ -147,7 +148,7 @@ class MissionController extends Controller
 
             if ($changesDetails && (! $isOwner || $mission->status !== 'pending')) {
                 throw ValidationException::withMessages([
-                    'mission' => 'Les détails ne peuvent être modifiés que par le client tant que la mission est en attente.',
+                    'mission' => __('missions.details_locked'),
                 ]);
             }
         }
@@ -156,7 +157,7 @@ class MissionController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'La mission a été mise à jour avec succès.',
+            'message' => __('missions.updated'),
             'data' => $mission->fresh(['prestataire', 'service.category']),
         ]);
     }
@@ -180,7 +181,7 @@ class MissionController extends Controller
 
         if ($status === 'cancelled' && $mission->payments()->where('status', 'en_attente')->exists()) {
             throw ValidationException::withMessages([
-                'status' => 'Cette mission ne peut plus être annulée pendant la confirmation du paiement.',
+                'status' => __('missions.payment_pending'),
             ]);
         }
 
@@ -196,7 +197,7 @@ class MissionController extends Controller
 
         if (! in_array($status, $allowed, true)) {
             throw ValidationException::withMessages([
-                'status' => 'Cette transition de statut n’est pas autorisée.',
+                'status' => __('missions.transition_forbidden'),
             ]);
         }
     }

@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, reactive, ref } from 'vue'
 import { Link, router } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import profileService from '@/composables/profileService'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const props = defineProps({
     profile: { type: Object, required: true },
@@ -106,7 +107,7 @@ async function submit() {
                         <span v-else>{{ initials }}</span>
                     </div>
                     <label class="profile-upload-button" for="avatar">
-                        <i class="fas fa-camera" aria-hidden="true"></i>
+                        <DashboardIcon name="camera" />
                         {{ avatarPreview ? $t('profile.changePhoto') : $t('profile.addPhoto') }}
                     </label>
                     <input

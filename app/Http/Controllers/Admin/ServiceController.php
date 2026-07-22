@@ -39,6 +39,10 @@ class ServiceController extends Controller
             ->when($filters['category'] ?? null, fn ($query, int $category) => $query->where('service_category_id', $category))
             ->when($filters['status'] ?? null, fn ($query, string $status) => $query->where('is_active', $status === 'active'))
             ->latest()
+            ->select([
+                'id', 'user_id', 'service_category_id', 'city_id', 'name', 'icon',
+                'price_min', 'price_max', 'is_active', 'created_at',
+            ])
             ->paginate(12)
             ->withQueryString();
 
@@ -58,7 +62,7 @@ class ServiceController extends Controller
     {
         Service::query()->create($request->validated());
 
-        return redirect()->route('admin.services.index')->with('success', __('Service créé avec succès.'));
+        return redirect()->route('admin.services.index')->with('success', __('messages.service_created'));
     }
 
     public function edit(Service $service): Response
@@ -70,20 +74,20 @@ class ServiceController extends Controller
     {
         $service->update($request->validated());
 
-        return redirect()->route('admin.services.index')->with('success', __('Service mis à jour avec succès.'));
+        return redirect()->route('admin.services.index')->with('success', __('messages.service_updated'));
     }
 
     public function destroy(Service $service): RedirectResponse
     {
         if ($service->missions()->exists()) {
             throw ValidationException::withMessages([
-                'service' => __('Ce service est lié à une mission et ne peut pas être supprimé. Désactivez-le plutôt.'),
+                'service' => __('messages.service_linked'),
             ]);
         }
 
         $service->delete();
 
-        return redirect()->route('admin.services.index')->with('success', __('Service supprimé avec succès.'));
+        return redirect()->route('admin.services.index')->with('success', __('messages.service_deleted'));
     }
 
     private function formData(?Service $service = null): array
