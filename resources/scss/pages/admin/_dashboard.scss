@@ -55,10 +55,12 @@
     text-transform: uppercase;
 }
 
-.admin-dashboard__hero-actions { display: flex; flex: 0 0 auto; gap: .75rem; }
+.admin-dashboard__hero-actions { display: flex; flex: 0 0 auto; flex-wrap: wrap; justify-content: flex-end; gap: .75rem; }
 .admin-action { display: inline-flex; align-items: center; gap: .55rem; padding: .85rem 1rem; border-radius: 11px; font-weight: 800; text-decoration: none; }
 .admin-action--primary { background: #fff; color: #145c39; }
 .admin-action--secondary { border: 1px solid rgba(255, 255, 255, .3); background: rgba(255, 255, 255, .1); color: #fff; }
+.admin-action--documents { border: 1px solid #f4cf70; background: #f4cf70; color: #173c2b; }
+.admin-action--documents b { display: grid; min-width: 22px; height: 22px; padding: 0 4px; place-items: center; border-radius: 999px; background: #b4233d; color: #fff; font-size: .72rem; }
 
 .admin-dashboard__body { padding-bottom: 4rem; }
 .admin-stat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; transform: translateY(-2.5rem); }

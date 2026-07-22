@@ -21,6 +21,7 @@ return [
         'validate_action' => 'Voir et accepter la mission',
         'mail_security' => 'La mission ne vous sera attribuée qu’après votre validation.',
         'sms' => 'Barasira : mission « :mission » proposée. Validez sous 48 h : :url',
+        'whatsapp' => 'Bonjour :name, :client vous propose la mission « :mission » sur Barasira. Consultez-la et répondez sous 48 h : :url',
     ],
     'unassignment' => [
         'success' => 'Le prestataire a été désaffecté. La mission est de nouveau en attente.',

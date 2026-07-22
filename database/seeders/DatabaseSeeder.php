@@ -23,7 +23,9 @@ class DatabaseSeeder extends Seeder
                 ResumeSeeder::class,
                 MissionSeeder::class,
                 ReviewSeeder::class,
+                PlatformReviewSeeder::class,
                 PaymentSeeder::class,
+                PartnerSeeder::class,
             ]);
         }
 

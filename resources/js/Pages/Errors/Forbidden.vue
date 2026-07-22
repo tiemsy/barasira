@@ -15,14 +15,14 @@ const dashboardUrl = computed(() => {
 </script>
 
 <template>
-    <AppLayout title="Accès refusé">
+    <AppLayout :title="$t('ui.errors.forbiddenPage')">
         <ErrorState
             code="403"
-            eyebrow="Accès protégé"
-            title="Vous n’avez pas accès à cette page."
-            description="Cette section est réservée à un autre rôle ou nécessite des autorisations supplémentaires. Vérifiez votre compte ou revenez à votre espace."
+            :eyebrow="$t('ui.errors.forbiddenEyebrow')"
+            :title="$t('ui.errors.forbiddenTitle')"
+            :description="$t('ui.errors.forbiddenDescription')"
             :primary-href="dashboardUrl"
-            :primary-label="user ? 'Retour à mon espace' : 'Retour à l’accueil'"
+            :primary-label="user ? $t('ui.errors.backDashboard') : $t('ui.errors.backHome')"
         />
     </AppLayout>
 </template>

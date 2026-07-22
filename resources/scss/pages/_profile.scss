@@ -35,6 +35,9 @@
 }
 
 .profile-identity { flex: 1; }
+.profile-verified { display:inline-flex;align-items:center;gap:.4rem;margin-top:.55rem;padding:.4rem .65rem;border-radius:999px;background:#e5f5ec;color:#146c43;font-size:.78rem;font-weight:850; }
+.profile-verified svg { width:17px;height:17px; }
+.profile-verified.is-unverified { background:#fff3d6;color:#946411; }
 .profile-eyebrow { color: #177245; font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .profile-identity h1,
 .profile-form-header h1 { margin: .3rem 0; font-size: clamp(1.75rem, 4vw, 2.6rem); }

@@ -58,7 +58,7 @@ class UserController extends Controller
 
         User::query()->create($data);
 
-        return redirect()->route('admin.users.index')->with('success', __('Utilisateur créé avec succès.'));
+        return redirect()->route('admin.users.index')->with('success', __('messages.user_created'));
     }
 
     public function edit(User $user): Response
@@ -75,7 +75,7 @@ class UserController extends Controller
 
         if ($request->user()->is($user) && $data['role'] !== $user->role) {
             throw ValidationException::withMessages([
-                'role' => __('Vous ne pouvez pas retirer votre propre rôle administrateur.'),
+                'role' => __('messages.admin_role_self'),
             ]);
         }
 
@@ -88,7 +88,7 @@ class UserController extends Controller
         $data['email_verified_at'] = $data['verified'] ? ($user->email_verified_at ?? now()) : null;
         $user->update($data);
 
-        return redirect()->route('admin.users.index')->with('success', __('Utilisateur mis à jour avec succès.'));
+        return redirect()->route('admin.users.index')->with('success', __('messages.user_updated'));
     }
 
     public function destroy(Request $request, User $user): RedirectResponse
@@ -99,18 +99,18 @@ class UserController extends Controller
 
         if ($request->user()->is($user)) {
             throw ValidationException::withMessages([
-                'user' => __('Vous ne pouvez pas supprimer votre propre compte administrateur.'),
+                'user' => __('messages.admin_delete_self'),
             ]);
         }
 
         if ($user->role === 'admin' && User::query()->where('role', 'admin')->count() <= 1) {
             throw ValidationException::withMessages([
-                'user' => __('Le dernier administrateur ne peut pas être supprimé.'),
+                'user' => __('messages.last_admin'),
             ]);
         }
 
         $user->delete();
 
-        return redirect()->route('admin.users.index')->with('success', __('Utilisateur supprimé avec succès.'));
+        return redirect()->route('admin.users.index')->with('success', __('messages.user_deleted'));
     }
 }

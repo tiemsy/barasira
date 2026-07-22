@@ -23,6 +23,12 @@ class ProfileController extends Controller
                     'certifications' => fn ($query) => $query->latest('issue_date'),
                 ])->first()
                 : null,
+            'documents' => $user->role === 'prestataire'
+                ? $user->documents()->latest('uploaded_at')->get([
+                    'id', 'document_type', 'label', 'original_name', 'mime_type', 'file_size',
+                    'status', 'review_comment', 'reviewed_at', 'uploaded_at',
+                ])
+                : [],
             'completedMissions' => $user->role === 'prestataire'
                 ? Mission::query()
                     ->where('prestataire_id', $user->id)
@@ -60,6 +66,7 @@ class ProfileController extends Controller
             'avatar_url',
             'rating',
             'email_verified_at',
+            'identity_verified_at',
         ]);
     }
 }

@@ -1,4 +1,5 @@
 <template>
+    <SeoHead />
     <ImpersonationBanner />
     <!-- Navbar -->
     <header class="navbar">
@@ -12,6 +13,7 @@
 
     <Toast />
     <ConfirmDialog />
+    <CookieConsent />
 
     <!-- Footer -->
     <Footer />
@@ -25,6 +27,8 @@ import Footer from '@/Components/Footer.vue'
 import Toast from '@/Components/Toast.vue'
 import ImpersonationBanner from '@/Components/ImpersonationBanner.vue'
 import ConfirmDialog from '@/Components/ConfirmDialog.vue'
+import SeoHead from '@/Components/SeoHead.vue'
+import CookieConsent from '@/Components/CookieConsent.vue'
 
 /**
  * Utilisateur authentifié (si présent)

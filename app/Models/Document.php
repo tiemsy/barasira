@@ -13,12 +13,19 @@ class Document extends Model
     protected $fillable = [
         'user_id',
         'document_type',
+        'label',
         'file_url',
+        'original_name',
+        'mime_type',
+        'file_size',
         'status',
-        'uploaded_at'
+        'review_comment',
+        'reviewed_by',
+        'reviewed_at',
+        'uploaded_at',
     ];
 
-    protected $casts = ['uploaded_at' => 'datetime'];
+    protected $casts = ['uploaded_at' => 'datetime', 'reviewed_at' => 'datetime', 'file_size' => 'integer'];
 
     /**
      * Le document appartient à un utilisateur
@@ -26,5 +33,10 @@ class Document extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function reviewer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'reviewed_by');
     }
 }

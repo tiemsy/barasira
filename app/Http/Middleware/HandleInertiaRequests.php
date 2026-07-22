@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\SeoMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Middleware;
@@ -39,6 +40,7 @@ class HandleInertiaRequests extends Middleware
         $user = $request->user();
 
         return array_merge(parent::share($request), [
+            'seo' => SeoMeta::defaults($request),
             'auth' => [
                 'user' => $user
                     ? [

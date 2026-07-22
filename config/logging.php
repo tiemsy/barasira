@@ -76,6 +76,13 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'audit' => [
+            'driver' => 'single',
+            'path' => env('AUDIT_LOG_PATH', storage_path('logs/audit.log')),
+            'level' => 'info',
+            'replace_placeholders' => true,
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

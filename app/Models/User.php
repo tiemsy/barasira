@@ -28,12 +28,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'rating',
         'verified',
         'email_verified_at',
+        'identity_verified_at',
     ];
 
     protected $hidden = ['password', 'remember_token'];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'identity_verified_at' => 'datetime',
         'verified' => 'boolean',
         'rating' => 'decimal:2',
     ];
@@ -51,6 +53,21 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isSuperAdmin(): bool
     {
         return $this->role === 'superadmin';
+    }
+
+    public function routeNotificationForWhatsApp(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function syncIdentityVerification(): void
+    {
+        $verifiedAt = $this->documents()
+            ->where('document_type', 'identity')
+            ->where('status', 'valide')
+            ->max('reviewed_at');
+
+        $this->forceFill(['identity_verified_at' => $verifiedAt])->save();
     }
 
     // public function missions(): HasMany
@@ -123,4 +140,5 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Dispute::class, 'complainant_id');
     }
+
 }

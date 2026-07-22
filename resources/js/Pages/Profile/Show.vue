@@ -4,12 +4,14 @@ import { Link } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import ProviderCredentials from '@/Components/Profile/ProviderCredentials.vue'
+import ProviderDocuments from '@/Components/Profile/ProviderDocuments.vue'
 import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const props = defineProps({
     profile: { type: Object, required: true },
     completedMissions: { type: Array, default: () => [] },
     resume: { type: Object, default: null },
+    documents: { type: Array, default: () => [] },
 })
 
 const { t } = useI18n()
@@ -31,6 +33,7 @@ const formatDate = value => value ? new Intl.DateTimeFormat(undefined, { dateSty
                     <span class="profile-eyebrow">{{ $t('profile.account') }}</span>
                     <h1>{{ fullName }}</h1>
                     <p>{{ roleLabel }}</p>
+                    <span v-if="profile.role === 'prestataire'" :class="['profile-verified', { 'is-unverified': !profile.identity_verified_at }]"><DashboardIcon :name="profile.identity_verified_at ? 'verified' : 'shield'" />{{ profile.identity_verified_at ? $t('serviceShow.verifiedProfile') : $t('serviceShow.unverifiedProfile', 'Profil non vérifié') }}</span>
                 </div>
                 <Link href="/profile/edit" class="profile-edit-button">
                     <DashboardIcon name="edit" />
@@ -57,6 +60,7 @@ const formatDate = value => value ? new Intl.DateTimeFormat(undefined, { dateSty
             </section>
 
             <ProviderCredentials v-if="profile.role === 'prestataire'" :resume="resume" />
+            <ProviderDocuments v-if="profile.role === 'prestataire'" :documents="documents" />
 
             <section v-if="profile.role === 'prestataire'" class="profile-completed">
                 <header>

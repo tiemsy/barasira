@@ -3,16 +3,18 @@ import { Head, router } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import DashboardIcon from '@/Components/DashboardIcon.vue'
 import { onBeforeUnmount, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 const props = defineProps({ mission: { type: Object, required: true }, payments: { type: Array, default: () => [] } })
 const method = ref('orange_money')
 const processing = ref(false)
 const images = ref([])
 const previews = ref([])
 const imageError = ref('')
+const { t, locale } = useI18n()
 const methods = [
     { id: 'orange_money', label: 'Orange Money', icon: 'wallet' },
     { id: 'moov_money', label: 'Moov Money', icon: 'wallet' },
-    { id: 'carte', label: 'Carte bancaire', icon: 'wallet' },
+    { id: 'carte', label: t('ui.payments.bankCard'), icon: 'wallet' },
     { id: 'paypal', label: 'PayPal', icon: 'coins' },
 ]
 const chooseImages = event => {
@@ -23,7 +25,7 @@ const chooseImages = event => {
     if (selected.length < 1 || selected.length > 5) {
         images.value = []
         previews.value = []
-        imageError.value = 'Choisissez entre 1 et 5 images.'
+        imageError.value = t('ui.payments.imageCount')
         event.target.value = ''
         return
     }
@@ -33,7 +35,7 @@ const chooseImages = event => {
 }
 const pay = () => {
     if (!images.value.length) {
-        imageError.value = 'Ajoutez au moins une image de la mission réalisée.'
+        imageError.value = t('ui.payments.imageRequired')
         return
     }
 
@@ -46,7 +48,7 @@ const pay = () => {
 onBeforeUnmount(() => previews.value.forEach(URL.revokeObjectURL))
 </script>
 
-<template><Head title="Paiement sécurisé"/><AppLayout><main class="payment-page"><section class="payment-card"><span class="payment-badge"><DashboardIcon name="shield" />Paiement sécurisé</span><h1>Régler la mission</h1><p>{{ mission.title }}</p><strong class="payment-amount">{{ Number(mission.price).toLocaleString('fr-FR') }} FCFA</strong><div class="payment-proof"><h2>Photos de la mission réalisée</h2><p>Ajoutez entre 1 et 5 images. Elles apparaîtront sur le profil du prestataire après confirmation du paiement.</p><label class="payment-proof-picker"><input type="file" accept="image/jpeg,image/png,image/webp" multiple @change="chooseImages"><span>Choisir les images</span><small>JPG, PNG ou WebP · 5 Mo maximum par image</small></label><div v-if="previews.length" class="payment-proof-previews"><img v-for="(preview, index) in previews" :key="preview" :src="preview" :alt="`Aperçu ${index + 1}`"></div><p v-if="imageError || $page.props.errors?.images" class="payment-error">{{ imageError || $page.props.errors.images }}</p></div><div class="payment-methods"><button v-for="item in methods" :key="item.id" type="button" :class="{active:method===item.id}" @click="method=item.id"><DashboardIcon :name="item.icon" /><span>{{ item.label }}</span><DashboardIcon name="completed" /></button></div><p v-if="$page.props.flash?.error" class="payment-error">{{ $page.props.flash.error }}</p><button class="payment-submit" :disabled="processing || !images.length" @click="pay"><DashboardIcon name="shield" />{{ processing ? 'Redirection…' : 'Payer maintenant' }}</button><small>Le paiement est validé uniquement après confirmation sécurisée de la passerelle.</small></section></main></AppLayout></template>
+<template><Head :title="$t('ui.payments.secure')"/><AppLayout><main class="payment-page"><section class="payment-card"><span class="payment-badge"><DashboardIcon name="shield" />{{ $t('ui.payments.secure') }}</span><h1>{{ $t('ui.payments.payMission') }}</h1><p>{{ mission.title }}</p><strong class="payment-amount">{{ Number(mission.price).toLocaleString(locale) }} FCFA</strong><div class="payment-proof"><h2>{{ $t('ui.payments.proofTitle') }}</h2><p>{{ $t('ui.payments.proofDescription') }}</p><label class="payment-proof-picker"><input type="file" accept="image/jpeg,image/png,image/webp" multiple @change="chooseImages"><span>{{ $t('ui.payments.chooseImages') }}</span><small>{{ $t('ui.payments.imageFormats') }}</small></label><div v-if="previews.length" class="payment-proof-previews"><img v-for="(preview, index) in previews" :key="preview" :src="preview" :alt="$t('ui.payments.preview', { index: index + 1 })"></div><p v-if="imageError || $page.props.errors?.images" class="payment-error">{{ imageError || $page.props.errors.images }}</p></div><div class="payment-methods"><button v-for="item in methods" :key="item.id" type="button" :class="{active:method===item.id}" @click="method=item.id"><DashboardIcon :name="item.icon" /><span>{{ item.label }}</span><DashboardIcon name="completed" /></button></div><p v-if="$page.props.flash?.error" class="payment-error">{{ $page.props.flash.error }}</p><button class="payment-submit" :disabled="processing || !images.length" @click="pay"><DashboardIcon name="shield" />{{ processing ? $t('ui.payments.redirecting') : $t('ui.payments.payNow') }}</button><small>{{ $t('ui.payments.validationNotice') }}</small></section></main></AppLayout></template>
 <style lang="scss" src="../../../scss/pages/_payments.scss"></style>
 <style scoped>
 .payment-card { width: min(720px, 100%); }

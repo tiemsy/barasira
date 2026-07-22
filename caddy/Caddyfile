@@ -4,6 +4,9 @@
 
 # FRONT + INERTIA
 http://localhost:8000 {
+    request_body {
+        max_size 15MB
+    }
     root * /Users/mcamara/homesites/www/barasira/public
     php_fastcgi unix//opt/homebrew/var/run/php-fpm.sock
     encode gzip zstd
@@ -13,6 +16,9 @@ http://localhost:8000 {
 
 # API
 http://localhost:8001 {
+    request_body {
+        max_size 15MB
+    }
     root * /Users/mcamara/homesites/www/barasira/public
     php_fastcgi unix//opt/homebrew/var/run/php-fpm.sock
     encode gzip zstd

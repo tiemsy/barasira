@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Inscription">
+    <AppLayout :title="$t('auth.register_title')">
         <section class="register-page">
 
             <div class="register-shell">
@@ -9,31 +9,31 @@
                     <div class="register-visual__content">
 
                         <span class="register-visual__badge">
-                            🚀 Rejoignez Barasira
+                            🚀 {{ $t('ui.auth.joinBadge') }}
                         </span>
 
                         <h2>
-                            Créez votre compte et commencez simplement.
+                            {{ $t('ui.auth.registerHeroTitle') }}
                         </h2>
 
                         <p>
-                            Publiez vos services, trouvez des missions ou contactez des prestataires fiables partout au Mali.
+                            {{ $t('ui.auth.registerHeroText') }}
                         </p>
 
                         <div class="register-visual__features">
                             <span>
                                 <DashboardIcon name="verified" />
-                                Profil vérifié
+                                {{ $t('ui.auth.verifiedProfile') }}
                             </span>
 
                             <span>
                                 <DashboardIcon name="verified" />
-                                Missions et services
+                                {{ $t('ui.auth.missionsServices') }}
                             </span>
 
                             <span>
                                 <DashboardIcon name="verified" />
-                                Messagerie intégrée
+                                {{ $t('ui.auth.integratedMessaging') }}
                             </span>
                         </div>
 
@@ -67,7 +67,7 @@
                             </h1>
 
                             <p class="register-subtitle">
-                                Inscrivez-vous sur Barasira
+                                {{ $t('ui.auth.registerSubtitle') }}
                             </p>
                         </div>
 
@@ -78,7 +78,7 @@
                                 class="sso-btn sso-btn--google"
                             >
                                 <DashboardIcon name="google" />
-                                Continuer avec Google
+                                {{ $t('ui.auth.continueGoogle') }}
                             </a>
 
                             <a
@@ -86,12 +86,12 @@
                                 class="sso-btn sso-btn--facebook"
                             >
                                 <DashboardIcon name="facebook" />
-                                Continuer avec Facebook
+                                {{ $t('ui.auth.continueFacebook') }}
                             </a>
                         </div>
 
                         <div class="auth-divider">
-                            <span>ou créez un compte avec votre email</span>
+                            <span>{{ $t('ui.auth.registerEmailDivider') }}</span>
                         </div>
 
                         <p v-if="$page.props.flash?.error" class="register-sso-notice" role="alert">
@@ -131,7 +131,7 @@
                                         </strong>
 
                                         <small>
-                                            Je cherche un service
+                                            {{ $t('ui.auth.seekService') }}
                                         </small>
                                     </span>
                                 </label>
@@ -160,7 +160,7 @@
                                         </strong>
 
                                         <small>
-                                            Je propose mes services
+                                            {{ $t('ui.auth.offerServices') }}
                                         </small>
                                     </span>
                                 </label>
@@ -182,7 +182,7 @@
                                             id="first_name"
                                             v-model="form.first_name"
                                             type="text"
-                                            placeholder="Prénom"
+                                            :placeholder="$t('auth.first_name')"
                                             autocomplete="given-name"
                                             required
                                         />
@@ -208,7 +208,7 @@
                                             id="last_name"
                                             v-model="form.last_name"
                                             type="text"
-                                            placeholder="Nom"
+                                            :placeholder="$t('auth.last_name')"
                                             autocomplete="family-name"
                                             required
                                         />
@@ -237,7 +237,7 @@
                                         id="email"
                                         v-model="form.email"
                                         type="email"
-                                        placeholder="votre@email.com"
+                                        :placeholder="$t('ui.auth.emailPlaceholder')"
                                         autocomplete="email"
                                     />
                                 </div>
@@ -263,7 +263,7 @@
                                         id="phone"
                                         v-model="form.phone"
                                         type="tel"
-                                        placeholder="Téléphone"
+                                        :placeholder="$t('auth.phone')"
                                         autocomplete="tel"
                                     />
                                 </div>
@@ -291,7 +291,7 @@
                                             id="password"
                                             v-model="form.password"
                                             :type="showPassword ? 'text' : 'password'"
-                                            placeholder="Mot de passe"
+                                            :placeholder="$t('auth.password')"
                                             autocomplete="new-password"
                                         />
 
@@ -314,7 +314,7 @@
 
                                 <div class="form-group">
                                     <label for="password_confirmation">
-                                        Confirmation
+                                        {{ $t('ui.auth.confirmation') }}
                                     </label>
 
                                     <div class="input-wrapper">
@@ -324,7 +324,7 @@
                                             id="password_confirmation"
                                             v-model="form.password_confirmation"
                                             :type="showPasswordConfirmation ? 'text' : 'password'"
-                                            placeholder="Confirmation"
+                                            :placeholder="$t('ui.auth.confirmation')"
                                             autocomplete="new-password"
                                         />
 
@@ -370,7 +370,7 @@
                                 :disabled="loading"
                             >
                                 <span v-if="loading">
-                                    Création...
+                                    {{ $t('ui.auth.creating') }}
                                 </span>
 
                                 <span v-else>
@@ -380,7 +380,7 @@
                             </button>
 
                             <p class="register-footer">
-                                Vous avez déjà un compte ?
+                                {{ $t('ui.auth.alreadyAccount') }}
 
                                 <a href="/login">
                                     {{ $t('auth.have_account') }}
@@ -406,12 +406,14 @@ import { api } from '@/lib/api'
 import { router, useForm } from '@inertiajs/vue3'
 import { useToastStore } from '@/stores/toast'
 import DashboardIcon from '@/Components/DashboardIcon.vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps({
     googleProfile: { type: Object, default: null },
 })
 
 const toast = useToastStore()
+const { t } = useI18n()
 const googleRegistration = Boolean(props.googleProfile?.email)
 
 const form = useForm({
@@ -434,17 +436,17 @@ const submit = async () => {
 
     // Vérification du mot de passe
     if (!googleRegistration && (!form.password || !form.password_confirmation)) {
-        errors.value.password = ['Le mot de passe est obligatoire.']
-        errors.value.password_confirmation = ['La confirmation du mot de passe est obligatoire.']
+        errors.value.password = [t('ui.auth.passwordRequired')]
+        errors.value.password_confirmation = [t('ui.auth.confirmationRequired')]
 
-        toast.show('Veuillez renseigner les deux champs de mot de passe.', 'error')
+        toast.show(t('ui.auth.bothPasswordsRequired'), 'error')
         return
     } else if (!googleRegistration && form.password !== form.password_confirmation) {
         errors.value.password_confirmation = [
-            'Les mots de passe ne correspondent pas.'
+            t('ui.auth.passwordMismatch')
         ]
 
-        toast.show('Les mots de passe ne correspondent pas.', 'error')
+        toast.show(t('ui.auth.passwordMismatch'), 'error')
         return
     }
 
@@ -462,7 +464,7 @@ const submit = async () => {
         })
 
         if (response.data.success) {
-            successMessage.value = response.data.message || 'Inscription réussie.'
+            successMessage.value = response.data.message || t('ui.auth.registrationSuccess')
 
             toast.show(successMessage.value, 'success')
             form.reset()
@@ -481,7 +483,7 @@ const submit = async () => {
 
             // return
         } else {
-            errors.value.general = response.data.message || 'Inscription impossible.'
+            errors.value.general = response.data.message || t('ui.auth.registrationError')
         toast.show(errors.value.general, 'error')
         }
 
@@ -499,8 +501,8 @@ const submit = async () => {
             toast.show(err.response.data.message, 'error')
 
         } else {
-            errors.value.general = 'Une erreur est survenue.'
-            toast.show('Une erreur est survenue.', 'error')
+            errors.value.general = t('ui.auth.genericError')
+            toast.show(t('ui.auth.genericError'), 'error')
         }
 
     } finally {

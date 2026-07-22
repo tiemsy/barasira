@@ -9,14 +9,13 @@ use App\Models\User;
 use App\Notifications\MissionInvitationNotification;
 use App\Services\MissionAssignmentService;
 use App\Services\MissionInvitationService;
-use App\Services\SmsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
 
 class MissionInvitationController extends Controller
 {
-    public function store(Request $request, Mission $mission, MissionInvitationService $invitations, SmsService $sms)
+    public function store(Request $request, Mission $mission, MissionInvitationService $invitations)
     {
         $data = $request->validate(['provider_id' => ['required', 'integer', 'exists:users,id']]);
         $provider = User::query()->findOrFail($data['provider_id']);
@@ -30,13 +29,6 @@ class MissionInvitationController extends Controller
         try {
             $provider->notify(new MissionInvitationNotification($invitation, $url));
             $invitation->update(['email_sent_at' => now()]);
-        } catch (\Throwable $exception) {
-            report($exception);
-        }
-
-        try {
-            $sms->send($provider->phone, __('missions.invitation.sms', ['mission' => $mission->title, 'url' => $url]));
-            $invitation->update(['sms_sent_at' => now()]);
         } catch (\Throwable $exception) {
             report($exception);
         }

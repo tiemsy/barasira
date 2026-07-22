@@ -20,7 +20,7 @@ class LoginController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (!Auth::attempt($credentials, $request->boolean('remember'))) {
+        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages([
                 // 'email' => 'Email incorrect.',
                 // 'password' => 'Mot de passe incorrect.',
@@ -33,7 +33,7 @@ class LoginController extends Controller
         if (! $user->hasVerifiedEmail()) {
             // Auth::logout();
             return response()->json([
-                'redirect' => '/email/verify'
+                'redirect' => '/email/verify',
             ]);
 
             // throw ValidationException::withMessages([
@@ -69,7 +69,7 @@ class LoginController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Connexion réussie',
+            'message' => __('messages.login_success'),
             'redirect' => $redirect,
             'user' => $user,
             // Les clients natifs utilisent un jeton Bearer; le site web conserve sa session cookie.

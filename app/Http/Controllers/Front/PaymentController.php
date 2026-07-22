@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Mission;
 use App\Models\Payment;
-use App\Services\Payments\PaymentGatewayService;
 use App\Services\MissionImageService;
+use App\Services\Payments\PaymentGatewayService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -46,10 +46,10 @@ class PaymentController extends Controller
             'images.*.max' => __('missions.images.size'),
         ]);
         if ($data['method'] !== 'paypal' && ((int) $mission->price % 5 !== 0 || (float) $mission->price !== (float) (int) $mission->price)) {
-            return back()->with('error', 'Le montant CinetPay doit être un nombre entier multiple de 5 FCFA.');
+            return back()->with('error', __('messages.payment_multiple_of_five_cinetpay'));
         }
         if ($mission->payments()->where('status', 'effectue')->exists()) {
-            return back()->with('error', 'Cette mission est déjà payée.');
+            return back()->with('error', __('messages.mission_already_paid'));
         }
         $this->missionImages->replace($mission, $data['images']);
 

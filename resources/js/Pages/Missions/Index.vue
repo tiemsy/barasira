@@ -58,6 +58,14 @@ const hasActiveFilters = computed(() => Object.entries(filters.value).some(([key
     if (key === 'sort') return value !== 'date_desc'
     return Array.isArray(value) ? value.length > 0 : Boolean(value)
 }))
+const exportUrl = computed(() => {
+    const params = new URLSearchParams()
+    Object.entries(filters.value).forEach(([key, value]) => {
+        if (Array.isArray(value)) value.forEach(item => params.append(`${key}[]`, item))
+        else if (value !== '' && value !== null) params.set(key, value)
+    })
+    return `/admin/exports/missions?${params.toString()}`
+})
 const visibleStats = computed(() => ({
     total: missionItems.value.length,
     active: missionItems.value.filter(item => ['pending', 'in_progress'].includes(item.status)).length,
@@ -248,6 +256,7 @@ onBeforeUnmount(() => {
                             <option value="price_asc">{{ $t('missions.index.sortPriceAsc') }}</option>
                             <option value="price_desc">{{ $t('missions.index.sortPriceDesc') }}</option>
                         </select>
+                        <a v-if="page.props.auth?.user?.role === 'admin' || page.props.auth?.user?.role === 'superadmin'" :href="exportUrl" class="mission-export">{{ $t('ui.common.exportExcel') }}</a>
                     </div>
 
                     <div class="mission-status-tabs" :aria-label="$t('missions.index.statusFilters')">

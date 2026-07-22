@@ -16,6 +16,9 @@ const currentYear = new Date().getFullYear()
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
 }
+function openCookiePreferences() {
+    window.dispatchEvent(new CustomEvent('barasira:cookie-preferences'))
+}
 </script>
 
 <template>
@@ -40,6 +43,8 @@ function scrollToTop() {
                     <h2>{{ $t('footer.explore') }}</h2>
                     <Link href="/">{{ $t('navigation.home') }}</Link>
                     <Link href="/services">{{ $t('navigation.services') }}</Link>
+                    <Link href="/partners">{{ $t('navigation.partners') }}</Link>
+                    <Link href="/avis">{{ $t('platformReviews.navigation') }}</Link>
                     <Link href="/contact-us">{{ $t('footer.contactUs') }}</Link>
                 </nav>
 
@@ -54,6 +59,16 @@ function scrollToTop() {
                         <Link href="/login">{{ $t('navigation.login') }}</Link>
                         <Link href="/register">{{ $t('navigation.register') }}</Link>
                     </template>
+                </nav>
+
+                <nav class="footer__column footer__legal" :aria-label="$t('legal.documents')">
+                    <h2>{{ $t('legal.documents') }}</h2>
+                    <Link href="/legal/cgu">{{ $t('legal.links.cgu') }}</Link>
+                    <Link href="/legal/cgv">{{ $t('legal.links.cgv') }}</Link>
+                    <Link href="/legal/confidentialite">{{ $t('legal.links.confidentialite') }}</Link>
+                    <Link href="/legal/cookies">{{ $t('legal.links.cookies') }}</Link>
+                    <Link href="/legal/moderation">{{ $t('legal.links.moderation') }}</Link>
+                    <Link href="/legal/kyc">{{ $t('legal.links.kyc') }}</Link>
                 </nav>
 
                 <div class="footer__contact">
@@ -74,6 +89,7 @@ function scrollToTop() {
                 <p>© {{ currentYear }} {{ $t('footer.copyright') }}</p>
                 <div>
                     <span>{{ $t('footer.madeForMali') }}</span>
+                    <button type="button" class="footer__cookies" @click="openCookiePreferences">{{ $t('cookies.manage') }}</button>
                     <button type="button" :aria-label="$t('footer.backToTop')" @click="scrollToTop">
                         <DashboardIcon name="arrow-up" />
                     </button>

@@ -205,6 +205,21 @@
     cursor: pointer;
 }
 
+.mission-export {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    border-radius: 12px;
+    background: $c-primary-dark;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
 .mission-status-tabs {
     display: flex;
     flex-wrap: wrap;

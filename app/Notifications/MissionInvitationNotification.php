@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Notifications\Channels\WhatsAppChannel;
 use App\Models\MissionInvitation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -18,7 +19,7 @@ class MissionInvitationNotification extends Notification
 
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail', WhatsAppChannel::class];
     }
 
     public function toMail(object $notifiable): MailMessage
@@ -36,5 +37,15 @@ class MissionInvitationNotification extends Notification
             ->line(__('missions.invitation.mail_expiry', ['hours' => 48]))
             ->action(__('missions.invitation.validate_action'), $this->validationUrl)
             ->line(__('missions.invitation.mail_security'));
+    }
+
+    public function toWhatsApp(object $notifiable): string
+    {
+        return __('missions.invitation.whatsapp', [
+            'name' => $notifiable->first_name,
+            'client' => trim($this->invitation->client->first_name.' '.$this->invitation->client->last_name),
+            'mission' => $this->invitation->mission->title,
+            'url' => $this->validationUrl,
+        ]);
     }
 }

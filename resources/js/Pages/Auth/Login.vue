@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Connexion">
+    <AppLayout :title="$t('auth.login_title')">
         <section class="login-page">
 
             <div class="login-shell">
@@ -8,31 +8,31 @@
                 <div class="login-visual">
                     <div class="login-visual__content">
                         <span class="login-visual__badge">
-                            🔐 Barasira sécurisé
+                            🔐 {{ $t('ui.auth.secureBadge') }}
                         </span>
 
                         <h2>
-                            Connectez-vous et trouvez le bon prestataire rapidement.
+                            {{ $t('ui.auth.loginHeroTitle') }}
                         </h2>
 
                         <p>
-                            Accédez à vos missions, services, messages et recommandations personnalisées.
+                            {{ $t('ui.auth.loginHeroText') }}
                         </p>
 
                         <div class="login-visual__features">
                             <span>
                                 <DashboardIcon name="verified" />
-                                Prestataires vérifiés
+                                {{ $t('ui.auth.verifiedProviders') }}
                             </span>
 
                             <span>
                                 <DashboardIcon name="verified" />
-                                Missions sécurisées
+                                {{ $t('ui.auth.secureMissions') }}
                             </span>
 
                             <span>
                                 <DashboardIcon name="verified" />
-                                Support rapide
+                                {{ $t('ui.auth.fastSupport') }}
                             </span>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                             </h1>
 
                             <p class="login-subtitle">
-                                Accédez à votre compte Barasira
+                                {{ $t('ui.auth.loginSubtitle') }}
                             </p>
                         </div>
 
@@ -73,17 +73,17 @@
                         <div class="sso-login">
                             <button type="button" class="sso-btn sso-btn--google" @click="loginWithGoogle">
                                 <DashboardIcon name="google" />
-                                Continuer avec Google
+                                {{ $t('ui.auth.continueGoogle') }}
                             </button>
 
                             <a href="/api/auth/facebook/redirect" class="sso-btn sso-btn--facebook">
                                 <DashboardIcon name="facebook" />
-                                Continuer avec Facebook
+                                {{ $t('ui.auth.continueFacebook') }}
                             </a>
                         </div>
 
                         <div class="auth-divider">
-                            <span>ou connectez-vous avec votre email</span>
+                            <span>{{ $t('ui.auth.loginEmailDivider') }}</span>
                         </div>
 
                         <form class="login-form" @submit.prevent="submit">
@@ -97,7 +97,7 @@
                                 <div class="input-wrapper">
                                     <DashboardIcon name="mail" />
 
-                                    <input id="email" v-model="form.email" type="email" placeholder="votre@email.com"
+                                    <input id="email" v-model="form.email" type="email" :placeholder="$t('ui.auth.emailPlaceholder')"
                                         autocomplete="email" />
                                 </div>
 
@@ -116,7 +116,7 @@
                                     <DashboardIcon name="lock" />
 
                                     <input id="password" v-model="form.password"
-                                        :type="showPassword ? 'text' : 'password'" placeholder="Mot de passe"
+                                        :type="showPassword ? 'text' : 'password'" :placeholder="$t('auth.password')"
                                         autocomplete="current-password" />
 
                                     <button type="button" class="password-toggle" @click="showPassword = !showPassword">
@@ -140,7 +140,7 @@
                                 </label>
 
                                 <a href="/forgot-password" class="forgot-link">
-                                    Mot de passe oublié ?
+                                    {{ $t('ui.auth.forgotPassword') }}
                                 </a>
                             </div>
 
@@ -152,7 +152,7 @@
                             <!-- SUBMIT -->
                             <button type="submit" class="btn btn-primary login-submit" :disabled="form.processing">
                                 <span v-if="form.processing">
-                                    Connexion...
+                                    {{ $t('ui.auth.loggingIn') }}
                                 </span>
 
                                 <span v-else>
@@ -162,7 +162,7 @@
                             </button>
 
                             <p class="login-footer">
-                                Pas encore de compte ?
+                                {{ $t('ui.auth.noAccount') }}
 
                                 <a href="/register">
                                     {{ $t('auth.no_account') }}
@@ -187,11 +187,13 @@ import { reactive, ref } from 'vue'
 import { api } from '@/lib/api'
 import axios from 'axios'
 import DashboardIcon from '@/Components/DashboardIcon.vue'
+import { useI18n } from 'vue-i18n'
 
 const baseURL = import.meta.env.VITE_API_URL
 
 const errors = ref({})
 const loading = ref(false)
+const { t } = useI18n()
 
 const form = reactive({
     email: '',
@@ -229,12 +231,12 @@ const submit = async () => {
             errors.value = e.response.data.errors || {}
             //
         } else if (e.response?.status === 403) {
-            errors.value.general = ['Veuillez valider votre boîte mail.']
+            errors.value.general = [t('ui.auth.verifyEmail')]
             router.push('/email/verify')
         }
         else {
             errors.value.general = [
-                e.response?.data?.message || 'Erreur serveur. Veuillez réessayer.'
+                e.response?.data?.message || t('ui.auth.serverError')
             ]
         }
     } finally {

@@ -21,6 +21,7 @@ return [
         'validate_action' => 'View and accept the mission',
         'mail_security' => 'The mission will only be assigned to you after you approve it.',
         'sms' => 'Barasira: mission “:mission” proposed. Approve within 48 hours: :url',
+        'whatsapp' => 'Hello :name, :client has invited you to the “:mission” mission on Barasira. Review it and reply within 48 hours: :url',
     ],
     'unassignment' => [
         'success' => 'The provider was unassigned. The mission is pending again.',

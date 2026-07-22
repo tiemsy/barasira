@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Document;
 use App\Models\Mission;
 use App\Models\Payment;
 use App\Models\Service;
@@ -34,6 +35,10 @@ class AdminDashboardController extends Controller
             'missions' => $missionCounts->sum(),
             'pending_missions' => (int) ($missionCounts['pending'] ?? 0),
             'active_missions' => (int) ($missionCounts['in_progress'] ?? 0),
+            'pending_documents' => Document::query()
+                ->where('status', 'en_attente')
+                ->whereHas('user', fn ($query) => $query->where('role', 'prestataire'))
+                ->count(),
         ];
 
         $recentUsers = User::query()

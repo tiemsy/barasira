@@ -135,7 +135,7 @@ function contactProvider() {
                             <span class="service-provider-card__label">{{ $t('serviceShow.provider') }}</span>
                             <div class="service-provider-card__identity">
                                 <span class="service-provider-avatar"><img v-if="service.user?.avatar_url" :src="service.user.avatar_url" alt=""><b v-else>{{ providerInitials || '?' }}</b></span>
-                                <div><h2>{{ providerName || $t('serviceShow.provider') }}</h2><p v-if="service.user?.verified"><DashboardIcon name="verified" />{{ $t('serviceShow.verifiedProfile') }}</p></div>
+                                <div><h2>{{ providerName || $t('serviceShow.provider') }}</h2><p :class="{ 'is-unverified': !service.user?.identity_verified_at }"><DashboardIcon :name="service.user?.identity_verified_at ? 'verified' : 'shield'" />{{ service.user?.identity_verified_at ? $t('serviceShow.verifiedProfile') : $t('serviceShow.unverifiedProfile', 'Profil non vérifié') }}</p></div>
                             </div>
 
                             <div class="service-provider-rating"><span aria-hidden="true">★</span><strong>{{ rating ? rating.toFixed(1) : $t('serviceShow.newProvider') }}</strong><small v-if="providerStats.reviews">({{ $t('serviceShow.reviews', { count: providerStats.reviews }) }})</small></div>

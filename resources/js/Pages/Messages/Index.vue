@@ -3,6 +3,7 @@ import { computed, nextTick, onMounted, ref } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import messageService from '@/composables/messageService'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps({
     initialUserId: { type: Number, default: null },
@@ -10,6 +11,7 @@ const props = defineProps({
 })
 
 const page = usePage()
+const { t, locale } = useI18n()
 const currentUserId = computed(() => page.props?.auth?.user?.id ?? null)
 const conversations = ref([])
 const active = ref(null)
@@ -31,7 +33,7 @@ function fullName(user) {
 }
 
 function formatTime(value) {
-    return new Intl.DateTimeFormat('fr-FR', {
+    return new Intl.DateTimeFormat(locale.value, {
         day: '2-digit',
         month: 'short',
         hour: '2-digit',
@@ -58,7 +60,7 @@ async function openConversation(conversation) {
         conversation.unread_count = 0
         await scrollToBottom()
     } catch (requestError) {
-        error.value = requestError.response?.data?.message ?? 'Impossible de charger la conversation.'
+        error.value = requestError.response?.data?.message ?? t('ui.messages.loadError')
     } finally {
         loadingMessages.value = false
     }
@@ -108,17 +110,17 @@ onMounted(async () => {
 </script>
 
 <template>
-    <AppLayout title="Messages">
+    <AppLayout :title="$t('ui.messages.title')">
         <section class="messaging-page">
             <aside class="conversation-list">
                 <header>
-                    <h1>Messages</h1>
-                    <p>Vos échanges avec les clients et prestataires</p>
+                    <h1>{{ $t('ui.messages.title') }}</h1>
+                    <p>{{ $t('ui.messages.subtitle') }}</p>
                 </header>
 
-                <div v-if="loading" class="empty-state">Chargement…</div>
+                <div v-if="loading" class="empty-state">{{ $t('ui.common.loading') }}</div>
                 <div v-else-if="!conversations.length" class="empty-state">
-                    Aucune conversation pour le moment.
+                    {{ $t('ui.messages.empty') }}
                 </div>
 
                 <button
@@ -146,13 +148,13 @@ onMounted(async () => {
                     <header class="chat-header">
                         <div>
                             <h2>{{ fullName(active.participant) }}</h2>
-                            <p v-if="active.mission">Mission : {{ active.mission.title }}</p>
-                            <p v-else>Conversation directe</p>
+                            <p v-if="active.mission">{{ $t('ui.messages.mission') }} : {{ active.mission.title }}</p>
+                            <p v-else>{{ $t('ui.messages.direct') }}</p>
                         </div>
                     </header>
 
                     <div ref="thread" class="message-thread">
-                        <p v-if="loadingMessages" class="empty-state">Chargement des messages…</p>
+                        <p v-if="loadingMessages" class="empty-state">{{ $t('ui.messages.loading') }}</p>
                         <div
                             v-for="item in messages"
                             :key="item.id"
@@ -174,18 +176,18 @@ onMounted(async () => {
                             v-model="body"
                             rows="2"
                             maxlength="5000"
-                            placeholder="Écrire un message…"
+                            :placeholder="$t('ui.messages.placeholder')"
                             @keydown.enter.exact.prevent="send"
                         />
                         <button type="submit" :disabled="!body.trim() || sending">
-                            {{ sending ? 'Envoi…' : 'Envoyer' }}
+                            {{ sending ? $t('ui.messages.sending') : $t('ui.messages.send') }}
                         </button>
                     </form>
                     <p v-if="error" class="message-error">{{ error }}</p>
                 </template>
 
                 <div v-else class="empty-state chat-empty">
-                    Sélectionnez une conversation pour commencer.
+                    {{ $t('ui.messages.select') }}
                 </div>
             </main>
         </section>

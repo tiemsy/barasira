@@ -15,6 +15,8 @@ const props = defineProps({
 const { locale, t } = useI18n()
 const source = ref(props.selectedSource)
 const lines = ref(props.selectedLines)
+const dateFrom = ref('')
+const dateTo = ref('')
 const currentSource = computed(() => props.sources.find(item => item.key === source.value))
 
 const sourceLabel = key => t(`adminLogs.sources.${key}`)
@@ -28,6 +30,17 @@ function load() {
 function selectSource(key) {
     source.value = key
     load()
+}
+
+function purge(mode) {
+    if (mode === 'period' && (!dateFrom.value || !dateTo.value)) return
+    if (!window.confirm(t(mode === 'all' ? 'adminLogs.purgeAllConfirm' : 'adminLogs.purgePeriodConfirm'))) return
+
+    router.visit('/admin/logs', {
+        method: 'delete',
+        data: { mode, date_from: dateFrom.value || null, date_to: dateTo.value || null },
+        preserveScroll: true,
+    })
 }
 </script>
 
@@ -47,7 +60,7 @@ function selectSource(key) {
             <section class="admin-logs__workspace">
                 <aside class="admin-logs__sources" :aria-label="$t('adminLogs.sourceList')">
                     <button v-for="item in sources" :key="item.key" type="button" :class="{ active: item.key === source }" @click="selectSource(item.key)">
-                        <span class="admin-logs__source-icon"><DashboardIcon :name="item.key.startsWith('nginx') ? 'server' : item.key === 'php' ? 'code' : 'framework'" /></span>
+                        <span class="admin-logs__source-icon"><DashboardIcon :name="item.key === 'audit' ? 'shield' : item.key.startsWith('nginx') ? 'server' : item.key === 'php' ? 'code' : 'framework'" /></span>
                         <span><strong>{{ sourceLabel(item.key) }}</strong><small>{{ item.available ? $t('adminLogs.available') : $t('adminLogs.unavailable') }}</small></span>
                         <DashboardIcon name="status" class="admin-logs__status" :class="item.available ? 'is-ready' : 'is-offline'" />
                     </button>
@@ -72,6 +85,14 @@ function selectSource(key) {
                         <span><DashboardIcon name="clock" />{{ $t('adminLogs.updated', { date: formatDate(currentSource.updated_at) }) }}</span>
                         <span><DashboardIcon name="ordered-list" />{{ $t('adminLogs.displayed', { count: entries.length }) }}</span>
                     </div>
+
+                    <section class="admin-logs__purge">
+                        <div><strong>{{ $t('adminLogs.purgeTitle') }}</strong><small>{{ $t('adminLogs.purgeHint') }}</small></div>
+                        <label>{{ $t('adminLogs.dateFrom') }}<input v-model="dateFrom" type="date" /></label>
+                        <label>{{ $t('adminLogs.dateTo') }}<input v-model="dateTo" type="date" /></label>
+                        <button type="button" :disabled="!dateFrom || !dateTo" @click="purge('period')">{{ $t('adminLogs.purgePeriod') }}</button>
+                        <button type="button" class="danger" @click="purge('all')">{{ $t('adminLogs.purgeAll') }}</button>
+                    </section>
 
                     <div v-if="!currentSource?.available" class="admin-logs__state">
                         <DashboardIcon name="disconnected" /><h3>{{ $t('adminLogs.unavailableTitle') }}</h3><p>{{ $t('adminLogs.unavailableHint') }}</p>

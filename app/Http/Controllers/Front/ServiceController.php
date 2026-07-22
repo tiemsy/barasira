@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Repositories\Eloquent\CityRepositoryEloquent;
 use App\Repositories\Eloquent\ServiceCategoryRepositoryEloquent;
+use App\Support\SeoMeta;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -26,9 +27,14 @@ class ServiceController extends Controller
         $this->cityRepository = $cityRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render('Services/Index', [
+            'seo' => SeoMeta::page(
+                $request,
+                'Services professionnels au Mali | Barasira',
+                'Recherchez des prestataires qualifiés par métier et par ville au Mali. Comparez les services et trouvez le professionnel adapté à votre besoin.'
+            ),
             'categories' => $this->serviceCategory->all(),
             'cities' => $this->cityRepository->all(),
         ]);
@@ -38,7 +44,7 @@ class ServiceController extends Controller
     {
         $service->load([
             'user' => fn ($query) => $query
-                ->select(['id', 'first_name', 'last_name', 'avatar_url', 'bio', 'rating', 'verified'])
+                ->select(['id', 'first_name', 'last_name', 'avatar_url', 'bio', 'rating', 'identity_verified_at'])
                 ->with(['resume' => fn ($resume) => $resume
                     ->where('visibility', 'public')
                     ->with([
@@ -56,6 +62,7 @@ class ServiceController extends Controller
         ]);
 
         return Inertia::render('Services/Show', [
+            'seo' => SeoMeta::service($request, $service),
             'service' => $service,
             'providerStats' => [
                 'active_services' => (int) $service->user->active_services_count,

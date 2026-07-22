@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { Head, Link, router, usePage } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
 import AppLayout from '@/Layouts/AppLayout.vue'
@@ -15,6 +15,7 @@ const page = usePage()
 const { t } = useI18n()
 const { confirm } = useConfirmDialog()
 const filters = reactive({ search: props.filters.search ?? '', category: props.filters.category ?? '', status: props.filters.status ?? '' })
+const exportUrl = computed(() => `/admin/exports/services?${new URLSearchParams(Object.entries(filters).filter(([, value]) => value)).toString()}`)
 const providerName = service => `${service.user?.first_name ?? ''} ${service.user?.last_name ?? ''}`.trim()
 const formatPrice = value => new Intl.NumberFormat().format(value ?? 0) + ' FCFA'
 const serviceIconName = service => {
@@ -59,6 +60,7 @@ async function removeService(service) {
                     <select v-model="filters.status" :aria-label="$t('adminServices.status')"><option value="">{{ $t('adminServices.allStatuses') }}</option><option value="active">{{ $t('adminServices.active') }}</option><option value="inactive">{{ $t('adminServices.inactive') }}</option></select>
                     <button type="submit">{{ $t('adminServices.filter') }}</button>
                     <button type="button" class="is-ghost" @click="resetFilters">{{ $t('adminServices.reset') }}</button>
+                    <a :href="exportUrl" class="admin-export">{{ $t('ui.common.exportExcel') }}</a>
                 </form>
 
                 <p v-if="page.props?.errors?.service" class="admin-users-error" role="alert">{{ page.props.errors.service }}</p>

@@ -1,6 +1,6 @@
 <template>
   <div class="map-section">
-    <h2 :class="['section-title']">Services disponibles par ville</h2>
+    <h2 :class="['section-title']">{{ $t('ui.map.title') }}</h2>
 
     <div v-html="svg" @click="handleClick"></div>
 

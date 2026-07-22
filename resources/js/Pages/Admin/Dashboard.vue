@@ -84,6 +84,7 @@ function paymentMethodLabel(method) {
                         <p>{{ $t('adminDashboard.subtitle') }}</p>
                     </div>
                     <div class="admin-dashboard__hero-actions">
+                        <Link href="/admin/documents?status=en_attente" class="admin-action admin-action--documents"><DashboardIcon name="certificate" /><span>{{ $t('adminDashboard.actions.documents') }}</span><b v-if="stats.pending_documents">{{ stats.pending_documents }}</b></Link>
                         <Link href="/admin/users" class="admin-action admin-action--secondary"><DashboardIcon name="users" />{{ $t('adminDashboard.actions.users') }}</Link>
                         <Link href="/admin/services" class="admin-action admin-action--secondary"><DashboardIcon name="services" />{{ $t('adminDashboard.actions.services') }}</Link>
                         <Link href="/missions/index" class="admin-action admin-action--primary"><DashboardIcon name="missions" />{{ $t('adminDashboard.actions.missions') }}</Link>

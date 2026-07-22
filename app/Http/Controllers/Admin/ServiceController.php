@@ -62,7 +62,7 @@ class ServiceController extends Controller
     {
         Service::query()->create($request->validated());
 
-        return redirect()->route('admin.services.index')->with('success', __('Service créé avec succès.'));
+        return redirect()->route('admin.services.index')->with('success', __('messages.service_created'));
     }
 
     public function edit(Service $service): Response
@@ -74,20 +74,20 @@ class ServiceController extends Controller
     {
         $service->update($request->validated());
 
-        return redirect()->route('admin.services.index')->with('success', __('Service mis à jour avec succès.'));
+        return redirect()->route('admin.services.index')->with('success', __('messages.service_updated'));
     }
 
     public function destroy(Service $service): RedirectResponse
     {
         if ($service->missions()->exists()) {
             throw ValidationException::withMessages([
-                'service' => __('Ce service est lié à une mission et ne peut pas être supprimé. Désactivez-le plutôt.'),
+                'service' => __('messages.service_linked'),
             ]);
         }
 
         $service->delete();
 
-        return redirect()->route('admin.services.index')->with('success', __('Service supprimé avec succès.'));
+        return redirect()->route('admin.services.index')->with('success', __('messages.service_deleted'));
     }
 
     private function formData(?Service $service = null): array

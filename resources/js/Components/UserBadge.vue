@@ -1,11 +1,11 @@
 <template>
     <div class="user-badge">
-        <img :src="user.avatar_url || defaultAvatar" alt="Avatar" class="w-10 h-10 rounded-full object-cover" />
+        <img :src="user.avatar_url || defaultAvatar" :alt="$t('ui.common.avatar')" class="w-10 h-10 rounded-full object-cover" />
         <div>
             <h4 class="font-semibold">{{ user.first_name }} {{ user.last_name }}</h4>
             <p class="text-gray-500 text-sm">{{ user.role }}</p>
-            <span v-if="user.email_verified_at" class="verified-badge" title="Compte vérifié">
-                ✔️ Vérifié
+            <span v-if="user.role === 'prestataire'" :class="['verified-badge', { 'is-unverified': !user.identity_verified_at }]" :title="user.identity_verified_at ? $t('serviceShow.verifiedProfile') : $t('serviceShow.unverifiedProfile', 'Profil non vérifié')">
+                {{ user.identity_verified_at ? '✔️' : '⚠️' }} {{ user.identity_verified_at ? $t('serviceShow.verifiedProfile') : $t('serviceShow.unverifiedProfile', 'Profil non vérifié') }}
             </span>
         </div>
     </div>

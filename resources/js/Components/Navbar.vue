@@ -133,6 +133,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', closeOnEscape))
                         </Link>
                     </li>
                 </template>
+                <li><Link href="/partners" class="nav-link" :class="{ active: isActive('/partners') }">{{ $t('navigation.partners') }}</Link></li>
             </ul>
 
             <div class="navbar-actions">
@@ -187,6 +188,8 @@ onBeforeUnmount(() => document.removeEventListener('keydown', closeOnEscape))
                                     <span><strong>{{ $t('navbar.systemLogs') }}</strong><small>{{ $t('navbar.systemLogsHint') }}</small></span>
                                 </Link>
                             </li>
+                            <li v-if="isAdmin"><Link href="/admin/partners" class="submenu-link"><span class="submenu-icon"><DashboardIcon name="building" /></span><span><strong>{{ $t('adminPartners.title') }}</strong><small>{{ $t('adminPartners.navHint') }}</small></span></Link></li>
+                            <li v-if="isAdmin"><Link href="/admin/documents" class="submenu-link"><span class="submenu-icon"><DashboardIcon name="certificate" /></span><span><strong>{{ $t('adminDocuments.title') }}</strong><small>{{ $t('adminDocuments.navHint') }}</small></span></Link></li>
                             <li>
                                 <Link href="/profile" class="submenu-link">
                                     <span class="submenu-icon">○</span>

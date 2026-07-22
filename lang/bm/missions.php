@@ -21,6 +21,7 @@ return [
         'validate_action' => 'Baarakɛcogo lajɛ ka a minɛ',
         'mail_security' => 'Baarakɛcogo bɛ di i ma i y’a dafa kɔfɛ dɔrɔn.',
         'sms' => 'Barasira: baarakɛcogo « :mission » dira i ma. A dafa waati 48 kɔnɔ: :url',
+        'whatsapp' => 'I ni ce :name, :client ye « :mission » baarakɛcogo di i ma Barasira kan. A lajɛ ka jaabi waati 48 kɔnɔ: :url',
     ],
     'unassignment' => [
         'success' => 'Baarakɛla bɔra baarakɛcogo la. Baarakɛcogo seginna makɔnɔli la.',

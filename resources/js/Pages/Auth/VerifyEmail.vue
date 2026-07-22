@@ -1,16 +1,15 @@
 <template>
     <div class="verify-wrapper">
         <div class="verify-card">
-            <h1>📧 Vérification requise</h1>
+            <h1>📧 {{ $t('auth.verify_email_title') }}</h1>
 
             <p>
-                Un lien de confirmation a été envoyé à votre adresse email.
-                Veuillez cliquer dessus pour activer votre compte.
+                {{ $t('auth.verify_email_text') }}
             </p>
 
             <button class="btn-primary" :disabled="loading || cooldown > 0" @click="resend">
-                <span v-if="cooldown === 0">Renvoyer l’email</span>
-                <span v-else>Le lien expire dans {{ formatTime(cooldown) }}. Renvoyer à nouveau</span>
+                <span v-if="cooldown === 0">{{ $t('auth.resend_email') }}</span>
+                <span v-else>{{ formatTime(cooldown) }} · {{ $t('auth.resend_email') }}</span>
             </button>
 
             <p v-if="message" class="success">{{ message }}</p>
@@ -22,10 +21,12 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import axios from 'axios'
+import { useI18n } from 'vue-i18n'
 
 const loading = ref(false)
 const message = ref(null)
 const error = ref(null)
+const { t } = useI18n()
 
 const cooldown = ref(0) // cooldown global
 let timer = null
@@ -65,7 +66,7 @@ const resend = async () => {
         startCooldown()
 
     } catch (e) {
-        error.value = 'Impossible de renvoyer l’email.'
+        error.value = t('ui.auth.serverError')
     } finally {
         loading.value = false
     }
