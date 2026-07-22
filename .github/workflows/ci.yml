@@ -78,7 +78,7 @@ jobs:
       - name: Compiler les assets Vite
         run: npm run build
 
-      - name:Exécuter les migrations et les seeders
+      - name: Exécuter les migrations et les seeders
         run: php artisan migrate --force
 
       - name: Run seeders
