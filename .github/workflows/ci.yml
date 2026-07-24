@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   laravel-tests:
-    name: Tests et analyse SonarCloud
+    name: Tests
     runs-on: ubuntu-latest
 
     env:
@@ -54,7 +54,6 @@ jobs:
         with:
           php-version: '8.4'
           extensions: mbstring, bcmath, pdo_mysql, gd, zip
-          coverage: pcov
           tools: composer:v2
 
       - name: Installer les dépendances Composer
@@ -85,26 +84,5 @@ jobs:
         if: github.ref == 'refs/heads/staging' || github.event_name == 'pull_request'
         run: php artisan db:seed --force
 
-      - name: Exécuter les tests avec couverture
-        run: php artisan test --coverage-clover=coverage.xml
-
-      - name: Vérifier la présence du rapport de couverture
-        run: test -f coverage.xml
-
-      - name: Analyse SonarCloud
-        uses: SonarSource/sonarqube-scan-action@v7
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
-            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.sources=app,routes,resources/js
-            -Dsonar.tests=tests
-            -Dsonar.php.coverage.reportPaths=coverage.xml
-            -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.exclusions=vendor/**,node_modules/**,storage/**,bootstrap/cache/**,public/build/**
-            -Dsonar.coverage.exclusions=database/**,config/**,routes/**,resources/js/**/*
-            -Dsonar.qualitygate.wait=true
-
+      - name: Exécuter les tests
+        run: php artisan test

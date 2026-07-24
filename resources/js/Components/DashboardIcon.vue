@@ -39,6 +39,7 @@ defineProps({ name: { type: String, required: true } })
         <template v-else-if="name === 'logout'"><path d="M10 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5m5-4 4-4-4-4m4 4H9"/></template>
         <template v-else-if="name === 'impersonation'"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0m3-14v6m-3-3h6"/></template>
         <template v-else-if="name === 'terminal'"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3m5 0h5"/></template>
+        <template v-else-if="name === 'language'"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></template>
         <template v-else-if="name === 'lock'"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3"/></template>
         <template v-else-if="name === 'google'"><circle cx="12" cy="12" r="9"/><path d="M20 12h-8m6.5-5.5A8 8 0 1 0 20 12"/></template>
         <template v-else-if="name === 'facebook'"><circle cx="12" cy="12" r="9"/><path d="M14 8h-2a2 2 0 0 0-2 2v11m-3-8h7"/></template>
