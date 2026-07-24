@@ -16,7 +16,6 @@ class DashboardController extends Controller
     public function index(): Response
     {
         $user = request()->user();
-        $serviceIds = Service::query()->activeForProvider($user)->select('id');
         $assignedMissions = Mission::query()->where('prestataire_id', $user->id);
 
         return Inertia::render('Provider/Dashboard', [
@@ -49,10 +48,8 @@ class DashboardController extends Controller
                 ->whereDoesntHave('invitations', fn ($query) => $query
                     ->where('status', 'pending')
                     ->where('expires_at', '>', now()))
-                ->whereIn('service_id', $serviceIds)
                 ->with(['client:id,first_name,last_name', 'service:id,name'])
                 ->latest()
-                ->limit(5)
                 ->get(['id', 'slug', 'client_id', 'prestataire_id', 'service_id', 'title', 'city', 'address', 'price', 'status', 'created_at']),
         ]);
     }

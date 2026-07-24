@@ -34,7 +34,8 @@ Barasira est une plateforme de mise en relation entre clients et prestataires de
 - Domaines couverts : utilisateurs, services, catégories, missions, candidatures, invitations, messagerie, paiements, avis, CV professionnels et partenaires.
 - Les utilisateurs vérifiés peuvent publier et modifier un avis public sur Barasira depuis `/avis`, indépendamment des évaluations de prestataires liées aux missions.
 - L’accueil présente les trois avis publiés les plus récents, leur moyenne globale et un lien vers la page complète.
-- Les pages publiques de détail des services et missions utilisent des slugs lisibles plutôt que des identifiants numériques.
+- Les pages de détail des services, missions et profils clients utilisent des slugs lisibles plutôt que des identifiants numériques.
+- Le client définit un budget maximum et une durée initiale. Le prestataire candidate avec son tarif horaire ou un forfait global.
 
 ## Architecture
 
@@ -143,6 +144,7 @@ Les routes sont protégées par le middleware `role:superadmin` et leurs contrô
 16. partners - Entreprises partenaires, contacts et visibilité publique
 17. partner_promotions - Campagnes payantes et planifiées de mise en avant
 18. platform_reviews - Avis des utilisateurs sur la plateforme Barasira
+19. client_comments - Commentaires publics des prestataires sur les profils clients
 
 ## Tables CVThèque
 
@@ -219,7 +221,7 @@ Le nom du service PHP peut varier selon le fichier Docker Compose utilisé.
 
 ### Données de démonstration
 
-Les seeders créent un scénario déterministe avec des clients, des prestataires spécialisés, quatorze services, des missions à différents statuts, des compétences, des diplômes, des expériences, des certifications, des avis sur les prestataires, six avis sur la plateforme Barasira, des paiements et des fiches nécessaires au test du module partenaires. Ils peuvent être relancés sans dupliquer ces données.
+Les seeders créent un scénario déterministe avec des clients, des prestataires spécialisés et leurs tarifs horaires, quatorze services, des missions à différents statuts avec budget maximum et heures initiales/facturables, plusieurs candidatures horaires ou globales par mission, des commentaires sur les profils clients, des compétences, des diplômes, des expériences, des certifications, des avis, des paiements calculés depuis l’offre retenue et des fiches partenaires. Ils peuvent être relancés sans dupliquer ces données.
 
 Les partenaires présentés par Barasira sont **Urgol Events Mali** et **Les Petits Stylos**. Les coordonnées en `.test` et les logos générés par les seeders servent uniquement aux environnements de démonstration ; les données et droits de publication doivent être validés avant la production.
 
@@ -300,6 +302,7 @@ php artisan view:cache
 - Routes principales (routes/api.php):
   - Auth: POST /api/login, POST /api/register, POST /api/logout, GET /api/me
   - Ressources: users, user-skills, service-categories, services, missions, messages, reviews, resumes, portfolio-items
+  - Candidatures: POST /api/missions/{mission}/applications, POST /api/missions/{mission}/applications/{application}/accept
   - Paiements: POST /api/missions/{mission}/payments, GET /api/payments/{payment}, retours mobiles et webhook CinetPay
 
 Les endpoints d’affichage utilisent les slugs :
@@ -313,7 +316,7 @@ Les endpoints de modification et de suppression conservent actuellement les iden
 
 ## Paiements en ligne
 
-Le client propriétaire d’une mission peut régler le montant défini côté serveur via Orange Money, Moov Money ou carte bancaire avec le checkout CinetPay, ainsi que via PayPal. Aucun numéro de carte ni secret de portefeuille n’est stocké par Barasira. CinetPay confirme les paiements via `/api/payments/webhooks/cinetpay`, puis le serveur revérifie systématiquement la transaction auprès de l’API CinetPay avant de la marquer comme effectuée.
+Le client propriétaire d’une mission peut régler le montant calculé côté serveur via Orange Money, Moov Money ou carte bancaire avec le checkout CinetPay, ainsi que via PayPal. Ce montant correspond au forfait global accepté ou au tarif horaire accepté multiplié par les heures facturables. Aucun numéro de carte ni secret de portefeuille n’est stocké par Barasira. CinetPay confirme les paiements via `/api/payments/webhooks/cinetpay`, puis le serveur revérifie systématiquement la transaction auprès de l’API CinetPay avant de la marquer comme effectuée.
 
 Configurez `CINETPAY_API_KEY`, `CINETPAY_SITE_ID` et `CINETPAY_SECRET_KEY`. Pour PayPal, configurez `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET`, `PAYPAL_WEBHOOK_ID`, puis un taux marchand explicite `PAYPAL_XOF_PER_UNIT`, car PayPal ne traite pas directement le XOF. Utilisez les URLs sandbox avant la production et exécutez `php artisan migrate` après déploiement.
 
@@ -347,21 +350,28 @@ Les routes de mission sont protégées par `auth:sanctum` et `verified`.
 - `GET /api/missions/{mission:slug}` : détail d’une mission autorisée via son slug
 - `PATCH /api/missions/{mission}` : modification ou transition de statut
 - `DELETE /api/missions/{mission}` : suppression d’une mission en attente
-- `POST /api/missions/{mission}/claim` : affectation d’une mission disponible à un prestataire autorisé
+- `POST /api/missions/{mission}/applications` : candidature avec tarification horaire ou forfait global
+- `POST /api/missions/{mission}/applications/{application}/accept` : sélection d’un prestataire par le client
 
 Flux métier :
 
-1. Le client crée une mission avec le statut `pending`.
-2. Un prestataire postule, réclame une mission compatible ou reçoit une invitation directe du client.
-3. Une candidature ou invitation est acceptée et la mission passe à `in_progress`.
-4. Le prestataire assigné termine la mission avec le statut `completed`.
-5. Le client peut publier un avis.
+1. Le client crée une mission avec le statut `pending`, un budget maximum, une date, un créneau et un nombre d’heures initial.
+2. Tous les prestataires peuvent consulter les missions disponibles et postuler avec un tarif horaire ou un forfait global.
+3. Plusieurs prestataires peuvent candidater. Un même prestataire peut postuler à plusieurs missions si les créneaux ne se chevauchent pas.
+4. Le client consulte les candidatures et sélectionne un profil. Les autres candidatures sont refusées et la mission passe à `in_progress`.
+5. Le prestataire retenu reçoit une notification interne, un e-mail et un message WhatsApp.
+6. Avant le paiement, le client peut augmenter les heures facturables selon le temps réellement passé, sans descendre sous la durée initiale.
+7. Le montant payé correspond au forfait accepté ou au tarif horaire accepté multiplié par les heures facturables.
+8. Le prestataire assigné termine la mission avec le statut `completed`.
+9. Le client peut publier un avis.
+
+Depuis le détail d’une mission, le prestataire peut consulter en lecture seule le profil du client via une URL comme `/clients/aminata-traore/profile?mission=mission-selectionnee`. Le profil affiche le nombre de missions créées et les commentaires publics laissés par les prestataires. Le prestataire peut publier ou modifier son propre commentaire. Le profil prestataire affiche son tarif horaire et son nombre de missions terminées.
 
 Le client propriétaire peut désaffecter le prestataire depuis la modale dédiée. Il doit sélectionner un motif prédéfini ; le motif « autre » impose une explication. Chaque désaffectation est historisée dans `mission_unassignments`.
 
 Les invitations peuvent être notifiées par e-mail et SMS. La configuration SMS se trouve dans `config/sms.php` et utilise notamment `SMS_DRIVER`, `SMS_SENDER` et les variables du fournisseur retenu.
 
-Les notifications métier utilisent également les canaux e-mail et WhatsApp. Le canal WhatsApp se configure avec `WHATSAPP_DRIVER`, `WHATSAPP_HTTP_ENDPOINT`, `WHATSAPP_HTTP_TOKEN` et `WHATSAPP_SENDER`. En l’absence de fournisseur HTTP configuré, le canal est journalisé sans bloquer la notification e-mail.
+Les notifications métier utilisent également les canaux interne, e-mail et WhatsApp, notamment après la sélection d’une candidature. Le canal WhatsApp se configure avec `WHATSAPP_DRIVER`, `WHATSAPP_HTTP_ENDPOINT`, `WHATSAPP_HTTP_TOKEN` et `WHATSAPP_SENDER`. En l’absence de fournisseur HTTP configuré, le canal est journalisé sans bloquer la notification e-mail.
 
 Transitions actuellement contrôlées :
 
@@ -463,7 +473,7 @@ Les documents stratégiques sont disponibles dans `docs/` :
 - [`Business-Model-Barasira.pdf`](docs/Business-Model-Barasira.pdf) — présentation prête à partager ;
 - [`business-model-barasira.html`](docs/business-model-barasira.html) — source HTML imprimable.
 
-La version actuelle présente le modèle de commission à 10 %, la mise en avant sponsorisée, la stratégie marketing et partenaires avec Urgol Events Mali et Les Petits Stylos, l’organigramme de démarrage, le besoin de financement recommandé de 85 millions FCFA pour douze mois et un prévisionnel simplifié sur cinq ans. Ces hypothèses de pilotage doivent être validées avec un expert-comptable et les partenaires concernés avant usage contractuel ou levée de fonds.
+La version 1.8 du 24 juillet 2026 présente le parcours multi-candidatures, la tarification horaire ou globale, le contrôle des chevauchements, les profils clients commentés, le modèle de commission à 10 %, la mise en avant sponsorisée, la stratégie marketing et partenaires avec Urgol Events Mali et Les Petits Stylos, l’organigramme de démarrage, le besoin de financement recommandé de 85 millions FCFA pour douze mois et un prévisionnel simplifié sur cinq ans. Ces hypothèses de pilotage doivent être validées avec un expert-comptable et les partenaires concernés avant usage contractuel ou levée de fonds.
 
 ## Conventions d’architecture
 

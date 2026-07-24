@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo};
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Application extends Model
 {
@@ -14,8 +14,15 @@ class Application extends Model
         'mission_id', // Référence de la mission cible
         'worker_id', // Prestataire qui postule
         'message', // Message ou explication du prestataire
-        'proposed_price', // Prix proposé par le prestataire
-        'status' // État de la candidature : pending, accepted, rejected, cancelled
+        'pricing_type', // Tarification horaire ou globale
+        'hourly_rate', // Tarif horaire proposé
+        'proposed_price', // Forfait global proposé
+        'status', // État de la candidature : pending, accepted, rejected, cancelled
+    ];
+
+    protected $casts = [
+        'hourly_rate' => 'decimal:2',
+        'proposed_price' => 'decimal:2',
     ];
 
     /**
@@ -23,7 +30,7 @@ class Application extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'worker_id');
     }
 
     /**

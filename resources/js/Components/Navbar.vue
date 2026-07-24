@@ -127,6 +127,12 @@ onBeforeUnmount(() => document.removeEventListener('keydown', closeOnEscape))
                         </ul>
                     </li>
 
+                    <li v-if="isProvider || isAdmin">
+                        <Link href="/missions/available" class="nav-link" :class="{ active: isActive('/missions/available') }">
+                            {{ $t('navigation.missions') }}
+                        </Link>
+                    </li>
+
                     <li>
                         <Link href="/messages" class="nav-link" :class="{ active: isActive('/messages') }">
                             {{ $t('navigation.messages') }}

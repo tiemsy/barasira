@@ -28,7 +28,9 @@ use OpenApi\Annotations as OA;
  * @OA\Property(property="title", type="string", example="Besoin jardinage"),
  * @OA\Property(property="description", type="text", example="description de la mission"),
  * @OA\Property(property="address", type="string", example="Adresse de la mission"),
- * @OA\Property(property="price", type="integer", example="50000"),
+ * @OA\Property(property="price", type="number", example=50000, description="Budget maximum du client en FCFA"),
+ * @OA\Property(property="initial_hours", type="number", example=4, description="Durée initiale non réductible"),
+ * @OA\Property(property="billable_hours", type="number", example=5, description="Durée finale pouvant être augmentée avant paiement"),
  * @OA\Property(property="date_start", type="dateTime", example=""),
  * @OA\Property(property="data_end", type="dateTime", example=""),
  * @OA\Property(property="status", type="boolean", example="pending, in_progress...")
@@ -77,6 +79,7 @@ class MissionController extends Controller
             'client_id' => $request->user()->id,
             'prestataire_id' => null,
             'status' => 'pending',
+            'billable_hours' => $data['initial_hours'],
         ]);
 
         return response()->json([
@@ -97,7 +100,7 @@ class MissionController extends Controller
             'client',
             'prestataire',
             'service.category',
-            'applications',
+            'applications.user:id,first_name,last_name,avatar_url,rating,hourly_rate,bio',
             'payments',
             'reviews',
             'messages',
@@ -139,6 +142,13 @@ class MissionController extends Controller
         $user = $request->user();
 
         if (! $user->isAdmin()) {
+            if (array_key_exists('initial_hours', $data)
+                && (float) $data['initial_hours'] < (float) $mission->initial_hours) {
+                throw ValidationException::withMessages([
+                    'initial_hours' => __('missions.validation.hours_cannot_decrease'),
+                ]);
+            }
+
             if (array_key_exists('status', $data)) {
                 $this->ensureAllowedStatusTransition($mission, $data['status'], $user->id);
             }
@@ -151,6 +161,10 @@ class MissionController extends Controller
                     'mission' => __('missions.details_locked'),
                 ]);
             }
+        }
+
+        if (array_key_exists('initial_hours', $data)) {
+            $data['billable_hours'] = $data['initial_hours'];
         }
 
         $mission->update($data);

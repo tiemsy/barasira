@@ -26,6 +26,7 @@ class UpdateUserRequest extends FormRequest
                 ? ['client', 'prestataire', 'admin', 'superadmin']
                 : ['client', 'prestataire', 'admin'])],
             'bio' => ['nullable', 'string', 'max:2000'],
+            'hourly_rate' => ['nullable', 'required_if:role,prestataire', 'numeric', 'min:0', 'max:99999999.99'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'verified' => ['required', 'boolean'],
         ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mission;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -53,9 +54,71 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function clientProfile(Request $request, User $client): Response
+    {
+        abort_unless(
+            $client->role === 'client'
+            && in_array($request->user()->role, ['prestataire', 'admin', 'superadmin'], true),
+            403,
+        );
+
+        $sourceMission = null;
+        if ($request->user()->role === 'prestataire') {
+            $missionSlug = $request->string('mission')->toString();
+            abort_if($missionSlug === '', 403);
+
+            $sourceMission = Mission::query()
+                ->where('slug', $missionSlug)
+                ->where('client_id', $client->id)
+                ->firstOrFail();
+            $this->authorize('view', $sourceMission);
+        } elseif ($request->filled('mission')) {
+            $sourceMission = Mission::query()
+                ->where('slug', $request->string('mission')->toString())
+                ->where('client_id', $client->id)
+                ->firstOrFail();
+        }
+
+        $client->loadCount('missionsAsClient');
+
+        return Inertia::render('Profile/ClientShow', [
+            'client' => [
+                ...$client->only(['id', 'slug', 'first_name', 'last_name', 'avatar_url', 'bio', 'created_at']),
+                'missions_created_count' => $client->missions_as_client_count,
+            ],
+            'comments' => $client->clientComments()
+                ->with('commenter:id,first_name,last_name,avatar_url,identity_verified_at')
+                ->latest()
+                ->get(),
+            'myComment' => $request->user()->role === 'prestataire'
+                ? $client->clientComments()->where('commenter_id', $request->user()->id)->first()
+                : null,
+            'backMissionUrl' => $sourceMission
+                ? route('front.missions.show', ['mission' => $sourceMission->slug])
+                : route('admin.users.index'),
+        ]);
+    }
+
+    public function storeClientComment(Request $request, User $client)
+    {
+        abort_unless($request->user()->role === 'prestataire' && $client->role === 'client', 403);
+
+        $data = $request->validate([
+            'comment' => ['required', 'string', 'min:10', 'max:2000'],
+        ]);
+
+        $client->clientComments()->updateOrCreate(
+            ['commenter_id' => $request->user()->id],
+            ['comment' => $data['comment']],
+        );
+
+        return back()->with('success', __('messages.client_comment_saved'));
+    }
+
     private function profileData(Request $request): array
     {
-        return $request->user()->only([
+        $user = $request->user();
+        $profile = $user->only([
             'id',
             'first_name',
             'last_name',
@@ -65,8 +128,19 @@ class ProfileController extends Controller
             'bio',
             'avatar_url',
             'rating',
+            'hourly_rate',
             'email_verified_at',
             'identity_verified_at',
         ]);
+
+        if ($user->role === 'client') {
+            $profile['missions_created_count'] = $user->missionsAsClient()->count();
+        } elseif ($user->role === 'prestataire') {
+            $profile['missions_completed_count'] = $user->missionsAsPrestataire()
+                ->where('status', 'completed')
+                ->count();
+        }
+
+        return $profile;
     }
 }

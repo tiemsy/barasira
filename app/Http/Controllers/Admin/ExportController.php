@@ -23,9 +23,9 @@ class ExportController extends Controller
             ->when($filters['role'] ?? null, fn (Builder $query, string $role) => $query->where('role', $role))
             ->latest();
 
-        return $this->csv('utilisateurs', ['ID', 'Prénom', 'Nom', 'E-mail', 'Téléphone', 'Rôle', 'Vérifié', 'Créé le'], $query, fn (User $user) => [
+        return $this->csv('utilisateurs', ['ID', 'Prénom', 'Nom', 'E-mail', 'Téléphone', 'Rôle', 'Tarif horaire', 'Vérifié', 'Créé le'], $query, fn (User $user) => [
             $user->id, $user->first_name, $user->last_name, $user->email, $user->phone, $user->role,
-            $user->verified ? 'Oui' : 'Non', $user->created_at?->format('d/m/Y H:i'),
+            $user->hourly_rate, $user->verified ? 'Oui' : 'Non', $user->created_at?->format('d/m/Y H:i'),
         ]);
     }
 

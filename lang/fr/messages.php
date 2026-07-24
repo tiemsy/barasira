@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'client_comment_saved' => 'Votre commentaire sur ce client a été enregistré.',
     'platform_review_saved' => 'Merci, votre avis sur Barasira a été enregistré.',
     'payment_multiple_of_five_cinetpay' => 'Le montant CinetPay doit être un nombre entier multiple de 5 FCFA.',
     'payment_multiple_of_five' => 'Le montant doit être un nombre entier multiple de 5 FCFA.',

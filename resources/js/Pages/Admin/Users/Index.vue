@@ -76,12 +76,13 @@ const fullName = user => `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim
 
                 <div v-if="users.data.length" class="admin-users-table-wrap">
                     <table class="admin-users-table">
-                        <thead><tr><th>{{ $t('adminUsers.user') }}</th><th>{{ $t('adminUsers.contact') }}</th><th>{{ $t('adminUsers.role') }}</th><th>{{ $t('adminUsers.status') }}</th><th><span class="sr-only">{{ $t('adminUsers.actions') }}</span></th></tr></thead>
+                        <thead><tr><th>{{ $t('adminUsers.user') }}</th><th>{{ $t('adminUsers.contact') }}</th><th>{{ $t('adminUsers.role') }}</th><th>{{ $t('profile.hourlyRate') }}</th><th>{{ $t('adminUsers.status') }}</th><th><span class="sr-only">{{ $t('adminUsers.actions') }}</span></th></tr></thead>
                         <tbody>
                             <tr v-for="user in users.data" :key="user.id">
                                 <td><span class="admin-users-avatar"><img v-if="user.avatar_url" :src="user.avatar_url" alt=""><b v-else>{{ fullName(user).charAt(0) }}</b></span><span><strong>{{ fullName(user) }}</strong><small>#{{ user.id }}</small></span></td>
                                 <td><strong>{{ user.email }}</strong><small>{{ user.phone || $t('adminUsers.notSpecified') }}</small></td>
                                 <td><span class="admin-users-role">{{ $t(`navbar.roles.${user.role === 'prestataire' ? 'provider' : user.role}`) }}</span></td>
+                                <td>{{ user.role === 'prestataire' && user.hourly_rate != null ? $t('profile.hourlyRateValue', { amount: Number(user.hourly_rate).toLocaleString() }) : '—' }}</td>
                                 <td><span :class="['admin-users-status', user.verified ? 'is-verified' : 'is-pending']">{{ user.verified ? $t('adminUsers.verified') : $t('adminUsers.unverified') }}</span></td>
                                 <td><div v-if="user.role !== 'superadmin' || page.props?.auth?.user?.role === 'superadmin'" class="admin-users-actions"><button v-if="page.props?.auth?.user?.role === 'superadmin' && user.id !== page.props.auth.user.id" type="button" class="is-impersonate" :title="$t('impersonation.start')" :aria-label="$t('impersonation.start')" @click="impersonate(user)"><UserActionIcon name="impersonate" /></button><Link :href="`/admin/users/${user.id}/edit`" class="is-edit" :aria-label="$t('adminUsers.edit')"><UserActionIcon name="edit" /></Link><button type="button" class="is-delete" :aria-label="$t('adminUsers.delete')" @click="removeUser(user)"><UserActionIcon name="delete" /></button></div></td>
                             </tr>

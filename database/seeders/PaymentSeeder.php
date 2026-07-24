@@ -25,7 +25,7 @@ class PaymentSeeder extends Seeder
                         'mission_id' => $mission->id,
                         'payer_id' => $mission->client_id,
                         'receiver_id' => $mission->prestataire_id,
-                        'amount' => $mission->price,
+                        'amount' => $mission->payableAmount(),
                         'status' => 'effectue',
                         'method' => $method,
                         'provider' => $method === 'paypal' ? 'paypal' : 'cinetpay',

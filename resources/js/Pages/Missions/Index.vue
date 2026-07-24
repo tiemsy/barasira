@@ -18,6 +18,10 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    availableOnly: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 const { locale, t } = useI18n()
@@ -90,7 +94,11 @@ async function loadMissions({ reset = false } = {}) {
 
     try {
         const page = reset ? 1 : currentPage.value + 1
-        const { data } = await missionService.get({ page, ...filters.value })
+        const { data } = await missionService.get({
+            page,
+            ...filters.value,
+            ...(props.availableOnly ? { available: 1 } : {}),
+        })
 
         if (version !== requestVersion) return
 
@@ -193,7 +201,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <Head :title="$t('missions.my_missions')" />
+    <Head :title="$t(availableOnly ? 'missions.available_missions' : 'missions.my_missions')" />
 
     <AppLayout>
         <main class="mission-index">
@@ -201,12 +209,12 @@ onBeforeUnmount(() => {
                 <div class="mission-index__container">
                     <div class="mission-index__hero-content">
                         <div>
-                            <span class="mission-index__eyebrow">{{ $t('missions.index.eyebrow') }}</span>
-                            <h1>{{ $t('missions.my_missions') }}</h1>
-                            <p>{{ $t('missions.index.subtitle') }}</p>
+                            <span class="mission-index__eyebrow">{{ $t(availableOnly ? 'missions.index.availableEyebrow' : 'missions.index.eyebrow') }}</span>
+                            <h1>{{ $t(availableOnly ? 'missions.available_missions' : 'missions.my_missions') }}</h1>
+                            <p>{{ $t(availableOnly ? 'missions.index.availableSubtitle' : 'missions.index.subtitle') }}</p>
                         </div>
 
-                        <Link href="/missions/create" class="mission-index__create">
+                        <Link v-if="!availableOnly && page.props.auth?.user?.role === 'client'" href="/missions/create" class="mission-index__create">
                             <span aria-hidden="true">＋</span>
                             {{ $t('missions.create') }}
                         </Link>
@@ -256,10 +264,10 @@ onBeforeUnmount(() => {
                             <option value="price_asc">{{ $t('missions.index.sortPriceAsc') }}</option>
                             <option value="price_desc">{{ $t('missions.index.sortPriceDesc') }}</option>
                         </select>
-                        <a v-if="page.props.auth?.user?.role === 'admin' || page.props.auth?.user?.role === 'superadmin'" :href="exportUrl" class="mission-export">{{ $t('ui.common.exportExcel') }}</a>
+                        <a v-if="!availableOnly && (page.props.auth?.user?.role === 'admin' || page.props.auth?.user?.role === 'superadmin')" :href="exportUrl" class="mission-export">{{ $t('ui.common.exportExcel') }}</a>
                     </div>
 
-                    <div class="mission-status-tabs" :aria-label="$t('missions.index.statusFilters')">
+                    <div v-if="!availableOnly" class="mission-status-tabs" :aria-label="$t('missions.index.statusFilters')">
                         <button
                             v-for="status in statuses"
                             :key="status.value"
@@ -273,7 +281,7 @@ onBeforeUnmount(() => {
                     </div>
 
                     <div v-show="filtersOpen" class="mission-filters">
-                        <label>
+                        <label v-if="!availableOnly">
                             <span>{{ $t('missions.index.startDate') }}</span>
                             <input v-model="filters.date_start" type="date">
                         </label>
@@ -361,13 +369,13 @@ onBeforeUnmount(() => {
                                     <Link :href="`/missions/${mission.slug}`" class="mission-action mission-action--primary">
                                         {{ $t('missions.actions.view') }}
                                     </Link>
-                                    <Link v-if="mission.status === 'pending'" :href="`/missions/${mission.id}/edit`" class="mission-action mission-action--edit" :aria-label="$t('missions.edit')">
+                                    <Link v-if="!availableOnly && page.props.auth?.user?.role === 'client' && mission.status === 'pending'" :href="`/missions/${mission.id}/edit`" class="mission-action mission-action--edit" :aria-label="$t('missions.edit')">
                                         <DashboardIcon name="edit" />
                                     </Link>
-                                    <button v-if="['pending', 'in_progress'].includes(mission.status)" type="button" class="mission-action" :aria-label="$t('missions.actions.cancel')" @click="cancelMission(mission)">
+                                    <button v-if="!availableOnly && page.props.auth?.user?.role === 'client' && ['pending', 'in_progress'].includes(mission.status)" type="button" class="mission-action" :aria-label="$t('missions.actions.cancel')" @click="cancelMission(mission)">
                                         <CancelIcon />
                                     </button>
-                                    <button v-if="mission.status === 'pending'" type="button" class="mission-action mission-action--danger" :aria-label="$t('missions.index.delete')" @click="deleteMission(mission)">
+                                    <button v-if="!availableOnly && page.props.auth?.user?.role === 'client' && mission.status === 'pending'" type="button" class="mission-action mission-action--danger" :aria-label="$t('missions.index.delete')" @click="deleteMission(mission)">
                                         <DashboardIcon name="delete" />
                                     </button>
                                 </div>
@@ -382,7 +390,7 @@ onBeforeUnmount(() => {
                         <button v-if="hasActiveFilters" type="button" class="mission-index__create" @click="resetFilters">
                             {{ $t('missions.index.reset') }}
                         </button>
-                        <Link v-else href="/missions/create" class="mission-index__create">{{ $t('missions.create') }}</Link>
+                        <Link v-else-if="!availableOnly && page.props.auth?.user?.role === 'client'" href="/missions/create" class="mission-index__create">{{ $t('missions.create') }}</Link>
                     </div>
 
                     <div ref="loadMoreTrigger" class="mission-loader" aria-live="polite">

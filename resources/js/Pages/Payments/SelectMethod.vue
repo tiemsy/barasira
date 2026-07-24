@@ -10,6 +10,9 @@ const processing = ref(false)
 const images = ref([])
 const previews = ref([])
 const imageError = ref('')
+const billableHours = ref(Number(props.mission.billable_hours))
+const hoursError = ref('')
+const savingHours = ref(false)
 const { t, locale } = useI18n()
 const methods = [
     { id: 'orange_money', label: 'Orange Money', icon: 'wallet' },
@@ -33,6 +36,20 @@ const chooseImages = event => {
     images.value = selected
     previews.value = selected.map(URL.createObjectURL)
 }
+const saveHours = () => {
+    hoursError.value = ''
+    if (billableHours.value < Number(props.mission.billable_hours)) {
+        hoursError.value = t('ui.payments.hoursCannotDecrease')
+        return
+    }
+
+    savingHours.value = true
+    router.patch(`/missions/${props.mission.id}/hours`, { billable_hours: billableHours.value }, {
+        preserveScroll: true,
+        onError: errors => { hoursError.value = errors.billable_hours || t('ui.payments.hoursUpdateError') },
+        onFinish: () => { savingHours.value = false },
+    })
+}
 const pay = () => {
     if (!images.value.length) {
         imageError.value = t('ui.payments.imageRequired')
@@ -48,10 +65,64 @@ const pay = () => {
 onBeforeUnmount(() => previews.value.forEach(URL.revokeObjectURL))
 </script>
 
-<template><Head :title="$t('ui.payments.secure')"/><AppLayout><main class="payment-page"><section class="payment-card"><span class="payment-badge"><DashboardIcon name="shield" />{{ $t('ui.payments.secure') }}</span><h1>{{ $t('ui.payments.payMission') }}</h1><p>{{ mission.title }}</p><strong class="payment-amount">{{ Number(mission.price).toLocaleString(locale) }} FCFA</strong><div class="payment-proof"><h2>{{ $t('ui.payments.proofTitle') }}</h2><p>{{ $t('ui.payments.proofDescription') }}</p><label class="payment-proof-picker"><input type="file" accept="image/jpeg,image/png,image/webp" multiple @change="chooseImages"><span>{{ $t('ui.payments.chooseImages') }}</span><small>{{ $t('ui.payments.imageFormats') }}</small></label><div v-if="previews.length" class="payment-proof-previews"><img v-for="(preview, index) in previews" :key="preview" :src="preview" :alt="$t('ui.payments.preview', { index: index + 1 })"></div><p v-if="imageError || $page.props.errors?.images" class="payment-error">{{ imageError || $page.props.errors.images }}</p></div><div class="payment-methods"><button v-for="item in methods" :key="item.id" type="button" :class="{active:method===item.id}" @click="method=item.id"><DashboardIcon :name="item.icon" /><span>{{ item.label }}</span><DashboardIcon name="completed" /></button></div><p v-if="$page.props.flash?.error" class="payment-error">{{ $page.props.flash.error }}</p><button class="payment-submit" :disabled="processing || !images.length" @click="pay"><DashboardIcon name="shield" />{{ processing ? $t('ui.payments.redirecting') : $t('ui.payments.payNow') }}</button><small>{{ $t('ui.payments.validationNotice') }}</small></section></main></AppLayout></template>
+<template>
+    <Head :title="$t('ui.payments.secure')" />
+    <AppLayout>
+        <main class="payment-page">
+            <section class="payment-card">
+                <span class="payment-badge"><DashboardIcon name="shield" />{{ $t('ui.payments.secure') }}</span>
+                <h1>{{ $t('ui.payments.payMission') }}</h1>
+                <p>{{ mission.title }}</p>
+                <strong class="payment-amount">{{ Number(mission.payment_amount).toLocaleString(locale) }} FCFA</strong>
+                <section class="payment-hours">
+                    <h2>{{ $t('ui.payments.hoursTitle') }}</h2>
+                    <p>{{ $t('ui.payments.hoursDescription', { hours: mission.initial_hours }) }}</p>
+                    <div>
+                        <input v-model.number="billableHours" type="number" :min="mission.billable_hours" max="999.99" step="0.5">
+                        <span>h</span>
+                        <button type="button" :disabled="savingHours || billableHours <= Number(mission.billable_hours)" @click="saveHours">
+                            {{ savingHours ? $t('ui.payments.hoursSaving') : $t('ui.payments.hoursUpdate') }}
+                        </button>
+                    </div>
+                    <p v-if="hoursError" class="payment-error">{{ hoursError }}</p>
+                </section>
+                <div class="payment-proof">
+                    <h2>{{ $t('ui.payments.proofTitle') }}</h2>
+                    <p>{{ $t('ui.payments.proofDescription') }}</p>
+                    <label class="payment-proof-picker">
+                        <input type="file" accept="image/jpeg,image/png,image/webp" multiple @change="chooseImages">
+                        <span>{{ $t('ui.payments.chooseImages') }}</span>
+                        <small>{{ $t('ui.payments.imageFormats') }}</small>
+                    </label>
+                    <div v-if="previews.length" class="payment-proof-previews">
+                        <img v-for="(preview, index) in previews" :key="preview" :src="preview" :alt="$t('ui.payments.preview', { index: index + 1 })">
+                    </div>
+                    <p v-if="imageError || $page.props.errors?.images" class="payment-error">{{ imageError || $page.props.errors.images }}</p>
+                </div>
+                <div class="payment-methods">
+                    <button v-for="item in methods" :key="item.id" type="button" :class="{ active: method === item.id }" @click="method = item.id">
+                        <DashboardIcon :name="item.icon" /><span>{{ item.label }}</span><DashboardIcon name="completed" />
+                    </button>
+                </div>
+                <p v-if="$page.props.flash?.error" class="payment-error">{{ $page.props.flash.error }}</p>
+                <button class="payment-submit" :disabled="processing || !images.length" @click="pay">
+                    <DashboardIcon name="shield" />{{ processing ? $t('ui.payments.redirecting') : $t('ui.payments.payNow') }}
+                </button>
+                <small>{{ $t('ui.payments.validationNotice') }}</small>
+            </section>
+        </main>
+    </AppLayout>
+</template>
 <style lang="scss" src="../../../scss/pages/_payments.scss"></style>
 <style scoped>
 .payment-card { width: min(720px, 100%); }
+.payment-hours { margin: 1.25rem 0; padding: 1rem; border: 1px solid #dce6e0; border-radius: 14px; background: #f8fbf9; }
+.payment-hours h2 { margin: 0; font-size: 1.05rem; }
+.payment-hours > p { margin: .35rem 0 .9rem; color: #647269; }
+.payment-hours > div { display: flex; gap: .5rem; align-items: center; }
+.payment-hours input { width: 7rem; padding: .75rem; border: 1px solid #87b49b; border-radius: 9px; }
+.payment-hours button { padding: .75rem 1rem; border: 0; border-radius: 9px; background: #177245; color: #fff; font-weight: 800; cursor: pointer; }
+.payment-hours button:disabled { opacity: .55; cursor: not-allowed; }
 .payment-proof { margin: 1.25rem 0; padding: 1rem; border: 1px solid #dce6e0; border-radius: 14px; background: #f8fbf9; }
 .payment-proof h2 { margin: 0; font-size: 1.05rem; }
 .payment-proof > p { margin: .35rem 0 .9rem; color: #647269; line-height: 1.5; }

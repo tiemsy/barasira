@@ -50,6 +50,9 @@ const formatDate = value => value ? new Intl.DateTimeFormat(undefined, { dateSty
                     <dl class="profile-details">
                         <div><dt>{{ $t('profile.email') }}</dt><dd>{{ profile.email }}</dd></div>
                         <div><dt>{{ $t('profile.phone') }}</dt><dd>{{ profile.phone || $t('profile.notSpecified') }}</dd></div>
+                        <div v-if="profile.role === 'prestataire'"><dt>{{ $t('profile.hourlyRate') }}</dt><dd>{{ $t('profile.hourlyRateValue', { amount: Number(profile.hourly_rate || 0).toLocaleString() }) }}</dd></div>
+                        <div v-if="profile.role === 'prestataire'"><dt>{{ $t('profile.completedMissionsCount') }}</dt><dd>{{ profile.missions_completed_count ?? 0 }}</dd></div>
+                        <div v-if="profile.role === 'client'"><dt>{{ $t('profile.createdMissionsCount') }}</dt><dd>{{ profile.missions_created_count ?? 0 }}</dd></div>
                     </dl>
                 </article>
 

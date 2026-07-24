@@ -3,10 +3,8 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Mission;
-use App\Models\Service;
 use App\Models\User;
 use App\Repositories\Interface\MissionRepositoryInterface;
-use Illuminate\Support\Facades\Auth;
 
 class MissionRepositoryEloquent extends BaseRepositoryEloquent implements MissionRepositoryInterface
 {
@@ -22,21 +20,29 @@ class MissionRepositoryEloquent extends BaseRepositoryEloquent implements Missio
             ->get();
     }
 
-
     public function userMissions(User $user, array $filters = [])
     {
+        $availableOnly = filter_var($filters['available'] ?? false, FILTER_VALIDATE_BOOL)
+            && in_array($user->role, ['prestataire', 'admin', 'superadmin'], true);
+
         $query = $this->model
             ->newQuery()
-            ->when($user->role === 'client', fn ($query) => $query->where('client_id', $user->id))
-            ->when($user->role === 'prestataire', function ($query) use ($user) {
-                $serviceIds = Service::query()->activeForProvider($user)->select('id');
-
-                $query->where(function ($query) use ($user, $serviceIds) {
+            ->when($availableOnly, fn ($query) => $query
+                ->whereNull('prestataire_id')
+                ->where('status', 'pending')
+                ->whereDoesntHave('invitations', fn ($query) => $query
+                    ->where('status', 'pending')
+                    ->where('expires_at', '>', now())))
+            ->when(! $availableOnly && $user->role === 'client', fn ($query) => $query->where('client_id', $user->id))
+            ->when(! $availableOnly && $user->role === 'prestataire', function ($query) use ($user) {
+                $query->where(function ($query) use ($user) {
                     $query->where('prestataire_id', $user->id)
-                        ->orWhere(function ($query) use ($serviceIds) {
+                        ->orWhere(function ($query) {
                             $query->whereNull('prestataire_id')
                                 ->where('status', 'pending')
-                                ->whereIn('service_id', $serviceIds);
+                                ->whereDoesntHave('invitations', fn ($query) => $query
+                                    ->where('status', 'pending')
+                                    ->where('expires_at', '>', now()));
                         });
                 });
             })
@@ -49,7 +55,7 @@ class MissionRepositoryEloquent extends BaseRepositoryEloquent implements Missio
                     ->select(['id', 'mission_id', 'reviewer_id', 'rating', 'comment', 'edit_count']),
             ]);
 
-        if (!empty($filters['search'])) {
+        if (! empty($filters['search'])) {
             $search = trim($filters['search']);
 
             $query->where(function ($query) use ($search) {
@@ -60,7 +66,7 @@ class MissionRepositoryEloquent extends BaseRepositoryEloquent implements Missio
             });
         }
 
-        if (!empty($filters['statuses'])) {
+        if (! empty($filters['statuses'])) {
             $statuses = is_array($filters['statuses'])
                 ? $filters['statuses']
                 : [$filters['statuses']];
@@ -68,14 +74,14 @@ class MissionRepositoryEloquent extends BaseRepositoryEloquent implements Missio
             $query->whereIn('status', $statuses);
         }
 
-        if (!empty($filters['prestataire_id'])) {
+        if (! empty($filters['prestataire_id'])) {
             $query->where(
                 'prestataire_id',
                 $filters['prestataire_id']
             );
         }
 
-        if (!empty($filters['date_start'])) {
+        if (! empty($filters['date_start'])) {
             $query->whereDate(
                 'date_start',
                 '>=',
@@ -83,7 +89,7 @@ class MissionRepositoryEloquent extends BaseRepositoryEloquent implements Missio
             );
         }
 
-        if (!empty($filters['date_end'])) {
+        if (! empty($filters['date_end'])) {
             $query->whereDate(
                 'date_end',
                 '<=',

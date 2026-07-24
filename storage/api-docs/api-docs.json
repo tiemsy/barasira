@@ -2,8 +2,8 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Bara Sira API",
-        "description": "API Barasira : authentification, utilisateurs, services, missions, messagerie, avis, IA, CV, portfolio et paiements.",
-        "version": "1.1.0"
+        "description": "API Barasira : authentification, utilisateurs, services, missions, candidatures avec tarification horaire ou globale, messagerie, avis, IA, CV, portfolio et paiements.",
+        "version": "1.2.0"
     },
     "servers": [
         {
@@ -793,23 +793,83 @@
                 ]
             }
         },
-        "/api/missions/{id}/claim": {
+        "/api/missions/{id}/applications": {
             "post": {
                 "tags": [
-                    "Missions"
+                    "Mission applications"
                 ],
-                "operationId": "missions.claim",
+                "description": "Permet à un prestataire de postuler à une mission disponible avec un tarif horaire ou un forfait global. Une candidature est refusée si elle chevauche une autre mission ou candidature active sur le même créneau.",
+                "operationId": "missionApplications.store",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/Id"
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MissionApplicationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Candidature créée et client notifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MissionApplicationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Forbidden"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationError"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/missions/{id}/applications/{application}/accept": {
+            "post": {
+                "tags": [
+                    "Mission applications"
+                ],
+                "description": "Le client propriétaire sélectionne une candidature. La mission passe en cours, les autres candidatures sont refusées et le prestataire retenu reçoit une notification interne, un e-mail et un message WhatsApp.",
+                "operationId": "missionApplications.accept",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Id"
+                    },
+                    {
+                        "name": "application",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Claimed"
+                        "description": "Candidature acceptée et mission attribuée"
                     },
-                    "409": {
-                        "description": "Schedule conflict"
+                    "403": {
+                        "$ref": "#/components/responses/Forbidden"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationError"
                     }
                 },
                 "security": [
@@ -1325,7 +1385,7 @@
                 "tags": [
                     "Payments"
                 ],
-                "description": "Initialise un paiement pour une mission en cours appartenant au client authentifié. Une à cinq photos de réalisation sont obligatoires.",
+                "description": "Initialise le paiement d’une mission en cours appartenant au client authentifié. Le montant est le forfait global accepté ou le tarif horaire accepté multiplié par les heures facturables. Ces heures ne peuvent pas être inférieures aux heures initiales. Une à cinq photos de réalisation sont obligatoires.",
                 "operationId": "payments.store",
                 "parameters": [
                     {
@@ -1495,6 +1555,10 @@
                     "id": {
                         "type": "integer"
                     },
+                    "slug": {
+                        "type": "string",
+                        "example": "aminata-traore"
+                    },
                     "first_name": {
                         "type": "string"
                     },
@@ -1518,8 +1582,18 @@
                             "superadmin"
                         ]
                     },
+                    "bio": {
+                        "type": "string",
+                        "nullable": true
+                    },
                     "avatar_url": {
                         "type": "string",
+                        "nullable": true
+                    },
+                    "hourly_rate": {
+                        "description": "Tarif horaire de référence du prestataire en FCFA.",
+                        "type": "number",
+                        "format": "float",
                         "nullable": true
                     },
                     "identity_verified_at": {
@@ -1640,6 +1714,12 @@
                         "maxLength": 2000,
                         "nullable": true
                     },
+                    "hourly_rate": {
+                        "type": "number",
+                        "maximum": 99999999.99,
+                        "minimum": 0,
+                        "nullable": true
+                    },
                     "avatar": {
                         "type": "string",
                         "format": "binary",
@@ -1716,6 +1796,8 @@
                     "description",
                     "city",
                     "address",
+                    "price",
+                    "initial_hours",
                     "date_start"
                 ],
                 "properties": {
@@ -1760,9 +1842,15 @@
                         "nullable": true
                     },
                     "price": {
+                        "description": "Budget maximum du client en FCFA.",
                         "type": "number",
-                        "minimum": 0,
-                        "nullable": true
+                        "minimum": 1
+                    },
+                    "initial_hours": {
+                        "description": "Nombre d’heures initial défini par le client et non réductible.",
+                        "type": "number",
+                        "maximum": 999.99,
+                        "minimum": 0.5
                     },
                     "date_start": {
                         "type": "string",
@@ -1796,6 +1884,95 @@
                         "type": "object"
                     }
                 ]
+            },
+            "MissionApplicationRequest": {
+                "required": [
+                    "pricing_type"
+                ],
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "maxLength": 2000,
+                        "nullable": true
+                    },
+                    "pricing_type": {
+                        "type": "string",
+                        "enum": [
+                            "hourly",
+                            "global"
+                        ]
+                    },
+                    "hourly_rate": {
+                        "description": "Obligatoire lorsque pricing_type vaut hourly.",
+                        "type": "number",
+                        "maximum": 99999999.99,
+                        "minimum": 1,
+                        "nullable": true
+                    },
+                    "proposed_price": {
+                        "description": "Forfait obligatoire lorsque pricing_type vaut global.",
+                        "type": "number",
+                        "maximum": 99999999.99,
+                        "minimum": 1,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "MissionApplication": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "mission_id": {
+                        "type": "integer"
+                    },
+                    "worker_id": {
+                        "type": "integer"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "pricing_type": {
+                        "type": "string",
+                        "enum": [
+                            "hourly",
+                            "global"
+                        ]
+                    },
+                    "hourly_rate": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "proposed_price": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "en_attente",
+                            "acceptee",
+                            "refusee"
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "MissionApplicationResponse": {
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/MissionApplication"
+                    }
+                },
+                "type": "object"
             },
             "MissionAiRequest": {
                 "required": [
@@ -2070,6 +2247,10 @@
         {
             "name": "Missions",
             "description": "Missions"
+        },
+        {
+            "name": "Mission applications",
+            "description": "Mission applications"
         },
         {
             "name": "AI",

@@ -76,6 +76,7 @@ function contactProvider() {
                     <div class="service-show-main">
                         <section class="service-show-highlights">
                             <article><span class="service-highlight-icon"><DashboardIcon name="coins" /></span><span><small>{{ $t('serviceShow.estimatedPrice') }}</small><strong>{{ priceRange }}</strong></span></article>
+                            <article><span class="service-highlight-icon"><DashboardIcon name="coins" /></span><span><small>{{ $t('profile.providerHourlyRate') }}</small><strong>{{ $t('profile.hourlyRateValue', { amount: formatMoney(service.user?.hourly_rate) }) }}</strong></span></article>
                             <article><span class="service-highlight-icon"><DashboardIcon name="location" /></span><span><small>{{ $t('serviceShow.interventionArea') }}</small><strong>{{ location }}</strong></span></article>
                             <article><span class="service-highlight-icon"><DashboardIcon name="calendar" /></span><span><small>{{ $t('serviceShow.published') }}</small><strong>{{ publishedDate }}</strong></span></article>
                         </section>
@@ -140,7 +141,7 @@ function contactProvider() {
 
                             <div class="service-provider-rating"><span aria-hidden="true">★</span><strong>{{ rating ? rating.toFixed(1) : $t('serviceShow.newProvider') }}</strong><small v-if="providerStats.reviews">({{ $t('serviceShow.reviews', { count: providerStats.reviews }) }})</small></div>
                             <p v-if="service.user?.bio" class="service-provider-bio">{{ service.user.bio }}</p>
-                            <dl class="service-provider-stats"><div><dt>{{ $t('serviceShow.activeServices') }}</dt><dd>{{ providerStats.active_services ?? 0 }}</dd></div><div><dt>{{ $t('serviceShow.rating') }}</dt><dd>{{ rating ? $t('serviceShow.ratingOutOfFive', { rating: rating.toFixed(1) }) : '—' }}</dd></div></dl>
+                            <dl class="service-provider-stats"><div><dt>{{ $t('serviceShow.activeServices') }}</dt><dd>{{ providerStats.active_services ?? 0 }}</dd></div><div><dt>{{ $t('profile.completedMissionsCount') }}</dt><dd>{{ providerStats.completed_missions ?? 0 }}</dd></div><div><dt>{{ $t('serviceShow.rating') }}</dt><dd>{{ rating ? $t('serviceShow.ratingOutOfFive', { rating: rating.toFixed(1) }) : '—' }}</dd></div></dl>
 
                             <button v-if="canContact" type="button" :disabled="!service.is_active" @click="contactProvider"><DashboardIcon name="messages" />{{ service.is_active ? $t('serviceShow.contactProvider') : $t('serviceShow.unavailable') }}</button>
                             <Link v-else-if="isGuest" href="/login" class="service-provider-login"><DashboardIcon name="login" />{{ $t('serviceShow.loginToContact') }}</Link>
