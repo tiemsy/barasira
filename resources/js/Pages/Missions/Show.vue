@@ -9,10 +9,19 @@ import reviewService from '@/composables/reviewService'
 
 // const route = useRoute()
 // const mission = ref(null)
+const page = usePage()
 const loading = ref(true)
-const claiming = ref(false)
-const claimError = ref('')
-const claimSuccess = ref('')
+const applying = ref(false)
+const applicationError = ref('')
+const applicationSuccess = ref('')
+const acceptingApplication = ref(null)
+const applicationSelectionError = ref('')
+const applicationForm = ref({
+    pricing_type: 'hourly',
+    hourly_rate: page.props?.auth?.user?.hourly_rate ?? '',
+    proposed_price: '',
+    message: '',
+})
 const reviewForm = ref({ rating: 0, comment: '' })
 const reviewing = ref(false)
 const reviewError = ref('')
@@ -29,7 +38,6 @@ const unassigningProvider = ref(false)
 const unassignError = ref('')
 const unassignModalOpen = ref(false)
 const unassignForm = ref({ reason: '', details: '' })
-const page = usePage()
 const { locale, t } = useI18n()
 const props = defineProps({
     mission: {
@@ -40,14 +48,35 @@ const props = defineProps({
     pendingInvitation: { type: Object, default: null }
 })
 const currentMission = ref(props.mission)
-const canClaim = computed(() => page.props?.auth?.user?.role === 'prestataire'
+const hasApplied = ref((props.mission.applications ?? []).some(
+    application => application.worker_id === page.props?.auth?.user?.id
+))
+const canApply = computed(() => page.props?.auth?.user?.role === 'prestataire'
+    && currentMission.value.status === 'pending'
+    && !currentMission.value.prestataire_id
+    && !hasApplied.value)
+const canSelectApplication = computed(() => page.props?.auth?.user?.role === 'client'
+    && page.props?.auth?.user?.id === currentMission.value.client_id
     && currentMission.value.status === 'pending'
     && !currentMission.value.prestataire_id)
+const pendingApplications = computed(() => (currentMission.value.applications ?? []).filter(
+    application => application.status === 'en_attente'
+))
+const acceptedApplication = computed(() => (currentMission.value.applications ?? []).find(
+    application => application.status === 'acceptee'
+))
+const payableAmount = computed(() => {
+    if (!acceptedApplication.value) return Number(currentMission.value.price || 0)
+
+    return acceptedApplication.value.pricing_type === 'hourly'
+        ? Number(acceptedApplication.value.hourly_rate || 0) * Number(currentMission.value.billable_hours || 0)
+        : Number(acceptedApplication.value.proposed_price || 0)
+})
 const canValidateAndPay = computed(() => page.props?.auth?.user?.role === 'client'
     && page.props?.auth?.user?.id === currentMission.value.client_id
     && currentMission.value.status === 'in_progress'
     && currentMission.value.prestataire_id
-    && Number(currentMission.value.price) > 0)
+    && payableAmount.value > 0)
 const canManageMissionImages = computed(() => page.props?.auth?.user?.role === 'client'
     && page.props?.auth?.user?.id === currentMission.value.client_id
     && currentMission.value.status === 'completed')
@@ -208,21 +237,37 @@ function unassignProvider() {
     })
 }
 
-async function claimMission() {
-    claiming.value = true
-    claimError.value = ''
-    claimSuccess.value = ''
+async function applyToMission() {
+    applying.value = true
+    applicationError.value = ''
+    applicationSuccess.value = ''
 
     try {
-        const { data } = await missionService.claim(currentMission.value.id)
-        currentMission.value = data.data
-        claimSuccess.value = t('missions.messages.claimed_success')
+        await missionService.apply(currentMission.value.id, applicationForm.value)
+        hasApplied.value = true
+        applicationSuccess.value = t('missions.messages.application_success')
     } catch (error) {
-        claimError.value = error.response?.data?.code === 'MISSION_SCHEDULE_CONFLICT'
-            ? t('missions.messages.schedule_conflict')
-            : (error.response?.data?.message || t('missions.messages.claim_failed'))
+        applicationError.value = Object.values(error.response?.data?.errors ?? {}).flat()[0]
+            ?? error.response?.data?.message
+            ?? t('missions.messages.application_failed')
     } finally {
-        claiming.value = false
+        applying.value = false
+    }
+}
+
+async function acceptApplication(application) {
+    acceptingApplication.value = application.id
+    applicationSelectionError.value = ''
+
+    try {
+        const { data } = await missionService.acceptApplication(currentMission.value.id, application.id)
+        currentMission.value = data.data
+    } catch (error) {
+        applicationSelectionError.value = Object.values(error.response?.data?.errors ?? {}).flat()[0]
+            ?? error.response?.data?.message
+            ?? t('missions.messages.application_accept_failed')
+    } finally {
+        acceptingApplication.value = null
     }
 }
 
@@ -338,8 +383,28 @@ onBeforeUnmount(() => {
                     </div>
 
                     <div class="info-item">
+                        <label>{{ $t('missions.show.hours') }}</label>
+                        <p>{{ currentMission.billable_hours }} h</p>
+                    </div>
+
+                    <div class="info-item">
                         <label>{{ $t('missions.fields.provider') }}</label>
                         <p>{{ currentMission.prestataire ? `${currentMission.prestataire.first_name} ${currentMission.prestataire.last_name}` : $t('missions.index.unassigned') }}</p>
+                    </div>
+
+                    <div v-if="currentMission.client" class="info-item mission-client-info">
+                        <label>{{ $t('missions.fields.client') }}</label>
+                        <Link
+                            v-if="['prestataire', 'admin', 'superadmin'].includes(page.props?.auth?.user?.role)"
+                            :href="`/clients/${currentMission.client.slug}/profile?mission=${encodeURIComponent(currentMission.slug)}`"
+                            class="mission-client-link"
+                        >
+                            <img v-if="currentMission.client.avatar_url" :src="currentMission.client.avatar_url" :alt="`${currentMission.client.first_name} ${currentMission.client.last_name}`">
+                            <span v-else>{{ currentMission.client.first_name?.charAt(0) }}{{ currentMission.client.last_name?.charAt(0) }}</span>
+                            <strong>{{ currentMission.client.first_name }} {{ currentMission.client.last_name }}</strong>
+                            <small>{{ $t('clientProfile.viewProfile') }}</small>
+                        </Link>
+                        <p v-else>{{ currentMission.client.first_name }} {{ currentMission.client.last_name }}</p>
                     </div>
 
                     <div class="info-item">
@@ -360,17 +425,80 @@ onBeforeUnmount(() => {
                     <p>{{ currentMission.description }}</p>
                 </div>
 
-                <div v-if="canClaim || claimSuccess || claimError" class="claim-panel">
+                <div v-if="canApply || hasApplied || applicationSuccess || applicationError" class="claim-panel">
                     <div>
-                        <h2>{{ $t('missions.show.claimTitle') }}</h2>
-                        <p>{{ $t('missions.show.claimHint') }}</p>
+                        <h2>{{ $t('missions.show.applyTitle') }}</h2>
+                        <p>{{ hasApplied ? $t('missions.show.alreadyApplied') : $t('missions.show.applyHint') }}</p>
                     </div>
-                    <button v-if="canClaim" type="button" :disabled="claiming" @click="claimMission">
-                        {{ claiming ? $t('missions.actions.claiming') : $t('missions.actions.claim') }}
+                    <div v-if="canApply" class="application-pricing-form">
+                        <label>
+                            <input v-model="applicationForm.pricing_type" type="radio" value="hourly">
+                            {{ $t('applications.pricing.hourly') }}
+                        </label>
+                        <label>
+                            <input v-model="applicationForm.pricing_type" type="radio" value="global">
+                            {{ $t('applications.pricing.global') }}
+                        </label>
+                        <label class="application-pricing-form__amount">
+                            <span>{{ applicationForm.pricing_type === 'hourly' ? $t('applications.pricing.hourlyAmount') : $t('applications.pricing.globalAmount') }}</span>
+                            <input
+                                v-if="applicationForm.pricing_type === 'hourly'"
+                                v-model.number="applicationForm.hourly_rate"
+                                type="number"
+                                min="1"
+                                step="500"
+                                required
+                            >
+                            <input
+                                v-else
+                                v-model.number="applicationForm.proposed_price"
+                                type="number"
+                                min="1"
+                                step="500"
+                                required
+                            >
+                        </label>
+                        <label class="application-pricing-form__message">
+                            <span>{{ $t('applications.proposal_message') }}</span>
+                            <textarea v-model.trim="applicationForm.message" rows="3" maxlength="2000"></textarea>
+                        </label>
+                    </div>
+                    <button v-if="canApply" type="button" :disabled="applying" @click="applyToMission">
+                        {{ applying ? $t('missions.actions.applying') : $t('missions.actions.apply') }}
                     </button>
-                    <p v-if="claimSuccess" class="claim-feedback success" role="status">{{ claimSuccess }}</p>
-                    <p v-if="claimError" class="claim-feedback error" role="alert">{{ claimError }}</p>
+                    <p v-if="applicationSuccess" class="claim-feedback success" role="status">{{ applicationSuccess }}</p>
+                    <p v-if="applicationError" class="claim-feedback error" role="alert">{{ applicationError }}</p>
                 </div>
+
+                <section v-if="canSelectApplication" class="mission-applications-panel">
+                    <header>
+                        <span>{{ $t('applications.title') }}</span>
+                        <h2>{{ $t('applications.received', { count: pendingApplications.length }) }}</h2>
+                        <p>{{ $t('applications.selectHint') }}</p>
+                    </header>
+                    <div v-if="pendingApplications.length" class="mission-applications-list">
+                        <article v-for="application in pendingApplications" :key="application.id" class="mission-application">
+                            <div class="mission-application__profile">
+                                <img v-if="application.user?.avatar_url" :src="application.user.avatar_url" :alt="`${application.user.first_name} ${application.user.last_name}`">
+                                <span v-else>{{ application.user?.first_name?.charAt(0) }}{{ application.user?.last_name?.charAt(0) }}</span>
+                                <div>
+                                    <strong>{{ application.user?.first_name }} {{ application.user?.last_name }}</strong>
+                                    <small>{{ Number(application.user?.rating || 0).toFixed(1) }}/5</small>
+                                    <small>{{ $t('profile.hourlyRateValue', { amount: Number(application.user?.hourly_rate || 0).toLocaleString(locale) }) }}</small>
+                                    <p v-if="application.user?.bio">{{ application.user.bio }}</p>
+                                </div>
+                            </div>
+                            <p v-if="application.message" class="mission-application__message">{{ application.message }}</p>
+                            <b v-if="application.pricing_type === 'hourly'">{{ $t('applications.pricing.hourlyValue', { amount: Number(application.hourly_rate).toLocaleString(locale) }) }}</b>
+                            <b v-else>{{ $t('applications.pricing.globalValue', { amount: Number(application.proposed_price).toLocaleString(locale) }) }}</b>
+                            <button type="button" :disabled="acceptingApplication === application.id" @click="acceptApplication(application)">
+                                {{ acceptingApplication === application.id ? $t('applications.actions.accepting') : $t('applications.actions.accept') }}
+                            </button>
+                        </article>
+                    </div>
+                    <p v-else>{{ $t('applications.empty') }}</p>
+                    <p v-if="applicationSelectionError" class="claim-feedback error" role="alert">{{ applicationSelectionError }}</p>
+                </section>
 
                 <section v-if="canInviteProvider" class="provider-invitation-panel">
                     <header>
@@ -385,7 +513,7 @@ onBeforeUnmount(() => {
                         <select v-model="selectedProviderId" :aria-label="$t('missions.show.selectProvider')">
                             <option value="">{{ $t('missions.show.selectProvider') }}</option>
                             <option v-for="provider in providers" :key="provider.id" :value="provider.id">
-                                {{ provider.first_name }} {{ provider.last_name }} · {{ Number(provider.rating || 0).toFixed(1) }}/5
+                                {{ provider.first_name }} {{ provider.last_name }} · {{ Number(provider.rating || 0).toFixed(1) }}/5 · {{ $t('profile.hourlyRateValue', { amount: Number(provider.hourly_rate || 0).toLocaleString(locale) }) }}
                             </option>
                         </select>
                         <button type="button" :disabled="invitingProvider || !providers.length" @click="inviteProvider">

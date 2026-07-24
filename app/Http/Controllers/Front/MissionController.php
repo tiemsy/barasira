@@ -7,8 +7,8 @@ use App\Models\Mission;
 use App\Models\User;
 use App\Repositories\Eloquent\MissionRepositoryEloquent;
 use App\Repositories\Eloquent\UserRepositoryEloquent;
-use App\Services\MissionImageService;
 use App\Services\MissionAssignmentService;
+use App\Services\MissionImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -53,7 +53,7 @@ class MissionController extends Controller
                 'client',
                 'prestataire',
                 'service.category',
-                'applications',
+                'applications.user:id,first_name,last_name,avatar_url,rating,hourly_rate,bio',
                 'payments',
                 'reviews',
                 'images:id,mission_id,path,sort_order',
@@ -61,7 +61,7 @@ class MissionController extends Controller
             ]),
             'providers' => $canInvite ? User::query()
                 ->where('role', 'prestataire')
-                ->select(['id', 'first_name', 'last_name', 'avatar_url', 'rating', 'bio'])
+                ->select(['id', 'first_name', 'last_name', 'avatar_url', 'rating', 'hourly_rate', 'bio'])
                 ->orderByDesc('rating')
                 ->orderBy('first_name')
                 ->get() : [],
@@ -117,6 +117,32 @@ class MissionController extends Controller
         $this->missionImages->replace($mission, $data['images']);
 
         return back()->with('success', __('missions.images_saved'));
+    }
+
+    public function updateBillableHours(Request $request, Mission $mission)
+    {
+        abort_unless(
+            $request->user()->role === 'client'
+            && $mission->client_id === $request->user()->id
+            && $mission->status === 'in_progress'
+            && ! $mission->payments()->whereIn('status', ['en_attente', 'effectue'])->exists(),
+            403,
+        );
+
+        $data = $request->validate([
+            'billable_hours' => [
+                'required',
+                'numeric',
+                'min:'.max((float) $mission->initial_hours, (float) $mission->billable_hours),
+                'max:999.99',
+            ],
+        ], [
+            'billable_hours.min' => __('missions.validation.hours_cannot_decrease'),
+        ]);
+
+        $mission->update(['billable_hours' => $data['billable_hours']]);
+
+        return back()->with('success', __('missions.hours_updated'));
     }
 
     public function unassignProvider(Request $request, Mission $mission, MissionAssignmentService $assignments)

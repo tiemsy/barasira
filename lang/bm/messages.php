@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'client_comment_saved' => 'I ka hakilina jatigi in kan marala.',
     'platform_review_saved' => 'I ni ce, i ka Barasira hakɛli marala.',
     'payment_multiple_of_five_cinetpay' => 'CinetPay wari ka kan ka kɛ 5 FCFA ka caɲɔgɔn ye.',
     'payment_multiple_of_five' => 'Wari ka kan ka kɛ 5 FCFA ka caɲɔgɔn ye.',

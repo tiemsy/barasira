@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasUniqueSlug;
 use App\Notifications\VerifyEmailCustom;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, HasUniqueSlug, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'first_name',
@@ -26,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'bio',
         'avatar_url',
         'rating',
+        'hourly_rate',
         'verified',
         'email_verified_at',
         'identity_verified_at',
@@ -38,7 +40,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'identity_verified_at' => 'datetime',
         'verified' => 'boolean',
         'rating' => 'decimal:2',
+        'hourly_rate' => 'decimal:2',
     ];
+
+    protected function slugSource(): string
+    {
+        return trim("{$this->first_name} {$this->last_name}");
+    }
 
     public function sendEmailVerificationNotification()
     {
@@ -102,7 +110,17 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class);
+        return $this->hasMany(Application::class, 'worker_id');
+    }
+
+    public function clientComments(): HasMany
+    {
+        return $this->hasMany(ClientComment::class, 'client_id');
+    }
+
+    public function commentsAboutClients(): HasMany
+    {
+        return $this->hasMany(ClientComment::class, 'commenter_id');
     }
 
     public function sentMessages(): HasMany
@@ -140,5 +158,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Dispute::class, 'complainant_id');
     }
-
 }

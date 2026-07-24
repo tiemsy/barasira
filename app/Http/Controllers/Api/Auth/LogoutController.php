@@ -21,6 +21,7 @@ class LogoutController extends Controller
 
         Auth::logout();
 
+        $request->session()->forget('impersonator');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

@@ -14,8 +14,11 @@ export default {
     update(id, data) {
         return api.patch(`/missions/${id}`, data)
     },
-    claim(id) {
-        return api.post(`/missions/${id}/claim`)
+    apply(id, data = {}) {
+        return api.post(`/missions/${id}/applications`, data)
+    },
+    acceptApplication(missionId, applicationId) {
+        return api.post(`/missions/${missionId}/applications/${applicationId}/accept`)
     },
     remove(id) {
         return api.delete(`/missions/${id}`)

@@ -64,7 +64,7 @@ class UserController extends Controller
     public function edit(User $user): Response
     {
         return Inertia::render('Admin/Users/Form', [
-            'user' => $user->only(['id', 'first_name', 'last_name', 'email', 'phone', 'role', 'bio', 'verified']),
+            'user' => $user->only(['id', 'first_name', 'last_name', 'email', 'phone', 'role', 'bio', 'hourly_rate', 'verified']),
             'canManageSuperAdmin' => request()->user()->isSuperAdmin(),
         ]);
     }

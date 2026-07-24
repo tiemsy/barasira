@@ -44,6 +44,7 @@ class MissionUpdateRequest extends FormRequest
             'latitude' => ['sometimes', 'nullable', 'numeric', 'between:-90,90'],
             'longitude' => ['sometimes', 'nullable', 'numeric', 'between:-180,180'],
             'price' => ['sometimes', 'nullable', 'numeric', 'min:0', 'max:99999999.99'],
+            'initial_hours' => ['sometimes', 'numeric', 'min:0.5', 'max:999.99'],
             'date_start' => ['sometimes', 'date'],
             'date_end' => ['sometimes', 'nullable', 'date', 'after_or_equal:date_start'],
             'status' => [

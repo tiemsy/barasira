@@ -15,6 +15,7 @@ const form = reactive({
     email: props.profile.email ?? '',
     phone: props.profile.phone ?? '',
     bio: props.profile.bio ?? '',
+    hourly_rate: props.profile.hourly_rate ?? '',
 })
 const avatar = ref(null)
 const avatarInput = ref(null)
@@ -149,6 +150,12 @@ async function submit() {
                             <span>{{ $t('profile.phone') }}</span>
                             <input v-model.trim="form.phone" type="tel" maxlength="30" autocomplete="tel">
                             <small v-if="errors.phone" class="field-error">{{ errors.phone[0] }}</small>
+                        </label>
+                        <label v-if="profile.role === 'prestataire'">
+                            <span>{{ $t('profile.hourlyRate') }}</span>
+                            <input v-model.number="form.hourly_rate" type="number" min="0" max="99999999.99" step="500" required>
+                            <small>{{ $t('profile.hourlyRateHint') }}</small>
+                            <small v-if="errors.hourly_rate" class="field-error">{{ errors.hourly_rate[0] }}</small>
                         </label>
                         <label class="full-width">
                             <span>{{ $t('profile.bio') }}</span>

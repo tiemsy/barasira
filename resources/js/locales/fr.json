@@ -131,6 +131,10 @@
         "first_name": "Prénom",
         "last_name": "Nom",
         "phone": "Téléphone",
+        "hourlyRate": "Tarif horaire",
+        "hourlyRateHint": "Indiquez votre tarif pour une heure de travail, en FCFA.",
+        "providerHourlyRate": "Tarif horaire du prestataire",
+        "hourlyRateValue": "{amount} FCFA/heure",
         "role": "Rôle",
         "role_client": "Client",
         "role_provider": "Prestataire",
@@ -211,6 +215,7 @@
             "cityRequired": "La ville est obligatoire.",
             "addressRequired": "L’adresse est obligatoire.",
             "startDateRequired": "La date de début est obligatoire.",
+            "hoursRequired": "Indiquez une durée d’au moins 30 minutes.",
             "endDateAfterStart": "La date de fin doit être postérieure à la date de début."
         },
         "translation": {
@@ -233,7 +238,7 @@
             "locationBudgetTitle": "Lieu et budget",
             "locationBudgetDescription": "Précisez où se déroule la mission et votre budget indicatif.",
             "cityPlaceholder": "Ex. Bamako",
-            "estimatedBudget": "Budget estimé (FCFA)",
+            "estimatedBudget": "Budget maximum (FCFA)",
             "budgetPlaceholder": "Ex. 25 000",
             "address": "Adresse ou quartier",
             "addressPlaceholder": "Ex. ACI 2000, près du marché",
@@ -244,6 +249,9 @@
             "scheduleDescription": "Indiquez la période souhaitée pour l’intervention.",
             "desiredStart": "Début souhaité",
             "desiredEnd": "Fin souhaitée",
+            "initialHours": "Nombre d’heures prévu",
+            "initialHoursPlaceholder": "Ex. 2",
+            "initialHoursHint": "Cette durée pourra uniquement être augmentée avant le paiement.",
             "skillsQuestionsTitle": "Compétences et questions",
             "skillsQuestionsDescription": "Aidez les prestataires à préparer une proposition pertinente.",
             "desiredSkills": "Compétences souhaitées",
@@ -278,7 +286,7 @@
             "selectValue": "À sélectionner",
             "specifyValue": "À préciser",
             "location": "Lieu",
-            "budget": "Budget",
+            "budget": "Budget maximum",
             "negotiable": "À discuter",
             "aiMissingResponse": "La réponse ne contient aucune mission.",
             "aiApplied": "La proposition IA a été appliquée. Vérifiez-la avant publication.",
@@ -299,14 +307,16 @@
             "updateError": "Impossible de mettre à jour la mission."
         },
         "show": {
-            "price": "Prix",
+            "price": "Budget maximum",
+            "hours": "Nombre d’heures",
             "category": "Catégorie",
             "location": "Localisation",
             "contactProvider": "Contacter le prestataire",
             "contactClient": "Contacter le client",
             "notSpecified": "Non précisée",
-            "claimTitle": "Choisir cette mission",
-            "claimHint": "Votre disponibilité sera vérifiée avant l’attribution.",
+            "applyTitle": "Postuler à cette mission",
+            "applyHint": "Envoyez directement votre candidature au client.",
+            "alreadyApplied": "Votre candidature a été envoyée au client.",
             "validateTitle": "Valider la réalisation",
             "validateHint": "Confirmez que la mission a été réalisée, puis choisissez votre moyen de paiement sécurisé.",
             "imagesEyebrow": "Preuves de réalisation",
@@ -407,6 +417,7 @@
         "actions": {
             "view": "Voir",
             "apply": "Postuler",
+            "applying": "Envoi…",
             "claim": "Choisir la mission",
             "claiming": "Vérification…",
             "cancel": "Annuler",
@@ -418,9 +429,10 @@
             "created_success": "Mission créée avec succès.",
             "updated_success": "Mission mise à jour.",
             "cancelled_success": "Mission annulée."
-            ,"claimed_success": "La mission vous a été attribuée.",
+            ,"application_success": "Votre candidature a été envoyée. Le client a été notifié.",
+            "application_accept_failed": "Impossible de valider ce prestataire.",
             "schedule_conflict": "Vous avez déjà une mission prévue sur ce créneau.",
-            "claim_failed": "Impossible de choisir cette mission."
+            "application_failed": "Impossible d’envoyer votre candidature."
         }
     },
     "reviews": {
@@ -472,11 +484,42 @@
         "pagination": "Pagination des avis",
         "roles": { "client": "Client", "prestataire": "Prestataire", "admin": "Équipe Barasira", "superadmin": "Équipe Barasira" }
     },
+    "clientProfile": {
+        "pageTitle": "Profil de {name}",
+        "eyebrow": "Profil client",
+        "readOnly": "Lecture seule",
+        "viewProfile": "Voir le profil",
+        "missionsCreated": "{count} mission(s) créée(s)",
+        "noBio": "Ce client n’a pas encore ajouté de présentation.",
+        "backMissions": "Retour aux missions",
+        "backToMission": "Retour à la mission",
+        "addComment": "Ajouter un commentaire",
+        "editComment": "Modifier mon commentaire",
+        "commentHint": "Partagez une expérience utile et professionnelle pour aider les autres prestataires.",
+        "commentPlaceholder": "Décrivez votre expérience avec ce client…",
+        "saving": "Enregistrement…",
+        "publish": "Publier le commentaire",
+        "communityEyebrow": "Retours des prestataires",
+        "commentsTitle": "{count} commentaire(s)",
+        "visibilityNotice": "Ces commentaires sont visibles par les prestataires et l’administration Barasira.",
+        "noComments": "Aucun commentaire n’a encore été publié sur ce client."
+    },
     "applications": {
         "title": "Candidatures",
         "my_applications": "Mes candidatures",
+        "received": "{count} candidature(s) reçue(s)",
+        "selectHint": "Consultez les profils puis sélectionnez le prestataire à qui confier la mission.",
+        "empty": "Aucun prestataire n’a encore postulé.",
         "proposal_amount": "Montant proposé",
         "proposal_message": "Message de candidature",
+        "pricing": {
+            "hourly": "Tarif horaire",
+            "global": "Forfait global",
+            "hourlyAmount": "Votre tarif horaire (FCFA)",
+            "globalAmount": "Votre tarif global pour la mission (FCFA)",
+            "hourlyValue": "{amount} FCFA/heure",
+            "globalValue": "Forfait de {amount} FCFA"
+        },
         "status": {
             "pending": "En attente",
             "accepted": "Acceptée",
@@ -485,6 +528,7 @@
         },
         "actions": {
             "accept": "Accepter",
+            "accepting": "Validation…",
             "reject": "Refuser"
         }
     },
@@ -550,6 +594,12 @@
         "email": "Adresse e-mail",
         "emailHint": "Une nouvelle adresse devra être vérifiée.",
         "phone": "Téléphone",
+        "hourlyRate": "Tarif horaire",
+        "hourlyRateHint": "Indiquez votre tarif pour une heure de travail, en FCFA.",
+        "providerHourlyRate": "Tarif horaire du prestataire",
+        "hourlyRateValue": "{amount} FCFA/heure",
+        "createdMissionsCount": "Missions créées",
+        "completedMissionsCount": "Missions effectuées",
         "bio": "Présentation",
         "bioPlaceholder": "Présentez-vous en quelques lignes…",
         "avatarUrl": "Lien de la photo de profil",
@@ -657,7 +707,7 @@
     "adminLogs": {"metaTitle":"Journaux système","eyebrow":"Superadministration","title":"Journaux système","subtitle":"Consultez et gérez les modifications, suppressions et activités techniques depuis un espace sécurisé.","back":"Tableau de bord","sourceList":"Sources des journaux","currentSource":"Source active","available":"Disponible","unavailable":"Indisponible","lines":"Nombre de lignes","refresh":"Actualiser","updated":"Modifié le {date}","displayed":"{count} lignes affichées","unavailableTitle":"Ce journal n’est pas accessible","unavailableHint":"Vérifiez le chemin et les permissions du fichier. Avec Docker, PHP ou Nginx peuvent écrire sur stdout : configurez alors LOG_VIEWER_* vers un fichier monté.","emptyTitle":"Aucune entrée récente","emptyHint":"Le fichier existe, mais il ne contient aucune ligne à afficher.","console":"Contenu du journal","notice":"Accès et purge réservés au superadministrateur.","purgeTitle":"Purger les journaux","purgeHint":"Cette action concerne toutes les sources accessibles.","dateFrom":"Du","dateTo":"Au","purgePeriod":"Purger la période","purgeAll":"Tout purger","purgeAllConfirm":"Supprimer définitivement le contenu de tous les journaux ?","purgePeriodConfirm":"Supprimer définitivement les entrées de la période choisie ?","sources":{"audit":"Audit des actions","laravel":"Laravel","php":"PHP","nginx_access":"Accès Nginx","nginx_error":"Erreurs Nginx"}},
     "cookies": {"title":"Vos choix concernant les cookies","description":"Barasira utilise des cookies nécessaires pour sécuriser votre session. Avec votre accord, des cookies marketing nous aident à mesurer nos campagnes et à faire connaître nos services.","accept":"Tout accepter","reject":"Refuser les optionnels","customize":"Personnaliser","eyebrow":"Confidentialité","settingsTitle":"Gérer mes préférences","settingsText":"Vous pouvez modifier votre choix à tout moment depuis le pied de page.","necessaryTitle":"Cookies nécessaires","necessaryText":"Indispensables à la connexion, à la sécurité et au fonctionnement du site.","marketingTitle":"Mesure et marketing","marketingText":"Mesurent les visites et l’efficacité des campagnes Google et Meta.","alwaysActive":"Toujours actifs","save":"Enregistrer mes choix","close":"Fermer","manage":"Gérer les cookies"},
     "legal": {"eyebrow":"Informations juridiques","documents":"Cadre juridique","updated":"Dernière mise à jour : {date}","question":"Une question ?","links":{"cgu":"Conditions d’utilisation","cgv":"Conditions de vente","confidentialite":"Confidentialité","cookies":"Politique de cookies","moderation":"Charte de modération","kyc":"KYC et paiements"}},
-    "providerDocuments": {"eyebrow":"Vérification du profil","title":"Mes documents justificatifs","hint":"Déposez vos pièces dans cet espace privé. Seuls vous-même et les administrateurs habilités peuvent les consulter.","badgeInfoTitle":"Obtenez le badge Profil vérifié","badgeInfoText":"Le badge Profil vérifié sera ajouté automatiquement à votre profil dès que votre pièce d’identité aura été contrôlée et validée par un administrateur de Barasira.","type":"Type de document","label":"Nom du document","file":"Fichier","fileHint":"PDF, JPG, PNG ou WEBP — 10 Mo maximum.","fileTooLarge":"Ce fichier est trop volumineux. Sélectionnez un fichier de 10 Mo maximum.","upload":"Envoyer pour vérification","uploading":"Envoi en cours…","download":"Télécharger","delete":"Supprimer","deleteTitle":"Supprimer ce document ?","deleteText":"Le fichier et son état de vérification seront définitivement supprimés.","empty":"Aucun document déposé.","types":{"identity":"Pièce d’identité","diploma":"Diplôme","certification":"Certification","address_proof":"Justificatif de domicile","other":"Autre document"},"statuses":{"en_attente":"En attente","valide":"Validé","rejete":"Refusé"}},
+    "providerDocuments": {"eyebrow":"Vérification du profil","title":"Mes documents justificatifs","hint":"Déposez vos pièces dans cet espace privé. Seuls vous-même et les administrateurs habilités peuvent les consulter.","badgeInfoTitle":"Obtenez le badge Profil vérifié","badgeInfoText":"Gagnez la confiance des clients et augmentez vos chances d’être choisi : envoyez votre pièce d’identité dès maintenant. Après sa validation sécurisée par un administrateur Barasira, le badge Profil vérifié apparaîtra automatiquement sur votre profil.","type":"Type de document","label":"Nom du document","file":"Fichier","fileHint":"PDF, JPG, PNG ou WEBP — 10 Mo maximum.","fileTooLarge":"Ce fichier est trop volumineux. Sélectionnez un fichier de 10 Mo maximum.","upload":"Envoyer pour vérification","uploading":"Envoi en cours…","download":"Télécharger","delete":"Supprimer","deleteTitle":"Supprimer ce document ?","deleteText":"Le fichier et son état de vérification seront définitivement supprimés.","empty":"Aucun document déposé.","types":{"identity":"Pièce d’identité","diploma":"Diplôme","certification":"Certification","address_proof":"Justificatif de domicile","other":"Autre document"},"statuses":{"en_attente":"En attente","valide":"Validé","rejete":"Refusé"}},
     "adminDocuments": {"eyebrow":"Conformité","title":"Vérification des documents","subtitle":"Contrôlez les justificatifs privés transmis par les prestataires.","navHint":"Identité, diplômes et conformité","providerSearch":"Nom du prestataire…","search":"Nom du document…","allServiceCategories":"Toutes les catégories de service","allStatuses":"Tous les statuts","allTypes":"Tous les types","filter":"Filtrer","reset":"Réinitialiser","inspect":"Télécharger et examiner","comment":"Commentaire ou motif du refus…","reject":"Refuser","approve":"Valider","reopen":"Remettre en attente","delete":"Supprimer","deleteConfirm":"Supprimer définitivement ce document ?","empty":"Aucun document ne correspond aux filtres."},
     "adminDatabase": {"metaTitle":"Base de données","eyebrow":"Superadministration","title":"Base de données","subtitle":"Consultez les tables et leurs données depuis un espace strictement en lecture seule.","navHint":"Tables et données en lecture seule","back":"Tableau de bord","tables":"{count} tables","selectedTable":"Table sélectionnée","perPage":"Lignes par page","columns":"{count} colonnes","rows":"{count} lignes","readOnly":"Lecture seule","structure":"Structure de la table","nullable":"Valeur NULL autorisée","required":"Valeur requise","empty":"Cette table ne contient aucune donnée. Sa structure reste affichée ci-dessus."},
     "adminTranslations": {"metaTitle":"Atelier de traduction","eyebrow":"Superadministration","title":"Traductions","navHint":"Traduire dans toutes les langues","subtitle":"Traduisez un texte simultanément vers toutes les autres langues de Barasira.","back":"Tableau de bord","sourceLanguage":"Langue source","sourceText":"Texte à traduire","placeholder":"Saisissez jusqu’à 10 000 caractères…","provider":"Moteur : {provider}","translateAll":"Tout traduire","loading":"Traduction en cours…","copy":"Copier","copied":"Copié","resultPlaceholder":"La traduction apparaîtra ici.","error":"La traduction est temporairement indisponible.","notice":"Accès réservé au superadministrateur. Les résultats peuvent être relus et corrigés avant utilisation.","languages":{"fr":"Français","en":"Anglais","bm":"Bambara"}},
@@ -750,6 +800,6 @@
         "messages": { "title": "Messages", "newTitle": "Nouveau message", "subtitle": "Vos échanges avec les clients et prestataires", "to": "À", "mission": "Mission", "placeholder": "Écrivez votre message…", "sending": "Envoi…", "send": "Envoyer", "sendMessage": "Envoyer le message", "empty": "Aucune conversation pour le moment.", "direct": "Conversation directe", "loading": "Chargement des messages…", "select": "Sélectionnez une conversation pour commencer.", "recipientMissing": "Le destinataire est introuvable.", "sendError": "Impossible d’envoyer le message.", "loadError": "Impossible de charger la conversation." },
         "errors": { "notFoundEyebrow": "Page introuvable", "notFoundTitle": "Cette page semble avoir disparu.", "notFoundDescription": "L’adresse est peut-être incorrecte ou la page a été déplacée. Vous pouvez revenir à l’accueil ou consulter la page précédente.", "forbiddenPage": "Accès refusé", "forbiddenEyebrow": "Accès protégé", "forbiddenTitle": "Vous n’avez pas accès à cette page.", "forbiddenDescription": "Cette section est réservée à un autre rôle ou nécessite des autorisations supplémentaires. Vérifiez votre compte ou revenez à votre espace.", "backDashboard": "Retour à mon espace", "backHome": "Retour à l’accueil", "previous": "Page précédente", "mistake": "Vous pensez qu’il s’agit d’une erreur ?", "contact": "Contactez notre équipe." },
         "map": { "title": "Services disponibles par ville" },
-        "payments": { "chooseMethod": "Choisissez un moyen de paiement", "bankCard": "Carte bancaire", "secure": "Paiement sécurisé", "payMission": "Régler la mission", "proofTitle": "Photos de la mission réalisée", "proofDescription": "Ajoutez entre 1 et 5 images. Elles apparaîtront sur le profil du prestataire après confirmation du paiement.", "chooseImages": "Choisir les images", "imageFormats": "JPG, PNG ou WebP · 5 Mo maximum par image", "preview": "Aperçu {index}", "imageCount": "Choisissez entre 1 et 5 images.", "imageRequired": "Ajoutez au moins une image de la mission réalisée.", "redirecting": "Redirection…", "payNow": "Payer maintenant", "validationNotice": "Le paiement est validé uniquement après confirmation sécurisée de la passerelle.", "statusTitle": "Statut du paiement", "confirmed": "Paiement confirmé", "pending": "Paiement en cours de vérification", "confirmedText": "La passerelle a confirmé votre règlement.", "pendingText": "Le statut sera mis à jour dès réception de la confirmation sécurisée.", "backMissions": "Retour aux missions" }
+        "payments": { "chooseMethod": "Choisissez un moyen de paiement", "bankCard": "Carte bancaire", "secure": "Paiement sécurisé", "payMission": "Régler la mission", "hoursTitle": "Temps réellement passé", "hoursDescription": "La durée initiale est de {hours} h. Vous pouvez l’augmenter avant de payer, mais jamais la diminuer.", "hoursUpdate": "Mettre à jour", "hoursSaving": "Enregistrement…", "hoursCannotDecrease": "Le nombre d’heures ne peut pas être diminué.", "hoursUpdateError": "Impossible de mettre à jour le nombre d’heures.", "proofTitle": "Photos de la mission réalisée", "proofDescription": "Ajoutez entre 1 et 5 images. Elles apparaîtront sur le profil du prestataire après confirmation du paiement.", "chooseImages": "Choisir les images", "imageFormats": "JPG, PNG ou WebP · 5 Mo maximum par image", "preview": "Aperçu {index}", "imageCount": "Choisissez entre 1 et 5 images.", "imageRequired": "Ajoutez au moins une image de la mission réalisée.", "redirecting": "Redirection…", "payNow": "Payer maintenant", "validationNotice": "Le paiement est validé uniquement après confirmation sécurisée de la passerelle.", "statusTitle": "Statut du paiement", "confirmed": "Paiement confirmé", "pending": "Paiement en cours de vérification", "confirmedText": "La passerelle a confirmé votre règlement.", "pendingText": "Le statut sera mis à jour dès réception de la confirmation sécurisée.", "backMissions": "Retour aux missions" }
     }
 }

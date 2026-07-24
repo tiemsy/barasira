@@ -29,12 +29,16 @@ class Mission extends Model
         'longitude', // localisation
         'status', // workflow : pending, in_progress, completed, cancelled
         'price', // prix proposé
+        'initial_hours', // durée minimale définie par le client
+        'billable_hours', // durée finale validée avant paiement
         'date_start', // période de la mission
         'date_end', // période de la mission
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
+        'initial_hours' => 'decimal:2',
+        'billable_hours' => 'decimal:2',
         'latitude' => 'decimal:6',
         'longitude' => 'decimal:6',
         'skills' => 'array',
@@ -78,6 +82,24 @@ class Mission extends Model
     public function applications(): HasMany
     {
         return $this->hasMany(Application::class);
+    }
+
+    public function acceptedApplication(): ?Application
+    {
+        return $this->applications()->where('status', 'acceptee')->first();
+    }
+
+    public function payableAmount(): float
+    {
+        $application = $this->acceptedApplication();
+
+        if (! $application) {
+            return (float) $this->price;
+        }
+
+        return $application->pricing_type === 'hourly'
+            ? round((float) $application->hourly_rate * (float) $this->billable_hours, 2)
+            : (float) $application->proposed_price;
     }
 
     /**

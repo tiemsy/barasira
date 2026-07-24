@@ -29,6 +29,7 @@ use OpenApi\Annotations as OA;
  * @OA\Property(property="bio", type="text", example="Biography"),
  * @OA\Property(property="avatar_url", type="string", example="/storage/john/doe/johndoe.jpg"),
  * @OA\Property(property="rating", type="decimal", example="4.5"),
+ * @OA\Property(property="hourly_rate", type="number", format="float", nullable=true, example=5000),
  * @OA\Property(property="verified", type="boolean", example="true")
  * )
  */
@@ -162,6 +163,7 @@ class UserController extends Controller
      *              @OA\Property(property="bio", type="text", example="Biography"),
      *              @OA\Property(property="avatar_url", type="string", example="/storage/john/doe/jeandupont.jpg"),
      *              @OA\Property(property="rating", type="decimal", example="4.5"),
+     *              @OA\Property(property="hourly_rate", type="number", format="float", nullable=true, example=5000),
      *              @OA\Property(property="verified", type="boolean", example="true")
      *         )
      *     ),

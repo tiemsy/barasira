@@ -43,7 +43,11 @@ class UserFactory extends Factory
 
     public function provider(): static
     {
-        return $this->state(fn () => ['role' => 'prestataire', 'bio' => 'Prestataire expérimenté proposant des interventions professionnelles et ponctuelles.']);
+        return $this->state(fn () => [
+            'role' => 'prestataire',
+            'bio' => 'Prestataire expérimenté proposant des interventions professionnelles et ponctuelles.',
+            'hourly_rate' => 5000,
+        ]);
     }
 
     public function admin(): static

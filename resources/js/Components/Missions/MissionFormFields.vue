@@ -218,6 +218,13 @@ onBeforeUnmount(() => {
                 <span v-if="errors.date_start" class="error">{{ errorFor('date_start') }}</span>
             </div>
             <div class="form-group">
+                <label for="initial_hours">{{ $t('missions.form.initialHours') }} <em>*</em></label>
+                <input id="initial_hours" v-model="form.initial_hours" type="number" min="0.5" max="999.99" step="0.5"
+                    :class="{ invalid: errors.initial_hours }" :placeholder="$t('missions.form.initialHoursPlaceholder')">
+                <small class="field-hint">{{ $t('missions.form.initialHoursHint') }}</small>
+                <span v-if="errors.initial_hours" class="error">{{ errorFor('initial_hours') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="date_end">{{ $t('missions.form.desiredEnd') }}</label>
                 <input id="date_end" v-model="form.date_end" type="datetime-local"
                     :min="form.date_start || minimumDate" :class="{ invalid: errors.date_end }">

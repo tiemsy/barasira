@@ -11,6 +11,29 @@ class MissionSeeder extends Seeder
 {
     public function run(): void
     {
+        $hoursByMission = [
+            'Réparer une fuite sous l’évier' => [2, 2.5],
+            'Installer un tableau électrique sécurisé' => [6, 6],
+            'Confectionner trois tenues en bazin' => [12, 12],
+            'Configurer le réseau Wi-Fi du bureau' => [4, 5],
+            'Transporter des meubles vers Ségou' => [8, 8],
+            'Garder une boutique pendant deux semaines' => [84, 90],
+            'Monter un mur de clôture' => [36, 40],
+            'Nettoyer des bureaux après travaux' => [8, 9],
+            'Préparer une parcelle maraîchère' => [24, 27],
+            'Coiffer six personnes pour un mariage' => [8, 9],
+            'Réparer une moto en panne' => [3, 3.5],
+            'Préparer 80 repas pour une formation' => [16, 18],
+            'Installer un kit solaire familial' => [16, 18],
+            'Réviser trois climatiseurs' => [6, 7],
+            'Confectionner des uniformes de restaurant' => [30, 34],
+            'Livrer du matériel de marché' => [5, 5],
+            'Électrifier un petit poulailler' => [8, 9],
+            'Installer deux ordinateurs de caisse' => [5, 5],
+            'Remplacer la plomberie d’une douche' => [8, 8],
+            'Nettoyer une maison avant emménagement' => [7, 7],
+        ];
+
         $missions = [
             ['Réparer une fuite sous l’évier', 'aminata.client@barasira.test', 'Dépannage plomberie à domicile', 'mariam.plombiere@barasira.test', 'completed', 'Le siphon fuit depuis plusieurs jours. Il faut identifier la cause et remplacer les pièces défectueuses.', 'Baco-Djicoroni ACI, Bamako', 'Bamako', 15000, -12, -11, ['Recherche de fuite', 'Installation sanitaire']],
             ['Installer un tableau électrique sécurisé', 'moussa.client@barasira.test', 'Installation et dépannage électrique', 'ibrahim.electricien@barasira.test', 'in_progress', 'Remplacer l’ancien tableau du bureau et séparer les circuits prises, éclairage et climatisation.', 'Hamdallaye ACI 2000, Bamako', 'Bamako', 65000, 1, 2, ['Tableau électrique', 'Mise aux normes']],
@@ -53,6 +76,8 @@ class MissionSeeder extends Seeder
                 'longitude' => $coordinates[$city][1],
                 'status' => $status,
                 'price' => $price,
+                'initial_hours' => $hoursByMission[$title][0],
+                'billable_hours' => $hoursByMission[$title][1],
                 'date_start' => now()->startOfDay()->addDays($startDay)->setHour(9),
                 'date_end' => now()->startOfDay()->addDays($endDay)->setHour(12),
                 'skills' => $skills,

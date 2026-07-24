@@ -38,6 +38,8 @@ class MissionFactory extends Factory
             'longitude' => -8.0029,
             'status' => 'pending',
             'price' => 25000,
+            'initial_hours' => 3,
+            'billable_hours' => 3,
             'date_start' => $start,
             'date_end' => $start->copy()->addHours(3),
         ];

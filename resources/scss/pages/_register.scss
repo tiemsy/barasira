@@ -182,35 +182,78 @@
 }
 
 .sso-btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
     min-height: 52px;
+    padding: .75rem 1rem;
 
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: .7rem;
 
-    border-radius: 14px;
+    border: 1px solid transparent;
+    border-radius: 15px;
 
     font-weight: 800;
     text-decoration: none;
+    cursor: pointer;
 
-    transition: all .25s ease;
+    box-shadow: 0 6px 18px rgba($c-black, .07);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+
+    &::before {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: linear-gradient(110deg, transparent 20%, rgba($c-white, .28) 50%, transparent 80%);
+        content: "";
+        transform: translateX(-120%);
+        transition: transform .55s ease;
+    }
+
+    svg {
+        width: 21px;
+        height: 21px;
+        flex: 0 0 auto;
+        padding: .35rem;
+        border-radius: 9px;
+        background: rgba($c-white, .92);
+        box-shadow: 0 2px 8px rgba($c-black, .10);
+    }
 }
 
 .sso-btn--google {
-    background: $c-white;
-    color: $c-dark;
-    border: 1px solid $c-gray-200;
+    border-color: #d9e0ea;
+    background: linear-gradient(145deg, $c-white 0%, #f7f9fc 100%);
+    color: #25324a;
+
+    &:hover { border-color: #b9c5d6; }
 }
 
 .sso-btn--facebook {
-    background: #1877f2;
+    border-color: #1769d2;
+    background: linear-gradient(135deg, #2384ff 0%, #1264d5 100%);
     color: $c-white;
+    box-shadow: 0 8px 22px rgba(24, 119, 242, .24);
 }
 
 .sso-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba($c-black, .10);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba($c-black, .14);
+
+    &::before { transform: translateX(120%); }
+}
+
+.sso-btn:active {
+    transform: translateY(0) scale(.985);
+}
+
+.sso-btn:focus-visible {
+    outline: 3px solid rgba(23, 114, 69, .25);
+    outline-offset: 3px;
 }
 
 /* DIVIDER */

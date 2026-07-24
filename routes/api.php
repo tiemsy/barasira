@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterController as ApiRegisterController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\MissionAiController;
+use App\Http\Controllers\Api\MissionApplicationController;
 use App\Http\Controllers\Api\MissionController;
 use App\Http\Controllers\Api\PaymentController as ApiPaymentController;
 use App\Http\Controllers\Api\PortfolioItemController;
@@ -57,7 +58,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::match(['put', 'patch'], '/services/{service}', [ServiceController::class, 'update']);
     Route::delete('/services/{service}', [ServiceController::class, 'destroy']);
     Route::match(['post', 'put', 'patch'], '/users/{user}', [UserController::class, 'update']);
-    Route::post('/missions/{mission}/claim', [MissionController::class, 'claim']);
+    Route::post('/missions/{mission}/applications', [MissionApplicationController::class, 'store'])
+        ->middleware('throttle:10,1');
+    Route::post('/missions/{mission}/applications/{application}/accept', [MissionApplicationController::class, 'accept'])
+        ->middleware('throttle:10,1');
     Route::apiResource('missions', MissionController::class)->except('show');
     Route::get('/missions/{mission:slug}', [MissionController::class, 'show'])->name('missions.show');
     Route::get('/messages', [MessageController::class, 'index']);

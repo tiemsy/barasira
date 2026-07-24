@@ -40,6 +40,10 @@ class UserUpdateRequest extends FormRequest
             ],
             'phone' => ['sometimes', 'nullable', 'string', 'max:30'],
             'bio' => ['sometimes', 'nullable', 'string', 'max:2000'],
+            'hourly_rate' => [
+                Rule::requiredIf(fn () => $this->route('user')?->role === 'prestataire'),
+                'nullable', 'numeric', 'min:0', 'max:99999999.99',
+            ],
             'avatar' => ['sometimes', 'nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:3072'],
             'remove_avatar' => ['sometimes', 'boolean'],
         ];

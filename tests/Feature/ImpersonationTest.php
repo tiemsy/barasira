@@ -18,7 +18,10 @@ class ImpersonationTest extends TestCase
         $this->actingAs($superAdmin)
             ->post("/admin/users/{$client->id}/impersonate")
             ->assertRedirect(route('client.dashboard'))
-            ->assertSessionHas('impersonator.id', $superAdmin->id);
+            ->assertSessionHas('impersonator.id', $superAdmin->id)
+            ->assertSessionHas('impersonator.target_id', $client->id)
+            ->assertSessionHas('impersonator.role', 'superadmin')
+            ->assertSessionHas('impersonator.active', true);
 
         $this->assertAuthenticatedAs($client);
 
@@ -39,5 +42,39 @@ class ImpersonationTest extends TestCase
             ->assertForbidden();
 
         $this->assertAuthenticatedAs($admin);
+    }
+
+    public function test_logout_clears_active_impersonation(): void
+    {
+        $superAdmin = User::factory()->superAdmin()->create();
+        $client = User::factory()->client()->create();
+
+        $this->actingAs($superAdmin)->post("/admin/users/{$client->id}/impersonate");
+
+        $this->post('/logout')
+            ->assertRedirect('/')
+            ->assertSessionMissing('impersonator');
+
+        $this->assertGuest();
+    }
+
+    public function test_stale_impersonation_session_does_not_block_superadmin_from_changing_account(): void
+    {
+        $superAdmin = User::factory()->superAdmin()->create();
+        $client = User::factory()->client()->create();
+
+        $this->actingAs($superAdmin)
+            ->withSession([
+                'impersonator' => [
+                    'id' => $superAdmin->id,
+                    'name' => $superAdmin->first_name,
+                ],
+            ])
+            ->post("/admin/users/{$client->id}/impersonate")
+            ->assertRedirect(route('client.dashboard'))
+            ->assertSessionHas('impersonator.target_id', $client->id)
+            ->assertSessionHas('impersonator.active', true);
+
+        $this->assertAuthenticatedAs($client);
     }
 }

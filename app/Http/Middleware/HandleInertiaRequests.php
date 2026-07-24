@@ -38,6 +38,15 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $user = $request->user();
+        $impersonator = $request->session()->get('impersonator');
+        $activeImpersonation = $user
+            && is_array($impersonator)
+            && ($impersonator['active'] ?? false) === true
+            && ($impersonator['role'] ?? null) === 'superadmin'
+            && (int) ($impersonator['target_id'] ?? 0) === (int) $user->id
+            && (int) ($impersonator['id'] ?? 0) !== (int) $user->id
+                ? $impersonator
+                : null;
 
         return array_merge(parent::share($request), [
             'seo' => SeoMeta::defaults($request),
@@ -51,9 +60,10 @@ class HandleInertiaRequests extends Middleware
                         'email' => $user->email,
                         'phone' => $user->phone,
                         'role' => $user->role,
+                        'hourly_rate' => $user->hourly_rate,
                     ]
                     : null,
-                'impersonation' => $request->session()->get('impersonator'),
+                'impersonation' => $activeImpersonation,
             ],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
