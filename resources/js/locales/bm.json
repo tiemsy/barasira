@@ -384,6 +384,8 @@
         "index": {
             "eyebrow": "Jatigi ka yɔrɔ",
             "subtitle": "I ka ɲininiw ɲɛnabɔ, u ka taaɲɛ lajɛ, ani ka baarakɛcogo bɛɛ sɔrɔ joona.",
+            "availableEyebrow": "Baarakɛ sɔrɔsiraw",
+            "availableSubtitle": "Baarakɛcogo dayɛlɛlen minnu bɛ se ka ɲinini kɛ u la, olu bɛɛ lajɛ.",
             "visible": "Minw bɛ jira",
             "active": "Minw bɛ sen na",
             "search": "Baarakɛcogo ɲini",

@@ -357,6 +357,8 @@
         "index": {
             "eyebrow": "Espace client",
             "subtitle": "Pilotez vos demandes, suivez leur progression et retrouvez rapidement chaque intervention.",
+            "availableEyebrow": "Opportunités",
+            "availableSubtitle": "Consultez toutes les missions actuellement ouvertes et disponibles à la candidature.",
             "visible": "Affichées",
             "active": "Actives",
             "search": "Rechercher une mission",

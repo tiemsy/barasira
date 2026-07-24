@@ -22,10 +22,19 @@ class MissionRepositoryEloquent extends BaseRepositoryEloquent implements Missio
 
     public function userMissions(User $user, array $filters = [])
     {
+        $availableOnly = filter_var($filters['available'] ?? false, FILTER_VALIDATE_BOOL)
+            && in_array($user->role, ['prestataire', 'admin', 'superadmin'], true);
+
         $query = $this->model
             ->newQuery()
-            ->when($user->role === 'client', fn ($query) => $query->where('client_id', $user->id))
-            ->when($user->role === 'prestataire', function ($query) use ($user) {
+            ->when($availableOnly, fn ($query) => $query
+                ->whereNull('prestataire_id')
+                ->where('status', 'pending')
+                ->whereDoesntHave('invitations', fn ($query) => $query
+                    ->where('status', 'pending')
+                    ->where('expires_at', '>', now())))
+            ->when(! $availableOnly && $user->role === 'client', fn ($query) => $query->where('client_id', $user->id))
+            ->when(! $availableOnly && $user->role === 'prestataire', function ($query) use ($user) {
                 $query->where(function ($query) use ($user) {
                     $query->where('prestataire_id', $user->id)
                         ->orWhere(function ($query) {

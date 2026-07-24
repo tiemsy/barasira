@@ -135,6 +135,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Missions (client)
     Route::controller(MissionController::class)->group(function () {
         Route::get('/missions/index', 'userMissions')->name('front.missions.index');
+        Route::get('/missions/available', 'availableMissions')
+            ->middleware('role:prestataire,admin,superadmin')
+            ->name('front.missions.available');
         Route::get('/missions/create', 'create')->name('front.missions.create');
         Route::get('/missions/{mission}/edit', 'edit')->name('front.missions.edit');
         Route::post('/missions/{mission}/images', 'replaceImages')->middleware('throttle:10,1')->name('front.missions.images.replace');

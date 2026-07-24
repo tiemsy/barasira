@@ -39,6 +39,21 @@ class MissionController extends Controller
         ]);
     }
 
+    public function availableMissions(Request $request)
+    {
+        $user = $request->user();
+        abort_unless(in_array($user->role, ['prestataire', 'admin', 'superadmin'], true), 403);
+
+        return Inertia::render('Missions/Index', [
+            'missions' => $this->missionRepository->userMissions(
+                $user,
+                [...$request->all(), 'available' => true],
+            ),
+            'prestataires' => [],
+            'availableOnly' => true,
+        ]);
+    }
+
     public function show(Request $request, Mission $mission)
     {
         $this->authorize('view', $mission);

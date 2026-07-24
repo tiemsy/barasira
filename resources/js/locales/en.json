@@ -384,6 +384,8 @@
         "index": {
             "eyebrow": "Client area",
             "subtitle": "Manage your requests, track their progress, and quickly find every service intervention.",
+            "availableEyebrow": "Opportunities",
+            "availableSubtitle": "Browse every mission currently open and available for applications.",
             "visible": "Displayed",
             "active": "Active",
             "search": "Search missions",
