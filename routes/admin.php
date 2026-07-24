@@ -5,15 +5,20 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\DocumentController;
+use App\Http\Controllers\Admin\DatabaseBrowserController;
 use App\Http\Controllers\Admin\ImpersonationController;
 use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\TranslationWorkspaceController;
 use App\Http\Controllers\Admin\UserController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])->middleware('role:admin')->name('admin.dashboard');
 Route::get('/logs', [LogController::class, 'index'])->middleware('role:superadmin')->name('admin.logs.index');
 Route::delete('/logs', [LogController::class, 'purge'])->middleware('role:superadmin')->name('admin.logs.purge');
+Route::get('/database', [DatabaseBrowserController::class, 'index'])->middleware('role:superadmin')->name('admin.database.index');
+Route::get('/translations', [TranslationWorkspaceController::class, 'index'])->middleware('role:superadmin')->name('admin.translations.index');
 Route::get('/documents', [DocumentController::class, 'index'])->name('admin.documents.index');
 Route::get('/documents/{document}/download', [DocumentController::class, 'download'])->name('admin.documents.download');
 Route::patch('/documents/{document}/review', [DocumentController::class, 'review'])->name('admin.documents.review');

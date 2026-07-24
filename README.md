@@ -25,6 +25,7 @@ Barasira est une plateforme de mise en relation entre clients et prestataires de
 - Déploiement
 - Conventions d’architecture
 - Journaux système superadministrateur
+- Exploration de la base et traductions superadministrateur
 - Business model et prévisions
 
 ## Présentation
@@ -112,6 +113,15 @@ Le SEO technique facilite l’exploration et l’indexation, mais ne garantit pa
 Le rôle `superadmin` dispose d’un visualiseur à l’adresse `/admin/logs`. Il affiche les dernières lignes de l’audit métier, de Laravel, de PHP et de Nginx. Il peut purger toutes les sources accessibles ou uniquement les entrées comprises entre deux dates, après confirmation. La purge est elle-même retracée dans l’audit. Les sources sont définies par une liste blanche dans `config/log_viewer.php` : aucun chemin arbitraire ne peut être demandé depuis l’interface.
 
 Les modifications et suppressions Eloquent sont écrites dans `storage/logs/audit.log` avec l’acteur, la route, l’adresse IP et les valeurs avant/après ; les champs sensibles sont masqués. Le chemin est configurable avec `AUDIT_LOG_PATH` et le fichier est créé au démarrage. Les chemins PHP et Nginx peuvent être adaptés avec `LOG_VIEWER_PHP_PATH`, `LOG_VIEWER_NGINX_ACCESS_PATH` et `LOG_VIEWER_NGINX_ERROR_PATH`. Le processus PHP doit disposer des droits de lecture et d’écriture nécessaires aux sources qui doivent être purgées.
+
+## Exploration de la base et traductions superadministrateur
+
+Deux outils supplémentaires sont réservés au rôle `superadmin` :
+
+- `/admin/database` liste toutes les tables de la connexion principale, leurs colonnes, types, caractère obligatoire ou nullable, puis leurs données paginées par 25, 50 ou 100 lignes. La structure reste visible pour une table vide. Cet espace n’expose aucune opération d’écriture ; les mots de passe, jetons, clés et secrets sont masqués.
+- `/admin/translations` traduit un texte de 10 000 caractères maximum depuis le français, l’anglais ou le bambara vers toutes les autres langues prises en charge. Les résultats restent modifiables et copiables avant utilisation. Le moteur dépend de `AI_TRANSLATION_PROVIDER`, puis de `AI_PROVIDER` par défaut.
+
+Les routes sont protégées par le middleware `role:superadmin` et leurs contrôleurs vérifient également le rôle. L’explorateur n’accepte que les noms de tables obtenus depuis le schéma actif, ce qui empêche de fournir un identifiant SQL arbitraire.
 
 ## Tables métier principales
 
@@ -240,7 +250,7 @@ La commande crée le compte, restaure un compte précédemment supprimé ou met 
 - client — Utilisateur standard (défaut)
 - prestataire — Fournisseur de services
 - admin — Administrateur
-- superadmin — Superadministrateur avec accès aux fonctions sensibles et aux journaux
+- superadmin — Superadministrateur avec accès aux journaux, à l’explorateur de base en lecture seule et à l’atelier de traduction
 
 ## Commandes utiles
 
@@ -432,6 +442,7 @@ Les tests locaux nécessitent une base de données accessible. La configuration 
 - Documents prestataires conservés sur le disque privé et téléchargés après contrôle d’accès
 - Audit global des modifications et suppressions avec masquage des secrets
 - Consentement préalable aux cookies marketing
+- Exploration SQL limitée au schéma connu, sans route d’écriture et avec masquage des colonnes sensibles
 
 ## Déploiement
 

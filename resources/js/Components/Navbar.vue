@@ -188,6 +188,8 @@ onBeforeUnmount(() => document.removeEventListener('keydown', closeOnEscape))
                                     <span><strong>{{ $t('navbar.systemLogs') }}</strong><small>{{ $t('navbar.systemLogsHint') }}</small></span>
                                 </Link>
                             </li>
+                            <li v-if="isSuperAdmin"><Link href="/admin/database" class="submenu-link"><span class="submenu-icon"><DashboardIcon name="storage" /></span><span><strong>{{ $t('adminDatabase.title') }}</strong><small>{{ $t('adminDatabase.navHint') }}</small></span></Link></li>
+                            <li v-if="isSuperAdmin"><Link href="/admin/translations" class="submenu-link"><span class="submenu-icon"><DashboardIcon name="language" /></span><span><strong>{{ $t('adminTranslations.title') }}</strong><small>{{ $t('adminTranslations.navHint') }}</small></span></Link></li>
                             <li v-if="isAdmin"><Link href="/admin/partners" class="submenu-link"><span class="submenu-icon"><DashboardIcon name="building" /></span><span><strong>{{ $t('adminPartners.title') }}</strong><small>{{ $t('adminPartners.navHint') }}</small></span></Link></li>
                             <li v-if="isAdmin"><Link href="/admin/documents" class="submenu-link"><span class="submenu-icon"><DashboardIcon name="certificate" /></span><span><strong>{{ $t('adminDocuments.title') }}</strong><small>{{ $t('adminDocuments.navHint') }}</small></span></Link></li>
                             <li>
