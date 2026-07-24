@@ -44,7 +44,7 @@ class ServiceController extends Controller
     {
         $service->load([
             'user' => fn ($query) => $query
-                ->select(['id', 'first_name', 'last_name', 'avatar_url', 'bio', 'rating', 'identity_verified_at'])
+                ->select(['id', 'first_name', 'last_name', 'avatar_url', 'bio', 'rating', 'hourly_rate', 'identity_verified_at'])
                 ->with(['resume' => fn ($resume) => $resume
                     ->where('visibility', 'public')
                     ->with([
@@ -55,6 +55,7 @@ class ServiceController extends Controller
                 ->withCount([
                     'providerServices as active_services_count' => fn ($services) => $services->where('is_active', true),
                     'receivedReviews as reviews_count',
+                    'missionsAsPrestataire as completed_missions_count' => fn ($missions) => $missions->where('status', 'completed'),
                 ]),
             'category:id,name',
             'city:id,name',
@@ -67,6 +68,7 @@ class ServiceController extends Controller
             'providerStats' => [
                 'active_services' => (int) $service->user->active_services_count,
                 'reviews' => (int) $service->user->reviews_count,
+                'completed_missions' => (int) $service->user->completed_missions_count,
             ],
             'providerCredentials' => $request->user()?->role === 'client'
                 ? $service->user->resume

@@ -15,6 +15,7 @@ const form = useForm({
     phone: props.user?.phone ?? '',
     role: props.user?.role ?? 'client',
     bio: props.user?.bio ?? '',
+    hourly_rate: props.user?.hourly_rate ?? '',
     verified: props.user?.verified ?? false,
     password: '',
     password_confirmation: '',
@@ -44,6 +45,7 @@ function submit() {
                         <label><span>{{ $t('profile.email') }}</span><input v-model.trim="form.email" type="email" required maxlength="150"><small v-if="form.errors.email">{{ form.errors.email }}</small></label>
                         <label><span>{{ $t('profile.phone') }}</span><input v-model.trim="form.phone" type="tel" maxlength="30"><small v-if="form.errors.phone">{{ form.errors.phone }}</small></label>
                         <label><span>{{ $t('adminUsers.role') }}</span><select v-model="form.role"><option value="client">{{ $t('navbar.roles.client') }}</option><option value="prestataire">{{ $t('navbar.roles.provider') }}</option><option value="admin">{{ $t('navbar.roles.admin') }}</option><option v-if="canManageSuperAdmin" value="superadmin">{{ $t('navbar.roles.superadmin') }}</option></select><small v-if="form.errors.role">{{ form.errors.role }}</small></label>
+                        <label v-if="form.role === 'prestataire'"><span>{{ $t('profile.hourlyRate') }}</span><input v-model.number="form.hourly_rate" type="number" min="0" max="99999999.99" step="500" required><small v-if="form.errors.hourly_rate">{{ form.errors.hourly_rate }}</small></label>
                         <label class="admin-user-check"><input v-model="form.verified" type="checkbox"><span>{{ $t('adminUsers.markVerified') }}</span></label>
                         <label class="full"><span>{{ $t('profile.bio') }}</span><textarea v-model.trim="form.bio" rows="5" maxlength="2000"></textarea><small v-if="form.errors.bio">{{ form.errors.bio }}</small></label>
                     </div>

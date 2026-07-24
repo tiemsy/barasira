@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -13,6 +15,23 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $hourlyRates = [
+            'ibrahim.electricien@barasira.test' => 10000,
+            'mariam.plombiere@barasira.test' => 7500,
+            'oumar.transport@barasira.test' => 12500,
+            'aissata.couture@barasira.test' => 6000,
+            'boubacar.informatique@barasira.test' => 10000,
+            'amadou.gardien@barasira.test' => 5000,
+            'sekou.ouvrier@barasira.test' => 6000,
+            'awa.menage@barasira.test' => 5000,
+            'modibo.jardin@barasira.test' => 6000,
+            'kadidia.coiffure@barasira.test' => 7500,
+            'salif.mecanicien@barasira.test' => 10000,
+            'fanta.traiteur@barasira.test' => 15000,
+            'youssouf.solaire@barasira.test' => 15000,
+            'nana.climatisation@barasira.test' => 10000,
+        ];
+
         $users = [
             ['Aminata', 'Traoré', 'aminata.client@barasira.test', '+223 76 10 20 30', 'client', 'Particulier à Bamako, je recherche des professionnels ponctuels pour l’entretien de mon logement.'],
             ['Moussa', 'Coulibaly', 'moussa.client@barasira.test', '+223 70 21 32 43', 'client', 'Responsable d’une petite entreprise à Ségou, je publie régulièrement des besoins de maintenance.'],
@@ -39,6 +58,8 @@ class UserSeeder extends Seeder
         ];
 
         foreach ($users as [$firstName, $lastName, $email, $phone, $role, $bio]) {
+            $avatarUrl = $this->createDemoAvatar($firstName, $lastName, $email, $role);
+
             User::query()->updateOrCreate(['email' => $email], [
                 'first_name' => $firstName,
                 'last_name' => $lastName,
@@ -46,8 +67,9 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => $role,
                 'bio' => $bio,
-                'avatar_url' => null,
+                'avatar_url' => $avatarUrl,
                 'rating' => 0,
+                'hourly_rate' => $hourlyRates[$email] ?? null,
                 'verified' => true,
                 'email_verified_at' => now(),
             ]);
@@ -56,5 +78,28 @@ class UserSeeder extends Seeder
         $this->call(AdminSeeder::class);
 
         $this->command->info('UserSeeder exécuté avec succès.');
+    }
+
+    private function createDemoAvatar(string $firstName, string $lastName, string $email, string $role): string
+    {
+        $palette = $role === 'client'
+            ? [['#DFF3E7', '#176B45'], ['#FFF0D6', '#925B12'], ['#E7EEFF', '#3156A3']]
+            : [['#DDF0FF', '#17608C'], ['#EDE5FF', '#6842A8'], ['#FFE5EA', '#A43B53']];
+        [$background, $foreground] = $palette[abs(crc32($email)) % count($palette)];
+        $initials = mb_strtoupper(mb_substr($firstName, 0, 1).mb_substr($lastName, 0, 1));
+        $safeInitials = htmlspecialchars($initials, ENT_XML1 | ENT_QUOTES, 'UTF-8');
+        $svg = <<<SVG
+        <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+          <rect width="256" height="256" rx="128" fill="{$background}"/>
+          <circle cx="128" cy="102" r="46" fill="{$foreground}" opacity=".16"/>
+          <path d="M50 230c8-48 38-74 78-74s70 26 78 74" fill="{$foreground}" opacity=".16"/>
+          <text x="128" y="147" text-anchor="middle" font-family="Arial, sans-serif" font-size="68" font-weight="700" fill="{$foreground}">{$safeInitials}</text>
+        </svg>
+        SVG;
+        $path = 'avatars/demo/'.Str::slug(Str::before($email, '@')).'.svg';
+
+        Storage::disk('public')->put($path, $svg);
+
+        return Storage::disk('public')->url($path);
     }
 }

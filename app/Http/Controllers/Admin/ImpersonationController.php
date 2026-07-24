@@ -16,7 +16,11 @@ class ImpersonationController extends Controller
         $superAdmin = $request->user();
 
         abort_unless($superAdmin->isSuperAdmin(), 403);
-        abort_if($request->session()->has('impersonator'), 409, 'Une impersonation est déjà active.');
+
+        // Un superadministrateur authentifié ne peut pas être la cible d'une
+        // impersonation active. Toute valeur restante provient donc d'une
+        // ancienne session interrompue et ne doit pas bloquer un nouveau choix.
+        $request->session()->forget('impersonator');
 
         if ($superAdmin->is($user)) {
             return back()->with('error', __('auth.impersonation_self_forbidden'));
@@ -25,6 +29,9 @@ class ImpersonationController extends Controller
         $request->session()->put('impersonator', [
             'id' => $superAdmin->id,
             'name' => trim($superAdmin->first_name.' '.$superAdmin->last_name),
+            'role' => 'superadmin',
+            'target_id' => $user->id,
+            'active' => true,
         ]);
 
         Auth::login($user);

@@ -61,6 +61,32 @@
     font-weight: 700;
 }
 
+.mission-client-link {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0 .65rem;
+    align-items: center;
+    color: #183d2b;
+    text-decoration: none;
+
+    img,
+    > span {
+        display: grid;
+        width: 2.5rem;
+        height: 2.5rem;
+        grid-row: 1 / 3;
+        place-items: center;
+        border-radius: 50%;
+        background: #e5f3eb;
+        color: #176b45;
+        font-weight: 900;
+        object-fit: cover;
+    }
+
+    small { color: #177245; font-weight: 700; }
+    &:hover strong { text-decoration: underline; }
+}
+
 .claim-panel {
     display: flex;
     flex-wrap: wrap;
@@ -112,6 +138,71 @@
         align-items: stretch;
         flex-direction: column;
     }
+}
+
+.application-pricing-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex: 1 0 100%;
+    gap: .75rem;
+    padding-top: .25rem;
+
+    > label {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        padding: .75rem;
+        border: 1px solid #cfe0d6;
+        border-radius: 10px;
+        background: #fff;
+        color: #294a39;
+        font-weight: 700;
+    }
+
+    &__amount,
+    &__message {
+        grid-column: 1 / -1;
+        align-items: stretch !important;
+        flex-direction: column;
+    }
+
+    input[type="number"],
+    textarea {
+        box-sizing: border-box;
+        width: 100%;
+        padding: .7rem;
+        border: 1px solid #a9c8b6;
+        border-radius: 8px;
+        font: inherit;
+    }
+}
+
+.mission-applications-panel {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border: 1px solid #d7e8de;
+    border-radius: 16px;
+    background: #f7fbf8;
+
+    header > span { color: #177245; font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    h2 { margin: .3rem 0; font-size: 1.15rem; }
+    header p { margin: 0; color: #647269; }
+}
+
+.mission-applications-list { display: grid; gap: .85rem; margin-top: 1rem; }
+.mission-application { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .75rem 1rem; align-items: center; padding: 1rem; border: 1px solid #e1ebe5; border-radius: 12px; background: #fff; }
+.mission-application__profile { display: flex; gap: .8rem; align-items: flex-start; }
+.mission-application__profile > img,
+.mission-application__profile > span { display: grid; width: 2.75rem; height: 2.75rem; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #e5f3eb; color: #145c39; font-weight: 800; object-fit: cover; }
+.mission-application__profile strong,
+.mission-application__profile small { display: block; }
+.mission-application__profile p,
+.mission-application__message { margin: .3rem 0 0; color: #647269; }
+.mission-application button { grid-column: 2; padding: .75rem 1rem; border: 0; border-radius: 10px; background: #177245; color: #fff; font-weight: 800; cursor: pointer; }
+.mission-application button:disabled { opacity: .6; cursor: wait; }
+@media (max-width: 600px) {
+    .mission-application { grid-template-columns: 1fr; }
+    .mission-application button { grid-column: 1; }
 }
 
 .payment-panel {

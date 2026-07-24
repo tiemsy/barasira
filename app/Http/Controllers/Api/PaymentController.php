@@ -26,7 +26,7 @@ class PaymentController extends Controller
             $mission->client_id === $request->user()->id
             && $mission->status === 'in_progress'
             && $mission->prestataire_id
-            && $mission->price > 0,
+            && $mission->payableAmount() > 0,
             403
         );
 
@@ -44,7 +44,8 @@ class PaymentController extends Controller
             'images.*.mimes' => __('missions.images.format'),
             'images.*.max' => __('missions.images.size'),
         ]);
-        if ($data['method'] !== 'paypal' && ((int) $mission->price % 5 !== 0 || (float) $mission->price !== (float) (int) $mission->price)) {
+        $amount = $mission->payableAmount();
+        if ($data['method'] !== 'paypal' && ((int) $amount % 5 !== 0 || $amount !== (float) (int) $amount)) {
             return response()->json(['message' => __('messages.payment_multiple_of_five')], 422);
         }
         if ($mission->payments()->where('status', 'effectue')->exists()) {
@@ -70,7 +71,7 @@ class PaymentController extends Controller
             'mission_id' => $mission->id,
             'payer_id' => $request->user()->id,
             'receiver_id' => $mission->prestataire_id,
-            'amount' => $mission->price,
+            'amount' => $amount,
             'status' => 'en_attente',
             'method' => $data['method'],
             'provider' => $data['method'] === 'paypal' ? 'paypal' : 'cinetpay',

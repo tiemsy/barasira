@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\Mission;
-use App\Models\Service;
 use App\Models\User;
 
 class MissionPolicy
@@ -16,8 +15,12 @@ class MissionPolicy
     public function view(User $user, Mission $mission): bool
     {
         return $user->isAdmin()
-            || $mission->client_id === $user->id
-            || $mission->prestataire_id === $user->id
+            || (int) $mission->client_id === (int) $user->id
+            || ($mission->prestataire_id !== null
+                && (int) $mission->prestataire_id === (int) $user->id)
+            || ($user->role === 'prestataire' && $mission->applications()
+                ->where('worker_id', $user->id)
+                ->exists())
             || ($user->role === 'prestataire' && $mission->invitations()
                 ->where('provider_id', $user->id)
                 ->where('status', 'pending')
@@ -25,16 +28,14 @@ class MissionPolicy
                 ->exists())
             || ($user->role === 'prestataire'
                 && $mission->status === 'pending'
-                && $mission->prestataire_id === null
-                && $this->offersMissionService($user, $mission));
+                && $mission->prestataire_id === null);
     }
 
-    public function claim(User $user, Mission $mission): bool
+    public function apply(User $user, Mission $mission): bool
     {
         return $user->role === 'prestataire'
             && $mission->status === 'pending'
-            && $mission->prestataire_id === null
-            && $this->offersMissionService($user, $mission);
+            && $mission->prestataire_id === null;
     }
 
     public function create(User $user): bool
@@ -53,13 +54,5 @@ class MissionPolicy
     {
         return $user->isAdmin()
             || ($mission->client_id === $user->id && $mission->status === 'pending');
-    }
-
-    private function offersMissionService(User $user, Mission $mission): bool
-    {
-        return Service::query()
-            ->whereKey($mission->service_id)
-            ->activeForProvider($user)
-            ->exists();
     }
 }

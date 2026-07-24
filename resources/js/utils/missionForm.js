@@ -7,6 +7,7 @@ export const emptyMissionForm = () => ({
     latitude: null,
     longitude: null,
     price: '',
+    initial_hours: 1,
     date_start: '',
     date_end: '',
     skills: [],
@@ -18,6 +19,7 @@ export function normalizeMissionPayload(form) {
         ...form,
         service_id: form.service_id ? Number(form.service_id) : null,
         price: form.price !== '' && form.price !== null ? Number(form.price) : null,
+        initial_hours: Number(form.initial_hours),
         latitude: form.latitude !== '' && form.latitude !== null ? Number(form.latitude) : null,
         longitude: form.longitude !== '' && form.longitude !== null ? Number(form.longitude) : null,
         skills: form.skills.filter(Boolean),
@@ -50,6 +52,9 @@ export function validateMissionForm(form, t = key => key) {
     if (!form.city.trim()) errors.city = [t('missions.validation.cityRequired')]
     if (!form.address.trim()) errors.address = [t('missions.validation.addressRequired')]
     if (!form.date_start) errors.date_start = [t('missions.validation.startDateRequired')]
+    if (!form.initial_hours || Number(form.initial_hours) < 0.5) {
+        errors.initial_hours = [t('missions.validation.hoursRequired')]
+    }
     if (form.date_end && form.date_start && form.date_end < form.date_start) {
         errors.date_end = [t('missions.validation.endDateAfterStart')]
     }

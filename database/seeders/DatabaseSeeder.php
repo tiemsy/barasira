@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
                 UserSkillSeeder::class,
                 ResumeSeeder::class,
                 MissionSeeder::class,
+                ApplicationSeeder::class,
+                ClientCommentSeeder::class,
                 ReviewSeeder::class,
                 PlatformReviewSeeder::class,
                 PaymentSeeder::class,

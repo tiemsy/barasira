@@ -15,8 +15,8 @@ use App\Http\Controllers\Front\PaymentController;
 use App\Http\Controllers\Front\PlatformReviewController;
 use App\Http\Controllers\Front\ProfileController;
 use App\Http\Controllers\Front\ProfileCredentialController;
-use App\Http\Controllers\Front\ProviderDocumentController;
 use App\Http\Controllers\Front\Provider\DashboardController as ProviderDashboardController;
+use App\Http\Controllers\Front\ProviderDocumentController;
 use App\Http\Controllers\Front\ServiceController;
 use App\Http\Controllers\SeoController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -108,6 +108,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Profil
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/clients/{client:slug}/profile', [ProfileController::class, 'clientProfile'])->name('clients.profile.show');
+    Route::post('/clients/{client:slug}/comments', [ProfileController::class, 'storeClientComment'])
+        ->middleware(['role:prestataire', 'throttle:10,1'])
+        ->name('clients.comments.store');
 
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
     Route::get('/messages/create', [MessageController::class, 'create'])->name('messages.create');
@@ -131,9 +135,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Missions (client)
     Route::controller(MissionController::class)->group(function () {
         Route::get('/missions/index', 'userMissions')->name('front.missions.index');
+        Route::get('/missions/available', 'availableMissions')
+            ->middleware('role:prestataire,admin,superadmin')
+            ->name('front.missions.available');
         Route::get('/missions/create', 'create')->name('front.missions.create');
         Route::get('/missions/{mission}/edit', 'edit')->name('front.missions.edit');
         Route::post('/missions/{mission}/images', 'replaceImages')->middleware('throttle:10,1')->name('front.missions.images.replace');
+        Route::patch('/missions/{mission}/hours', 'updateBillableHours')->middleware(['role:client', 'throttle:10,1'])->name('front.missions.hours.update');
         Route::delete('/missions/{mission}/provider', 'unassignProvider')->middleware(['role:client', 'throttle:10,1'])->name('front.missions.provider.unassign');
         Route::get('/missions/{mission:slug}', 'show')->name('front.missions.show');
     });

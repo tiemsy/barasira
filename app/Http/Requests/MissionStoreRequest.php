@@ -85,6 +85,13 @@ class MissionStoreRequest extends FormRequest
                 'max:99999999.99',
             ],
 
+            'initial_hours' => [
+                'required',
+                'numeric',
+                'min:0.5',
+                'max:999.99',
+            ],
+
             'date_start' => [
                 'required',
                 'date',
@@ -109,6 +116,9 @@ class MissionStoreRequest extends FormRequest
 
             'price.numeric' => __('missions.validation.price_numeric'),
             'price.min' => __('missions.validation.price_min'),
+            'initial_hours.required' => __('missions.validation.hours_required'),
+            'initial_hours.numeric' => __('missions.validation.hours_numeric'),
+            'initial_hours.min' => __('missions.validation.hours_min'),
 
             'date_start.date' => __('missions.validation.start_date_invalid'),
             'date_end.date' => __('missions.validation.end_date_invalid'),

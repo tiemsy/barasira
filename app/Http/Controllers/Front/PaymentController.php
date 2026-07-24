@@ -25,7 +25,12 @@ class PaymentController extends Controller
     {
         $this->authorizePayment($request, $mission);
 
-        return Inertia::render('Payments/SelectMethod', ['mission' => $mission->only('id', 'title', 'price', 'status'), 'payments' => $mission->payments()->latest()->get()]);
+        return Inertia::render('Payments/SelectMethod', [
+            'mission' => $mission->only('id', 'title', 'price', 'status', 'initial_hours', 'billable_hours') + [
+                'payment_amount' => $mission->payableAmount(),
+            ],
+            'payments' => $mission->payments()->latest()->get(),
+        ]);
     }
 
     public function store(Request $request, Mission $mission): RedirectResponse
@@ -45,7 +50,8 @@ class PaymentController extends Controller
             'images.*.mimes' => __('missions.images.format'),
             'images.*.max' => __('missions.images.size'),
         ]);
-        if ($data['method'] !== 'paypal' && ((int) $mission->price % 5 !== 0 || (float) $mission->price !== (float) (int) $mission->price)) {
+        $amount = $mission->payableAmount();
+        if ($data['method'] !== 'paypal' && ((int) $amount % 5 !== 0 || $amount !== (float) (int) $amount)) {
             return back()->with('error', __('messages.payment_multiple_of_five_cinetpay'));
         }
         if ($mission->payments()->where('status', 'effectue')->exists()) {
@@ -65,7 +71,7 @@ class PaymentController extends Controller
         }
         $provider = $data['method'] === 'paypal' ? 'paypal' : 'cinetpay';
         $payment = Payment::create(['mission_id' => $mission->id, 'payer_id' => $request->user()->id, 'receiver_id' => $mission->prestataire_id,
-            'amount' => $mission->price, 'status' => 'en_attente', 'method' => $data['method'], 'provider' => $provider, 'transaction_id' => Str::upper(Str::random(20))]);
+            'amount' => $amount, 'status' => 'en_attente', 'method' => $data['method'], 'provider' => $provider, 'transaction_id' => Str::upper(Str::random(20))]);
         try {
             return redirect()->away($this->gateway->initialize($payment));
         } catch (Throwable $e) {
@@ -114,7 +120,7 @@ class PaymentController extends Controller
             $mission->client_id === $request->user()->id
             && $mission->status === 'in_progress'
             && $mission->prestataire_id
-            && $mission->price > 0,
+            && $mission->payableAmount() > 0,
             403
         );
     }

@@ -32,7 +32,7 @@ const draftRestored = ref(false)
 const minimumDate = minimumDateTime()
 const firstError = field => firstValidationError(errors.value, field)
 const canGenerateMission = computed(() => aiKeywords.value.trim().length >= 3 && !aiLoading.value)
-const requiredFields = ['title', 'service_id', 'description', 'city', 'address', 'date_start']
+const requiredFields = ['title', 'service_id', 'description', 'city', 'address', 'date_start', 'initial_hours']
 const completedRequiredFields = computed(() =>
     requiredFields.filter(field => String(form.value[field] ?? '').trim()).length
 )
