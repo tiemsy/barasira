@@ -21,7 +21,7 @@ services:
       REDIS_PORT: 6379
       QUEUE_CONNECTION: redis
     ports:
-      - "${APP_PORT:-8080}:80"
+      - "${APP_PORT:-80}:80"
     depends_on:
       db:
         condition: service_healthy
