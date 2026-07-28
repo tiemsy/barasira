@@ -219,6 +219,45 @@ Restreignez cette clé aux domaines autorisés et aux API Google Maps nécessair
 
 Le nom du service PHP peut varier selon le fichier Docker Compose utilisé.
 
+### Images Docker multi-environnements
+
+Le `Dockerfile` racine expose trois targets partageant les mêmes versions de PHP, extensions et assets :
+
+- `development` : dépendances Composer de développement, outils de test et erreurs PHP visibles ;
+- `staging` : image optimisée sans dépendances de développement, avec `APP_ENV=staging` ;
+- `production` : image optimisée sans dépendances de développement, avec `APP_ENV=production`.
+
+Construction indépendante des images :
+
+```bash
+docker build --target development -t barasira:development .
+docker build --target staging -t barasira:staging .
+docker build --target production -t barasira:production .
+```
+
+Les secrets ne sont jamais intégrés pendant le build. Ils sont injectés au démarrage du conteneur. Des modèles sont disponibles dans `docker/.env.staging.example` et `docker/.env.production.example`.
+
+Utilisation avec Compose :
+
+```bash
+# Développement local
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+
+# Staging
+docker compose --env-file docker/.env.staging -f docker-compose.staging.yml up -d --build
+
+# Production
+docker compose --env-file docker/.env.production -f docker-compose.prod.yml up -d --build
+```
+
+Copiez le modèle correspondant sans le versionner, remplacez toutes les valeurs d’exemple, puis exécutez les migrations après le déploiement :
+
+```bash
+docker compose --env-file docker/.env.production -f docker-compose.prod.yml exec nginx php artisan migrate --force
+```
+
+La CI construit les trois targets en parallèle avec Docker Buildx. Une pull request ne peut donc pas introduire un Dockerfile fonctionnel pour un environnement mais invalide pour un autre.
+
 ### Données de démonstration
 
 Les seeders créent un scénario déterministe avec des clients, des prestataires spécialisés et leurs tarifs horaires, quatorze services, des missions à différents statuts avec budget maximum et heures initiales/facturables, plusieurs candidatures horaires ou globales par mission, des commentaires sur les profils clients, des compétences, des diplômes, des expériences, des certifications, des avis, des paiements calculés depuis l’offre retenue et des fiches partenaires. Ils peuvent être relancés sans dupliquer ces données.

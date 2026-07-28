@@ -16,6 +16,34 @@ permissions:
   pull-requests: read
 
 jobs:
+  docker-build:
+    name: Docker (${{ matrix.target }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - development
+          - staging
+          - production
+
+    steps:
+      - name: Checkout du projet
+        uses: actions/checkout@v4
+
+      - name: Configurer Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Construire le target ${{ matrix.target }}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          target: ${{ matrix.target }}
+          push: false
+          cache-from: type=gha,scope=barasira-${{ matrix.target }}
+          cache-to: type=gha,mode=max,scope=barasira-${{ matrix.target }}
+
   laravel-tests:
     name: Tests
     runs-on: ubuntu-latest
@@ -83,6 +111,7 @@ jobs:
       - name: Run seeders
         if: github.ref == 'refs/heads/staging' || github.event_name == 'pull_request'
         run: php artisan db:seed --force
-
+      - name: Link stoge
+        run: php artisan storage:link
       - name: Exécuter les tests
         run: php artisan test
