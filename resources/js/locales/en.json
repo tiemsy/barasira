@@ -1361,6 +1361,7 @@
             "loginSubtitle": "Access your Barasira account",
             "continueGoogle": "Continue with Google",
             "continueFacebook": "Continue with Facebook",
+            "recommended": "Recommended",
             "loginEmailDivider": "or log in with your email",
             "registerEmailDivider": "or create an account with your email",
             "emailPlaceholder": "your{'@'}email.com",

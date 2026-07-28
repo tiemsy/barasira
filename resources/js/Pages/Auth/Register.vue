@@ -72,21 +72,14 @@
                         </div>
 
                         <!-- SSO -->
-                        <div class="sso-login">
+                        <div class="sso-login sso-login--google-only">
                             <a
                                 href="/api/auth/google/redirect?intent=register"
                                 class="sso-btn sso-btn--google"
                             >
                                 <DashboardIcon name="google" />
                                 {{ $t('ui.auth.continueGoogle') }}
-                            </a>
-
-                            <a
-                                href="/auth/facebook/redirect"
-                                class="sso-btn sso-btn--facebook"
-                            >
-                                <DashboardIcon name="facebook" />
-                                {{ $t('ui.auth.continueFacebook') }}
+                                <span class="sso-btn__recommended">{{ $t('ui.auth.recommended') }}</span>
                             </a>
                         </div>
 
