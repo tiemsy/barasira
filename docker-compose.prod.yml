@@ -25,8 +25,10 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       QUEUE_CONNECTION: redis
-    ports:
-      - "${APP_PORT:-80}:80"
+    # Le proxy Coolify accède au port 80 via le réseau Docker. Ne pas publier
+    # ce port sur l'hôte, car Coolify utilise déjà les ports publics 80 et 443.
+    expose:
+      - "80"
     depends_on:
       db:
         condition: service_healthy
