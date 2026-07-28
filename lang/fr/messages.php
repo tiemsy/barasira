@@ -10,6 +10,7 @@ return [
     'review_updated' => 'Votre avis a été modifié. Il est maintenant définitif.',
     'partner_created' => 'Partenaire créé avec succès.',
     'partner_updated' => 'Partenaire mis à jour avec succès.',
+    'partner_order_updated' => 'Ordre d’affichage des partenaires enregistré.',
     'partner_deleted' => 'Partenaire supprimé avec succès.',
     'document_uploaded' => 'Votre document a été envoyé pour vérification.',
     'document_deleted' => 'Le document a été supprimé.',

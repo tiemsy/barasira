@@ -52,6 +52,8 @@ Route::resource('/services', ServiceController::class)
         'update' => 'admin.services.update',
         'destroy' => 'admin.services.destroy',
     ]);
+Route::patch('/partners/order', [PartnerController::class, 'updateOrder'])
+    ->name('admin.partners.order');
 Route::resource('/partners', PartnerController::class)
     ->except(['show'])
     ->names([

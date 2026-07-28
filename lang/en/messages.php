@@ -8,7 +8,7 @@ return [
     'mission_already_paid' => 'This mission has already been paid.',
     'review_published' => 'Thank you, your review has been published.',
     'review_updated' => 'Your review has been updated and is now final.',
-    'partner_created' => 'Partner created successfully.', 'partner_updated' => 'Partner updated successfully.', 'partner_deleted' => 'Partner deleted successfully.',
+    'partner_created' => 'Partner created successfully.', 'partner_updated' => 'Partner updated successfully.', 'partner_order_updated' => 'Partner display order saved.', 'partner_deleted' => 'Partner deleted successfully.',
     'document_uploaded' => 'Your document was submitted for verification.', 'document_deleted' => 'The document was deleted.', 'document_reviewed' => 'The verification decision was saved.', 'logs_purged' => ':count log lines were purged.',
     'sponsorship_request_sent' => 'Your sponsored publication request has been sent. Our team will reply by email.',
     'sponsorship_request_failed' => 'Your request could not be sent. Please try again later.',

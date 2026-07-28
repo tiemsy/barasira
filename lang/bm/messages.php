@@ -8,7 +8,7 @@ return [
     'mission_already_paid' => 'Baarakɛcogo in sara kaban.',
     'review_published' => 'I ni ce, i ka hakɛli bilala.',
     'review_updated' => 'I ka hakɛli yɛlɛmana ani a dafalen don sisan.',
-    'partner_created' => 'Jɛɲɔgɔn dilanna.', 'partner_updated' => 'Jɛɲɔgɔn yɛlɛmana.', 'partner_deleted' => 'Jɛɲɔgɔn bɔra.',
+    'partner_created' => 'Jɛɲɔgɔn dilanna.', 'partner_updated' => 'Jɛɲɔgɔn yɛlɛmana.', 'partner_order_updated' => 'Jɛɲɔgɔnw jira cogo marala.', 'partner_deleted' => 'Jɛɲɔgɔn bɔra.',
     'document_uploaded' => 'I ka sɛbɛn cira sɛgɛsɛgɛli la.', 'document_deleted' => 'Sɛbɛn bɔra.', 'document_reviewed' => 'Sɛgɛsɛgɛli latigɛli marara.', 'logs_purged' => 'Kunnafoni sira :count bɔra.',
     'sponsorship_request_sent' => 'I ka sponsorisé kunnafoni ɲinini cira. An ka ekip bɛna jaabi email la.',
     'sponsorship_request_failed' => 'I ka ɲinini ma se ka ci. A kɛ kokura kɔfɛ.',
