@@ -18,7 +18,11 @@ class AdminExportTest extends TestCase
         $admin = User::factory()->admin()->create();
         Service::factory()->create();
         Mission::factory()->create();
-        Partner::query()->create(['company_name' => 'Partenaire exporté', 'contact_name' => 'Contact']);
+        Partner::query()->create([
+            'company_name' => 'Partenaire exporté',
+            'contact_name' => 'Contact',
+            'contact_email' => 'contact@example.com',
+        ]);
 
         foreach (['users', 'services', 'missions', 'partners'] as $resource) {
             $response = $this->actingAs($admin)->get("/admin/exports/{$resource}");
@@ -32,8 +36,18 @@ class AdminExportTest extends TestCase
     public function test_partner_export_uses_the_active_filters(): void
     {
         $admin = User::factory()->admin()->create();
-        Partner::query()->create(['company_name' => 'Visible Excel', 'contact_name' => 'Awa', 'is_published' => true]);
-        Partner::query()->create(['company_name' => 'Masqué Excel', 'contact_name' => 'Binta', 'is_published' => false]);
+        Partner::query()->create([
+            'company_name' => 'Visible Excel',
+            'contact_name' => 'Awa',
+            'contact_email' => 'awa@example.com',
+            'is_published' => true,
+        ]);
+        Partner::query()->create([
+            'company_name' => 'Masqué Excel',
+            'contact_name' => 'Binta',
+            'contact_email' => 'binta@example.com',
+            'is_published' => false,
+        ]);
 
         $content = $this->actingAs($admin)
             ->get('/admin/exports/partners?search=Visible&status=published')

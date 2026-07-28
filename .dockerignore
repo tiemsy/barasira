@@ -37,11 +37,9 @@ storage/framework/sessions/*
 storage/framework/views/*
 storage/logs/*
 
-# Tests
-tests
-phpunit.xml
-
 # Misc
-docker-compose.dev.yml
+docker-compose*.yml
 README.md
 *.md
+phpunit.xml
+tests
