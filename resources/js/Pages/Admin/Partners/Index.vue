@@ -19,7 +19,10 @@ const { t } = useI18n()
 const { confirm } = useConfirmDialog()
 const applyFilters = () => router.get('/admin/partners', filters, { preserveState: true, replace: true })
 const resetFilters = () => { Object.assign(filters, { search: '', status: '' }); applyFilters() }
-const saveOrder = () => orderForm.patch('/admin/partners/order', { preserveScroll: true })
+const saveOrder = () => orderForm.patch('/admin/partners/order', {
+    preserveScroll: true,
+    onSuccess: () => router.reload(),
+})
 async function removePartner(partner) {
     if (!await confirm({ title: t('confirmDialog.deleteTitle'), message: t('adminPartners.deleteConfirm', { name: partner.company_name }), confirmLabel: t('confirmDialog.delete') })) return
     router.delete(`/admin/partners/${partner.id}`, { preserveScroll: true })
