@@ -35,6 +35,11 @@ use Inertia\Inertia;
 |
 */
 
+// Point de contrôle utilisé par Docker et Coolify pour vérifier que Nginx,
+// PHP-FPM et Laravel répondent correctement avant d'envoyer du trafic.
+Route::get('/up', static fn () => response()->json(['status' => 'ok']))
+    ->name('health');
+
 // Home
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
