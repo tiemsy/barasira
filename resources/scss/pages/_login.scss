@@ -177,6 +177,7 @@
 .sso-login {
     display: grid;
     gap: .85rem;
+    width: 100%;
 
     margin-bottom: 1.5rem;
 }
@@ -226,6 +227,8 @@
 }
 
 .sso-btn--google {
+    width: 100%;
+    box-sizing: border-box;
     min-height: 58px;
     border-color: rgba($c-primary, .42);
     background: linear-gradient(145deg, $c-white 0%, #eef8f3 100%);
