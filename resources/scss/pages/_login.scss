@@ -174,9 +174,11 @@
 
 /* SSO */
 
-.sso-login {
+.login-card .sso-login {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: .85rem;
+    width: 100%;
 
     margin-bottom: 1.5rem;
 }
@@ -225,12 +227,30 @@
     }
 }
 
-.sso-btn--google {
-    border-color: #d9e0ea;
-    background: linear-gradient(145deg, $c-white 0%, #f7f9fc 100%);
-    color: #25324a;
+.login-card .sso-btn--google {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 58px;
+    border-color: rgba($c-primary, .42);
+    background: linear-gradient(145deg, $c-white 0%, #eef8f3 100%);
+    color: $c-primary;
+    box-shadow: 0 10px 26px rgba($c-primary, .16);
 
-    &:hover { border-color: #b9c5d6; }
+    &:hover { border-color: $c-primary; box-shadow: 0 14px 32px rgba($c-primary, .24); }
+}
+
+.sso-btn__recommended {
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    padding: .18rem .42rem;
+    border-radius: 999px;
+    background: $c-primary;
+    color: $c-white;
+    font-size: .58rem;
+    font-weight: 900;
+    letter-spacing: .04em;
+    text-transform: uppercase;
 }
 
 .sso-btn--facebook {

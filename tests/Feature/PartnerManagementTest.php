@@ -58,6 +58,25 @@ class PartnerManagementTest extends TestCase
         $this->actingAs(User::factory()->superAdmin()->create())->get('/admin/partners')->assertOk();
     }
 
+    public function test_admin_and_superadmin_can_update_partner_display_order(): void
+    {
+        $first = Partner::query()->create($this->partnerData(['company_name' => 'Premier', 'display_order' => 10]));
+        $second = Partner::query()->create($this->partnerData(['company_name' => 'Second', 'display_order' => 20]));
+
+        foreach ([User::factory()->admin()->create(), User::factory()->superAdmin()->create()] as $user) {
+            $response = $this->actingAs($user)->patch('/admin/partners/order', [
+                'partners' => [
+                    ['id' => $first->id, 'display_order' => 2],
+                    ['id' => $second->id, 'display_order' => 1],
+                ],
+            ]);
+
+            $response->assertRedirect();
+            $this->assertDatabaseHas('partners', ['id' => $first->id, 'display_order' => 2]);
+            $this->assertDatabaseHas('partners', ['id' => $second->id, 'display_order' => 1]);
+        }
+    }
+
     public function test_home_features_at_most_two_active_partners_ranked_by_amount_paid(): void
     {
         $low = Partner::query()->create($this->partnerData(['company_name' => 'Petit budget', 'is_published' => true]));
