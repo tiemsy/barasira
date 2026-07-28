@@ -174,8 +174,9 @@
 
 /* SSO */
 
-.sso-login {
+.login-card .sso-login {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: .85rem;
     width: 100%;
 
@@ -226,7 +227,7 @@
     }
 }
 
-.sso-btn--google {
+.login-card .sso-btn--google {
     width: 100%;
     box-sizing: border-box;
     min-height: 58px;
