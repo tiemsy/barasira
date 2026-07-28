@@ -21,7 +21,7 @@ const applyFilters = () => router.get('/admin/partners', filters, { preserveStat
 const resetFilters = () => { Object.assign(filters, { search: '', status: '' }); applyFilters() }
 const saveOrder = () => orderForm.patch('/admin/partners/order', {
     preserveScroll: true,
-    onSuccess: () => router.reload(),
+    onSuccess: () => window.location.reload(),
 })
 async function removePartner(partner) {
     if (!await confirm({ title: t('confirmDialog.deleteTitle'), message: t('adminPartners.deleteConfirm', { name: partner.company_name }), confirmLabel: t('confirmDialog.delete') })) return
