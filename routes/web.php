@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ImpersonationController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Front\AuthenticatedSessionController;
 use App\Http\Controllers\Front\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\Front\ContactController;
@@ -72,6 +73,14 @@ Route::controller(ServiceController::class)->group(function () {
 Route::middleware('guest')->group(function () {
     Route::get('/login', fn () => Inertia::render('Auth/Login'))->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'login'])->middleware(['verified'])->name('login.store');
+    Route::get('/forgot-password', [PasswordResetController::class, 'create'])->name('password.request');
+    Route::post('/forgot-password', [PasswordResetController::class, 'store'])
+        ->middleware('throttle:5,1')
+        ->name('password.email');
+    Route::get('/reset-password/{token}', [PasswordResetController::class, 'edit'])->name('password.reset');
+    Route::post('/reset-password', [PasswordResetController::class, 'update'])
+        ->middleware('throttle:5,1')
+        ->name('password.update');
 
     Route::get('/register', fn () => Inertia::render('Auth/Register', [
         'googleProfile' => session()->get('google_registration'),

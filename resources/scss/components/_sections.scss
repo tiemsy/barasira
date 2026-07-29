@@ -3,7 +3,7 @@
 
 
 .section {
-    padding: 4rem 1.5rem;
+    padding: $s-literal-4rem $s-literal-1-5rem;
 }
 
 .section-light {
@@ -15,5 +15,5 @@
     font-size: $t-heading-2;
     color: $c-secondary-dark;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: $s-space-12;
 }

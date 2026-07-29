@@ -3,21 +3,21 @@
 .section-category {
     min-height: 300px;
     background-color: floralwhite;
-    padding: 2%;
+    padding: $s-literal-2percent;
 
     .categories-grid {
         display: grid;
-        gap: 1.5rem;
+        gap: $s-space-6;
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     }
 
     .categories {
-        padding: 4rem 1rem;
+        padding: $s-literal-4rem $s-literal-1rem;
         background: $c-light;
 
         h2 {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: $s-space-10;
             font-size: 2rem;
         }
     }
@@ -25,7 +25,7 @@
     .category-card {
         background: $c-bg-card;
         border-radius: $s-radius;
-        padding: 1.5rem;
+        padding: $s-space-6;
         box-shadow: $s-shadow;
         text-align: center;
         transition: transform 0.25s ease;
@@ -41,9 +41,9 @@
         }
 
         h3 {
-            font-size: 1.5rem;
+            font-size: $t-text-2xl;
             color: $c-primary;
-            font-weight: 600;
+            font-weight: $t-font-semibold;
         }
     }
 }

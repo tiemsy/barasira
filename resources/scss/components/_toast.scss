@@ -1,18 +1,20 @@
+@use "../variables/globals" as *;
+
 .toast {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    padding: 14px 22px;
+    padding: $s-literal-14px $s-literal-22px;
     border-radius: 10px;
-    color: white;
+    color: $c-literal-528cef87d0;
 }
 
 .success {
-    background: #198754;
+    background: $c-literal-e3817b1ed5;
 }
 
 .error {
-    background: #dc3545;
+    background: $c-literal-021fa75a8d;
 }
 
 .fade-enter-active,

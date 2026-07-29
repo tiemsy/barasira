@@ -15,7 +15,7 @@ class MissionAiController extends Controller
             return response()->json(['mission' => $service->generate($request->validated('keywords'), $services)]);
         } catch (Throwable $e) {
             report($e);
-            return response()->json(['message' => app()->isProduction() ? 'Le service IA est temporairement indisponible.' : $e->getMessage()], 422);
+            return response()->json(['message' => app()->isProduction() ? __('messages.ai_unavailable') : $e->getMessage()], 422);
         }
     }
 }

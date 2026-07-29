@@ -422,6 +422,8 @@ const form = useForm({
 const errors = ref({})
 const loading = ref(false)
 const successMessage = ref(null)
+const showPassword = ref(false)
+const showPasswordConfirmation = ref(false)
 
 const submit = async () => {
     errors.value = {}

@@ -7,6 +7,7 @@ const requestedLocale = (localStorage.getItem('lang') || navigator.language || '
   .toLowerCase()
   .split(/[-_]/)[0]
 const locale = ['fr', 'en', 'bm'].includes(requestedLocale) ? requestedLocale : 'fr'
+document.cookie = `barasira_locale=${locale}; path=/; max-age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`
 
 export default createI18n({
   legacy: false,

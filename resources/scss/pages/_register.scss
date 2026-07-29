@@ -4,18 +4,18 @@
 
 .register-page {
     min-height: 100vh;
-    padding: 4rem 1.5rem;
+    padding: $s-literal-4rem $s-literal-1-5rem;
 
     background:
-        radial-gradient(circle at top left, rgba($c-primary-light, .16), transparent 32%),
-        radial-gradient(circle at bottom right, rgba($c-secondary, .14), transparent 30%),
+        radial-gradient(circle at top left, $c-literal-e698f59465, $c-literal-038e6f38d0 32%),
+        radial-gradient(circle at bottom right, $c-literal-135092af8f, $c-literal-038e6f38d0 30%),
         $c-light;
 }
 
 .register-shell {
     max-width: 1280px;
     min-height: 780px;
-    margin: 0 auto;
+    margin: $s-space-0 auto;
 
     display: grid;
     grid-template-columns: .95fr 1.05fr;
@@ -25,7 +25,7 @@
     border-radius: 32px;
     background: $c-white;
     border: 1px solid $c-gray-200;
-    box-shadow: 0 30px 90px rgba($c-black, .14);
+    box-shadow: 0 30px 90px $c-literal-af5d4044f7;
 }
 
 /* VISUAL */
@@ -36,21 +36,21 @@
     display: flex;
     align-items: flex-end;
 
-    padding: 4rem;
+    padding: $s-space-16;
 
     color: $c-white;
     background:
-        linear-gradient(135deg, rgba($c-black, .86), rgba($c-black, .62)),
-        url('/images/auth-bg.png') center / cover no-repeat;
+        linear-gradient(135deg, $c-literal-3bb435c6f3, $c-literal-e65bee08ca),
+        url('../images/auth-bg.png') center / cover no-repeat;
 }
 
 .register-visual::before {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: $s-space-0;
 
     background:
-        radial-gradient(circle at top right, rgba($c-white, .18), transparent 30%);
+        radial-gradient(circle at top right, $c-literal-ad1eeabad1, $c-literal-038e6f38d0 30%);
 }
 
 .register-visual__content {
@@ -63,12 +63,12 @@
 .register-visual__badge {
     display: inline-flex;
 
-    padding: .55rem 1rem;
-    margin-bottom: 1.5rem;
+    padding: $s-literal--55rem $s-literal-1rem;
+    margin-bottom: $s-space-6;
 
-    border-radius: 999px;
+    border-radius: $s-radius-pill;
 
-    background: rgba($c-white, .16);
+    background: $c-literal-f9a3ea7e4e;
     backdrop-filter: blur(12px);
 
     font-size: .9rem;
@@ -76,7 +76,7 @@
 }
 
 .register-visual h2 {
-    margin-bottom: 1.25rem;
+    margin-bottom: $s-space-5;
 
     font-size: clamp(2rem, 4vw, 3.6rem);
     line-height: 1.05;
@@ -85,24 +85,24 @@
 }
 
 .register-visual p {
-    margin-bottom: 2rem;
+    margin-bottom: $s-space-8;
 
-    color: rgba($c-white, .84);
+    color: $c-literal-8b70aef621;
     line-height: 1.8;
 }
 
 .register-visual__features {
     display: flex;
     flex-direction: column;
-    gap: .85rem;
+    gap: $s-literal--85rem;
 }
 
 .register-visual__features span {
     display: flex;
     align-items: center;
-    gap: .6rem;
+    gap: $s-literal--6rem;
 
-    font-weight: 700;
+    font-weight: $t-font-bold;
 }
 
 .register-visual__features i {
@@ -112,7 +112,7 @@
 /* PANEL */
 
 .register-panel {
-    padding: 2rem;
+    padding: $s-space-8;
 
     background:
         linear-gradient(
@@ -123,21 +123,21 @@
 }
 
 .register-breadcrumb {
-    margin-bottom: 1.25rem;
+    margin-bottom: $s-space-5;
 }
 
 .register-card {
-    padding: 2rem;
+    padding: $s-space-8;
 
     border-radius: 24px;
-    background: rgba($c-white, .96);
+    background: $c-literal-33412dda84;
     border: 1px solid $c-gray-200;
-    box-shadow: 0 10px 25px rgba($c-black, .08);
+    box-shadow: 0 10px 25px $c-literal-1da932bea0;
 }
 
 .register-header {
     text-align: center;
-    margin-bottom: 1.75rem;
+    margin-bottom: $s-literal-1-75rem;
 }
 
 .register-logo-dot {
@@ -146,7 +146,7 @@
     width: 48px;
     height: 48px;
 
-    margin-bottom: 1rem;
+    margin-bottom: $s-space-4;
 
     border-radius: 16px;
 
@@ -159,7 +159,7 @@
 }
 
 .register-title {
-    margin-bottom: .5rem;
+    margin-bottom: $s-literal--5rem;
 
     font-size: 2rem;
     font-weight: 900;
@@ -176,9 +176,13 @@
 .sso-login {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: .85rem;
+    gap: $s-literal--85rem;
 
-    margin-bottom: 1.5rem;
+    margin-bottom: $s-space-6;
+}
+
+.sso-login--google-only {
+    grid-template-columns: 1fr;
 }
 
 .sso-login--google-only {
@@ -191,28 +195,28 @@
     overflow: hidden;
 
     min-height: 52px;
-    padding: .75rem 1rem;
+    padding: $s-literal--75rem $s-literal-1rem;
 
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: .7rem;
+    gap: $s-literal--7rem;
 
-    border: 1px solid transparent;
+    border: 1px solid $c-literal-038e6f38d0;
     border-radius: 15px;
 
     font-weight: 800;
     text-decoration: none;
     cursor: pointer;
 
-    box-shadow: 0 6px 18px rgba($c-black, .07);
+    box-shadow: 0 6px 18px $c-literal-59f2f0d4bc;
     transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
 
     &::before {
         position: absolute;
         z-index: -1;
-        inset: 0;
-        background: linear-gradient(110deg, transparent 20%, rgba($c-white, .28) 50%, transparent 80%);
+        inset: $s-space-0;
+        background: linear-gradient(110deg, $c-literal-038e6f38d0 20%, $c-literal-6a06ce0752 50%, $c-literal-038e6f38d0 80%);
         content: "";
         transform: translateX(-120%);
         transition: transform .55s ease;
@@ -222,29 +226,29 @@
         width: 21px;
         height: 21px;
         flex: 0 0 auto;
-        padding: .35rem;
+        padding: $s-literal--35rem;
         border-radius: 9px;
-        background: rgba($c-white, .92);
-        box-shadow: 0 2px 8px rgba($c-black, .10);
+        background: $c-literal-c3e249ada4;
+        box-shadow: 0 2px 8px $c-literal-13d6108e7f;
     }
 }
 
 .sso-btn--google {
     min-height: 58px;
-    border-color: rgba($c-primary, .42);
-    background: linear-gradient(145deg, $c-white 0%, #eef8f3 100%);
+    border-color: $c-literal-5fed01ef5b;
+    background: linear-gradient(145deg, $c-white 0%, $c-literal-83ab03b166 100%);
     color: $c-primary;
-    box-shadow: 0 10px 26px rgba($c-primary, .16);
+    box-shadow: 0 10px 26px $c-literal-cab5b23153;
 
-    &:hover { border-color: $c-primary; box-shadow: 0 14px 32px rgba($c-primary, .24); }
+    &:hover { border-color: $c-primary; box-shadow: 0 14px 32px $c-literal-43fff05504; }
 }
 
 .sso-btn__recommended {
     position: absolute;
     top: 5px;
     right: 7px;
-    padding: .18rem .42rem;
-    border-radius: 999px;
+    padding: $s-literal--18rem $s-literal--42rem;
+    border-radius: $s-radius-pill;
     background: $c-primary;
     color: $c-white;
     font-size: .58rem;
@@ -254,15 +258,15 @@
 }
 
 .sso-btn--facebook {
-    border-color: #1769d2;
-    background: linear-gradient(135deg, #2384ff 0%, #1264d5 100%);
+    border-color: $c-literal-0ce89489a9;
+    background: linear-gradient(135deg, $c-literal-ff88247f4c 0%, $c-literal-7f9f8c0428 100%);
     color: $c-white;
-    box-shadow: 0 8px 22px rgba(24, 119, 242, .24);
+    box-shadow: 0 8px 22px $c-literal-e166bf2fbc;
 }
 
 .sso-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 28px rgba($c-black, .14);
+    box-shadow: 0 12px 28px $c-literal-af5d4044f7;
 
     &::before { transform: translateX(120%); }
 }
@@ -272,7 +276,7 @@
 }
 
 .sso-btn:focus-visible {
-    outline: 3px solid rgba(23, 114, 69, .25);
+    outline: 3px solid $c-literal-65f96ff488;
     outline-offset: 3px;
 }
 
@@ -281,9 +285,9 @@
 .auth-divider {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: $s-space-4;
 
-    margin: 1.5rem 0;
+    margin: $s-literal-1-5rem $s-space-0;
 
     color: $c-gray-500;
     font-size: .85rem;
@@ -304,22 +308,22 @@
 .register-form {
     display: flex;
     flex-direction: column;
-    gap: 1.15rem;
+    gap: $s-literal-1-15rem;
 }
 
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: $s-space-4;
 }
 
 .form-group label {
     display: block;
 
-    margin-bottom: .5rem;
+    margin-bottom: $s-literal--5rem;
 
     color: $c-dark;
-    font-weight: 700;
+    font-weight: $t-font-bold;
 }
 
 .input-wrapper {
@@ -327,9 +331,9 @@
 
     display: flex;
     align-items: center;
-    gap: .75rem;
+    gap: $s-literal--75rem;
 
-    padding: 0 1rem;
+    padding: $s-space-0 $s-literal-1rem;
 
     border: 1px solid $c-gray-200;
     border-radius: 14px;
@@ -341,7 +345,7 @@
 
 .input-wrapper:focus-within {
     border-color: $c-primary-light;
-    box-shadow: 0 0 0 4px rgba($c-primary-light, .16);
+    box-shadow: 0 0 0 4px $c-literal-e698f59465;
 }
 
 .input-wrapper > i {
@@ -354,7 +358,7 @@
 
     border: none;
     outline: none;
-    background: transparent;
+    background: $c-literal-038e6f38d0;
 
     color: $c-dark;
 }
@@ -367,8 +371,11 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: $s-literal-44px;
+    min-height: $s-literal-44px;
 
     color: $c-gray-500;
+    touch-action: manipulation;
 }
 
 .password-toggle:hover {
@@ -380,7 +387,7 @@
 .role-selector {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: $s-space-4;
 }
 
 .role-card {
@@ -388,9 +395,9 @@
 
     display: flex;
     align-items: center;
-    gap: .85rem;
+    gap: $s-literal--85rem;
 
-    padding: 1rem;
+    padding: $s-space-4;
 
     border-radius: 16px;
 
@@ -418,7 +425,7 @@
 
     border-radius: 14px;
 
-    background: rgba($c-primary-light, .12);
+    background: $c-literal-58a051a5af;
     color: $c-primary;
 
     flex-shrink: 0;
@@ -439,8 +446,8 @@
 
 .role-card.active {
     border-color: $c-primary-light;
-    background: rgba($c-primary-light, .08);
-    box-shadow: 0 0 0 4px rgba($c-primary-light, .12);
+    background: $c-literal-4fb174c5b3;
+    box-shadow: 0 0 0 4px $c-literal-58a051a5af;
 }
 
 /* MESSAGES */
@@ -451,22 +458,22 @@
 }
 
 .input-error--global {
-    padding: .85rem 1rem;
+    padding: $s-literal--85rem $s-literal-1rem;
 
     border-radius: 12px;
 
-    background: rgba($c-error, .10);
+    background: $c-literal-4d683cb8bf;
 }
 
 .success-text {
-    padding: .85rem 1rem;
+    padding: $s-literal--85rem $s-literal-1rem;
 
     border-radius: 12px;
 
     color: $c-success;
-    background: rgba($c-success, .10);
+    background: $c-literal-4f74e5296b;
 
-    font-weight: 700;
+    font-weight: $t-font-bold;
 }
 
 /* SUBMIT */
@@ -499,7 +506,7 @@
 
 .register-submit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 30px rgba($c-primary, .22);
+    box-shadow: 0 14px 30px $c-literal-8eff375f89;
 }
 
 .register-submit:disabled {
@@ -511,7 +518,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: .5rem;
+    gap: $s-literal--5rem;
 }
 
 /* FOOTER */
@@ -540,15 +547,15 @@
 
 @media (max-width: 720px) {
     .register-page {
-        padding: 2rem 1rem;
+        padding: $s-literal-2rem $s-literal-1rem;
     }
 
     .register-panel {
-        padding: 1rem;
+        padding: $s-space-4;
     }
 
     .register-card {
-        padding: 1.5rem;
+        padding: $s-space-6;
     }
 
     .form-grid,
@@ -560,13 +567,13 @@
 .register-sso-notice {
     display: flex;
     align-items: flex-start;
-    gap: .65rem;
-    margin: 0 0 1.25rem;
-    padding: .85rem 1rem;
-    border: 1px solid #f2d594;
+    gap: $s-literal--65rem;
+    margin: $s-space-0 $s-space-0 $s-literal-1-25rem;
+    padding: $s-literal--85rem $s-literal-1rem;
+    border: 1px solid $c-literal-9965caf915;
     border-radius: 12px;
-    background: #fff8e7;
-    color: #755310;
+    background: $c-literal-a38ee6f598;
+    color: $c-literal-55c0f0ef77;
     font-size: .9rem;
     line-height: 1.5;
 }

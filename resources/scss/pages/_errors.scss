@@ -6,16 +6,16 @@
     display: grid;
     overflow: hidden;
     place-items: center;
-    padding: 4rem 1.5rem;
+    padding: $s-literal-4rem $s-literal-1-5rem;
     background:
-        radial-gradient(circle at 12% 15%, rgba($c-primary, .12), transparent 28%),
-        radial-gradient(circle at 88% 80%, rgba($c-secondary, .12), transparent 25%),
-        #f8faf9;
+        radial-gradient(circle at 12% 15%, $c-literal-12c9fe5ced, $c-literal-038e6f38d0 28%),
+        radial-gradient(circle at 88% 80%, $c-literal-e174cc3125, $c-literal-038e6f38d0 25%),
+        $c-literal-b4640e637f;
 }
 
 .error-state__ambient {
     position: absolute;
-    border: 1px solid rgba($c-primary, .1);
+    border: 1px solid $c-literal-d56f18f1a4;
     border-radius: 50%;
 }
 
@@ -42,8 +42,8 @@
     overflow: hidden;
     border: 1px solid $c-gray-200;
     border-radius: 30px;
-    background: rgba($c-white, .94);
-    box-shadow: 0 35px 90px rgba($c-black, .12);
+    background: $c-literal-6ce3e1481e;
+    box-shadow: 0 35px 90px $c-literal-e615de6c0c;
     backdrop-filter: blur(16px);
 }
 
@@ -54,14 +54,14 @@
     place-items: center;
     overflow: hidden;
     background:
-        radial-gradient(circle at 30% 25%, rgba($c-white, .15), transparent 24%),
-        linear-gradient(145deg, #10271b, $c-primary);
+        radial-gradient(circle at 30% 25%, $c-literal-83260b1165, $c-literal-038e6f38d0 24%),
+        linear-gradient(145deg, $c-literal-a816eb2f53, $c-primary);
 
     &::before,
     &::after {
         content: "";
         position: absolute;
-        border: 1px solid rgba($c-white, .12);
+        border: 1px solid $c-literal-7758da34af;
         border-radius: 50%;
     }
 
@@ -80,7 +80,7 @@
     position: absolute;
     right: -8px;
     bottom: -32px;
-    color: rgba($c-white, .07);
+    color: $c-literal-955c8be5bd;
     font-size: clamp(9rem, 21vw, 15rem);
     font-weight: 950;
     letter-spacing: -.09em;
@@ -94,10 +94,10 @@
     height: 144px;
     display: grid;
     place-items: center;
-    border: 1px solid rgba($c-white, .45);
+    border: 1px solid $c-literal-ba92af55aa;
     border-radius: 50% 50% 42% 42% / 35% 35% 58% 58%;
-    background: rgba($c-white, .12);
-    box-shadow: 0 25px 55px rgba($c-black, .2);
+    background: $c-literal-7758da34af;
+    box-shadow: 0 25px 55px $c-literal-e0779e48a3;
     backdrop-filter: blur(12px);
 
     span {
@@ -117,12 +117,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: clamp(2rem, 6vw, 4.5rem);
+    padding: clamp($s-literal-2rem, $s-literal-6vw, $s-literal-4-5rem);
 
     h1 {
         max-width: 520px;
-        margin: .8rem 0 1rem;
-        color: #12221a;
+        margin: $s-literal--8rem $s-space-0 $s-literal-1rem;
+        color: $c-literal-e124a2c61c;
         font-size: clamp(2.2rem, 5vw, 3.9rem);
         font-weight: 950;
         letter-spacing: -.055em;
@@ -131,7 +131,7 @@
 
     > p {
         max-width: 560px;
-        margin: 0;
+        margin: $s-space-0;
         color: $c-gray-500;
         line-height: 1.75;
     }
@@ -148,8 +148,8 @@
 .error-state__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: .7rem;
-    margin-top: 2rem;
+    gap: $s-literal--7rem;
+    margin-top: $s-space-8;
 }
 
 .error-state__primary,
@@ -158,8 +158,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: .6rem;
-    padding: .75rem 1.1rem;
+    gap: $s-literal--6rem;
+    padding: $s-literal--75rem $s-literal-1-1rem;
     border-radius: 12px;
     cursor: pointer;
     font: inherit;
@@ -171,7 +171,7 @@
     border: 1px solid $c-primary;
     background: $c-primary;
     color: $c-white;
-    box-shadow: 0 10px 24px rgba($c-primary, .2);
+    box-shadow: 0 10px 24px $c-literal-721553b720;
 }
 
 .error-state__secondary {
@@ -181,7 +181,7 @@
 }
 
 .error-state__help {
-    margin-top: 2rem !important;
+    margin-top: $s-literal-2rem !important;
     font-size: .8rem;
 
     a {
@@ -192,7 +192,7 @@
 
 @media (max-width: 760px) {
     .error-state {
-        padding: 2rem 1rem;
+        padding: $s-literal-2rem $s-literal-1rem;
     }
 
     .error-state__card {

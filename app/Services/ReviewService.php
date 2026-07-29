@@ -17,19 +17,19 @@ class ReviewService
 
             if (! $reviewer->isAdmin() && $mission->client_id !== $reviewer->id) {
                 throw ValidationException::withMessages([
-                    'mission_id' => __('Vous ne pouvez noter que vos propres missions.'),
+                    'mission_id' => __('messages.review_own_missions_only'),
                 ]);
             }
 
             if ($mission->status !== 'completed' || $mission->prestataire_id === null) {
                 throw ValidationException::withMessages([
-                    'mission_id' => __('La mission doit être terminée avant de noter le prestataire.'),
+                    'mission_id' => __('messages.review_mission_not_completed'),
                 ]);
             }
 
             if (Review::query()->where('mission_id', $mission->id)->where('reviewer_id', $reviewer->id)->exists()) {
                 throw ValidationException::withMessages([
-                    'mission_id' => __('Vous avez déjà donné votre avis pour cette mission.'),
+                    'mission_id' => __('messages.review_already_exists'),
                 ]);
             }
 
@@ -54,13 +54,13 @@ class ReviewService
 
             if ($review->reviewer_id !== $reviewer->id) {
                 throw ValidationException::withMessages([
-                    'review' => __('Vous ne pouvez modifier que votre propre avis.'),
+                    'review' => __('messages.review_own_only'),
                 ]);
             }
 
             if ($review->edit_count >= 1) {
                 throw ValidationException::withMessages([
-                    'review' => __('Cet avis a déjà été modifié et ne peut plus être changé.'),
+                    'review' => __('messages.review_already_revised'),
                 ]);
             }
 

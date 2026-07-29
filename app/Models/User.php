@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\HasUniqueSlug;
 use App\Notifications\VerifyEmailCustom;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements HasLocalePreference, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, HasUniqueSlug, Notifiable, SoftDeletes;
 
@@ -21,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'first_name',
         'last_name',
         'email',
+        'locale',
         'password',
         'phone',
         'role',
@@ -66,6 +68,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function routeNotificationForWhatsApp(): ?string
     {
         return $this->phone;
+    }
+
+    public function preferredLocale(): string
+    {
+        return in_array($this->locale, ['fr', 'en', 'bm'], true) ? $this->locale : 'fr';
     }
 
     public function syncIdentityVerification(): void

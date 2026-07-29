@@ -114,7 +114,7 @@ class ServiceController extends Controller
 
         if ($service->missions()->exists()) {
             return response()->json([
-                'message' => __('Ce service est lié à une mission et ne peut pas être supprimé.'),
+                'message' => __('messages.service_linked'),
             ], 422);
         }
 

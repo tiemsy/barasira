@@ -24,6 +24,7 @@ class RegisterController extends Controller
             'last_name' => $request->last_name,
             'phone' => $request->phone,
             'email' => $request->email ?? null,
+            'locale' => app()->getLocale(),
             'role' => $request->role,
             'password' => Hash::make($isGoogleRegistration ? Str::random(40) : $request->password),
             'verified' => $isGoogleRegistration,

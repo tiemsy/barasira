@@ -18,7 +18,7 @@ class TranslationController extends Controller
             ]);
         } catch (Throwable $e) {
             report($e);
-            return response()->json(['message' => app()->isProduction() ? 'La traduction est temporairement indisponible.' : $e->getMessage()], 422);
+            return response()->json(['message' => app()->isProduction() ? __('messages.translation_unavailable') : $e->getMessage()], 422);
         }
     }
 }

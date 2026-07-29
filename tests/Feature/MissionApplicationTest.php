@@ -72,7 +72,7 @@ class MissionApplicationTest extends TestCase
     {
         NotificationFacade::fake();
         $client = User::factory()->client()->create();
-        $selectedProvider = User::factory()->provider()->create();
+        $selectedProvider = User::factory()->provider()->create(['locale' => 'en']);
         $otherProvider = User::factory()->provider()->create();
         $mission = Mission::factory()->create(['client_id' => $client->id]);
         $selectedApplication = Application::query()->create([
@@ -97,6 +97,8 @@ class MissionApplicationTest extends TestCase
         $this->assertDatabaseHas('notifications', [
             'user_id' => $selectedProvider->id,
             'type' => 'application_accepted',
+            'title' => 'Application accepted',
+            'message' => "Your application for “{$mission->title}” was accepted.",
             'read' => false,
         ]);
         NotificationFacade::assertSentTo($selectedProvider, ApplicationAcceptedNotification::class);

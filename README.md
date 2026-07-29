@@ -258,6 +258,40 @@ docker compose --env-file docker/.env.production -f docker-compose.prod.yml exec
 
 La CI construit les trois targets en parallèle avec Docker Buildx. Une pull request ne peut donc pas introduire un Dockerfile fonctionnel pour un environnement mais invalide pour un autre.
 
+### E-mails transactionnels avec Brevo
+
+Le staging et la production utilisent le relais SMTP Brevo. Dans les variables
+d’environnement Coolify de chaque ressource, configurez :
+
+```dotenv
+MAIL_MAILER=smtp
+MAIL_HOST=smtp-relay.brevo.com
+MAIL_PORT=587
+MAIL_ENCRYPTION=tls
+MAIL_USERNAME=login-smtp-fourni-par-brevo
+MAIL_PASSWORD=cle-smtp-brevo
+MAIL_FROM_ADDRESS=staging@barasira.com # noreply@barasira.com en production
+MAIL_FROM_NAME="Barasira Staging"      # Barasira en production
+MAIL_CONTACT_ADDRESS=contact@barasira.com
+```
+
+`MAIL_USERNAME` est le login affiché dans **Brevo > Paramètres > SMTP et API**.
+`MAIL_PASSWORD` est une **clé SMTP** et non le mot de passe du compte ou une
+clé API. L’adresse `MAIL_FROM_ADDRESS` ou son domaine doit être authentifié
+dans Brevo. Utilisez des clés SMTP distinctes pour le staging et la production
+afin de pouvoir révoquer un environnement indépendamment.
+
+Après une modification des variables, redéployez l’application ou videz le
+cache de configuration dans le conteneur :
+
+```bash
+php artisan config:clear
+php artisan config:cache
+```
+
+Si le port 587 est bloqué par l’hébergeur, Brevo accepte également le port
+2525 avec TLS.
+
 ### Données de démonstration
 
 Les seeders créent un scénario déterministe avec des clients, des prestataires spécialisés et leurs tarifs horaires, quatorze services, des missions à différents statuts avec budget maximum et heures initiales/facturables, plusieurs candidatures horaires ou globales par mission, des commentaires sur les profils clients, des compétences, des diplômes, des expériences, des certifications, des avis, des paiements calculés depuis l’offre retenue et des fiches partenaires. Ils peuvent être relancés sans dupliquer ces données.
