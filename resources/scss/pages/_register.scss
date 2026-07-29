@@ -189,6 +189,10 @@
     grid-template-columns: 1fr;
 }
 
+.sso-login--google-only {
+    grid-template-columns: 1fr;
+}
+
 .sso-btn {
     position: relative;
     isolation: isolate;
