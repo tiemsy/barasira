@@ -92,7 +92,7 @@
 
     padding: 10px 18px;
 
-    border-radius: 999px;
+    border-radius: $s-radius-pill;
 
     background: rgba(255,255,255,.08);
 
@@ -101,7 +101,7 @@
     backdrop-filter: blur(10px);
 
     font-size: 14px;
-    font-weight: 600;
+    font-weight: $t-font-semibold;
 
     margin-bottom: $space-lg;
 }
@@ -171,7 +171,7 @@
 .auth-feature-content h3 {
 
     font-size: 18px;
-    font-weight: 700;
+    font-weight: $t-font-bold;
 
     margin-bottom: 6px;
 }
@@ -320,7 +320,7 @@
 
     color: var(--primary);
 
-    font-weight: 600;
+    font-weight: $t-font-semibold;
 
     transition: var(--transition);
 }
@@ -390,7 +390,7 @@
 
     background: white;
 
-    font-weight: 600;
+    font-weight: $t-font-semibold;
 
     transition: var(--transition);
 }

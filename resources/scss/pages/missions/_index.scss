@@ -15,8 +15,8 @@
     position: relative;
     overflow: hidden;
     padding: 64px 0 46px;
-    background: linear-gradient(135deg, #111827, #202b3d);
-    color: #fff;
+    background: linear-gradient(135deg, $c-text-dark, #202b3d);
+    color: $c-white;
 
     &::after {
         position: absolute;
@@ -48,7 +48,7 @@
     p {
         max-width: 650px;
         margin: 0;
-        color: rgba(#fff, .68);
+        color: rgba($c-white, .68);
         font-size: 17px;
         line-height: 1.7;
     }
@@ -102,16 +102,16 @@
         justify-content: space-between;
         gap: 16px;
         padding: 14px 18px;
-        border: 1px solid rgba(#fff, .1);
+        border: 1px solid rgba($c-white, .1);
         border-radius: 14px;
-        background: rgba(#fff, .06);
+        background: rgba($c-white, .06);
         backdrop-filter: blur(10px);
     }
 
     span {
-        color: rgba(#fff, .62);
+        color: rgba($c-white, .62);
         font-size: 12px;
-        font-weight: 700;
+        font-weight: $t-font-bold;
     }
 
     strong {
@@ -131,7 +131,7 @@
     padding: 14px;
     border: 1px solid $c-border;
     border-radius: 18px;
-    background: #fff;
+    background: $c-white;
     box-shadow: 0 12px 35px rgba(17, 24, 39, .05);
 }
 
@@ -162,7 +162,7 @@
 
         &:focus {
             border-color: rgba($c-primary, .55);
-            background: #fff;
+            background: $c-white;
             box-shadow: 0 0 0 4px rgba($c-primary, .1);
         }
     }
@@ -174,7 +174,7 @@
     padding: 0 16px;
     border: 1px solid $c-border;
     border-radius: 12px;
-    background: #fff;
+    background: $c-white;
     color: $c-dark;
     font: inherit;
     font-size: 13px;
@@ -213,7 +213,7 @@
     padding: 0 16px;
     border-radius: 12px;
     background: $c-primary-dark;
-    color: #fff;
+    color: $c-white;
     font-size: 13px;
     font-weight: 800;
     text-decoration: none;
@@ -232,8 +232,8 @@
         gap: 8px;
         padding: 9px 13px;
         border: 1px solid $c-border;
-        border-radius: 999px;
-        background: #fff;
+        border-radius: $s-radius-pill;
+        background: $c-white;
         color: $c-muted;
         cursor: pointer;
         font: inherit;
@@ -243,7 +243,7 @@
         &.active {
             border-color: $c-dark;
             background: $c-dark;
-            color: #fff;
+            color: $c-white;
         }
     }
 }
@@ -268,7 +268,7 @@
     margin-bottom: 22px;
     border: 1px solid $c-border;
     border-radius: 18px;
-    background: #fff;
+    background: $c-white;
 
     label {
         display: grid;
@@ -291,7 +291,7 @@
         border: 1px solid $c-border;
         border-radius: 10px;
         outline: none;
-        background: #fff;
+        background: $c-white;
         font: inherit;
         font-size: 13px;
 
@@ -305,7 +305,7 @@
         padding: 0 14px;
         border: 0;
         background: transparent;
-        color: #b42318;
+        color: $c-error-dark;
         cursor: pointer;
         font-weight: 750;
     }
@@ -324,7 +324,7 @@
     padding: 24px;
     border: 1px solid $c-border;
     border-radius: 20px;
-    background: #fff;
+    background: $c-white;
     box-shadow: 0 10px 35px rgba(17, 24, 39, .045);
     transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 
@@ -350,7 +350,7 @@
     }
 
     &__id {
-        color: #9ca3af;
+        color: $c-gray-400;
         font-size: 12px;
         font-weight: 750;
     }
@@ -442,12 +442,12 @@
 .mission-status {
     display: inline-flex;
     padding: 7px 10px;
-    border-radius: 999px;
+    border-radius: $s-radius-pill;
     font-size: 11px;
     font-weight: 850;
 
     &--pending { background: #fff7e6; color: #b76e00; }
-    &--in_progress { background: #eaf2ff; color: #2563eb; }
+    &--in_progress { background: #eaf2ff; color: $c-info-strong; }
     &--completed { background: #eafaf2; color: #128052; }
     &--cancelled { background: #fff0f0; color: #c53030; }
 }
@@ -499,7 +499,7 @@
     padding: 0 11px;
     border: 1px solid $c-border;
     border-radius: 10px;
-    background: #fff;
+    background: $c-white;
     color: $c-muted;
     cursor: pointer;
     font: inherit;
@@ -522,7 +522,7 @@
     &--primary {
         border-color: $c-dark;
         background: $c-dark;
-        color: #fff;
+        color: $c-white;
 
         &:hover {
             color: $c-primary;
@@ -530,26 +530,26 @@
     }
 
     &--edit {
-        border-color: #177245;
-        background: #177245;
-        color: #fff;
+        border-color: $c-brand;
+        background: $c-brand;
+        color: $c-white;
 
         &:hover {
             border-color: #105c37;
             background: #105c37;
-            color: #fff;
+            color: $c-white;
         }
     }
 
     &--danger {
-        border-color: #dc2626;
-        background: #dc2626;
-        color: #fff;
+        border-color: $c-error;
+        background: $c-error;
+        color: $c-white;
 
         &:hover {
             border-color: #b91c1c;
             background: #b91c1c;
-            color: #fff;
+            color: $c-white;
         }
     }
 
@@ -569,7 +569,7 @@
 .mission-card-skeleton {
     height: 380px;
     border-radius: 20px;
-    background: linear-gradient(90deg, #fff, #eef0f3, #fff);
+    background: linear-gradient(90deg, $c-white, $c-border-muted, $c-white);
     background-size: 200% 100%;
     animation: mission-shimmer 1.4s infinite;
 }
@@ -582,7 +582,7 @@
     padding: 70px 24px;
     border: 1px dashed #d5d8de;
     border-radius: 22px;
-    background: #fff;
+    background: $c-white;
     text-align: center;
 
     &__icon {
@@ -616,7 +616,7 @@
     justify-content: center;
     color: $c-muted;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: $t-font-bold;
 
     span {
         display: inline-flex;

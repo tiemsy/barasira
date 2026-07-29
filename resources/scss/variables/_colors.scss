@@ -1,24 +1,46 @@
-/* Neutrals */
-$white: #ffffff;
+/* Couleurs de base */
+$white: #fff;
 $black: #0f172a;
-$light: #f3f4f6;
-$dark: #111827;
-$muted: #6b7280;
-$border: #e5e7eb;
-$text: #374151;
+$transparent: transparent;
 
-/* Brand colors */
-// $primary: #182a5c;       // Bleu confiance (action, CTA)
+/* Identité Barasira */
+$brand: #177245;
+$brand-dark: #145c39;
+$brand-deep: #0c3d27;
+$brand-hover: #146c43;
+$brand-light: #e5f5ec;
+$brand-soft: #edf7f0;
+$brand-accent: #176b5b;
+
+/* Palette historique conservée pour éviter toute régression visuelle */
 $primary: #f59e0b;
 $primary-light: #14b8a6;
-// $primary-dark: #0d5c56;
 $primary-dark: #d97706;
-
-// $secondary: #f97316;
-$secondary: #111827;    // Orange énergie (Afrique, dynamisme)
+$secondary: #111827;
 $secondary-light: #fbbf24;
 $secondary-dark: #b45309;
 
+/* Textes */
+$text: #374151;
+$text-strong: #17251e;
+$text-dark: #111827;
+$text-muted: #718078;
+$text-subtle: #647269;
+$muted: #6b7280;
+$dark: $text-dark;
+
+/* Surfaces et bordures */
+$surface: #fff;
+$surface-subtle: #fbfdfc;
+$surface-muted: #f5f8f6;
+$light: #f3f4f6;
+$border: #e5e7eb;
+$border-soft: #edf1ee;
+$border-muted: #eef0f3;
+$border-strong: #ccd8d1;
+$border-brand: #d7e8de;
+
+/* Échelle de gris */
 $gray-50: #f9fafb;
 $gray-100: #f3f4f6;
 $gray-200: #e5e7eb;
@@ -32,13 +54,17 @@ $gray-900: #111827;
 
 /* States */
 $success: #16a34a;
+$success-dark: #166534;
 $warning: #facc15;
 $error: #dc2626;
+$error-dark: #b42318;
+$error-strong: #d92d20;
+$error-soft: #fee4e2;
 $info: #0284c7;
+$info-strong: #2563eb;
 $danger: #dc2626;
 
-$bg-card: #ffffff;       // Couleur de fond des cards
-$bg-hero: linear-gradient(135deg, $primary, $secondary);;
+$bg-card: $surface;
+$bg-hero: linear-gradient(135deg, $primary, $secondary);
 $bg-footer: #111827;
 $section-title-color: #d2691e;
-

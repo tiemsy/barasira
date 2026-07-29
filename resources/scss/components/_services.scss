@@ -67,7 +67,7 @@
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     gap: .6rem;
-    margin-top: 2rem;
+    margin-top: $s-space-8;
     padding: .55rem;
     border: 1px solid rgba($c-white, .2);
     border-radius: 17px;
@@ -130,8 +130,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: $s-space-4;
+    margin-bottom: $s-space-4;
 
     > div {
         display: grid;
@@ -222,7 +222,7 @@
         margin: .55rem 0 .75rem;
         overflow-wrap: anywhere;
         color: #14231a;
-        font-size: 1.25rem;
+        font-size: $t-text-xl;
         letter-spacing: -.025em;
     }
 }
@@ -243,12 +243,12 @@
     border-radius: 15px;
     background: #edf7f0;
     color: $c-primary;
-    font-size: 1.25rem;
+    font-size: $t-text-xl;
 }
 
 .service-card__availability {
     padding: .35rem .55rem;
-    border-radius: 999px;
+    border-radius: $s-radius-pill;
     background: #e9f8ef;
     color: $c-primary;
     font-size: .68rem;
@@ -305,7 +305,7 @@
 
 .service-card__footer {
     margin-top: auto;
-    padding-top: 1rem;
+    padding-top: $s-space-4;
     border-top: 1px solid $c-gray-200;
 }
 
@@ -404,7 +404,7 @@
         border-radius: 17px;
         background: #edf7f0;
         color: $c-primary;
-        font-size: 1.5rem;
+        font-size: $t-text-2xl;
         font-weight: 900;
     }
 
@@ -433,8 +433,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin-top: 2.5rem;
+    gap: $s-space-4;
+    margin-top: $s-space-10;
 
     button {
         padding: .7rem .9rem;

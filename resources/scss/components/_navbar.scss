@@ -16,7 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
+    gap: $s-space-8;
     margin: 0 auto;
 }
 
@@ -58,7 +58,7 @@
         margin-top: .28rem;
         color: $c-gray-500;
         font-size: .68rem;
-        font-weight: 700;
+        font-weight: $t-font-bold;
         letter-spacing: .03em;
     }
 }
@@ -69,7 +69,7 @@
     flex: 1;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
+    gap: $s-space-8;
 }
 
 .nav-list,
@@ -212,7 +212,7 @@
     border-radius: 9px;
     background: rgba($c-primary, .09);
     color: $c-primary;
-    font-size: 1rem;
+    font-size: $t-text-base;
     font-weight: 800;
 }
 
@@ -223,11 +223,11 @@
 }
 
 .submenu-link--danger {
-    color: #b42318;
+    color: $c-error-dark;
 
     .submenu-icon {
         background: #fef3f2;
-        color: #b42318;
+        color: $c-error-dark;
     }
 }
 
@@ -474,7 +474,7 @@
         max-height: calc(100vh - 70px);
         display: grid;
         align-items: start;
-        gap: 1rem;
+        gap: $s-space-4;
         padding: 1rem 3%;
         overflow-y: auto;
         border-bottom: 1px solid $c-gray-200;
@@ -573,7 +573,7 @@
 .breadcrumb ol {
     display: flex;
     gap: .5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: $s-space-6;
     color: $c-gray-500;
     font-size: .875rem;
     list-style: none;

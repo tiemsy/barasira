@@ -1,7 +1,9 @@
+@use "../variables/globals" as *;
+
 .verified-badge {
   margin-left: 8px;
   background: #20c997;
-  color: #fff;
+  color: $c-white;
   padding: 3px 8px;
   border-radius: 10px;
   font-size: 12px;

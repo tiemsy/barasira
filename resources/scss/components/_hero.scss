@@ -26,7 +26,7 @@
     display: grid;
     background-image: url("../images/hero-barasira.png"); // image générée
     grid-template-columns: 1.05fr .95fr;
-    gap: 4rem;
+    gap: $s-space-16;
     align-items: center;
 }
 
@@ -40,11 +40,11 @@
     display: inline-flex;
     align-items: center;
     padding: .6rem 1rem;
-    margin-bottom: 1.5rem;
-    border-radius: 999px;
+    margin-bottom: $s-space-6;
+    border-radius: $s-radius-pill;
     background: rgba(79, 70, 229, .08);
     color: var(--primary);
-    font-weight: 700;
+    font-weight: $t-font-bold;
     font-size: .9rem;
 }
 
@@ -54,7 +54,7 @@
     line-height: 1.02;
     font-weight: 900;
     color: $c-primary;
-    margin-bottom: 1.25rem;
+    margin-bottom: $s-space-5;
     letter-spacing: -1.5px;
 }
 
@@ -63,13 +63,13 @@
     font-size: 1.15rem;
     line-height: 1.8;
     color: var(--text-light);
-    margin-bottom: 2rem;
+    margin-bottom: $s-space-8;
 }
 
 .hero-actions {
     display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    gap: $s-space-4;
+    margin-top: $s-space-6;
     flex-wrap: wrap;
 }
 
@@ -83,7 +83,7 @@
 
 .hero-map-card {
     position: relative;
-    padding: 2rem;
+    padding: $s-space-8;
     border-radius: var(--radius-lg);
     background: var(--surface);
     border: 1px solid var(--border);
@@ -145,7 +145,7 @@
 .home-stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    gap: $s-space-6;
 }
 
 .stats-card {
@@ -183,7 +183,7 @@
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: $s-space-8;
 }
 
 .feature-card {
@@ -213,7 +213,7 @@
 }
 
 .feature-icon.trust {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
+    background: linear-gradient(135deg, #ef4444, $c-error);
 }
 
 .feature-icon.speed {
@@ -244,7 +244,7 @@
 }
 
 .home-cta-card {
-    padding: 4rem;
+    padding: $s-space-16;
     border-radius: var(--radius-lg);
     background:
         linear-gradient(135deg, rgba(79, 70, 229, .1), rgba(6, 182, 212, .1)),
@@ -263,7 +263,7 @@
 
 .home-cta-card p {
     color: var(--text-light);
-    margin-bottom: 2rem;
+    margin-bottom: $s-space-8;
 }
 
 /* =========================================================
@@ -315,10 +315,10 @@
     }
 
     .hero-map-card {
-        padding: 1rem;
+        padding: $s-space-4;
     }
 
     .home-cta-card {
-        padding: 2rem;
+        padding: $s-space-8;
     }
 }

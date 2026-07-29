@@ -31,16 +31,16 @@
 
     padding: .45rem .95rem;
 
-    border-radius: 999px;
+    border-radius: $s-radius-pill;
 
     background: rgba(79, 70, 229, .08);
 
     color: var(--primary);
 
     font-size: .9rem;
-    font-weight: 600;
+    font-weight: $t-font-semibold;
 
-    margin-bottom: 1rem;
+    margin-bottom: $s-space-4;
 }
 
 .reviews-header__title {
@@ -70,15 +70,15 @@
 
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 
-    gap: 1.5rem;
+    gap: $s-space-6;
 
-    margin-bottom: 3rem;
+    margin-bottom: $s-space-12;
 }
 
 .reviews-stat-card {
     @include card;
 
-    padding: 1.5rem;
+    padding: $s-space-6;
 
     text-align: center;
 }
@@ -116,7 +116,7 @@
 .review-card {
     @include card;
 
-    padding: 1.5rem;
+    padding: $s-space-6;
 
     transition: var(--transition);
 }
@@ -136,9 +136,9 @@
     align-items: flex-start;
     justify-content: space-between;
 
-    gap: 1rem;
+    gap: $s-space-4;
 
-    margin-bottom: 1rem;
+    margin-bottom: $s-space-4;
 }
 
 .review-card__user {
@@ -170,9 +170,9 @@
 }
 
 .review-card__name {
-    font-size: 1rem;
+    font-size: $t-text-base;
 
-    font-weight: 700;
+    font-weight: $t-font-bold;
 
     color: var(--secondary);
 
@@ -218,7 +218,7 @@
 .rating-stars i {
     color: var(--warning);
 
-    font-size: 1rem;
+    font-size: $t-text-base;
 }
 
 .rating-stars i.empty {
@@ -242,15 +242,15 @@
 }
 
 .reviews-empty__icon {
-    font-size: 3rem;
+    font-size: $t-text-5xl;
 
-    margin-bottom: 1rem;
+    margin-bottom: $s-space-4;
 }
 
 .reviews-empty__title {
     font-size: 1.4rem;
 
-    font-weight: 700;
+    font-weight: $t-font-bold;
 
     color: var(--secondary);
 

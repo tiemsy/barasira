@@ -1,3 +1,5 @@
+@use "../variables/globals" as *;
+
 .mission-create-section {
     min-height: 100vh;
     padding: 60px 0;
@@ -29,13 +31,13 @@
 
     h1 {
         margin: 5px 0 8px;
-        color: #111827;
+        color: $c-text-dark;
         font-size: clamp(32px, 5vw, 48px);
     }
 
     p {
         margin: 0;
-        color: #6b7280;
+        color: $c-muted;
     }
 }
 
@@ -64,21 +66,21 @@
         overflow: hidden;
         border: 0;
         border-radius: 99px;
-        background: #e5e7eb;
+        background: $c-border;
 
         &::-webkit-progress-bar {
             border-radius: 99px;
-            background: #e5e7eb;
+            background: $c-border;
         }
 
         &::-webkit-progress-value {
             border-radius: 99px;
-            background: #16a34a;
+            background: $c-success;
         }
 
         &::-moz-progress-bar {
             border-radius: 99px;
-            background: #16a34a;
+            background: $c-success;
         }
     }
 }
@@ -95,9 +97,9 @@
 .mission-ai-generator,
 .mission-card {
     overflow: hidden;
-    border: 1px solid #e5e7eb;
+    border: 1px solid $c-border;
     border-radius: 18px;
-    background: #fff;
+    background: $c-white;
     box-shadow: 0 12px 35px rgb(0 0 0 / 8%);
 }
 
@@ -119,22 +121,22 @@
 
 .mission-ai-generator__header h2 {
     margin: 10px 0 6px;
-    color: #111827;
+    color: $c-text-dark;
 }
 
 .mission-ai-generator__header p,
 .mission-subtitle,
 .translation-panel p {
     margin: 0;
-    color: #6b7280;
+    color: $c-muted;
 }
 
 .mission-ai-generator__badge {
     display: inline-flex;
     padding: 6px 12px;
     border-radius: 999px;
-    background: #16a34a;
-    color: #fff;
+    background: $c-success;
+    color: $c-white;
     font-size: 12px;
     font-weight: 800;
 }
@@ -172,7 +174,7 @@
 .mission-ai-generator__success,
 .success-text {
     background: #dcfce7;
-    color: #166534;
+    color: $c-success-dark;
 }
 
 .mission-ai-generator__questions {
@@ -184,8 +186,8 @@
 .btn-submit {
     border: none;
     border-radius: 11px;
-    background: #16a34a;
-    color: #fff;
+    background: $c-success;
+    color: $c-white;
     cursor: pointer;
     font-weight: 800;
 }
@@ -214,14 +216,14 @@
     width: 17px;
     height: 17px;
     border: 2px solid rgb(255 255 255 / 40%);
-    border-top-color: #fff;
+    border-top-color: $c-white;
     border-radius: 50%;
     animation: spinner-rotation 0.7s linear infinite;
 }
 
 .mission-title {
     margin: 0 0 8px;
-    color: #111827;
+    color: $c-text-dark;
     font-size: 32px;
 }
 
@@ -239,7 +241,7 @@
     display: grid;
     gap: 20px;
     padding-bottom: 28px;
-    border-bottom: 1px solid #eef0f3;
+    border-bottom: 1px solid $c-border-muted;
 }
 
 .form-section__heading {
@@ -255,7 +257,7 @@
         place-items: center;
         border-radius: 50%;
         background: #dcfce7;
-        color: #166534;
+        color: $c-success-dark;
         font-weight: 900;
     }
 
@@ -270,7 +272,7 @@
 
     p {
         margin-top: 3px;
-        color: #6b7280;
+        color: $c-muted;
         font-size: 14px;
     }
 }
@@ -288,12 +290,12 @@
 
 label {
     margin-bottom: 8px;
-    color: #374151;
+    color: $c-text;
     font-weight: 700;
 }
 
 label em {
-    color: #dc2626;
+    color: $c-error;
     font-style: normal;
 }
 
@@ -304,7 +306,7 @@ textarea {
     border: 1px solid #d1d5db;
     border-radius: 10px;
     outline: none;
-    background: #fff;
+    background: $c-white;
     font: inherit;
 }
 
@@ -315,12 +317,12 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus {
-    border-color: #16a34a;
+    border-color: $c-success;
     box-shadow: 0 0 0 3px rgb(22 163 74 / 10%);
 }
 
 .invalid {
-    border-color: #dc2626;
+    border-color: $c-error;
     background: #fffafa;
 }
 
@@ -331,13 +333,13 @@ textarea:focus {
 
     small {
         margin: 6px 0 0 auto;
-        color: #9ca3af;
+        color: $c-gray-400;
     }
 }
 
 .error {
     margin-top: 6px;
-    color: #dc2626;
+    color: $c-error;
     font-size: 13px;
 }
 
@@ -381,7 +383,7 @@ textarea:focus {
     padding: 7px 11px;
     border-radius: 999px;
     background: #dcfce7;
-    color: #166534;
+    color: $c-success-dark;
     font-size: 13px;
     font-weight: 700;
 }
@@ -408,7 +410,7 @@ textarea:focus {
         border: 0;
         border-radius: 10px;
         background: #e8f5ed;
-        color: #166534;
+        color: $c-success-dark;
         cursor: pointer;
         font-weight: 800;
 
@@ -433,13 +435,13 @@ textarea:focus {
         gap: 10px;
         padding: 10px 12px;
         border-radius: 10px;
-        background: #f3f4f6;
+        background: $c-light;
     }
 
     button {
         border: 0;
         background: transparent;
-        color: #6b7280;
+        color: $c-muted;
         cursor: pointer;
         font-size: 20px;
     }
@@ -449,9 +451,9 @@ textarea:focus {
     position: sticky;
     top: 20px;
     padding: 24px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid $c-border;
     border-radius: 18px;
-    background: #fff;
+    background: $c-white;
     box-shadow: 0 12px 35px rgb(0 0 0 / 6%);
 
     h2 {
@@ -462,7 +464,7 @@ textarea:focus {
     > p {
         display: -webkit-box;
         overflow: hidden;
-        color: #6b7280;
+        color: $c-muted;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 5;
     }
@@ -475,11 +477,11 @@ textarea:focus {
 
     dl div {
         padding-top: 12px;
-        border-top: 1px solid #eef0f3;
+        border-top: 1px solid $c-border-muted;
     }
 
     dt {
-        color: #6b7280;
+        color: $c-muted;
         font-size: 12px;
         font-weight: 800;
         text-transform: uppercase;
@@ -499,7 +501,7 @@ textarea:focus {
 
     p {
         margin: 0;
-        color: #6b7280;
+        color: $c-muted;
         font-size: 13px;
     }
 
@@ -552,7 +554,7 @@ textarea:focus {
 .field-hint {
     display: block;
     margin-top: 7px;
-    color: #6b7280;
+    color: $c-muted;
     font-size: 11px;
     line-height: 1.5;
 }
@@ -561,23 +563,23 @@ textarea:focus {
     z-index: 2000;
     margin-top: 6px;
     overflow: hidden;
-    border: 1px solid #e5e7eb;
+    border: 1px solid $c-border;
     border-radius: 12px;
-    box-shadow: 0 18px 45px rgba(#111827, .16);
+    box-shadow: 0 18px 45px rgba($c-text-dark, .16);
     font-family: inherit;
 }
 
 .pac-item {
     padding: 9px 12px;
-    border-top-color: #f3f4f6;
+    border-top-color: $c-light;
     cursor: pointer;
     font-size: 12px;
 
-    &:hover { background: #f9fafb; }
+    &:hover { background: $c-gray-50; }
 }
 
 .pac-item-query {
-    color: #111827;
+    color: $c-text-dark;
     font-size: 13px;
 }
 

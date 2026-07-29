@@ -36,7 +36,7 @@
     display: flex;
     align-items: flex-end;
 
-    padding: 4rem;
+    padding: $s-space-16;
 
     color: $c-white;
     background:
@@ -64,9 +64,9 @@
     display: inline-flex;
 
     padding: .55rem 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: $s-space-6;
 
-    border-radius: 999px;
+    border-radius: $s-radius-pill;
 
     background: rgba($c-white, .16);
     backdrop-filter: blur(12px);
@@ -76,7 +76,7 @@
 }
 
 .login-visual h2 {
-    margin-bottom: 1.25rem;
+    margin-bottom: $s-space-5;
 
     font-size: clamp(2rem, 4vw, 3.8rem);
     line-height: 1.05;
@@ -85,7 +85,7 @@
 }
 
 .login-visual p {
-    margin-bottom: 2rem;
+    margin-bottom: $s-space-8;
 
     color: rgba($c-white, .84);
     line-height: 1.8;
@@ -102,7 +102,7 @@
     align-items: center;
     gap: .6rem;
 
-    font-weight: 700;
+    font-weight: $t-font-bold;
 }
 
 .login-visual__features i {
@@ -112,7 +112,7 @@
 /* RIGHT PANEL */
 
 .login-panel {
-    padding: 2rem;
+    padding: $s-space-8;
 
     background:
         linear-gradient(
@@ -123,11 +123,11 @@
 }
 
 .login-breadcrumb {
-    margin-bottom: 1.25rem;
+    margin-bottom: $s-space-5;
 }
 
 .login-card {
-    padding: 2rem;
+    padding: $s-space-8;
 
     border-radius: 24px;
     background: rgba($c-white, .96);
@@ -147,7 +147,7 @@
     width: 48px;
     height: 48px;
 
-    margin-bottom: 1rem;
+    margin-bottom: $s-space-4;
 
     border-radius: 16px;
 
@@ -180,7 +180,7 @@
     gap: .85rem;
     width: 100%;
 
-    margin-bottom: 1.5rem;
+    margin-bottom: $s-space-6;
 }
 
 .sso-btn {
@@ -244,7 +244,7 @@
     top: 5px;
     right: 7px;
     padding: .18rem .42rem;
-    border-radius: 999px;
+    border-radius: $s-radius-pill;
     background: $c-primary;
     color: $c-white;
     font-size: .58rem;
@@ -281,7 +281,7 @@
 .auth-divider {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: $s-space-4;
 
     margin: 1.5rem 0;
 
@@ -312,7 +312,7 @@
 
     margin-bottom: .5rem;
 
-    font-weight: 700;
+    font-weight: $t-font-bold;
     color: $c-dark;
 }
 
@@ -375,7 +375,7 @@
     align-items: center;
     justify-content: space-between;
 
-    gap: 1rem;
+    gap: $s-space-4;
 }
 
 .remember-me {
@@ -388,7 +388,7 @@
 
 .forgot-link {
     color: $c-primary;
-    font-weight: 700;
+    font-weight: $t-font-bold;
 }
 
 /* ERRORS */
@@ -481,11 +481,11 @@
     }
 
     .login-panel {
-        padding: 1rem;
+        padding: $s-space-4;
     }
 
     .login-card {
-        padding: 1.5rem;
+        padding: $s-space-6;
     }
 
     .login-options {

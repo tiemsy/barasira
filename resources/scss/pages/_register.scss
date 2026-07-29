@@ -36,7 +36,7 @@
     display: flex;
     align-items: flex-end;
 
-    padding: 4rem;
+    padding: $s-space-16;
 
     color: $c-white;
     background:
@@ -64,9 +64,9 @@
     display: inline-flex;
 
     padding: .55rem 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: $s-space-6;
 
-    border-radius: 999px;
+    border-radius: $s-radius-pill;
 
     background: rgba($c-white, .16);
     backdrop-filter: blur(12px);
@@ -76,7 +76,7 @@
 }
 
 .register-visual h2 {
-    margin-bottom: 1.25rem;
+    margin-bottom: $s-space-5;
 
     font-size: clamp(2rem, 4vw, 3.6rem);
     line-height: 1.05;
@@ -85,7 +85,7 @@
 }
 
 .register-visual p {
-    margin-bottom: 2rem;
+    margin-bottom: $s-space-8;
 
     color: rgba($c-white, .84);
     line-height: 1.8;
@@ -102,7 +102,7 @@
     align-items: center;
     gap: .6rem;
 
-    font-weight: 700;
+    font-weight: $t-font-bold;
 }
 
 .register-visual__features i {
@@ -112,7 +112,7 @@
 /* PANEL */
 
 .register-panel {
-    padding: 2rem;
+    padding: $s-space-8;
 
     background:
         linear-gradient(
@@ -123,11 +123,11 @@
 }
 
 .register-breadcrumb {
-    margin-bottom: 1.25rem;
+    margin-bottom: $s-space-5;
 }
 
 .register-card {
-    padding: 2rem;
+    padding: $s-space-8;
 
     border-radius: 24px;
     background: rgba($c-white, .96);
@@ -146,7 +146,7 @@
     width: 48px;
     height: 48px;
 
-    margin-bottom: 1rem;
+    margin-bottom: $s-space-4;
 
     border-radius: 16px;
 
@@ -178,7 +178,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: .85rem;
 
-    margin-bottom: 1.5rem;
+    margin-bottom: $s-space-6;
 }
 
 .sso-login--google-only {
@@ -244,7 +244,7 @@
     top: 5px;
     right: 7px;
     padding: .18rem .42rem;
-    border-radius: 999px;
+    border-radius: $s-radius-pill;
     background: $c-primary;
     color: $c-white;
     font-size: .58rem;
@@ -281,7 +281,7 @@
 .auth-divider {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: $s-space-4;
 
     margin: 1.5rem 0;
 
@@ -310,7 +310,7 @@
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: $s-space-4;
 }
 
 .form-group label {
@@ -319,7 +319,7 @@
     margin-bottom: .5rem;
 
     color: $c-dark;
-    font-weight: 700;
+    font-weight: $t-font-bold;
 }
 
 .input-wrapper {
@@ -380,7 +380,7 @@
 .role-selector {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: $s-space-4;
 }
 
 .role-card {
@@ -390,7 +390,7 @@
     align-items: center;
     gap: .85rem;
 
-    padding: 1rem;
+    padding: $s-space-4;
 
     border-radius: 16px;
 
@@ -466,7 +466,7 @@
     color: $c-success;
     background: rgba($c-success, .10);
 
-    font-weight: 700;
+    font-weight: $t-font-bold;
 }
 
 /* SUBMIT */
@@ -544,11 +544,11 @@
     }
 
     .register-panel {
-        padding: 1rem;
+        padding: $s-space-4;
     }
 
     .register-card {
-        padding: 1.5rem;
+        padding: $s-space-6;
     }
 
     .form-grid,
