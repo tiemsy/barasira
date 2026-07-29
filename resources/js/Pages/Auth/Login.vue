@@ -185,8 +185,6 @@ import axios from 'axios'
 import DashboardIcon from '@/Components/DashboardIcon.vue'
 import { useI18n } from 'vue-i18n'
 
-const baseURL = import.meta.env.VITE_API_URL
-
 const errors = ref({})
 const loading = ref(false)
 const showPassword = ref(false)
@@ -199,8 +197,7 @@ const form = reactive({
 })
 
 const loginWithGoogle = () => {
-    window.location.href =
-        `${import.meta.env.VITE_API_URL}/api/auth/google/redirect?intent=login`
+    window.location.href = '/api/auth/google/redirect?intent=login'
 }
 
 const submit = async () => {
@@ -208,7 +205,7 @@ const submit = async () => {
     loading.value = true
 
     try {
-        await axios.get(`${baseURL}/sanctum/csrf-cookie`, {
+        await axios.get('/sanctum/csrf-cookie', {
             withCredentials: true,
             headers: {
                 Accept: 'application/json',
