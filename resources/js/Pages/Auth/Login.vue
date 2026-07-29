@@ -74,12 +74,8 @@
                             <button type="button" class="sso-btn sso-btn--google" @click="loginWithGoogle">
                                 <DashboardIcon name="google" />
                                 {{ $t('ui.auth.continueGoogle') }}
+                                <span class="sso-btn__recommended">{{ $t('ui.auth.recommended') }}</span>
                             </button>
-
-                            <a href="/api/auth/facebook/redirect" class="sso-btn sso-btn--facebook">
-                                <DashboardIcon name="facebook" />
-                                {{ $t('ui.auth.continueFacebook') }}
-                            </a>
                         </div>
 
                         <div class="auth-divider">

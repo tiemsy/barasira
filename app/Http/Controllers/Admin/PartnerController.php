@@ -8,6 +8,7 @@ use App\Models\Partner;
 use App\Models\PartnerPromotion;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -66,6 +67,26 @@ class PartnerController extends Controller
         }
 
         return redirect()->route('admin.partners.index')->with('success', __('messages.partner_updated'));
+    }
+
+    public function updateOrder(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'partners' => ['required', 'array', 'min:1'],
+            'partners.*.id' => ['required', 'integer', 'distinct', 'exists:partners,id'],
+            'partners.*.display_order' => ['required', 'integer', 'min:0', 'max:9999'],
+        ]);
+
+        DB::transaction(function () use ($validated, $request): void {
+            foreach ($validated['partners'] as $partner) {
+                Partner::query()->whereKey($partner['id'])->update([
+                    'display_order' => $partner['display_order'],
+                    'updated_by' => $request->user()->id,
+                ]);
+            }
+        });
+
+        return back()->with('success', __('messages.partner_order_updated'));
     }
 
     public function destroy(Partner $partner): RedirectResponse
