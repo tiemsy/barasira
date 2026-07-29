@@ -22,5 +22,12 @@ return [
     'impersonation_self_forbidden' => 'You are already signed in with this account.',
     'impersonation_started' => 'You are now signed in as :name.',
     'impersonation_stopped' => 'You are signed back in with your super administrator account.',
+    'reset_mail_subject' => 'Reset your Barasira password',
+    'reset_mail_greeting' => 'Hello :name,',
+    'reset_mail_intro' => 'You are receiving this email because a password reset was requested for your account.',
+    'reset_mail_action' => 'Reset my password',
+    'reset_mail_expiry' => 'This link will expire in :count minutes.',
+    'reset_mail_ignore' => 'If you did not request a password reset, no action is required.',
+    'reset_mail_salutation' => 'The Barasira team',
 
 ];

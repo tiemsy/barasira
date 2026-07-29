@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use Illuminate\Auth\Notifications\ResetPassword;
+use App\Notifications\PasswordResetNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
@@ -18,11 +18,16 @@ class PasswordResetTest extends TestCase
         Notification::fake();
         $user = User::factory()->create();
 
-        $this->post('/forgot-password', ['email' => $user->email])
+        $this->post('/forgot-password', ['email' => $user->email, 'locale' => 'fr'])
             ->assertRedirect()
             ->assertSessionHas('success');
 
-        Notification::assertSentTo($user, ResetPassword::class);
+        Notification::assertSentTo(
+            $user,
+            PasswordResetNotification::class,
+            fn (PasswordResetNotification $notification) => $notification->language === 'fr'
+                && $notification->toMail($user)->subject === 'Réinitialisation de votre mot de passe Barasira'
+        );
     }
 
     public function test_user_can_reset_their_password_with_a_valid_token(): void
@@ -30,12 +35,12 @@ class PasswordResetTest extends TestCase
         Notification::fake();
         $user = User::factory()->create();
 
-        $this->post('/forgot-password', ['email' => $user->email]);
+        $this->post('/forgot-password', ['email' => $user->email, 'locale' => 'fr']);
 
         Notification::assertSentTo(
             $user,
-            ResetPassword::class,
-            function (ResetPassword $notification) use ($user): bool {
+            PasswordResetNotification::class,
+            function (PasswordResetNotification $notification) use ($user): bool {
                 $response = $this->post('/reset-password', [
                     'token' => $notification->token,
                     'email' => $user->email,

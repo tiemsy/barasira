@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\PasswordResetNotification;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,9 +24,17 @@ class PasswordResetController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate(['email' => ['required', 'email']]);
+        $validated = $request->validate([
+            'email' => ['required', 'email'],
+            'locale' => ['required', 'in:fr,en,bm'],
+        ]);
 
-        $status = Password::sendResetLink($request->only('email'));
+        $status = Password::sendResetLink(
+            ['email' => $validated['email']],
+            fn (User $user, string $token) => $user->notify(
+                new PasswordResetNotification($token, $validated['locale'])
+            )
+        );
 
         return $status === Password::RESET_LINK_SENT
             ? back()->with('success', __($status))

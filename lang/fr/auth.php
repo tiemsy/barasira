@@ -22,5 +22,12 @@ return [
     'impersonation_self_forbidden' => 'Vous êtes déjà connecté avec ce compte.',
     'impersonation_started' => 'Vous êtes maintenant connecté en tant que :name.',
     'impersonation_stopped' => 'Vous êtes de nouveau connecté avec votre compte superadministrateur.',
+    'reset_mail_subject' => 'Réinitialisation de votre mot de passe Barasira',
+    'reset_mail_greeting' => 'Bonjour :name,',
+    'reset_mail_intro' => 'Vous recevez cet e-mail car une demande de réinitialisation du mot de passe a été effectuée pour votre compte.',
+    'reset_mail_action' => 'Réinitialiser mon mot de passe',
+    'reset_mail_expiry' => 'Ce lien expirera dans :count minutes.',
+    'reset_mail_ignore' => 'Si vous n’êtes pas à l’origine de cette demande, aucune action n’est nécessaire.',
+    'reset_mail_salutation' => 'L’équipe Barasira',
 
 ];

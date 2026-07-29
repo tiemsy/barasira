@@ -45,12 +45,16 @@
 import AppLayout from '@/Layouts/AppLayout.vue'
 import DashboardIcon from '@/Components/DashboardIcon.vue'
 import { Head, Link, useForm } from '@inertiajs/vue3'
+import { useI18n } from 'vue-i18n'
 
+const { locale } = useI18n()
 const form = useForm({
-    email: ''
+    email: '',
+    locale: locale.value,
 })
 
 const submit = () => {
+    form.locale = locale.value
     form.post('/forgot-password')
 }
 </script>
