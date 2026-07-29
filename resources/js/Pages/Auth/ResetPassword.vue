@@ -1,8 +1,14 @@
 <template>
-    <AppLayout>
-        <div class="forgot-container">
-            <h1 class="forgot-title">{{ $t('auth.reset_password_title') }}</h1>
-            <p class="forgot-text">{{ $t('auth.reset_password_text') }}</p>
+    <AppLayout :title="$t('auth.reset_password_title')">
+        <Head :title="$t('auth.reset_password_title')" />
+        <main class="forgot-page">
+        <section class="forgot-container">
+            <div class="forgot-icon" aria-hidden="true"><DashboardIcon name="lock" /></div>
+            <header class="forgot-header">
+                <span>{{ $t('ui.auth.secureBadge') }}</span>
+                <h1 class="forgot-title">{{ $t('auth.reset_password_title') }}</h1>
+                <p class="forgot-text">{{ $t('auth.reset_password_text') }}</p>
+            </header>
 
             <form class="forgot-form" @submit.prevent="submit">
                 <label class="label" for="reset-email">{{ $t('auth.email') }}</label>
@@ -21,16 +27,18 @@
                 </button>
             </form>
 
-            <button class="btn-link mt-4" type="button" @click="router.visit('/login')">
+            <button class="btn-link" type="button" @click="router.visit('/login')">
                 {{ $t('auth.back_to_login') }}
             </button>
-        </div>
+        </section>
+        </main>
     </AppLayout>
 </template>
 
 <script setup>
-import { useForm, router } from '@inertiajs/vue3'
+import { Head, useForm, router } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
+import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const props = defineProps({
     token: { type: String, required: true },
