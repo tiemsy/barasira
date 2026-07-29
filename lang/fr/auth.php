@@ -13,9 +13,9 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'L’adresse e-mail ou le mot de passe est incorrect.',
+    'password' => 'Le mot de passe fourni est incorrect.',
+    'throttle' => 'Trop de tentatives de connexion. Veuillez réessayer dans :seconds secondes.',
     'register_success' => 'Inscription réussie. Veuillez vérifier votre adresse e-mail.',
     'google_account_not_found' => 'Aucun compte ne correspond à cette adresse Google. Complétez votre inscription pour continuer.',
     'google_register_success' => 'Votre compte Google a été inscrit avec succès.',

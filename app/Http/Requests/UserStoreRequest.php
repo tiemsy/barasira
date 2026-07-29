@@ -46,13 +46,4 @@ class UserStoreRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
-    {
-        return [
-            'role.in' => 'Le rôle doit être client ou prestataire.',
-            'first_name.required' => 'Le prénom est obligatoire.',
-            'last_name.required' => 'Le nom de famille est obligatoire.',
-            'email.required' => 'Le champ email est obligatoire.',
-        ];
-    }
 }
