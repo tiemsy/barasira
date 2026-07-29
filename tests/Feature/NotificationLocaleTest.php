@@ -16,7 +16,7 @@ class NotificationLocaleTest extends TestCase
         $user = User::factory()->create(['locale' => 'fr']);
 
         $this->actingAs($user)
-            ->withCookie('barasira_locale', 'en')
+            ->withUnencryptedCookie('barasira_locale', 'en')
             ->get('/')
             ->assertOk();
 
