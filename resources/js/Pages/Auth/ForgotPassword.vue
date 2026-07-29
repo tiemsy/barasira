@@ -14,13 +14,18 @@
             </p>
 
             <!-- Form -->
-            <form @submit.prevent="submit" class="forgot-form">
+            <p v-if="$page.props.flash?.success" class="forgot-status" role="status">
+                {{ $page.props.flash.success }}
+            </p>
 
-                <label class="label">{{ $t('auth.email') }}</label>
-                <input type="email" v-model="form.email" class="input" :placeholder="$t('auth.email')" />
+            <form class="forgot-form" @submit.prevent="submit">
 
-                <button class="btn-primary" :disabled="form.processing">
-                    {{ $t('auth.send_reset_link') }}
+                <label class="label" for="forgot-email">{{ $t('auth.email') }}</label>
+                <input id="forgot-email" v-model.trim="form.email" type="email" class="input" :placeholder="$t('auth.email')" autocomplete="email" required />
+                <p v-if="form.errors.email" class="forgot-error">{{ form.errors.email }}</p>
+
+                <button type="submit" class="btn-primary" :disabled="form.processing">
+                    {{ form.processing ? $t('auth.sending_reset_link') : $t('auth.send_reset_link') }}
                 </button>
             </form>
 
