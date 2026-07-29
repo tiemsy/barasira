@@ -29,5 +29,13 @@ return [
     'reset_mail_expiry' => 'Ce lien expirera dans :count minutes.',
     'reset_mail_ignore' => 'Si vous n’êtes pas à l’origine de cette demande, aucune action n’est nécessaire.',
     'reset_mail_salutation' => 'L’équipe Barasira',
+    'verify_mail_subject' => 'Confirmez votre adresse e-mail – Barasira',
+    'verify_mail_greeting' => 'Bienvenue sur Barasira, :name 👋',
+    'verify_mail_intro' => 'Merci de vous être inscrit sur Barasira.',
+    'verify_mail_instruction' => 'Veuillez confirmer votre adresse e-mail pour activer votre compte.',
+    'verify_mail_action' => 'Vérifier mon adresse e-mail',
+    'verify_mail_expiry' => 'Ce lien expirera dans :count minutes.',
+    'verify_mail_salutation' => 'L’équipe Barasira',
+    'verify_whatsapp' => 'Bienvenue sur Barasira, :name. Confirmez votre adresse e-mail avec ce lien valable 60 minutes : :url',
 
 ];

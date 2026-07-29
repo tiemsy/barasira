@@ -68,6 +68,7 @@ class AuthenticatedSessionController extends Controller
             'last_name' => $validated['last_name'],
             'phone' => $validated['phone'],
             'email' => $validated['email'] ?? null,
+            'locale' => app()->getLocale(),
             'role' => $validated['role'],
             'password' => Hash::make($validated['password']),
             'verified' => false,

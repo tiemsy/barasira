@@ -29,5 +29,13 @@ return [
     'reset_mail_expiry' => 'This link will expire in :count minutes.',
     'reset_mail_ignore' => 'If you did not request a password reset, no action is required.',
     'reset_mail_salutation' => 'The Barasira team',
+    'verify_mail_subject' => 'Confirm your email address – Barasira',
+    'verify_mail_greeting' => 'Welcome to Barasira, :name 👋',
+    'verify_mail_intro' => 'Thank you for signing up for Barasira.',
+    'verify_mail_instruction' => 'Please confirm your email address to activate your account.',
+    'verify_mail_action' => 'Verify my email address',
+    'verify_mail_expiry' => 'This link will expire in :count minutes.',
+    'verify_mail_salutation' => 'The Barasira team',
+    'verify_whatsapp' => 'Welcome to Barasira, :name. Confirm your email address using this link, valid for 60 minutes: :url',
 
 ];

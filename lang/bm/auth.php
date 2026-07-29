@@ -29,5 +29,13 @@ return [
     'reset_mail_expiry' => 'Sira in bɛ laban miniti :count kɔnɔ.',
     'reset_mail_ignore' => 'Ni i ma ɲinini nin kɛ, i mako tɛ foyi kɛ la.',
     'reset_mail_salutation' => 'Barasira ka ekip',
+    'verify_mail_subject' => 'I ka imɛli sɛgɛsɛgɛ – Barasira',
+    'verify_mail_greeting' => 'I ni ce Barasira la, :name 👋',
+    'verify_mail_intro' => 'I ni ce i tɔgɔ sɛbɛnna Barasira la.',
+    'verify_mail_instruction' => 'I ka imɛli sɛgɛsɛgɛ walasa i ka kɔnti ka bila sen na.',
+    'verify_mail_action' => 'N ka imɛli sɛgɛsɛgɛ',
+    'verify_mail_expiry' => 'Sira in bɛ laban miniti :count kɔnɔ.',
+    'verify_mail_salutation' => 'Barasira ka ekip',
+    'verify_whatsapp' => 'I ni ce Barasira la, :name. I ka imɛli sɛgɛsɛgɛ ni sira nin ye, min bɛ baara miniti 60: :url',
 
 ];
