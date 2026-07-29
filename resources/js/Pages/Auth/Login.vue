@@ -189,6 +189,7 @@ const baseURL = import.meta.env.VITE_API_URL
 
 const errors = ref({})
 const loading = ref(false)
+const showPassword = ref(false)
 const { t } = useI18n()
 
 const form = reactive({

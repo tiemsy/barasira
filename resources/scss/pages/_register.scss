@@ -367,8 +367,11 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: $s-literal-44px;
+    min-height: $s-literal-44px;
 
     color: $c-gray-500;
+    touch-action: manipulation;
 }
 
 .password-toggle:hover {
