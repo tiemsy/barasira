@@ -4,8 +4,8 @@
 .btn {
   display: inline-block;
   padding: $s-spacing-sm $s-spacing-lg;
-  border-radius: 0.5rem;
-  font-weight: 600;
+  border-radius: $s-radius-sm;
+  font-weight: $t-font-semibold;
   cursor: pointer;
   text-decoration: none;
   text-align: center;
@@ -15,8 +15,8 @@
 .btn-primary {
   background: $c-primary;
   color: $c-white;
-  padding: 0.5rem 1.5rem;
-//   border-radius: 999px;
+  padding: $s-literal-0-5rem $s-literal-1-5rem;
+//   border-radius: $s-radius-pill;
 
   &:hover {
     background-color: $c-white;

@@ -76,7 +76,7 @@ class MessageController extends Controller
     {
         if ($sender->is($receiver)) {
             throw ValidationException::withMessages([
-                'receiver_id' => 'Vous ne pouvez pas vous envoyer un message à vous-même.',
+                'receiver_id' => __('messages.messaging_self_forbidden'),
             ]);
         }
 
@@ -91,7 +91,7 @@ class MessageController extends Controller
 
         if ($roles !== ['client', 'prestataire']) {
             throw ValidationException::withMessages([
-                'receiver_id' => 'Les messages sont réservés aux échanges entre clients et prestataires.',
+                'receiver_id' => __('messages.messaging_roles_forbidden'),
             ]);
         }
     }
@@ -110,13 +110,13 @@ class MessageController extends Controller
         if (! $isClientInConversation
             || ($mission->prestataire_id !== $providerId && ! $hasApplication)) {
             throw ValidationException::withMessages([
-                'mission_id' => 'Vous ne pouvez pas échanger au sujet de cette mission.',
+                'mission_id' => __('messages.messaging_mission_forbidden'),
             ]);
         }
 
         if ($writing && $mission->status === 'completed') {
             throw ValidationException::withMessages([
-                'mission_id' => 'Cette mission est terminée. Aucun nouveau message ne peut être envoyé.',
+                'mission_id' => __('messages.messaging_mission_completed'),
             ]);
         }
     }

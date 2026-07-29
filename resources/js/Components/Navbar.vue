@@ -40,6 +40,7 @@ const isActive = path => path === '/'
 function changeLanguage(event) {
     locale.value = event.target.value
     localStorage.setItem('lang', locale.value)
+    document.cookie = `barasira_locale=${locale.value}; path=/; max-age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`
 }
 
 function toggleMenu(name) {

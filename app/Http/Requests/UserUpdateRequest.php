@@ -49,15 +49,4 @@ class UserUpdateRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
-    {
-        return [
-            'first_name.required' => 'Le prénom est obligatoire.',
-            'last_name.required' => 'Le nom est obligatoire.',
-            'email.required' => 'L’adresse e-mail est obligatoire.',
-            'avatar.image' => 'Le fichier sélectionné doit être une image.',
-            'avatar.mimes' => 'La photo doit être au format JPG, PNG ou WebP.',
-            'avatar.max' => 'La photo ne doit pas dépasser 3 Mo.',
-        ];
-    }
 }

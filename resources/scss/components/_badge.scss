@@ -1,13 +1,15 @@
+@use "../variables/globals" as *;
+
 .verified-badge {
-  margin-left: 8px;
-  background: #20c997;
-  color: #fff;
-  padding: 3px 8px;
+  margin-left: $s-literal-8px;
+  background: $c-literal-81c75a7793;
+  color: $c-white;
+  padding: $s-literal-3px $s-literal-8px;
   border-radius: 10px;
   font-size: 12px;
 }
 
 .verified-badge.is-unverified {
-  background: #fff3d6;
-  color: #946411;
+  background: $c-literal-f018be818b;
+  color: $c-literal-26419eea90;
 }

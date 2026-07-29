@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\Mission;
 use App\Models\Notification;
+use App\Models\User;
 use App\Notifications\ApplicationAcceptedNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -58,11 +59,12 @@ class MissionApplicationController extends Controller
                 throw ValidationException::withMessages(['mission' => __('missions.application.already_applied')]);
             }
 
+            $recipient = User::query()->findOrFail($mission->client_id);
             Notification::query()->create([
                 'user_id' => $mission->client_id,
                 'type' => 'mission_application',
-                'title' => __('missions.application.notification_title'),
-                'message' => __('missions.application.notification_message', [
+                'title' => $this->translatedFor($recipient, 'missions.application.notification_title'),
+                'message' => $this->translatedFor($recipient, 'missions.application.notification_message', [
                     'provider' => trim($request->user()->first_name.' '.$request->user()->last_name),
                     'mission' => $mission->title,
                 ]),
@@ -133,11 +135,12 @@ class MissionApplicationController extends Controller
                 ->where('status', 'pending')
                 ->update(['status' => 'cancelled', 'responded_at' => now()]);
 
+            $recipient = User::query()->findOrFail($application->worker_id);
             Notification::query()->create([
                 'user_id' => $application->worker_id,
                 'type' => 'application_accepted',
-                'title' => __('missions.application.accepted_notification_title'),
-                'message' => __('missions.application.accepted_notification_message', [
+                'title' => $this->translatedFor($recipient, 'missions.application.accepted_notification_title'),
+                'message' => $this->translatedFor($recipient, 'missions.application.accepted_notification_message', [
                     'mission' => $mission->title,
                 ]),
                 'read' => false,
@@ -146,7 +149,7 @@ class MissionApplicationController extends Controller
             return [$mission, $application];
         });
 
-        $application->load(['mission:id,slug,title', 'user:id,first_name,last_name,email,phone']);
+        $application->load(['mission:id,slug,title', 'user:id,first_name,last_name,email,phone,locale']);
         $url = URL::route('front.missions.show', ['mission' => $mission->slug]);
 
         try {
@@ -165,5 +168,10 @@ class MissionApplicationController extends Controller
                 'applications.user:id,first_name,last_name,avatar_url,rating,hourly_rate,bio',
             ]),
         ]);
+    }
+
+    private function translatedFor(User $recipient, string $key, array $replace = []): string
+    {
+        return __($key, $replace, $recipient->preferredLocale());
     }
 }

@@ -1,25 +1,27 @@
+@use "../../variables/globals" as *;
+
 .verify-wrapper {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: linear-gradient(135deg, #0d6efd, #20c997); */
+    /* background: linear-gradient(135deg, $c-literal-3d30716b15, $c-literal-81c75a7793); */
 }
 
 .verify-card {
-    background: #fff;
-    padding: 40px;
+    background: $c-white;
+    padding: $s-literal-40px;
     border-radius: 14px;
     max-width: 420px;
     text-align: center;
 }
 
 .success {
-    color: #198754;
-    margin-top: 12px;
+    color: $c-literal-e3817b1ed5;
+    margin-top: $s-literal-12px;
 }
 
 .error {
-    color: #dc3545;
-    margin-top: 12px;
+    color: $c-literal-021fa75a8d;
+    margin-top: $s-literal-12px;
 }

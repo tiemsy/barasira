@@ -42,7 +42,10 @@ class VerifyEmailCustom extends VerifyEmail
 
     public function toWhatsApp($notifiable): string
     {
-        return 'Bienvenue sur Barasira, '.$notifiable->first_name.'. Confirmez votre adresse e-mail avec ce lien valable 60 minutes : '.$this->verificationUrl($notifiable);
+        return __('auth.verify_whatsapp', [
+            'name' => $notifiable->first_name,
+            'url' => $this->verificationUrl($notifiable),
+        ]);
     }
 
     /**
@@ -53,13 +56,13 @@ class VerifyEmailCustom extends VerifyEmail
         $url = $this->verificationUrl($notifiable);
 
         return (new MailMessage)
-            ->subject('Confirmez votre adresse email – Barasira')
-            ->greeting('Bienvenue sur Barasira 👋')
-            ->line('Merci de vous être inscrit sur Barasira.')
-            ->line('Veuillez confirmer votre adresse email pour activer votre compte.')
-            ->action('Vérifier mon email', $url)
-            ->line('Ce lien expire dans 60 minutes.')
-            ->salutation('— L’équipe Barasira');
+            ->subject(__('auth.verify_mail_subject'))
+            ->greeting(__('auth.verify_mail_greeting', ['name' => $notifiable->first_name]))
+            ->line(__('auth.verify_mail_intro'))
+            ->line(__('auth.verify_mail_instruction'))
+            ->action(__('auth.verify_mail_action'), $url)
+            ->line(__('auth.verify_mail_expiry', ['count' => 60]))
+            ->salutation(__('auth.verify_mail_salutation'));
     }
 
     /**
