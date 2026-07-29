@@ -41,7 +41,7 @@
     color: $c-white;
     background:
         linear-gradient(135deg, $c-literal-3bb435c6f3, $c-literal-e65bee08ca),
-        url('/images/auth-bg.png') center / cover no-repeat;
+        url('../images/auth-bg.png') center / cover no-repeat;
 }
 
 .login-visual::before {
