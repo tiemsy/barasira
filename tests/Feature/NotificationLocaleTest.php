@@ -30,10 +30,14 @@ class NotificationLocaleTest extends TestCase
             'locale' => 'en',
         ]);
 
-        $mail = app()->withLocale(
-            $user->preferredLocale(),
-            fn () => (new VerifyEmailCustom)->toMail($user)
-        );
+        $previousLocale = app()->getLocale();
+
+        try {
+            app()->setLocale($user->preferredLocale());
+            $mail = (new VerifyEmailCustom)->toMail($user);
+        } finally {
+            app()->setLocale($previousLocale);
+        }
 
         $this->assertSame('Confirm your email address – Barasira', $mail->subject);
         $this->assertSame('Welcome to Barasira, Awa 👋', $mail->greeting);

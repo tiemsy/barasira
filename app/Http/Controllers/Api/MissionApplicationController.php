@@ -172,9 +172,6 @@ class MissionApplicationController extends Controller
 
     private function translatedFor(User $recipient, string $key, array $replace = []): string
     {
-        return app()->withLocale(
-            $recipient->preferredLocale(),
-            fn () => __($key, $replace)
-        );
+        return __($key, $replace, $recipient->preferredLocale());
     }
 }
