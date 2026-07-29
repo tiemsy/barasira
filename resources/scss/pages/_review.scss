@@ -9,7 +9,7 @@
 
     background: var(--background);
 
-    padding: 4rem 1.5rem;
+    padding: $s-literal-4rem $s-literal-1-5rem;
 }
 
 /* =========================================================
@@ -19,7 +19,7 @@
 .reviews-header {
     max-width: 760px;
 
-    margin: 0 auto 3rem;
+    margin: $s-space-0 auto $s-literal-3rem;
 
     text-align: center;
 }
@@ -29,11 +29,11 @@
     align-items: center;
     justify-content: center;
 
-    padding: .45rem .95rem;
+    padding: $s-literal--45rem $s-literal--95rem;
 
     border-radius: $s-radius-pill;
 
-    background: rgba(79, 70, 229, .08);
+    background: $c-literal-50ac958b84;
 
     color: var(--primary);
 
@@ -50,7 +50,7 @@
 
     color: var(--secondary);
 
-    margin-bottom: .75rem;
+    margin-bottom: $s-literal--75rem;
 }
 
 .reviews-header__subtitle {
@@ -90,7 +90,7 @@
 
     color: var(--primary);
 
-    margin-bottom: .5rem;
+    margin-bottom: $s-literal--5rem;
 }
 
 .reviews-stat-card__label {
@@ -106,7 +106,7 @@
 
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 
-    gap: 1.75rem;
+    gap: $s-literal-1-75rem;
 }
 
 /* =========================================================
@@ -145,7 +145,7 @@
     display: flex;
     align-items: center;
 
-    gap: .9rem;
+    gap: $s-literal--9rem;
 }
 
 .review-card__avatar {
@@ -160,7 +160,7 @@
 
     font-weight: 800;
 
-    color: white;
+    color: $c-literal-528cef87d0;
 
     background: linear-gradient(
         135deg,
@@ -176,7 +176,7 @@
 
     color: var(--secondary);
 
-    margin-bottom: .25rem;
+    margin-bottom: $s-literal--25rem;
 }
 
 .review-card__date {
@@ -205,14 +205,14 @@
     display: inline-flex;
     align-items: center;
 
-    gap: .5rem;
+    gap: $s-literal--5rem;
 }
 
 .rating-stars__icons {
     display: flex;
     align-items: center;
 
-    gap: .15rem;
+    gap: $s-literal--15rem;
 }
 
 .rating-stars i {
@@ -222,7 +222,7 @@
 }
 
 .rating-stars i.empty {
-    color: #cbd5e1;
+    color: $c-literal-e66b9d0a8e;
 }
 
 .rating-stars__value {
@@ -238,7 +238,7 @@
 .reviews-empty {
     text-align: center;
 
-    padding: 5rem 1rem;
+    padding: $s-literal-5rem $s-literal-1rem;
 }
 
 .reviews-empty__icon {
@@ -254,7 +254,7 @@
 
     color: var(--secondary);
 
-    margin-bottom: .5rem;
+    margin-bottom: $s-literal--5rem;
 }
 
 .reviews-empty__text {
@@ -268,7 +268,7 @@
 @include mobile {
 
     .reviews-page {
-        padding: 3rem 1rem;
+        padding: $s-literal-3rem $s-literal-1rem;
     }
 
     .reviews-grid {

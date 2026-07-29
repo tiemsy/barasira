@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "scss:audit": "node scripts/audit-scss-tokens.mjs",
     "sass": "sass resources/scss/app.scss public/css/app.css --no-source-map",
     "watch:sass": "sass --watch resources/scss/app.scss:public/css/app.css --no-source-map"
   },

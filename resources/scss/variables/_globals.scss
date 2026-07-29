@@ -1,8 +1,10 @@
 /* Colors */
 @forward "colors" as c-*;
+@forward "legacy-colors" as c-*;
 
 /* Spacing */
 @forward "spacing" as s-*;
+@forward "legacy-spacing" as s-*;
 
 /* Typography */
 @forward "typography" as t-*;

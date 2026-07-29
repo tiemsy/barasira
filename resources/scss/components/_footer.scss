@@ -4,9 +4,9 @@
     position: relative;
     overflow: hidden;
     background:
-        radial-gradient(circle at 8% 18%, rgba($c-primary, .09), transparent 24%),
-        linear-gradient(145deg, #0d1421, $c-text-dark 62%, #172033);
-    color: rgba($c-white, .62);
+        radial-gradient(circle at 8% 18%, $c-literal-59f41b3921, $c-literal-038e6f38d0 24%),
+        linear-gradient(145deg, $c-literal-870616ca6b, $c-text-dark 62%, $c-literal-bed57a806d);
+    color: $c-literal-e257a89c2c;
 
     &::after {
         position: absolute;
@@ -15,33 +15,33 @@
         width: 420px;
         height: 420px;
         content: "";
-        border: 1px solid rgba($c-white, .05);
+        border: 1px solid $c-literal-ff8fbe2c13;
         border-radius: 50%;
     }
 
     &__accent {
         height: 3px;
-        background: linear-gradient(90deg, transparent, $c-primary 35%, $c-secondary-light 65%, transparent);
+        background: linear-gradient(90deg, $c-literal-038e6f38d0, $c-primary 35%, $c-secondary-light 65%, $c-literal-038e6f38d0);
     }
 
     &__container {
         position: relative;
         z-index: 1;
         width: min(1180px, calc(100% - 40px));
-        margin: 0 auto;
+        margin: $s-space-0 auto;
     }
 
     &__main {
         display: grid;
         grid-template-columns: minmax(240px, 1.25fr) .55fr .55fr .85fr minmax(230px, 1fr);
-        gap: 38px;
-        padding: 68px 0 52px;
+        gap: $s-literal-38px;
+        padding: $s-literal-68px $s-space-0 $s-literal-52px;
     }
 
     &__brand p {
         max-width: 350px;
-        margin: 18px 0 20px;
-        color: rgba($c-white, .52);
+        margin: $s-literal-18px $s-space-0 $s-literal-20px;
+        color: $c-literal-537c4ce5eb;
         font-size: 13px;
         line-height: 1.75;
     }
@@ -49,7 +49,7 @@
     &__logo {
         display: inline-flex;
         align-items: center;
-        gap: 11px;
+        gap: $s-literal-11px;
         color: $c-white;
         font-size: 21px;
         text-decoration: none;
@@ -60,9 +60,9 @@
             height: 43px;
             overflow: hidden;
             place-items: center;
-            border: 1px solid rgba($c-primary, .2);
+            border: 1px solid $c-literal-721553b720;
             border-radius: 13px;
-            background: rgba($c-primary, .1);
+            background: $c-literal-d56f18f1a4;
         }
 
         img {
@@ -75,12 +75,12 @@
     &__promise {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 8px 11px;
-        border: 1px solid rgba($c-white, .08);
+        gap: $s-literal-8px;
+        padding: $s-literal-8px $s-literal-11px;
+        border: 1px solid $c-literal-9ae07e303c;
         border-radius: $s-radius-pill;
-        background: rgba($c-white, .04);
-        color: rgba($c-white, .65);
+        background: $c-literal-c884159dfd;
+        color: $c-literal-46adc394fe;
         font-size: 10px;
         font-weight: 750;
 
@@ -90,7 +90,7 @@
     &__column,
     &__contact {
         h2 {
-            margin: 4px 0 20px;
+            margin: $s-literal-4px $s-space-0 $s-literal-20px;
             color: $c-white;
             font-size: 12px;
             font-weight: 850;
@@ -103,11 +103,11 @@
         display: flex;
         align-items: flex-start;
         flex-direction: column;
-        gap: 13px;
+        gap: $s-literal-13px;
 
         a {
             position: relative;
-            color: rgba($c-white, .55);
+            color: $c-literal-e4ed275b94;
             font-size: 12px;
             font-weight: 650;
             text-decoration: none;
@@ -136,8 +136,8 @@
 
     &__contact {
         > p {
-            margin: 0 0 16px;
-            color: rgba($c-white, .5);
+            margin: $s-space-0 $s-space-0 $s-literal-16px;
+            color: $c-literal-dfa86e98b4;
             font-size: 11px;
             line-height: 1.65;
         }
@@ -146,11 +146,11 @@
     &__contact-link {
         display: flex;
         align-items: center;
-        gap: 11px;
-        padding: 12px;
-        border: 1px solid rgba($c-white, .09);
+        gap: $s-literal-11px;
+        padding: $s-literal-12px;
+        border: 1px solid $c-literal-1efe20bbc1;
         border-radius: 14px;
-        background: rgba($c-white, .05);
+        background: $c-literal-ff8fbe2c13;
         color: $c-white;
         text-decoration: none;
         transition: border-color .2s ease, background .2s ease, transform .2s ease;
@@ -169,16 +169,16 @@
 
         > span:nth-child(2) {
             display: grid;
-            gap: 2px;
+            gap: $s-literal-2px;
         }
 
-        small { color: rgba($c-white, .45); font-size: 9px; }
+        small { color: $c-literal-ba92af55aa; font-size: 9px; }
         strong { font-size: 11px; }
         > i { margin-left: auto; color: $c-primary; font-size: 10px; }
 
         &:hover {
-            border-color: rgba($c-primary, .4);
-            background: rgba($c-primary, .08);
+            border-color: $c-literal-4e75768a0b;
+            background: $c-literal-377e50d8e2;
             transform: translateY(-2px);
         }
     }
@@ -188,12 +188,12 @@
         min-height: 70px;
         align-items: center;
         justify-content: space-between;
-        gap: 20px;
-        border-top: 1px solid rgba($c-white, .08);
+        gap: $s-literal-20px;
+        border-top: 1px solid $c-literal-9ae07e303c;
 
         p,
         span {
-            margin: 0;
+            margin: $s-space-0;
             font-size: 10px;
             font-weight: 650;
         }
@@ -201,7 +201,7 @@
         > div {
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: $s-literal-18px;
         }
 
         button {
@@ -209,9 +209,9 @@
             width: 36px;
             height: 36px;
             place-items: center;
-            border: 1px solid rgba($c-white, .12);
+            border: 1px solid $c-literal-7758da34af;
             border-radius: 11px;
-            background: rgba($c-white, .05);
+            background: $c-literal-ff8fbe2c13;
             color: $c-primary;
             cursor: pointer;
             transition: background .2s ease, transform .2s ease;
@@ -225,8 +225,8 @@
 
         .footer__cookies {
             width: auto;
-            padding: 0 12px;
-            color: rgba($c-white, .7);
+            padding: $s-space-0 $s-literal-12px;
+            color: $c-literal-6b56ea56ae;
             font-size: 10px;
             font-weight: $t-font-bold;
         }
@@ -244,13 +244,13 @@
 @media (max-width: 620px) {
     .footer {
         &__container { width: min(100% - 28px, 1180px); }
-        &__main { grid-template-columns: 1fr 1fr; gap: 35px 25px; padding: 50px 0 38px; }
+        &__main { grid-template-columns: 1fr 1fr; gap: $s-literal-35px $s-literal-25px; padding: $s-literal-50px $s-space-0 $s-literal-38px; }
         &__brand,
         &__contact { grid-column: 1 / -1; }
         &__bottom {
             align-items: flex-start;
             flex-direction: column;
-            padding: 22px 0;
+            padding: $s-literal-22px $s-space-0;
 
             > div { width: 100%; justify-content: space-between; }
         }

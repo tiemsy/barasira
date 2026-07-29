@@ -36,11 +36,11 @@ body {
 ========================================================= */
 
 .section {
-    padding: $space-2xl 0;
+    padding: $space-2xl $s-space-0;
 }
 
 .section-sm {
-    padding: $space-xl 0;
+    padding: $space-xl $s-space-0;
 }
 
 .section-title {
@@ -239,13 +239,13 @@ input,
 textarea,
 select {
     width: 100%;
-    padding: 14px 16px;
+    padding: $s-literal-14px $s-literal-16px;
 
     border: 1px solid var(--border);
 
     border-radius: var(--radius-sm);
 
-    background: white;
+    background: $c-literal-528cef87d0;
 
     color: var(--text);
 
@@ -256,7 +256,7 @@ select {
 
         border-color: var(--primary);
 
-        box-shadow: 0 0 0 4px rgba(99,102,241,.15);
+        box-shadow: 0 0 0 4px $c-literal-959230ed7f;
     }
 }
 
@@ -325,6 +325,6 @@ img {
     }
 
     .section {
-        padding: $space-xl 0;
+        padding: $space-xl $s-space-0;
     }
 }

@@ -38,8 +38,8 @@
 
     background: radial-gradient(
         circle,
-        rgba(99,102,241,.08),
-        transparent 70%
+        $c-literal-e3d6aaa2d4,
+        $c-literal-038e6f38d0 70%
     );
 
     pointer-events: none;
@@ -63,8 +63,8 @@
 
     background: radial-gradient(
         circle,
-        rgba(6,182,212,.06),
-        transparent 70%
+        $c-literal-1ef9e933d9,
+        $c-literal-038e6f38d0 70%
     );
 
     pointer-events: none;
@@ -132,7 +132,7 @@
 
 .page-header {
 
-    padding: 140px 0 60px;
+    padding: $s-literal-140px $s-space-0 $s-literal-60px;
 
     position: relative;
 
@@ -180,17 +180,17 @@
 
     position: relative;
 
-    padding: 160px 0 120px;
+    padding: $s-literal-160px $s-space-0 $s-literal-120px;
 
     overflow: hidden;
 
-    color: white;
+    color: $c-literal-528cef87d0;
 
     background:
         linear-gradient(
             135deg,
-            rgba(15,23,42,.88),
-            rgba(15,23,42,.72)
+            $c-literal-4f693b0b66,
+            $c-literal-32dd812c13
         ),
         url("../images/page-hero.jpg")
         center / cover no-repeat;
@@ -202,18 +202,18 @@
 
     position: absolute;
 
-    inset: 0;
+    inset: $s-space-0;
 
     background:
         radial-gradient(
             circle at top left,
-            rgba(99,102,241,.18),
-            transparent 30%
+            $c-literal-36decd8576,
+            $c-literal-038e6f38d0 30%
         ),
         radial-gradient(
             circle at bottom right,
-            rgba(6,182,212,.12),
-            transparent 30%
+            $c-literal-5d2a7f5816,
+            $c-literal-038e6f38d0 30%
         );
 
     pointer-events: none;
@@ -245,7 +245,7 @@
 
     line-height: 1.8;
 
-    color: rgba(255,255,255,.78);
+    color: $c-literal-556568e35a;
 }
 
 /* =========================================================
@@ -254,19 +254,19 @@
 
 .page-section {
 
-    padding: 100px 0;
+    padding: $s-literal-100px $s-space-0;
 
     position: relative;
 }
 
 .page-section-sm {
 
-    padding: 60px 0;
+    padding: $s-literal-60px $s-space-0;
 }
 
 .page-section-lg {
 
-    padding: 140px 0;
+    padding: $s-literal-140px $s-space-0;
 }
 
 /* =========================================================
@@ -349,7 +349,7 @@
 
     .page-header {
 
-        padding: 120px 0 50px;
+        padding: $s-literal-120px $s-space-0 $s-literal-50px;
     }
 
     .page-title {
@@ -364,7 +364,7 @@
 
     .page-hero {
 
-        padding: 120px 0 90px;
+        padding: $s-literal-120px $s-space-0 $s-literal-90px;
     }
 
     .page-hero-title {
@@ -379,7 +379,7 @@
 
     .page-section {
 
-        padding: 70px 0;
+        padding: $s-literal-70px $s-space-0;
     }
 
     .layout-grid-2,

@@ -15,10 +15,10 @@
 
 // .hero-split {
 //     position: relative;
-//     padding: 7rem 0 5rem;
+//     padding: $s-literal-7rem $s-space-0 $s-literal-5rem;
 //     background:
-//         radial-gradient(circle at top left, rgba(79, 70, 229, .12), transparent 32%),
-//         radial-gradient(circle at bottom right, rgba(6, 182, 212, .12), transparent 30%),
+//         radial-gradient(circle at top left, $c-literal-334d86ae13, $c-literal-038e6f38d0 32%),
+//         radial-gradient(circle at bottom right, $c-literal-5352403dea, $c-literal-038e6f38d0 30%),
 //         var(--background);
 // }
 
@@ -33,16 +33,16 @@
 .hero-left {
     position: relative;
     z-index: 2;
-    padding: 2%;
+    padding: $s-literal-2percent;
 }
 
 .hero-badge {
     display: inline-flex;
     align-items: center;
-    padding: .6rem 1rem;
+    padding: $s-literal--6rem $s-literal-1rem;
     margin-bottom: $s-space-6;
     border-radius: $s-radius-pill;
-    background: rgba(79, 70, 229, .08);
+    background: $c-literal-50ac958b84;
     color: var(--primary);
     font-weight: $t-font-bold;
     font-size: .9rem;
@@ -98,7 +98,7 @@
 
 .hero-map-card .city {
     fill: var(--primary);
-    // stroke: white;
+    // stroke: $c-literal-528cef87d0;
     stroke-width: 2;
     cursor: pointer;
     transition: var(--transition);
@@ -106,7 +106,7 @@
 
 .hero-map-card .city:hover {
     fill: var(--accent);
-    filter: drop-shadow(0 0 10px rgba(6, 182, 212, .45));
+    filter: drop-shadow(0 0 10px $c-literal-3de7863fd2);
 }
 
 .hero-city-card {
@@ -115,10 +115,10 @@
     bottom: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: .25rem;
-    padding: 1rem 1.25rem;
+    gap: $s-literal--25rem;
+    padding: $s-literal-1rem $s-literal-1-25rem;
     border-radius: var(--radius-md);
-    background: rgba(255, 255, 255, .92);
+    background: $c-literal-cd3a3ae1f1;
     backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     box-shadow: var(--shadow-md);
@@ -139,7 +139,7 @@
 ========================================================= */
 
 .home-stats {
-    padding: 3rem 0;
+    padding: $s-literal-3rem $s-space-0;
 }
 
 .home-stats-grid {
@@ -149,7 +149,7 @@
 }
 
 .stats-card {
-    padding: 1.75rem;
+    padding: $s-literal-1-75rem;
     border-radius: var(--radius-lg);
     background: var(--surface);
     border: 1px solid var(--border);
@@ -168,7 +168,7 @@
     font-size: 2.2rem;
     font-weight: 900;
     color: var(--primary);
-    margin-bottom: .4rem;
+    margin-bottom: $s-literal--4rem;
 }
 
 .stats-card span {
@@ -187,7 +187,7 @@
 }
 
 .feature-card {
-    padding: 2.5rem 2rem;
+    padding: $s-literal-2-5rem $s-literal-2rem;
     border-radius: var(--radius-lg);
     background: var(--surface);
     border: 1px solid var(--border);
@@ -204,30 +204,30 @@
 .feature-icon {
     width: 82px;
     height: 82px;
-    margin: 0 auto 1.5rem;
+    margin: $s-space-0 auto $s-literal-1-5rem;
     border-radius: 24px;
     display: grid;
     place-items: center;
     font-size: 2rem;
-    color: white;
+    color: $c-literal-528cef87d0;
 }
 
 .feature-icon.trust {
-    background: linear-gradient(135deg, #ef4444, $c-error);
+    background: linear-gradient(135deg, $c-literal-a293054a1e, $c-error);
 }
 
 .feature-icon.speed {
-    background: linear-gradient(135deg, #facc15, #eab308);
+    background: linear-gradient(135deg, $c-literal-fb73b2b0f8, $c-literal-7dec773ac9);
 }
 
 .feature-icon.secure {
-    background: linear-gradient(135deg, #22c55e, #15803d);
+    background: linear-gradient(135deg, $c-literal-c1419dcb4d, $c-literal-33598f25f4);
 }
 
 .feature-card h3 {
     font-size: 1.4rem;
     color: var(--secondary);
-    margin-bottom: .75rem;
+    margin-bottom: $s-literal--75rem;
 }
 
 .feature-card p {
@@ -240,14 +240,14 @@
 ========================================================= */
 
 .home-cta {
-    padding: 5rem 0;
+    padding: $s-literal-5rem $s-space-0;
 }
 
 .home-cta-card {
     padding: $s-space-16;
     border-radius: var(--radius-lg);
     background:
-        linear-gradient(135deg, rgba(79, 70, 229, .1), rgba(6, 182, 212, .1)),
+        linear-gradient(135deg, $c-literal-358c00938f, $c-literal-6ed8752d3b),
         var(--surface);
     border: 1px solid var(--border);
     box-shadow: var(--shadow-lg);
@@ -256,7 +256,7 @@
 
 .home-cta-card h2 {
     max-width: 760px;
-    margin: 0 auto 1rem;
+    margin: $s-space-0 auto $s-literal-1rem;
     font-size: clamp(2rem, 4vw, 3.2rem);
     color: var(--secondary);
 }
@@ -291,11 +291,11 @@
 @media (max-width: 640px) {
     .hero-grid {
         background-image: url("../images/hero-mobile-barasira.png"); // image générée
-        // padding-bottom: 30rem;
+        // padding-bottom: $s-literal-30rem;
     }
 
     .hero-split {
-        // padding: 5rem 0 3rem;
+        // padding: $s-literal-5rem $s-space-0 $s-literal-3rem;
     }
 
     .hero-title {

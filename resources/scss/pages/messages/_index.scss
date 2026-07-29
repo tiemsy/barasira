@@ -1,19 +1,19 @@
 @use "../../variables/globals" as *;
 
-.messaging-page { display: grid; grid-template-columns: 340px minmax(0, 1fr); max-width: 1180px; min-height: 680px; margin: 2rem auto; background: $c-white; border: 1px solid #e7e9ee; border-radius: 18px; overflow: hidden; box-shadow: 0 12px 35px rgba(25, 36, 58, .08); }
-.conversation-list { border-right: 1px solid #e7e9ee; overflow-y: auto; header { padding: 1.5rem; border-bottom: 1px solid $c-border-muted; } h1 { margin: 0; } p { margin: .35rem 0 0; color: $c-muted; } }
-.conversation-item { width: 100%; display: flex; gap: .8rem; align-items: center; padding: 1rem 1.2rem; border: 0; border-bottom: 1px solid #f0f1f4; background: $c-white; text-align: left; cursor: pointer; &.active, &:hover { background: #f2f8f5; } }
+.messaging-page { display: grid; grid-template-columns: 340px minmax(0, 1fr); max-width: 1180px; min-height: 680px; margin: $s-literal-2rem auto; background: $c-white; border: 1px solid $c-literal-600fda37ee; border-radius: 18px; overflow: hidden; box-shadow: 0 12px 35px $c-literal-bb98b70d02; }
+.conversation-list { border-right: 1px solid $c-literal-600fda37ee; overflow-y: auto; header { padding: $s-literal-1-5rem; border-bottom: 1px solid $c-border-muted; } h1 { margin: $s-space-0; } p { margin: $s-literal--35rem $s-space-0 $s-space-0; color: $c-muted; } }
+.conversation-item { width: 100%; display: flex; gap: $s-literal--8rem; align-items: center; padding: $s-literal-1rem $s-literal-1-2rem; border: 0; border-bottom: 1px solid $c-literal-402c478724; background: $c-white; text-align: left; cursor: pointer; &.active, &:hover { background: $c-literal-b35b858ec9; } }
 .avatar { width: 42px; height: 42px; flex: 0 0 42px; display: grid; place-items: center; border-radius: 50%; background: $c-brand; color: $c-white; font-weight: 700; }
-.conversation-copy { min-width: 0; flex: 1; display: grid; gap: .15rem; strong, span, small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } span, small { color: $c-muted; } }
+.conversation-copy { min-width: 0; flex: 1; display: grid; gap: $s-literal--15rem; strong, span, small { overflow: hidden; text-overflow: ellipsis; $c-literal-528cef87d0-space: nowrap; } span, small { color: $c-muted; } }
 .unread { min-width: 24px; height: 24px; display: grid; place-items: center; border-radius: 99px; background: $c-brand; color: $c-white; font-size: .75rem; }
-.chat-panel { min-width: 0; display: flex; flex-direction: column; background: #f8faf9; }
-.chat-header { padding: 1.2rem 1.5rem; background: $c-white; border-bottom: 1px solid #e7e9ee; h2, p { margin: 0; } p { margin-top: .25rem; color: $c-muted; } }
-.message-thread { flex: 1; max-height: 550px; overflow-y: auto; padding: 1.5rem; }
-.message-row { display: flex; margin-bottom: .8rem; &.mine { justify-content: flex-end; .message-bubble { background: $c-brand; color: $c-white; time { color: #d9f3e5; } } } }
-.message-bubble { max-width: min(72%, 620px); padding: .8rem 1rem; border-radius: 15px; background: $c-white; box-shadow: 0 2px 8px rgba(25, 36, 58, .06); p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; } time { display: block; margin-top: .35rem; color: #8a919c; font-size: .72rem; text-align: right; } }
-.message-composer { display: flex; gap: .75rem; padding: 1rem 1.25rem; background: $c-white; border-top: 1px solid #e7e9ee; textarea { flex: 1; resize: none; border: 1px solid #d8dce3; border-radius: 12px; padding: .75rem; } button { align-self: stretch; border: 0; border-radius: 12px; padding: 0 1.3rem; background: $c-brand; color: $c-white; font-weight: 700; } button:disabled { opacity: .55; } }
-.empty-state { padding: 2rem; color: $c-muted; text-align: center; }
+.chat-panel { min-width: 0; display: flex; flex-direction: column; background: $c-literal-b4640e637f; }
+.chat-header { padding: $s-literal-1-2rem $s-literal-1-5rem; background: $c-white; border-bottom: 1px solid $c-literal-600fda37ee; h2, p { margin: $s-space-0; } p { margin-top: $s-literal--25rem; color: $c-muted; } }
+.message-thread { flex: 1; max-height: 550px; overflow-y: auto; padding: $s-literal-1-5rem; }
+.message-row { display: flex; margin-bottom: $s-literal--8rem; &.mine { justify-content: flex-end; .message-bubble { background: $c-brand; color: $c-white; time { color: $c-literal-70583901b6; } } } }
+.message-bubble { max-width: min(72%, 620px); padding: $s-literal--8rem $s-literal-1rem; border-radius: 15px; background: $c-white; box-shadow: 0 2px 8px $c-literal-2c03919d50; p { margin: $s-space-0; $c-literal-528cef87d0-space: pre-wrap; overflow-wrap: anywhere; } time { display: block; margin-top: $s-literal--35rem; color: $c-literal-bf88c0d970; font-size: .72rem; text-align: right; } }
+.message-composer { display: flex; gap: $s-literal--75rem; padding: $s-literal-1rem $s-literal-1-25rem; background: $c-white; border-top: 1px solid $c-literal-600fda37ee; textarea { flex: 1; resize: none; border: 1px solid $c-literal-c222d5c99e; border-radius: 12px; padding: $s-literal--75rem; } button { align-self: stretch; border: 0; border-radius: 12px; padding: $s-space-0 $s-literal-1-3rem; background: $c-brand; color: $c-white; font-weight: 700; } button:disabled { opacity: .55; } }
+.empty-state { padding: $s-literal-2rem; color: $c-muted; text-align: center; }
 .chat-empty { margin: auto; }
-.message-error { margin: 0; padding: .5rem 1.25rem 1rem; color: $c-error-dark; background: $c-white; }
-.conversation-closed { margin: 0; padding: 1rem 1.25rem; border-top: 1px solid #ead9a7; background: #fff8e6; color: #765b13; line-height: 1.5; text-align: center; }
-@media (max-width: 760px) { .messaging-page { grid-template-columns: 1fr; margin: 1rem; } .conversation-list { max-height: 280px; border-right: 0; border-bottom: 1px solid #e7e9ee; } .message-thread { min-height: 390px; } .message-bubble { max-width: 88%; } }
+.message-error { margin: $s-space-0; padding: $s-literal--5rem $s-literal-1-25rem $s-literal-1rem; color: $c-error-dark; background: $c-white; }
+.conversation-closed { margin: $s-space-0; padding: $s-literal-1rem $s-literal-1-25rem; border-top: 1px solid $c-literal-24a0f40651; background: $c-literal-ace40bf48e; color: $c-literal-d0ba157827; line-height: 1.5; text-align: center; }
+@media (max-width: 760px) { .messaging-page { grid-template-columns: 1fr; margin: $s-literal-1rem; } .conversation-list { max-height: 280px; border-right: 0; border-bottom: 1px solid $c-literal-600fda37ee; } .message-thread { min-height: 390px; } .message-bubble { max-width: 88%; } }

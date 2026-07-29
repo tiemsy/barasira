@@ -2,20 +2,20 @@
 
 .services-page {
     min-height: 100vh;
-    background: #f6f8f7;
+    background: $c-literal-2a705b613f;
 }
 
 .services-container {
     width: min(92%, 1220px);
-    margin: 0 auto;
+    margin: $s-space-0 auto;
 }
 
 .services-hero {
     position: relative;
-    padding: 6rem 0 7rem;
+    padding: $s-literal-6rem $s-space-0 $s-literal-7rem;
     overflow: hidden;
     background:
-        linear-gradient(90deg, rgba(#0d2819, .94), rgba(#143c25, .82)),
+        linear-gradient(90deg, $c-literal-e5cd5b9e8e, $c-literal-fcb33f7e10),
         url('/images/hero-services-barasira.png') center 42% / cover no-repeat;
     color: $c-white;
 
@@ -26,7 +26,7 @@
         right: -120px;
         width: 430px;
         height: 430px;
-        border: 1px solid rgba($c-white, .12);
+        border: 1px solid $c-literal-7758da34af;
         border-radius: 50%;
     }
 }
@@ -37,7 +37,7 @@
 
     h1 {
         max-width: 760px;
-        margin: .8rem 0 1rem;
+        margin: $s-literal--8rem $s-space-0 $s-literal-1rem;
         font-size: clamp(2.8rem, 6vw, 5.3rem);
         font-weight: 950;
         letter-spacing: -.06em;
@@ -46,15 +46,15 @@
 
     > p {
         max-width: 660px;
-        margin: 0;
-        color: rgba($c-white, .76);
+        margin: $s-space-0;
+        color: $c-literal-77c31ec286;
         font-size: 1.05rem;
         line-height: 1.75;
     }
 }
 
 .services-kicker {
-    color: #a9e7bf;
+    color: $c-literal-f246b3f65a;
     font-size: .75rem;
     font-weight: 900;
     letter-spacing: .12em;
@@ -66,13 +66,13 @@
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: .6rem;
+    gap: $s-literal--6rem;
     margin-top: $s-space-8;
-    padding: .55rem;
-    border: 1px solid rgba($c-white, .2);
+    padding: $s-literal--55rem;
+    border: 1px solid $c-literal-f430d1ec43;
     border-radius: 17px;
-    background: rgba($c-white, .96);
-    box-shadow: 0 22px 55px rgba($c-black, .24);
+    background: $c-literal-33412dda84;
+    box-shadow: 0 22px 55px $c-literal-6cbd553318;
 
     > span {
         width: 42px;
@@ -80,23 +80,23 @@
         display: grid;
         place-items: center;
         border-radius: 12px;
-        background: rgba($c-primary, .09);
+        background: $c-literal-59f41b3921;
         color: $c-primary;
         font-size: 1.3rem;
     }
 
     input {
         min-width: 0;
-        padding: 1rem .3rem;
+        padding: $s-literal-1rem $s-literal--3rem;
         border: 0;
         outline: 0;
-        background: transparent;
+        background: $c-literal-038e6f38d0;
         font: inherit;
     }
 
     button {
         align-self: stretch;
-        padding: 0 1.35rem;
+        padding: $s-space-0 $s-literal-1-35rem;
         border: 0;
         border-radius: 12px;
         background: $c-primary;
@@ -113,16 +113,16 @@
 .services-catalog {
     position: relative;
     z-index: 2;
-    padding: 0 0 6rem;
+    padding: $s-space-0 $s-space-0 $s-literal-6rem;
 }
 
 .services-filter-panel {
-    margin: -3rem 0 2.5rem;
-    padding: 1.3rem;
+    margin: $s-literal-negative-3rem $s-space-0 $s-literal-2-5rem;
+    padding: $s-literal-1-3rem;
     border: 1px solid $c-gray-200;
     border-radius: 20px;
-    background: rgba($c-white, .97);
-    box-shadow: 0 22px 55px rgba($c-black, .1);
+    background: $c-literal-fa386a65a9;
+    box-shadow: 0 22px 55px $c-literal-e3136d6e0f;
     backdrop-filter: blur(14px);
 }
 
@@ -135,7 +135,7 @@
 
     > div {
         display: grid;
-        gap: .15rem;
+        gap: $s-literal--15rem;
     }
 
     span {
@@ -152,10 +152,10 @@
     }
 
     button {
-        padding: .55rem .75rem;
+        padding: $s-literal--55rem $s-literal--75rem;
         border: 0;
         border-radius: 9px;
-        background: #f2f5f3;
+        background: $c-literal-03386f6f20;
         color: $c-primary;
         cursor: pointer;
         font-weight: 800;
@@ -165,12 +165,12 @@
 .services-filter-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: .8rem;
+    gap: $s-literal--8rem;
 
     label {
         display: grid;
-        gap: .35rem;
-        margin: 0;
+        gap: $s-literal--35rem;
+        margin: $s-space-0;
     }
 
     label > span {
@@ -181,7 +181,7 @@
 
     select {
         width: 100%;
-        padding: .8rem .85rem;
+        padding: $s-literal--8rem $s-literal--85rem;
         border: 1px solid $c-gray-200;
         border-radius: 11px;
         outline: 0;
@@ -189,8 +189,8 @@
         font: inherit;
 
         &:focus {
-            border-color: rgba($c-primary, .45);
-            box-shadow: 0 0 0 3px rgba($c-primary, .08);
+            border-color: $c-literal-7ffcdae207;
+            box-shadow: 0 0 0 3px $c-literal-377e50d8e2;
         }
     }
 }
@@ -198,30 +198,30 @@
 .services-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.2rem;
+    gap: $s-literal-1-2rem;
 }
 
 .service-card {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    padding: 1.35rem;
+    padding: $s-literal-1-35rem;
     border: 1px solid $c-gray-200;
     border-radius: 20px;
     background: $c-white;
-    box-shadow: 0 10px 28px rgba($c-black, .05);
+    box-shadow: 0 10px 28px $c-literal-acbf07c46a;
     transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
 
     &:hover {
-        border-color: rgba($c-primary, .3);
-        box-shadow: 0 22px 50px rgba($c-black, .09);
+        border-color: $c-literal-2360484054;
+        box-shadow: 0 22px 50px $c-literal-d028b70961;
         transform: translateY(-6px);
     }
 
     h2 {
-        margin: .55rem 0 .75rem;
+        margin: $s-literal--55rem $s-space-0 $s-literal--75rem;
         overflow-wrap: anywhere;
-        color: #14231a;
+        color: $c-literal-ff569960d1;
         font-size: $t-text-xl;
         letter-spacing: -.025em;
     }
@@ -232,7 +232,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: .75rem;
+    gap: $s-literal--75rem;
 }
 
 .service-card__icon {
@@ -241,22 +241,22 @@
     display: grid;
     place-items: center;
     border-radius: 15px;
-    background: #edf7f0;
+    background: $c-literal-0d0e61c426;
     color: $c-primary;
     font-size: $t-text-xl;
 }
 
 .service-card__availability {
-    padding: .35rem .55rem;
+    padding: $s-literal--35rem $s-literal--55rem;
     border-radius: $s-radius-pill;
-    background: #e9f8ef;
+    background: $c-literal-21e4e6fbcd;
     color: $c-primary;
     font-size: .68rem;
     font-weight: 850;
 }
 
 .service-card__category {
-    margin-top: 1.1rem;
+    margin-top: $s-literal-1-1rem;
     color: $c-primary;
     font-size: .7rem;
     font-weight: 900;
@@ -268,7 +268,7 @@
     min-height: 4.8em;
     display: -webkit-box;
     overflow: hidden;
-    margin: 0;
+    margin: $s-space-0;
     color: $c-gray-500;
     line-height: 1.6;
     -webkit-box-orient: vertical;
@@ -278,13 +278,13 @@
 .service-card__details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: .7rem;
-    margin: 1.2rem 0;
+    gap: $s-literal--7rem;
+    margin: $s-literal-1-2rem $s-space-0;
 
     div {
-        padding: .75rem;
+        padding: $s-literal--75rem;
         border-radius: 12px;
-        background: #f7f9f8;
+        background: $c-literal-c7726cffb1;
     }
 
     dt {
@@ -295,7 +295,7 @@
     }
 
     dd {
-        margin: .25rem 0 0;
+        margin: $s-literal--25rem $s-space-0 $s-space-0;
         overflow-wrap: anywhere;
         color: $c-dark;
         font-size: .76rem;
@@ -313,7 +313,7 @@
     min-width: 0;
     display: flex;
     align-items: center;
-    gap: .65rem;
+    gap: $s-literal--65rem;
 
     > img,
     > span {
@@ -323,7 +323,7 @@
         flex: 0 0 38px;
         place-items: center;
         border-radius: 12px;
-        background: #dcefe3;
+        background: $c-literal-e11d3150b7;
         color: $c-primary;
         object-fit: cover;
         font-size: .68rem;
@@ -339,7 +339,7 @@
     small {
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
+        $c-literal-528cef87d0-space: nowrap;
     }
 
     strong {
@@ -347,8 +347,8 @@
     }
 
     small {
-        margin-top: .15rem;
-        color: #d58b00;
+        margin-top: $s-literal--15rem;
+        color: $c-literal-1b9da3f89a;
         font-size: .7rem;
         font-weight: 800;
     }
@@ -375,7 +375,7 @@
 .service-card--skeleton {
     min-height: 390px;
     border: 0;
-    background: linear-gradient(90deg, #eef1ef 25%, #f8faf9 50%, #eef1ef 75%);
+    background: linear-gradient(90deg, $c-literal-6e3df35c6e 25%, $c-literal-b4640e637f 50%, $c-literal-6e3df35c6e 75%);
     background-size: 200% 100%;
     animation: service-skeleton 1.4s infinite;
 }
@@ -388,8 +388,8 @@
 
 .services-empty {
     max-width: 620px;
-    margin: 4rem auto 0;
-    padding: 3rem 2rem;
+    margin: $s-literal-4rem auto $s-space-0;
+    padding: $s-literal-3rem $s-literal-2rem;
     border: 1px solid $c-gray-200;
     border-radius: 22px;
     background: $c-white;
@@ -399,27 +399,27 @@
         width: 58px;
         height: 58px;
         display: grid;
-        margin: 0 auto 1rem;
+        margin: $s-space-0 auto $s-literal-1rem;
         place-items: center;
         border-radius: 17px;
-        background: #edf7f0;
+        background: $c-literal-0d0e61c426;
         color: $c-primary;
         font-size: $t-text-2xl;
         font-weight: 900;
     }
 
     h2 {
-        margin: 0 0 .5rem;
+        margin: $s-space-0 $s-space-0 $s-literal--5rem;
     }
 
     p {
-        margin: 0;
+        margin: $s-space-0;
         color: $c-gray-500;
     }
 
     button {
-        margin-top: 1.2rem;
-        padding: .75rem 1rem;
+        margin-top: $s-literal-1-2rem;
+        padding: $s-literal--75rem $s-literal-1rem;
         border: 0;
         border-radius: 11px;
         background: $c-primary;
@@ -437,7 +437,7 @@
     margin-top: $s-space-10;
 
     button {
-        padding: .7rem .9rem;
+        padding: $s-literal--7rem $s-literal--9rem;
         border: 1px solid $c-gray-200;
         border-radius: 10px;
         background: $c-white;
@@ -465,9 +465,9 @@
 
 @media (max-width: 700px) {
     .services-hero {
-        padding: 4.5rem 0 6rem;
+        padding: $s-literal-4-5rem $s-space-0 $s-literal-6rem;
         background:
-            linear-gradient(90deg, rgba(#0d2819, .94), rgba(#143c25, .82)),
+            linear-gradient(90deg, $c-literal-e5cd5b9e8e, $c-literal-fcb33f7e10),
             url('/images/hero-services-mobile-barasira.png') center / cover no-repeat;
     }
 
