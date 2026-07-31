@@ -2,8 +2,12 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Bara Sira API",
-        "description": "API Barasira : authentification, utilisateurs, services, missions, candidatures avec tarification horaire ou globale, messagerie, avis, IA, CV, portfolio et paiements.",
-        "version": "1.2.0"
+        "description": "Contrat de l’API Barasira au 30 juillet 2026 : authentification web ou Bearer, utilisateurs, services, missions, candidatures avec tarification horaire ou globale, messagerie, avis, IA, CV, portfolio et paiements. Les routes protégées exigent aussi une adresse e-mail vérifiée.",
+        "contact": {
+            "name": "Équipe Barasira",
+            "email": "contact@barasira.com"
+        },
+        "version": "1.3.0"
     },
     "servers": [
         {
@@ -1550,6 +1554,12 @@
     },
     "components": {
         "schemas": {
+            "Schemas": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            },
             "User": {
                 "properties": {
                     "id": {
@@ -1581,6 +1591,19 @@
                             "admin",
                             "superadmin"
                         ]
+                    },
+                    "locale": {
+                        "type": "string",
+                        "enum": [
+                            "fr",
+                            "en",
+                            "bm"
+                        ]
+                    },
+                    "email_verified_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
                     },
                     "bio": {
                         "type": "string",
@@ -1618,6 +1641,11 @@
                     },
                     "user": {
                         "$ref": "#/components/schemas/User"
+                    },
+                    "token": {
+                        "description": "Jeton Sanctum retourné uniquement lorsqu’un device_name est fourni.",
+                        "type": "string",
+                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -1639,6 +1667,11 @@
                     },
                     "remember": {
                         "type": "boolean"
+                    },
+                    "device_name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -1650,6 +1683,7 @@
                     "phone",
                     "email",
                     "password",
+                    "password_confirmation",
                     "role"
                 ],
                 "properties": {
@@ -1674,14 +1708,21 @@
                         "format": "password",
                         "minLength": 6
                     },
+                    "password_confirmation": {
+                        "type": "string",
+                        "format": "password"
+                    },
                     "role": {
                         "type": "string",
                         "enum": [
                             "client",
-                            "prestataire",
-                            "admin",
-                            "superadmin"
+                            "prestataire"
                         ]
+                    },
+                    "device_name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -2176,20 +2217,80 @@
                     }
                 },
                 "type": "object"
+            },
+            "PaginatedResponse": {
+                "properties": {
+                    "current_page": {
+                        "type": "integer"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "object"
+                        }
+                    },
+                    "last_page": {
+                        "type": "integer"
+                    },
+                    "per_page": {
+                        "type": "integer"
+                    },
+                    "total": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
             }
         },
         "responses": {
             "Unauthenticated": {
-                "description": "Authentication required"
+                "description": "Authentification requise",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Unauthenticated."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
             },
             "Forbidden": {
-                "description": "Action forbidden"
+                "description": "Action interdite",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
             },
             "NotFound": {
-                "description": "Resource not found"
+                "description": "Ressource introuvable",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
             },
             "ValidationError": {
-                "description": "Validation error",
+                "description": "Erreur de validation",
                 "content": {
                     "application/json": {
                         "schema": {
@@ -2198,7 +2299,14 @@
                                     "type": "string"
                                 },
                                 "errors": {
-                                    "type": "object"
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "schema": "Schemas",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
                             },
                             "type": "object"
@@ -2221,9 +2329,15 @@
         "securitySchemes": {
             "sanctum": {
                 "type": "apiKey",
-                "description": "Laravel Sanctum session cookie",
-                "name": "laravel_session",
+                "description": "Session web Laravel Sanctum. Le nom exact du cookie varie selon l’environnement.",
+                "name": "barasira_session",
                 "in": "cookie"
+            },
+            "bearerAuth": {
+                "type": "http",
+                "description": "Jeton personnel retourné à un client natif lorsque device_name est fourni à la connexion ou à l’inscription.",
+                "bearerFormat": "Sanctum",
+                "scheme": "bearer"
             }
         }
     },

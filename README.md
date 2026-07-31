@@ -27,6 +27,7 @@ Barasira est une plateforme de mise en relation entre clients et prestataires de
 - Journaux système superadministrateur
 - Exploration de la base et traductions superadministrateur
 - Business model et prévisions
+- Spécifications techniques
 
 ## Présentation
 
@@ -270,7 +271,7 @@ MAIL_PORT=587
 MAIL_ENCRYPTION=tls
 MAIL_USERNAME=login-smtp-fourni-par-brevo
 MAIL_PASSWORD=cle-smtp-brevo
-MAIL_FROM_ADDRESS=staging@barasira.com # noreply@barasira.com en production
+MAIL_FROM_ADDRESS=contact@barasira.com
 MAIL_FROM_NAME="Barasira Staging"      # Barasira en production
 MAIL_CONTACT_ADDRESS=contact@barasira.com
 ```
@@ -280,6 +281,12 @@ MAIL_CONTACT_ADDRESS=contact@barasira.com
 clé API. L’adresse `MAIL_FROM_ADDRESS` ou son domaine doit être authentifié
 dans Brevo. Utilisez des clés SMTP distinctes pour le staging et la production
 afin de pouvoir révoquer un environnement indépendamment.
+
+Lorsque la protection Brevo par adresse IP est active, autorisez les IP
+sortantes réelles des serveurs staging et production. L’erreur SMTP
+`525 Unauthorized IP address` indique un refus de cette liste, pas une erreur
+Laravel. La réception de `contact@barasira.com` est assurée séparément par
+Cloudflare Email Routing vers une boîte de destination.
 
 Après une modification des variables, redéployez l’application ou videz le
 cache de configuration dans le conteneur :
@@ -339,6 +346,8 @@ Générer la documentation Swagger :
 
 ```bash
 php artisan swagger:generate
+# Génération L5-Swagger seule, sans contrôle de couverture :
+php artisan l5-swagger:generate
 ```
 
 Développement frontend :
@@ -370,6 +379,8 @@ php artisan view:cache
 - Interface Swagger UI : `/api/documentation`
 - Sources OpenAPI : annotations L5-Swagger centralisées dans `app/Swagger`
 - Spécifications générées pour Swagger UI : `storage/api-docs/api-docs.json` et `storage/api-docs/api-docs.yaml`
+- Version courante du contrat : `1.3.0` au 30 juillet 2026.
+- Authentification documentée : cookie de session Sanctum ou jeton Bearer pour les clients natifs utilisant `device_name`.
 - La commande `php artisan swagger:generate` refuse la génération lorsqu’une route API manque dans la documentation ou lorsqu’une opération documentée n’existe plus.
 - Chaque opération possède un `operationId` unique. Les contrôleurs sans route ni méthode, comme les placeholders OAuth/Refresh Token, ne créent pas d’endpoints fictifs.
 - Routes principales (routes/api.php):
@@ -546,7 +557,21 @@ Les documents stratégiques sont disponibles dans `docs/` :
 - [`Business-Model-Barasira.pdf`](docs/Business-Model-Barasira.pdf) — présentation prête à partager ;
 - [`business-model-barasira.html`](docs/business-model-barasira.html) — source HTML imprimable.
 
-La version 1.8 du 24 juillet 2026 présente le parcours multi-candidatures, la tarification horaire ou globale, le contrôle des chevauchements, les profils clients commentés, le modèle de commission à 10 %, la mise en avant sponsorisée, la stratégie marketing et partenaires avec Urgol Events Mali et Les Petits Stylos, l’organigramme de démarrage, le besoin de financement recommandé de 85 millions FCFA pour douze mois et un prévisionnel simplifié sur cinq ans. Ces hypothèses de pilotage doivent être validées avec un expert-comptable et les partenaires concernés avant usage contractuel ou levée de fonds.
+La version 1.9 du 30 juillet 2026 présente le parcours multi-candidatures, la tarification horaire ou globale, le contrôle des chevauchements, les profils clients commentés, le modèle de commission à 10 %, la mise en avant sponsorisée, la stratégie marketing et partenaires avec Urgol Events Mali et Les Petits Stylos, l’organigramme de démarrage, le besoin de financement recommandé de 85 millions FCFA pour douze mois et un prévisionnel simplifié sur cinq ans. Ces hypothèses de pilotage doivent être validées avec un expert-comptable et les partenaires concernés avant usage contractuel ou levée de fonds.
+
+## Spécifications techniques
+
+La documentation d’architecture et d’exploitation est disponible sous deux
+formats :
+
+- [`SPECIFICATIONS-TECHNIQUES.md`](docs/SPECIFICATIONS-TECHNIQUES.md) — source maintenable ;
+- [`Specifications-Techniques-Barasira.pdf`](docs/Specifications-Techniques-Barasira.pdf) — version partageable ;
+- [`specifications-techniques-barasira.html`](docs/specifications-techniques-barasira.html) — source imprimable.
+
+Elle décrit l’architecture Laravel/Vue, les environnements Docker, le routage
+Coolify, les données, l’API, les intégrations, la sécurité, les sauvegardes,
+les journaux et les procédures de déploiement. Toute évolution structurelle
+doit mettre à jour cette spécification et le contrat OpenAPI.
 
 ## Conventions d’architecture
 
