@@ -396,6 +396,12 @@ Les endpoints d’affichage utilisent les slugs :
 
 Les endpoints de modification et de suppression conservent actuellement les identifiants internes afin de ne pas modifier les contrats d’administration existants.
 
+Les administrateurs et superadministrateurs disposent également d’un catalogue
+à l’adresse `/admin/documentation`. Il permet de consulter ou télécharger les
+PDF, le README, les spécifications techniques et les contrats OpenAPI, puis
+d’ouvrir Swagger UI. Les fichiers sont servis depuis une liste blanche : aucun
+chemin arbitraire ne peut être demandé.
+
 ## API REST
 
 ## Paiements en ligne
