@@ -9,8 +9,10 @@ use OpenApi\Annotations as OA;
  *
  *   @OA\Info(
  *      title="Bara Sira API",
- *      version="1.2.0",
- *      description="API Barasira : authentification, utilisateurs, services, missions, candidatures avec tarification horaire ou globale, messagerie, avis, IA, CV, portfolio et paiements."
+ *      version="1.3.0",
+ *      description="Contrat de l’API Barasira au 30 juillet 2026 : authentification web ou Bearer, utilisateurs, services, missions, candidatures avec tarification horaire ou globale, messagerie, avis, IA, CV, portfolio et paiements. Les routes protégées exigent aussi une adresse e-mail vérifiée.",
+ *
+ *      @OA\Contact(name="Équipe Barasira", email="contact@barasira.com")
  *   ),
  *
  *   @OA\Server(
