@@ -1351,6 +1351,34 @@
         "email": "Email dɔgɔkun bɛ se ka kɛ.",
         "min_length": "Fɛn yi bɛ se ka kɛ {min} hakɛ dɔ."
     },
+    "adminDocumentation": {
+        "metaTitle": "Gafe minnu bɛ kunnafoni di",
+        "eyebrow": "Ɲɛmɔgɔya",
+        "title": "Kunnafoni gafew",
+        "navHint": "PDF, matarafali ani Swagger",
+        "subtitle": "Barasira ka kunnafoni gafew lajɛ lakana kɔnɔ.",
+        "back": "Segin tabali la",
+        "swaggerTitle": "API kunnafoni",
+        "swaggerDescription": "OpenAPI ka siraw ani u cogow lajɛ Swagger UI la.",
+        "openSwagger": "Swagger dayɛlɛ",
+        "catalog": "Kunnafoni gafew",
+        "selectedDocument": "Gafe sugandilen",
+        "unavailable": "A tɛ sɔrɔ",
+        "open": "A dayɛlɛ",
+        "download": "A lajigin",
+        "updated": "A yɛlɛmana {date}",
+        "emptyTitle": "Gafe si tɛ sɔrɔ",
+        "emptyDescription": "A lajɛ ko gafew bɛ application kɔnɔ.",
+        "notice": "Ɲɛmɔgɔw ni ɲɛmɔgɔba dɔrɔn de bɛ se ka don yan.",
+        "documents": {
+            "technical-specifications": { "title": "Tekiniki matarafali", "description": "Architecture, API, kunnafoniw, lakana ani baara." },
+            "business-model": { "title": "Business Model", "description": "Wari sɔrɔcogo, fɛɛrɛ, wari dɛmɛ ani hakɛ jateminɛ." },
+            "readme": { "title": "README", "description": "Application sigicogo, baara ani sariya." },
+            "technical-source": { "title": "Matarafali bɔyɔrɔ", "description": "Tekiniki matarafali ka Markdown sɛbɛn." },
+            "openapi-yaml": { "title": "OpenAPI YAML", "description": "Barasira REST API ka daɲɛlatigɛ." },
+            "openapi-json": { "title": "OpenAPI JSON", "description": "OpenAPI daɲɛlatigɛ min bɛ kɛ Swagger UI la." }
+        }
+    },
     "ui": {
         "common": {
             "loading": "A bɛ laadɔnni…",

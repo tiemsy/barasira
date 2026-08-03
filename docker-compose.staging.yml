@@ -34,6 +34,8 @@ services:
     # ce port sur l'hôte, car Coolify utilise déjà les ports publics 80 et 443.
     expose:
       - "80"
+    volumes:
+      - staging_public_storage:/var/www/html/storage/app/public
     depends_on:
       db:
         condition: service_healthy
@@ -71,3 +73,4 @@ networks:
 
 volumes:
   staging_dbdata:
+  staging_public_storage:

@@ -41,5 +41,7 @@ storage/logs/*
 docker-compose*.yml
 README.md
 *.md
+!README.md
+!docs/*.md
 phpunit.xml
 tests

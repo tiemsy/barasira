@@ -1,0 +1,37 @@
+@use "../../variables/globals" as *;
+
+.admin-documentation { min-height: $s-literal-100vh; padding: $s-literal-3rem max($s-literal-1rem, calc(($s-literal-100vw - $s-literal-1240px) / 2)) $s-literal-4rem; background: $c-literal-8ce34e751c; color: $c-literal-930b540f22; }
+.admin-documentation__hero { display: flex; align-items: flex-end; justify-content: space-between; gap: $s-literal-2rem; margin-bottom: $s-literal-1rem; padding: $s-literal-2rem; border-radius: $s-literal-22px; background: linear-gradient(125deg, $c-literal-780191ce20, $c-literal-d3943a019b); color: $c-white; box-shadow: $s-space-0 $s-literal-18px $s-literal-45px $c-literal-5af72d732c; }
+.admin-documentation__hero h1 { margin: $s-literal--7rem $s-space-0 $s-literal--5rem; font-size: clamp($s-literal-2rem, $s-literal-4vw, $s-literal-3rem); }
+.admin-documentation__hero p { max-width: $s-literal-700px; margin: $s-space-0; color: $c-literal-556568e35a; line-height: $t-leading-loose; }
+.admin-documentation__eyebrow { display: inline-flex; align-items: center; gap: $s-literal--5rem; font-size: $t-text-xs; font-weight: $t-font-bold; letter-spacing: $t-tracking-wide; text-transform: uppercase; }
+.admin-documentation__back { display: inline-flex; flex: 0 0 auto; align-items: center; gap: $s-literal--55rem; padding: $s-literal--8rem $s-literal-1rem; border-radius: $s-literal-11px; background: $c-white; color: $c-brand-dark; font-weight: $t-font-bold; text-decoration: none; }
+.admin-documentation__swagger { display: grid; grid-template-columns: $s-literal-52px minmax($s-space-0, $s-literal-1fr) auto; align-items: center; gap: $s-literal-1rem; margin-bottom: $s-literal-1rem; padding: $s-literal-1rem $s-literal-1-25rem; border: $s-literal-1px solid $c-literal-29349aa693; border-radius: $s-literal-16px; background: $c-white; box-shadow: $s-space-0 $s-literal-10px $s-literal-30px $c-literal-06c9e99f6a; }
+.admin-documentation__swagger-icon { display: grid; width: $s-literal-52px; height: $s-literal-52px; place-items: center; border-radius: $s-literal-12px; background: $c-literal-04a245e257; color: $c-literal-73d158a067; font-size: $t-text-xl; }
+.admin-documentation__swagger p { margin: $s-literal--2rem $s-space-0 $s-space-0; color: $c-text-muted; }
+.admin-documentation__swagger a, .admin-documentation__actions a { display: inline-flex; align-items: center; justify-content: center; gap: $s-literal--45rem; padding: $s-literal--7rem $s-literal--9rem; border: $s-literal-1px solid $c-literal-29349aa693; border-radius: $s-literal-9px; color: $c-brand-dark; font-weight: $t-font-bold; text-decoration: none; }
+.admin-documentation__workspace { display: grid; grid-template-columns: $s-literal-280px minmax($s-space-0, $s-literal-1fr); gap: $s-literal-1rem; }
+.admin-documentation__catalog, .admin-documentation__viewer, .admin-documentation__empty { border: $s-literal-1px solid $c-literal-29349aa693; border-radius: $s-literal-18px; background: $c-white; box-shadow: $s-space-0 $s-literal-10px $s-literal-30px $c-literal-06c9e99f6a; }
+.admin-documentation__catalog { align-self: start; padding: $s-literal--5rem; }
+.admin-documentation__catalog button { display: grid; grid-template-columns: $s-literal-40px minmax($s-space-0, $s-literal-1fr) auto; width: $s-literal-100pct; align-items: center; gap: $s-literal--7rem; padding: $s-literal--8rem; border: $s-space-0; border-radius: $s-literal-12px; background: $c-transparent; color: $c-literal-49a337fb21; text-align: left; cursor: pointer; }
+.admin-documentation__catalog button:hover, .admin-documentation__catalog button.active { background: $c-literal-04a245e257; color: $c-literal-73d158a067; }
+.admin-documentation__catalog button:disabled { cursor: not-allowed; opacity: $t-opacity-2; }
+.admin-documentation__catalog strong, .admin-documentation__catalog small { display: block; }
+.admin-documentation__catalog small { margin-top: $s-literal--18rem; color: $c-text-muted; font-size: $t-text-xs; }
+.admin-documentation__document-icon { display: grid; width: $s-literal-40px; height: $s-literal-40px; place-items: center; border-radius: $s-literal-10px; background: $c-literal-39a44174fc; }
+.admin-documentation__viewer { min-width: $s-space-0; overflow: hidden; }
+.admin-documentation__viewer header { display: flex; align-items: flex-start; justify-content: space-between; gap: $s-literal-1rem; padding: $s-literal-1-25rem; border-bottom: $s-literal-1px solid $c-literal-af47b173a2; }
+.admin-documentation__viewer header > div:first-child > span { color: $c-text-muted; font-size: $t-text-xs; font-weight: $t-font-bold; letter-spacing: $t-tracking-wide; text-transform: uppercase; }
+.admin-documentation__viewer h2 { margin: $s-literal--25rem $s-space-0; }
+.admin-documentation__viewer header p { max-width: $s-literal-650px; margin: $s-space-0; color: $c-text-muted; }
+.admin-documentation__actions { display: flex; flex: 0 0 auto; gap: $s-literal--5rem; }
+.admin-documentation__actions a.primary { border-color: $c-brand; background: $c-brand; color: $c-white; }
+.admin-documentation__meta { display: flex; gap: $s-literal-1rem; padding: $s-literal--65rem $s-literal-1-25rem; border-bottom: $s-literal-1px solid $c-literal-af47b173a2; background: $c-literal-849001bfc7; color: $c-text-muted; font-size: $t-text-xs; }
+.admin-documentation__meta span { display: inline-flex; align-items: center; gap: $s-literal--35rem; }
+.admin-documentation__viewer iframe { display: block; width: $s-literal-100pct; height: $s-literal-720px; border: $s-space-0; background: $c-white; }
+.admin-documentation__empty { display: grid; min-height: $s-literal-420px; padding: $s-literal-2rem; place-items: center; align-content: center; text-align: center; }
+.admin-documentation__empty > svg { color: $c-error-dark; font-size: $t-text-3xl; }
+.admin-documentation__empty p { color: $c-text-muted; }
+.admin-documentation__notice { display: flex; align-items: center; gap: $s-literal--5rem; margin: $s-literal-1rem $s-literal--25rem $s-space-0; color: $c-literal-c390b8b58e; font-size: $t-text-xs; }
+@media (max-width: $s-literal-800px) { .admin-documentation__hero, .admin-documentation__viewer header { align-items: stretch; flex-direction: column; }.admin-documentation__workspace { grid-template-columns: $s-literal-1fr; }.admin-documentation__catalog { display: grid; grid-template-columns: repeat(2, $s-literal-1fr); }.admin-documentation__swagger { grid-template-columns: $s-literal-52px $s-literal-1fr; }.admin-documentation__swagger a { grid-column: 1 / -1; } }
+@media (max-width: $s-literal-480px) { .admin-documentation__catalog { grid-template-columns: $s-literal-1fr; }.admin-documentation__actions { flex-direction: column; }.admin-documentation__meta { flex-direction: column; } }
