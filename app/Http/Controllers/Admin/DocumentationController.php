@@ -20,7 +20,7 @@ class DocumentationController extends Controller
             'title' => 'Spécifications techniques',
             'description' => 'Architecture, API, données, sécurité, intégrations et exploitation.',
             'type' => 'pdf',
-            'path' => 'docs/Specifications-Techniques-BaraSira.pdf',
+            'path' => 'docs/Specifications-Techniques-Barasira.pdf',
         ],
         'business-model' => [
             'title' => 'Business Model',

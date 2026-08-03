@@ -560,8 +560,8 @@ Les tests locaux nécessitent une base de données accessible. La configuration 
 
 Les documents stratégiques sont disponibles dans `docs/` :
 
-- [`Business-Model-BaraSira.pdf`](docs/Business-Model-BaraSira.pdf) — présentation prête à partager ;
-- [`business-model-BaraSira.html`](docs/business-model-BaraSira.html) — source HTML imprimable.
+- [`Business-Model-Barasira.pdf`](docs/Business-Model-Barasira.pdf) — présentation prête à partager ;
+- [`business-model-barasira.html`](docs/business-model-barasira.html) — source HTML imprimable.
 
 La version 1.9 du 30 juillet 2026 présente le parcours multi-candidatures, la tarification horaire ou globale, le contrôle des chevauchements, les profils clients commentés, le modèle de commission à 10 %, la mise en avant sponsorisée, la stratégie marketing et partenaires avec Urgol Events Mali et Les Petits Stylos, l’organigramme de démarrage, le besoin de financement recommandé de 85 millions FCFA pour douze mois et un prévisionnel simplifié sur cinq ans. Ces hypothèses de pilotage doivent être validées avec un expert-comptable et les partenaires concernés avant usage contractuel ou levée de fonds.
 
@@ -571,8 +571,8 @@ La documentation d’architecture et d’exploitation est disponible sous deux
 formats :
 
 - [`SPECIFICATIONS-TECHNIQUES.md`](docs/SPECIFICATIONS-TECHNIQUES.md) — source maintenable ;
-- [`Specifications-Techniques-BaraSira.pdf`](docs/Specifications-Techniques-BaraSira.pdf) — version partageable ;
-- [`specifications-techniques-BaraSira.html`](docs/specifications-techniques-BaraSira.html) — source imprimable.
+- [`Specifications-Techniques-Barasira.pdf`](docs/Specifications-Techniques-Barasira.pdf) — version partageable ;
+- [`specifications-techniques-barasira.html`](docs/specifications-techniques-barasira.html) — source imprimable.
 
 Elle décrit l’architecture Laravel/Vue, les environnements Docker, le routage
 Coolify, les données, l’API, les intégrations, la sécurité, les sauvegardes,

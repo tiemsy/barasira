@@ -349,9 +349,9 @@ Une évolution d’API doit modifier simultanément :
 |---|---|
 | `README.md` | prise en main et référence développeur |
 | `docs/SPECIFICATIONS-TECHNIQUES.md` | spécification technique maintenable |
-| `docs/Specifications-Techniques-BaraSira.pdf` | version partageable |
-| `docs/business-model-BaraSira.html` | source du document stratégique |
-| `docs/Business-Model-BaraSira.pdf` | business model partageable |
+| `docs/Specifications-Techniques-Barasira.pdf` | version partageable |
+| `docs/business-model-barasira.html` | source du document stratégique |
+| `docs/Business-Model-Barasira.pdf` | business model partageable |
 | `storage/api-docs/api-docs.yaml` | contrat OpenAPI versionnable |
 | `storage/api-docs/api-docs.json` | contrat utilisé par Swagger UI |
 
