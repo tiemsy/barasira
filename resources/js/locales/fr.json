@@ -3,6 +3,17 @@
         "name": "BaraSira",
         "tagline": "Trouvez des prestataires fiables près de chez vous au Mali 🇲🇱"
     },
+    "accessibility": {
+        "zoom": {
+            "title": "Agrandissement de l’affichage",
+            "description": "Agrandissez les textes et les éléments du site pour améliorer leur lisibilité.",
+            "open": "Ouvrir les options d’agrandissement",
+            "close": "Fermer les options d’agrandissement",
+            "increase": "Agrandir l’affichage",
+            "decrease": "Réduire l’affichage",
+            "reset": "Réinitialiser à 100 %"
+        }
+    },
     "home": {
         "heroTitle": "Trouvez des prestataires fiables près de chez vous au Mali 🇲🇱",
         "heroSubtitle": "Plomberie, électricité, transport, couture… en quelques minutes.\nBaraSira connecte particuliers et professionnels maliens pour des services rapides, fiables et locaux.",

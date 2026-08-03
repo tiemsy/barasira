@@ -3,6 +3,17 @@
         "name": "BaraSira",
         "tagline": "Access trusted service providers located near you in Mali 🇲🇱"
     },
+    "accessibility": {
+        "zoom": {
+            "title": "Display magnification",
+            "description": "Enlarge text and website elements to make them easier to read.",
+            "open": "Open magnification options",
+            "close": "Close magnification options",
+            "increase": "Increase display size",
+            "decrease": "Decrease display size",
+            "reset": "Reset to 100%"
+        }
+    },
     "home": {
         "heroTitle": "Access trusted service providers located near you in Mali 🇲🇱",
         "heroSubtitle": "Plumbing, electricity, transport, tailoring… in just a few minutes.\nBaraSira connects individuals and professionals in Mali for fast, reliable, and local services.",
