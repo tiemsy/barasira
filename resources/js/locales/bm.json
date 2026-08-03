@@ -3,6 +3,17 @@
         "name": "BaraSira",
         "tagline": "A bɛ se ka dɔgɔkunw jɔyɔrɔ minnu bɛ sigi i kan Mali la 🇲🇱"
     },
+    "accessibility": {
+        "zoom": {
+            "title": "Yirali bonya",
+            "description": "Sɛbɛnniw ni site fɛnw bonya walasa u kalan ka nɔgɔ.",
+            "open": "Yirali bonyali sugandiliw dayɛlɛ",
+            "close": "Yirali bonyali sugandiliw datugu",
+            "increase": "Yirali bonya",
+            "decrease": "Yirali dɔgɔya",
+            "reset": "A segin 100% kan"
+        }
+    },
     "home": {
         "heroTitle": "A bɛ se ka dɔgɔkunw jɔyɔrɔ minnu bɛ sigi i kan Mali la 🇲🇱",
         "heroSubtitle": "Plɔmbɛri, elektrisite, transport, sɔgɔsili… a bɛ kɛ kɔfɛ miniti dɔ la.\nBaraSira bɛ sɔrɔw ani dɔgɔkunw fɛ ka dɛmɛ Maliba la doni-doni, jɔyɔrɔ ani sisan kɛlɛya.",
