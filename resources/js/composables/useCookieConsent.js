@@ -1,8 +1,14 @@
 import { reactive } from 'vue'
 
-const COOKIE_NAME = 'barasira_cookie_consent'
+const COOKIE_NAME = 'BaraSira_cookie_consent'
 const CONSENT_VERSION = 1
-const state = reactive({ ready: false, preferencesOpen: false, necessary: true, marketing: false })
+const state = reactive({
+    ready: false,
+    hasChoice: false,
+    preferencesOpen: false,
+    necessary: true,
+    marketing: false,
+})
 
 function readConsent() {
     const value = document.cookie.split('; ').find(item => item.startsWith(`${COOKIE_NAME}=`))?.split('=').slice(1).join('=')
@@ -29,11 +35,11 @@ function removeMarketingCookies() {
 
 function loadMarketingScripts() {
     const googleId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID
-    if (googleId && !document.querySelector('[data-barasira-google-analytics]')) {
+    if (googleId && !document.querySelector('[data-BaraSira-google-analytics]')) {
         const script = document.createElement('script')
         script.async = true
         script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleId)}`
-        script.dataset.barasiraGoogleAnalytics = 'true'
+        script.dataset.BaraSiraGoogleAnalytics = 'true'
         document.head.appendChild(script)
         window.dataLayer = window.dataLayer || []
         window.gtag = window.gtag || function () { window.dataLayer.push(arguments) }
@@ -50,7 +56,7 @@ function loadMarketingScripts() {
         const script = document.createElement('script')
         script.async = true
         script.src = 'https://connect.facebook.net/en_US/fbevents.js'
-        script.dataset.barasiraMetaPixel = 'true'
+        script.dataset.BaraSiraMetaPixel = 'true'
         document.head.appendChild(script)
         fbq('init', pixelId)
         fbq('track', 'PageView')
@@ -59,6 +65,7 @@ function loadMarketingScripts() {
 
 function save(marketing) {
     state.marketing = Boolean(marketing)
+    state.hasChoice = true
     state.preferencesOpen = false
     writeConsent(state.marketing)
     if (state.marketing) loadMarketingScripts()
@@ -69,6 +76,7 @@ function initialize() {
     if (state.ready || typeof document === 'undefined') return
     const consent = readConsent()
     state.ready = true
+    state.hasChoice = Boolean(consent)
     if (consent) {
         state.marketing = Boolean(consent.marketing)
         if (state.marketing) loadMarketingScripts()
@@ -84,6 +92,6 @@ export function useCookieConsent() {
         savePreferences: marketing => save(marketing),
         openPreferences: () => { state.preferencesOpen = true },
         closePreferences: () => { state.preferencesOpen = false },
-        hasChoice: () => Boolean(readConsent()),
+        hasChoice: () => state.hasChoice,
     }
 }

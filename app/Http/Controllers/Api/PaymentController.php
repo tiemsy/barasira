@@ -107,7 +107,7 @@ class PaymentController extends Controller
             $payment->markAsPaid();
         }
 
-        return redirect()->away("barasira://payments/{$payment->id}");
+        return redirect()->away("BaraSira://payments/{$payment->id}");
     }
 
     public function cancelled(Payment $payment): RedirectResponse
@@ -116,7 +116,7 @@ class PaymentController extends Controller
             $payment->update(['status' => 'annule']);
         }
 
-        return redirect()->away("barasira://payments/{$payment->id}");
+        return redirect()->away("BaraSira://payments/{$payment->id}");
     }
 
     private function payload(Payment $payment): array

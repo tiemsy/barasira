@@ -4,7 +4,7 @@
       <!-- Logo / Nom -->
       <div class="text-center mb-6">
         <Link href="/" class="text-3xl font-bold text-teal-700">
-          Barasira
+          BaraSira
         </Link>
         <p class="text-sm text-gray-500">
           {{ $t('footer.description') }}

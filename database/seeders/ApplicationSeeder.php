@@ -38,13 +38,13 @@ class ApplicationSeeder extends Seeder
 
         $pendingApplications = [
             'Confectionner trois tenues en bazin' => [
-                'aissata.couture@barasira.test',
-                'kadidia.coiffure@barasira.test',
-                'awa.menage@barasira.test',
+                'aissata.couture@BaraSira.test',
+                'kadidia.coiffure@BaraSira.test',
+                'awa.menage@BaraSira.test',
             ],
             'Installer deux ordinateurs de caisse' => [
-                'boubacar.informatique@barasira.test',
-                'ibrahim.electricien@barasira.test',
+                'boubacar.informatique@BaraSira.test',
+                'ibrahim.electricien@BaraSira.test',
             ],
         ];
 
@@ -81,14 +81,14 @@ class ApplicationSeeder extends Seeder
 
         $competingApplications = [
             'Installer un tableau électrique sécurisé' => [
-                'boubacar.informatique@barasira.test',
-                'youssouf.solaire@barasira.test',
+                'boubacar.informatique@BaraSira.test',
+                'youssouf.solaire@BaraSira.test',
             ],
             'Remplacer la plomberie d’une douche' => [
-                'nana.climatisation@barasira.test',
+                'nana.climatisation@BaraSira.test',
             ],
             'Confectionner des uniformes de restaurant' => [
-                'awa.menage@barasira.test',
+                'awa.menage@BaraSira.test',
             ],
         ];
 

@@ -16,7 +16,7 @@ class NotificationLocaleTest extends TestCase
         $user = User::factory()->create(['locale' => 'fr']);
 
         $this->actingAs($user)
-            ->withUnencryptedCookie('barasira_locale', 'en')
+            ->withUnencryptedCookie('BaraSira_locale', 'en')
             ->get('/')
             ->assertOk();
 
@@ -39,7 +39,7 @@ class NotificationLocaleTest extends TestCase
             app()->setLocale($previousLocale);
         }
 
-        $this->assertSame('Confirm your email address – Barasira', $mail->subject);
-        $this->assertSame('Welcome to Barasira, Awa 👋', $mail->greeting);
+        $this->assertSame('Confirm your email address – BaraSira', $mail->subject);
+        $this->assertSame('Welcome to BaraSira, Awa 👋', $mail->greeting);
     }
 }

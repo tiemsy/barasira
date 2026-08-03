@@ -1,6 +1,6 @@
-# Barasira
+# BaraSira
 
-Barasira est une plateforme de mise en relation entre clients et prestataires de services, construite avec Laravel 12. Elle expose une API REST protégée par Sanctum et une interface Vue 3/Inertia.
+BaraSira est une plateforme de mise en relation entre clients et prestataires de services, construite avec Laravel 12. Elle expose une API REST protégée par Sanctum et une interface Vue 3/Inertia.
 
 ## Sommaire
 
@@ -33,7 +33,7 @@ Barasira est une plateforme de mise en relation entre clients et prestataires de
 
 - Objectif : permettre aux clients de publier des missions et aux prestataires d’y postuler, de les exécuter et d’échanger avec les clients.
 - Domaines couverts : utilisateurs, services, catégories, missions, candidatures, invitations, messagerie, paiements, avis, CV professionnels et partenaires.
-- Les utilisateurs vérifiés peuvent publier et modifier un avis public sur Barasira depuis `/avis`, indépendamment des évaluations de prestataires liées aux missions.
+- Les utilisateurs vérifiés peuvent publier et modifier un avis public sur BaraSira depuis `/avis`, indépendamment des évaluations de prestataires liées aux missions.
 - L’accueil présente les trois avis publiés les plus récents, leur moyenne globale et un lien vers la page complète.
 - Les pages de détail des services, missions et profils clients utilisent des slugs lisibles plutôt que des identifiants numériques.
 - Le client définit un budget maximum et une durée initiale. Le prestataire candidate avec son tarif horaire ou un forfait global.
@@ -77,9 +77,9 @@ Points d’accès :
 Configuration de production :
 
 ```dotenv
-APP_URL=https://barasira.com
-SEO_SITE_NAME=Barasira
-SEO_DEFAULT_TITLE="Barasira — Trouvez un prestataire fiable au Mali"
+APP_URL=https://BaraSira.com
+SEO_SITE_NAME=BaraSira
+SEO_DEFAULT_TITLE="BaraSira — Trouvez un prestataire fiable au Mali"
 SEO_DEFAULT_DESCRIPTION="Trouvez rapidement des prestataires qualifiés au Mali pour vos travaux, services à domicile et besoins professionnels."
 SEO_DEFAULT_IMAGE=/images/logo-barasira.png
 SEO_COUNTRY=Mali
@@ -97,7 +97,7 @@ Checklist après déploiement :
 1. Vérifier que `APP_URL` utilise le domaine HTTPS définitif.
 2. Ouvrir `/robots.txt` et `/sitemap.xml` sur le domaine public.
 3. Ajouter et valider le domaine dans Google Search Console.
-4. Soumettre `https://barasira.com/sitemap.xml` dans Search Console.
+4. Soumettre `https://BaraSira.com/sitemap.xml` dans Search Console.
 5. Tester l’accueil et plusieurs fiches services avec l’outil Google de résultats enrichis.
 6. Surveiller l’indexation, les erreurs d’exploration, les requêtes et le taux de clics.
 7. Publier régulièrement des contenus utiles ciblant les métiers et villes du Mali, puis développer des avis et liens entrants de qualité.
@@ -144,7 +144,7 @@ Les routes sont protégées par le middleware `role:superadmin` et leurs contrô
 15. mission_unassignments - Historique et motifs de désaffectation
 16. partners - Entreprises partenaires, contacts et visibilité publique
 17. partner_promotions - Campagnes payantes et planifiées de mise en avant
-18. platform_reviews - Avis des utilisateurs sur la plateforme Barasira
+18. platform_reviews - Avis des utilisateurs sur la plateforme BaraSira
 19. client_comments - Commentaires publics des prestataires sur les profils clients
 
 ## Tables CVThèque
@@ -199,7 +199,7 @@ docker compose up -d
 2. Préparer la base de données :
 
 ```bash
-docker compose exec php php artisan db:create barasira
+docker compose exec php php artisan db:create BaraSira
 docker compose exec php php artisan migrate --seed
 ```
 
@@ -231,9 +231,9 @@ Le `Dockerfile` racine expose trois targets partageant les mêmes versions de PH
 Construction indépendante des images :
 
 ```bash
-docker build --target development -t barasira:development .
-docker build --target staging -t barasira:staging .
-docker build --target production -t barasira:production .
+docker build --target development -t BaraSira:development .
+docker build --target staging -t BaraSira:staging .
+docker build --target production -t BaraSira:production .
 ```
 
 Les secrets ne sont jamais intégrés pendant le build. Ils sont injectés au démarrage du conteneur. Des modèles sont disponibles dans `docker/.env.staging.example` et `docker/.env.production.example`.
@@ -271,9 +271,9 @@ MAIL_PORT=587
 MAIL_ENCRYPTION=tls
 MAIL_USERNAME=login-smtp-fourni-par-brevo
 MAIL_PASSWORD=cle-smtp-brevo
-MAIL_FROM_ADDRESS=contact@barasira.com
-MAIL_FROM_NAME="Barasira Staging"      # Barasira en production
-MAIL_CONTACT_ADDRESS=contact@barasira.com
+MAIL_FROM_ADDRESS=contact@BaraSira.com
+MAIL_FROM_NAME="BaraSira Staging"      # BaraSira en production
+MAIL_CONTACT_ADDRESS=contact@BaraSira.com
 ```
 
 `MAIL_USERNAME` est le login affiché dans **Brevo > Paramètres > SMTP et API**.
@@ -285,7 +285,7 @@ afin de pouvoir révoquer un environnement indépendamment.
 Lorsque la protection Brevo par adresse IP est active, autorisez les IP
 sortantes réelles des serveurs staging et production. L’erreur SMTP
 `525 Unauthorized IP address` indique un refus de cette liste, pas une erreur
-Laravel. La réception de `contact@barasira.com` est assurée séparément par
+Laravel. La réception de `contact@BaraSira.com` est assurée séparément par
 Cloudflare Email Routing vers une boîte de destination.
 
 Après une modification des variables, redéployez l’application ou videz le
@@ -303,19 +303,19 @@ Si le port 587 est bloqué par l’hébergeur, Brevo accepte également le port
 
 Les seeders créent un scénario déterministe avec des clients, des prestataires spécialisés et leurs tarifs horaires, quatorze services, des missions à différents statuts avec budget maximum et heures initiales/facturables, plusieurs candidatures horaires ou globales par mission, des commentaires sur les profils clients, des compétences, des diplômes, des expériences, des certifications, des avis, des paiements calculés depuis l’offre retenue et des fiches partenaires. Ils peuvent être relancés sans dupliquer ces données.
 
-Les partenaires présentés par Barasira sont **Urgol Events Mali** et **Les Petits Stylos**. Les coordonnées en `.test` et les logos générés par les seeders servent uniquement aux environnements de démonstration ; les données et droits de publication doivent être validés avant la production.
+Les partenaires présentés par BaraSira sont **Urgol Events Mali** et **Les Petits Stylos**. Les coordonnées en `.test` et les logos générés par les seeders servent uniquement aux environnements de démonstration ; les données et droits de publication doivent être validés avant la production.
 
 Comptes principaux (mot de passe : `password`) :
 
-- Client : `aminata.client@barasira.test`
-- Client : `moussa.client@barasira.test`
-- Prestataire : `ibrahim.electricien@barasira.test`
-- Prestataire : `mariam.plombiere@barasira.test`
-- Prestataire : `boubacar.informatique@barasira.test`
+- Client : `aminata.client@BaraSira.test`
+- Client : `moussa.client@BaraSira.test`
+- Prestataire : `ibrahim.electricien@BaraSira.test`
+- Prestataire : `mariam.plombiere@BaraSira.test`
+- Prestataire : `boubacar.informatique@BaraSira.test`
 
-Le compte administrateur reste `admin@barasira.com` avec le mot de passe défini par `AdminSeeder`.
+Le compte administrateur reste `admin@BaraSira.com` avec le mot de passe défini par `AdminSeeder`.
 
-En local, un superadministrateur est créé avec `superadmin@barasira.com` et le mot de passe `superadmin123`. En staging et en production, configurez obligatoirement `SUPERADMIN_EMAIL` et un `SUPERADMIN_PASSWORD` d’au moins 12 caractères. `SUPERADMIN_PHONE`, `SUPERADMIN_FIRST_NAME` et `SUPERADMIN_LAST_NAME` sont personnalisables.
+En local, un superadministrateur est créé avec `superadmin@BaraSira.com` et le mot de passe `superadmin123`. En staging et en production, configurez obligatoirement `SUPERADMIN_EMAIL` et un `SUPERADMIN_PASSWORD` d’au moins 12 caractères. `SUPERADMIN_PHONE`, `SUPERADMIN_FIRST_NAME` et `SUPERADMIN_LAST_NAME` sont personnalisables.
 
 Après toute modification de ces variables sur un environnement utilisant le cache Laravel, exécutez `php artisan config:clear` avant le provisionnement, puis régénérez le cache avec `php artisan config:cache`.
 
@@ -406,7 +406,7 @@ chemin arbitraire ne peut être demandé.
 
 ## Paiements en ligne
 
-Le client propriétaire d’une mission peut régler le montant calculé côté serveur via Orange Money, Moov Money ou carte bancaire avec le checkout CinetPay, ainsi que via PayPal. Ce montant correspond au forfait global accepté ou au tarif horaire accepté multiplié par les heures facturables. Aucun numéro de carte ni secret de portefeuille n’est stocké par Barasira. CinetPay confirme les paiements via `/api/payments/webhooks/cinetpay`, puis le serveur revérifie systématiquement la transaction auprès de l’API CinetPay avant de la marquer comme effectuée.
+Le client propriétaire d’une mission peut régler le montant calculé côté serveur via Orange Money, Moov Money ou carte bancaire avec le checkout CinetPay, ainsi que via PayPal. Ce montant correspond au forfait global accepté ou au tarif horaire accepté multiplié par les heures facturables. Aucun numéro de carte ni secret de portefeuille n’est stocké par BaraSira. CinetPay confirme les paiements via `/api/payments/webhooks/cinetpay`, puis le serveur revérifie systématiquement la transaction auprès de l’API CinetPay avant de la marquer comme effectuée.
 
 Configurez `CINETPAY_API_KEY`, `CINETPAY_SITE_ID` et `CINETPAY_SECRET_KEY`. Pour PayPal, configurez `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET`, `PAYPAL_WEBHOOK_ID`, puis un taux marchand explicite `PAYPAL_XOF_PER_UNIT`, car PayPal ne traite pas directement le XOF. Utilisez les URLs sandbox avant la production et exécutez `php artisan migrate` après déploiement.
 
@@ -526,7 +526,7 @@ La configuration des fournisseurs se trouve dans `config/ai.php` et utilise les 
 - Build frontend : `npm run build`
 - Debug : Laravel Debugbar en développement et Ignition pour les erreurs
 
-Les tests locaux nécessitent une base de données accessible. La configuration Docker utilise généralement le nom d’hôte `barasira_db_1`, qui n’est résolu que depuis le réseau Docker.
+Les tests locaux nécessitent une base de données accessible. La configuration Docker utilise généralement le nom d’hôte `BaraSira_db_1`, qui n’est résolu que depuis le réseau Docker.
 
 ## Sécurité
 

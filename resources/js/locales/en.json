@@ -1,11 +1,11 @@
 {
     "app": {
-        "name": "Barasira",
+        "name": "BaraSira",
         "tagline": "Access trusted service providers located near you in Mali 🇲🇱"
     },
     "home": {
         "heroTitle": "Access trusted service providers located near you in Mali 🇲🇱",
-        "heroSubtitle": "Plumbing, electricity, transport, tailoring… in just a few minutes.\nBarasira connects individuals and professionals in Mali for fast, reliable, and local services.",
+        "heroSubtitle": "Plumbing, electricity, transport, tailoring… in just a few minutes.\nBaraSira connects individuals and professionals in Mali for fast, reliable, and local services.",
         "heroBtnFindService": "Find a service",
         "heroBtnBecomeProvider": "Become a provider",
         "security": "Security",
@@ -24,7 +24,7 @@
         "description": "Find local professionals, post your needs, and communicate easily on a platform designed for Mali.",
         "localProfessionals": "Local professionals",
         "availableCities": "Available in several cities across Mali",
-        "heroImageAlt": "Barasira professionals",
+        "heroImageAlt": "BaraSira professionals",
         "ratedProfiles": "Rated profiles",
         "chooseConfidently": "Choose with confidence",
         "needPublished": "Request published",
@@ -48,13 +48,13 @@
         "how": {
             "kicker": "Simple and fast",
             "title": "Get your needs handled in three steps",
-            "description": "From search to first contact, Barasira supports you without complexity.",
+            "description": "From search to first contact, BaraSira supports you without complexity.",
             "step1Title": "Describe your need",
             "step1Description": "Search for a service or post a detailed mission in minutes.",
             "step2Title": "Compare profiles",
             "step2Description": "Review providers' skills, prices, and information.",
             "step3Title": "Communicate directly",
-            "step3Description": "Chat through Barasira messaging and organize the intervention."
+            "step3Description": "Chat through BaraSira messaging and organize the intervention."
         },
         "categoriesSection": {
             "kicker": "Explore",
@@ -79,13 +79,13 @@
         "finalCta": {
             "kicker": "Ready to start?",
             "title": "Turn your need into a solution.",
-            "description": "Join Barasira and find the professional you need.",
+            "description": "Join BaraSira and find the professional you need.",
             "createAccount": "Create my account",
             "viewServices": "View services"
         }
     },
     "footer": {
-        "copyright": "©Barasira. All rights reserved.",
+        "copyright": "©BaraSira. All rights reserved.",
         "terms": "Terms",
         "privacy": "Privacy",
         "contactUs": "Contact us",
@@ -94,7 +94,7 @@
         "explore": "Explore",
         "account": "Your space",
         "needHelp": "Need help?",
-        "helpDescription": "Our team can help with your missions, your account, and using Barasira.",
+        "helpDescription": "Our team can help with your missions, your account, and using BaraSira.",
         "writeToUs": "Write to our team",
         "madeForMali": "Designed and built for Mali",
         "backToTop": "Back to the top of the page"
@@ -107,6 +107,7 @@
     "navigation": {
         "home": "Home",
         "services": "Services",
+        "about": "About us",
         "partners": "Partners",
         "dashboard": "Dashboard",
         "missions": "Missions",
@@ -121,6 +122,41 @@
         "logout": "Logout",
         "login": "Login",
         "register": "Register"
+    },
+    "about": {
+        "metaTitle": "About us",
+        "eyebrow": "About BaraSira",
+        "title": "Connecting needs with talent across Mali",
+        "introduction": "BaraSira is a Malian platform that helps individuals and organizations find reliable local service providers simply and confidently.",
+        "discoverServices": "Discover services",
+        "contactUs": "Contact us",
+        "storyEyebrow": "Our story",
+        "storyTitle": "A solution designed for local realities",
+        "storyFirst": "Finding the right professional still depends too often on word of mouth. BaraSira makes the search easier by bringing services, profiles, missions, and conversations together in one place.",
+        "storySecond": "Our ambition is to promote local skills, create more economic opportunities, and build lasting trust between every client and service provider.",
+        "valuesEyebrow": "Our commitments",
+        "valuesTitle": "What guides everything we do",
+        "values": {
+            "trust": { "title": "Trust", "description": "Profiles, reviews, and conversations designed to help everyone make decisions with confidence." },
+            "proximity": { "title": "Proximity", "description": "A platform rooted in Mali and attentive to the habits, languages, and needs of its communities." },
+            "impact": { "title": "Impact", "description": "More visibility for professionals and easier access to services for clients." }
+        },
+        "organization": {
+            "eyebrow": "Our organization",
+            "title": "Teams united around one mission",
+            "description": "Our organization combines digital expertise, local knowledge, and human support to grow BaraSira.",
+            "leadership": { "title": "Executive leadership", "description": "Vision, strategy, governance, and platform development." },
+            "teams": {
+                "technology": { "title": "Product & Technology", "description": "Design, development, security, and continuous experience improvement." },
+                "operations": { "title": "Operations & Quality", "description": "Service monitoring, profile verification, and quality of interactions." },
+                "growth": { "title": "Marketing & Partnerships", "description": "Visibility, acquisition, communication, and partner relationships." },
+                "support": { "title": "Support & Community", "description": "Support for clients, providers, and members of the community." }
+            }
+        },
+        "ctaEyebrow": "Build the future with us",
+        "ctaTitle": "Join the BaraSira community",
+        "ctaDescription": "Post your needs, grow your business, or discover professionals available near you.",
+        "joinUs": "Create an account"
     },
     "auth": {
         "login_title": "Login",
@@ -498,10 +534,10 @@
         "finalNotice": "This review has already been edited and is now final."
     },
     "platformReviews": {
-        "navigation": "Barasira reviews",
-        "eyebrow": "The Barasira community",
-        "title": "What our users think about Barasira",
-        "homeTitle": "They use Barasira and share their experience",
+        "navigation": "BaraSira reviews",
+        "eyebrow": "The BaraSira community",
+        "title": "What our users think about BaraSira",
+        "homeTitle": "They use BaraSira and share their experience",
         "homeSubtitle": "Authentic feedback from clients and providers who bring the platform to life.",
         "viewAll": "View all reviews",
         "subtitle": "Clients and providers freely share their experience of the platform.",
@@ -510,20 +546,20 @@
         "editTitle": "Edit my review",
         "rating": "Your rating",
         "star": "Choose {star} star(s)",
-        "comment": "Your Barasira experience",
+        "comment": "Your BaraSira experience",
         "placeholder": "Tell us what you like and what we could improve…",
         "saving": "Saving…",
         "publish": "Publish my review",
         "loginTitle": "Share your experience",
-        "loginText": "Log in to publish an authentic review of Barasira.",
+        "loginText": "Log in to publish an authentic review of BaraSira.",
         "login": "Log in",
         "empty": "No reviews have been published yet. Be the first to share your experience.",
         "pagination": "Review pagination",
         "roles": {
             "client": "Client",
             "prestataire": "Provider",
-            "admin": "Barasira team",
-            "superadmin": "Barasira team"
+            "admin": "BaraSira team",
+            "superadmin": "BaraSira team"
         }
     },
     "clientProfile": {
@@ -543,7 +579,7 @@
         "publish": "Publish comment",
         "communityEyebrow": "Provider feedback",
         "commentsTitle": "{count} comment(s)",
-        "visibilityNotice": "These comments are visible to providers and Barasira administrators.",
+        "visibilityNotice": "These comments are visible to providers and BaraSira administrators.",
         "noComments": "No comment has been published about this client yet."
     },
     "applications": {
@@ -629,7 +665,7 @@
         "cancel": "Cancel",
         "account": "My account",
         "personalInformation": "Personal information",
-        "personalInformationHint": "The information used for your Barasira account.",
+        "personalInformationHint": "The information used for your BaraSira account.",
         "editHint": "Keep your contact details and introduction up to date.",
         "firstName": "First name",
         "lastName": "Last name",
@@ -729,7 +765,7 @@
     "serviceIndex": {
         "kicker": "Local professionals",
         "title": "Find the right service for your needs.",
-        "subtitle": "Explore available providers, compare their offers, and contact them directly through Barasira.",
+        "subtitle": "Explore available providers, compare their offers, and contact them directly through BaraSira.",
         "searchPlaceholder": "Plumbing, tailoring, transport…",
         "searchLabel": "Search for a service",
         "search": "Search",
@@ -782,7 +818,7 @@
         "presentation": "Overview",
         "aboutService": "About this service",
         "exchangeSafely": "Communicate safely",
-        "exchangeSafelyHint": "Use Barasira messaging to explain your needs and keep every exchange in one place.",
+        "exchangeSafelyHint": "Use BaraSira messaging to explain your needs and keep every exchange in one place.",
         "provider": "Provider",
         "verifiedProfile": "Verified profile",
         "unverifiedProfile": "Unverified profile",
@@ -799,7 +835,7 @@
     "adminDashboard": {
         "metaTitle": "Administrator dashboard",
         "eyebrow": "Control center",
-        "welcome": "Hello {name}, manage Barasira at a glance",
+        "welcome": "Hello {name}, manage BaraSira at a glance",
         "subtitle": "Monitor users, services, and mission activity from one central workspace.",
         "overview": "Platform overview",
         "activity": "Mission activity",
@@ -836,7 +872,7 @@
             "eyebrow": "Finance",
             "title": "Transaction statistics",
             "grossVolume": "Collected volume",
-            "platformRevenue": "Barasira share (10%)",
+            "platformRevenue": "BaraSira share (10%)",
             "providerPayouts": "Provider share (90%)",
             "total": "Total transactions",
             "average": "Average collected amount",
@@ -851,7 +887,7 @@
             "method": "Method",
             "status": "Status",
             "amount": "Amount",
-            "commission": "Barasira (10%)",
+            "commission": "BaraSira (10%)",
             "providerNet": "Provider (90%)",
             "date": "Date",
             "empty": "No transactions.",
@@ -1004,7 +1040,7 @@
         "deleteConfirm": "Delete partner “{name}”?",
         "createTitle": "Add a partner",
         "editTitle": "Edit partner",
-        "formSubtitle": "Enter company, main contact and Barasira visibility information.",
+        "formSubtitle": "Enter company, main contact and BaraSira visibility information.",
         "back": "Back to partners",
         "companyInfo": "Company information",
         "companyHint": "This information may be displayed publicly when the partner is published.",
@@ -1028,18 +1064,18 @@
         "orderFor": "Display order for {name}",
         "saveOrder": "Save order",
         "savingOrder": "Saving…",
-        "publish": "Publish this partner on Barasira",
+        "publish": "Publish this partner on BaraSira",
         "promotionTitle": "Paid feature",
         "promotionHint": "Schedule when this partner may appear at the top of the home page.",
         "promotionAmount": "Amount paid (FCFA)",
         "promotionStart": "Feature start",
         "promotionEnd": "Feature end",
-        "promotionRule": "During each active period, Barasira displays up to two partners ranked by highest amount paid."
+        "promotionRule": "During each active period, BaraSira displays up to two partners ranked by highest amount paid."
     },
     "partners": {
         "metaTitle": "Our partners",
         "eyebrow": "Supporting us",
-        "title": "Barasira partners",
+        "title": "BaraSira partners",
         "subtitle": "Discover the organizations helping develop reliable and accessible services in Mali.",
         "homeTitle": "Our trusted partners",
         "viewAll": "View all partners",
@@ -1047,16 +1083,16 @@
         "emptyTitle": "No published partners",
         "emptyText": "Our future partners will soon be featured here.",
         "featuredEyebrow": "Featured partners",
-        "featuredText": "Organizations currently highlighted on Barasira",
+        "featuredText": "Organizations currently highlighted on BaraSira",
         "featuredBadge": "Sponsored partner"
     },
     "sponsorship": {
         "cta": "Sponsor a post",
         "eyebrow": "Increase your visibility",
-        "title": "Publish sponsored content on Barasira",
+        "title": "Publish sponsored content on BaraSira",
         "subtitle": "Introduce your business to our community with a plan suited to your campaign.",
         "plansTitle": "Choose a publication period",
-        "plansText": "Select one plan, then email your request to the Barasira team.",
+        "plansText": "Select one plan, then email your request to the BaraSira team.",
         "recommended": "Recommended",
         "choosePlan": "Select this plan",
         "selected": "Selected plan",
@@ -1077,7 +1113,7 @@
         "benefitsEyebrow": "Your campaign",
         "benefitsTitle": "What is included",
         "benefits": {
-            "1": "Featured publication on Barasira",
+            "1": "Featured publication on BaraSira",
             "2": "Link to your company website",
             "3": "Presentation tailored to your activity",
             "4": "Direct contact with our team"
@@ -1144,7 +1180,7 @@
     },
     "cookies": {
         "title": "Your cookie choices",
-        "description": "Barasira uses necessary cookies to secure your session. With your permission, marketing cookies help us measure campaigns and promote our services.",
+        "description": "BaraSira uses necessary cookies to secure your session. With your permission, marketing cookies help us measure campaigns and promote our services.",
         "accept": "Accept all",
         "reject": "Reject optional",
         "customize": "Customize",
@@ -1179,7 +1215,7 @@
         "title": "My supporting documents",
         "hint": "Upload documents to this private area. Only you and authorized administrators can access them.",
         "badgeInfoTitle": "Get the Verified profile badge",
-        "badgeInfoText": "The Verified profile badge will be added automatically once a Barasira administrator has reviewed and approved your identity document.",
+        "badgeInfoText": "The Verified profile badge will be added automatically once a BaraSira administrator has reviewed and approved your identity document.",
         "type": "Document type",
         "label": "Document name",
         "file": "File",
@@ -1249,7 +1285,7 @@
         "eyebrow": "Super administration",
         "title": "Translations",
         "navHint": "Translate into every language",
-        "subtitle": "Translate one text simultaneously into every other Barasira language.",
+        "subtitle": "Translate one text simultaneously into every other BaraSira language.",
         "back": "Dashboard",
         "sourceLanguage": "Source language",
         "sourceText": "Text to translate",
@@ -1269,7 +1305,7 @@
         }
     },
     "navbar": {
-        "homeLabel": "Barasira — Home",
+        "homeLabel": "BaraSira — Home",
         "tagline": "Trusted services",
         "openMenu": "Open menu",
         "mainNavigation": "Main navigation",
@@ -1293,7 +1329,7 @@
         "metaTitle": "Contact us",
         "hero": {
             "badge": "Need help?",
-            "title": "Contact the Barasira team",
+            "title": "Contact the BaraSira team",
             "description": "Do you have a question about a mission, your account, a provider, or how the platform works? Our team is here to help."
         },
         "information": {
@@ -1356,7 +1392,7 @@
         "eyebrow": "Administration",
         "title": "Documentation",
         "navHint": "PDFs, specifications and Swagger",
-        "subtitle": "View Barasira’s strategic and technical documents from a secure workspace.",
+        "subtitle": "View BaraSira’s strategic and technical documents from a secure workspace.",
         "back": "Dashboard",
         "swaggerTitle": "Interactive API documentation",
         "swaggerDescription": "Explore the OpenAPI contract operations and schemas in Swagger UI.",
@@ -1375,7 +1411,7 @@
             "business-model": { "title": "Business Model", "description": "Business model, strategy, funding and forecasts." },
             "readme": { "title": "Developer README", "description": "Installation, features, commands and project conventions." },
             "technical-source": { "title": "Specifications source", "description": "Maintainable Markdown version of the technical specifications." },
-            "openapi-yaml": { "title": "OpenAPI YAML", "description": "Versionable Barasira REST API contract." },
+            "openapi-yaml": { "title": "OpenAPI YAML", "description": "Versionable BaraSira REST API contract." },
             "openapi-json": { "title": "OpenAPI JSON", "description": "OpenAPI contract used by Swagger UI." }
         }
     },
@@ -1388,13 +1424,13 @@
             "exportExcel": "Export to Excel"
         },
         "auth": {
-            "secureBadge": "Secure Barasira",
+            "secureBadge": "Secure BaraSira",
             "loginHeroTitle": "Log in and quickly find the right provider.",
             "loginHeroText": "Access your missions, services, messages and personalized recommendations.",
             "verifiedProviders": "Verified providers",
             "secureMissions": "Secure missions",
             "fastSupport": "Fast support",
-            "loginSubtitle": "Access your Barasira account",
+            "loginSubtitle": "Access your BaraSira account",
             "continueGoogle": "Continue with Google",
             "continueFacebook": "Continue with Facebook",
             "recommended": "Recommended",
@@ -1406,13 +1442,13 @@
             "noAccount": "No account yet?",
             "verifyEmail": "Please verify your email inbox.",
             "serverError": "Server error. Please try again.",
-            "joinBadge": "Join Barasira",
+            "joinBadge": "Join BaraSira",
             "registerHeroTitle": "Create your account and get started easily.",
             "registerHeroText": "Publish services, find missions or contact reliable providers throughout Mali.",
             "verifiedProfile": "Verified profile",
             "missionsServices": "Missions and services",
             "integratedMessaging": "Integrated messaging",
-            "registerSubtitle": "Sign up for Barasira",
+            "registerSubtitle": "Sign up for BaraSira",
             "seekService": "I am looking for a service",
             "offerServices": "I offer services",
             "confirmation": "Confirmation",

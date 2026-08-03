@@ -50,7 +50,7 @@ class LogReaderServiceTest extends TestCase
 
     private function logFile(string $content): string
     {
-        $path = sys_get_temp_dir().'/barasira-log-'.uniqid().'.log';
+        $path = sys_get_temp_dir().'/BaraSira-log-'.uniqid().'.log';
         file_put_contents($path, $content);
         $this->paths[] = $path;
 

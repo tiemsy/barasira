@@ -14,8 +14,8 @@ export function loadGoogleMapsPlaces() {
     if (googleMapsPromise) return googleMapsPromise
 
     googleMapsPromise = new Promise((resolve, reject) => {
-        const callbackName = '__barasiraGoogleMapsReady'
-        const existingScript = document.querySelector('script[data-barasira-google-maps]')
+        const callbackName = '__BaraSiraGoogleMapsReady'
+        const existingScript = document.querySelector('script[data-BaraSira-google-maps]')
 
         window[callbackName] = () => {
             delete window[callbackName]
@@ -40,7 +40,7 @@ export function loadGoogleMapsPlaces() {
         script.src = `https://maps.googleapis.com/maps/api/js?${params}`
         script.async = true
         script.defer = true
-        script.dataset.barasiraGoogleMaps = 'true'
+        script.dataset.BaraSiraGoogleMaps = 'true'
         script.onerror = () => {
             googleMapsPromise = undefined
             delete window[callbackName]

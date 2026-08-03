@@ -14,7 +14,7 @@ class ResumeFactory extends Factory
     {
         return [
             'user_id' => User::factory()->provider(),
-            'title' => 'Profil professionnel Barasira',
+            'title' => 'Profil professionnel BaraSira',
             'summary' => 'Prestataire expérimenté, ponctuel et attentif à la qualité du travail livré.',
             'visibility' => 'public',
         ];

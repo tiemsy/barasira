@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'name' => env('SEO_SITE_NAME', 'Barasira'),
-    'title' => env('SEO_DEFAULT_TITLE', 'Barasira — Trouvez un prestataire fiable au Mali'),
+    'name' => env('SEO_SITE_NAME', 'BaraSira'),
+    'title' => env('SEO_DEFAULT_TITLE', 'BaraSira — Trouvez un prestataire fiable au Mali'),
     'description' => env(
         'SEO_DEFAULT_DESCRIPTION',
         'Trouvez rapidement des prestataires qualifiés au Mali pour vos travaux, services à domicile et besoins professionnels.'

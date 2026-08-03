@@ -12,7 +12,7 @@ class SetLocale
 
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = $request->cookie('barasira_locale', config('app.locale'));
+        $locale = $request->cookie('BaraSira_locale', config('app.locale'));
         $locale = in_array($locale, self::SUPPORTED_LOCALES, true)
             ? $locale
             : config('app.locale');

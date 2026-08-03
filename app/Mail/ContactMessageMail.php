@@ -30,7 +30,7 @@ class ContactMessageMail extends Mailable
                 $this->contact['email'],
             ],
             subject: sprintf(
-                '[Barasira] %s',
+                '[BaraSira] %s',
                 $this->contact['subject']
             ),
         );

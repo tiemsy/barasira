@@ -1,19 +1,23 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useCookieConsent } from '@/composables/useCookieConsent'
 
 const consent = useCookieConsent()
 const marketing = ref(false)
-const showBanner = computed(() => consent.state.ready && !consent.hasChoice() && !consent.state.preferencesOpen)
+const showBanner = computed(() => consent.state.ready && !consent.state.hasChoice && !consent.state.preferencesOpen)
+
+function openPreferences() {
+    marketing.value = consent.state.marketing
+    consent.openPreferences()
+}
 
 onMounted(() => {
     consent.initialize()
     marketing.value = consent.state.marketing
-    window.addEventListener('barasira:cookie-preferences', () => {
-        marketing.value = consent.state.marketing
-        consent.openPreferences()
-    })
+    window.addEventListener('BaraSira:cookie-preferences', openPreferences)
 })
+
+onBeforeUnmount(() => window.removeEventListener('BaraSira:cookie-preferences', openPreferences))
 </script>
 
 <template>

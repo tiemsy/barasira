@@ -5,7 +5,7 @@ namespace App\Swagger;
 use OpenApi\Annotations as OA;
 
 /**
- * @OA\SecurityScheme(securityScheme="sanctum", type="apiKey", in="cookie", name="barasira_session", description="Session web Laravel Sanctum. Le nom exact du cookie varie selon l’environnement.")
+ * @OA\SecurityScheme(securityScheme="sanctum", type="apiKey", in="cookie", name="BaraSira_session", description="Session web Laravel Sanctum. Le nom exact du cookie varie selon l’environnement.")
  * @OA\SecurityScheme(securityScheme="bearerAuth", type="http", scheme="bearer", bearerFormat="Sanctum", description="Jeton personnel retourné à un client natif lorsque device_name est fourni à la connexion ou à l’inscription.")
  *
  * @OA\Parameter(parameter="Id", name="id", in="path", required=true, @OA\Schema(type="integer", minimum=1))

@@ -16,8 +16,8 @@ class PartnerController extends Controller
         return Inertia::render('Partners/Index', [
             'seo' => SeoMeta::page(
                 $request,
-                'Partenaires de Barasira au Mali',
-                'Découvrez les entreprises et organisations partenaires qui accompagnent Barasira au Mali.',
+                'Partenaires de BaraSira au Mali',
+                'Découvrez les entreprises et organisations partenaires qui accompagnent BaraSira au Mali.',
                 [
                     '@context' => 'https://schema.org',
                     '@graph' => [SeoMeta::breadcrumbs([

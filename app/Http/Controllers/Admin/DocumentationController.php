@@ -42,7 +42,7 @@ class DocumentationController extends Controller
         ],
         'openapi-yaml' => [
             'title' => 'OpenAPI YAML',
-            'description' => 'Contrat versionnable de l’API REST Barasira.',
+            'description' => 'Contrat versionnable de l’API REST BaraSira.',
             'type' => 'code',
             'path' => 'storage/api-docs/api-docs.yaml',
         ],

@@ -25,7 +25,7 @@ class LegalController extends Controller
             'documentKey' => $document,
             'updatedAt' => config('legal.updated_at'),
             'contactEmail' => $email,
-            'seo' => SeoMeta::page($request, $content['title'].' | Barasira', $content['intro']),
+            'seo' => SeoMeta::page($request, $content['title'].' | BaraSira', $content['intro']),
         ]);
     }
 }

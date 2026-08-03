@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'email' => env('SUPERADMIN_EMAIL', 'superadmin@barasira.com'),
+    'email' => env('SUPERADMIN_EMAIL', 'superadmin@BaraSira.com'),
     'password' => env('SUPERADMIN_PASSWORD'),
     'phone' => env('SUPERADMIN_PHONE', '+22370000000'),
     'first_name' => env('SUPERADMIN_FIRST_NAME', 'Super'),

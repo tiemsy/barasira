@@ -26,7 +26,7 @@ class PasswordResetTest extends TestCase
             $user,
             PasswordResetNotification::class,
             fn (PasswordResetNotification $notification) => $notification->language === 'fr'
-                && $notification->toMail($user)->subject === 'Réinitialisation de votre mot de passe Barasira'
+                && $notification->toMail($user)->subject === 'Réinitialisation de votre mot de passe BaraSira'
         );
     }
 
