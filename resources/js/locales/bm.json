@@ -1,11 +1,11 @@
 {
     "app": {
-        "name": "Barasira",
+        "name": "BaraSira",
         "tagline": "A bɛ se ka dɔgɔkunw jɔyɔrɔ minnu bɛ sigi i kan Mali la 🇲🇱"
     },
     "home": {
         "heroTitle": "A bɛ se ka dɔgɔkunw jɔyɔrɔ minnu bɛ sigi i kan Mali la 🇲🇱",
-        "heroSubtitle": "Plɔmbɛri, elektrisite, transport, sɔgɔsili… a bɛ kɛ kɔfɛ miniti dɔ la.\nBarasira bɛ sɔrɔw ani dɔgɔkunw fɛ ka dɛmɛ Maliba la doni-doni, jɔyɔrɔ ani sisan kɛlɛya.",
+        "heroSubtitle": "Plɔmbɛri, elektrisite, transport, sɔgɔsili… a bɛ kɛ kɔfɛ miniti dɔ la.\nBaraSira bɛ sɔrɔw ani dɔgɔkunw fɛ ka dɛmɛ Maliba la doni-doni, jɔyɔrɔ ani sisan kɛlɛya.",
         "heroBtnFindService": "Dɔgɔkun dɔ sɔrɔ",
         "heroBtnBecomeProvider": "Ka dɔgɔkunya kɛ",
         "security": "Jɔyɔrɔ",
@@ -24,7 +24,7 @@
         "description": "Sigida baarakɛlaw sɔrɔ, i ka haminanko bila ani ka kuma nɔgɔya la plateforme min dilanna Mali kama.",
         "localProfessionals": "Sigida baarakɛlaw",
         "availableCities": "U bɛ Mali duguw caman na",
-        "heroImageAlt": "Barasira baarakɛlaw",
+        "heroImageAlt": "BaraSira baarakɛlaw",
         "ratedProfiles": "Porofili hakɛlatigɛlenw",
         "chooseConfidently": "Sugandi laadalikan na",
         "needPublished": "Haminanko bilala",
@@ -48,13 +48,13 @@
         "how": {
             "kicker": "Nɔgɔman ani teliman",
             "title": "I ka haminanko ɲɛnabɔ sen saba la",
-            "description": "Ka bɔ ɲinini na ka se kuma fɔlɔ ma, Barasira bɛ i dɛmɛ nɔgɔya la.",
+            "description": "Ka bɔ ɲinini na ka se kuma fɔlɔ ma, BaraSira bɛ i dɛmɛ nɔgɔya la.",
             "step1Title": "I ka haminanko ɲɛfɔ",
             "step1Description": "Baarakɛ dɔ ɲini walima baarakɛcogo dɔ bila miniti damadɔ la.",
             "step2Title": "Porofiliw suma",
             "step2Description": "Baarakɛlaw ka seko, sɔngɔ ani kunnafoniw lajɛ.",
             "step3Title": "Kuma k’a ɲɛsin",
-            "step3Description": "Kuma Barasira ka bataki fɛ ani ka baarakɛ ɲɛnabɔ."
+            "step3Description": "Kuma BaraSira ka bataki fɛ ani ka baarakɛ ɲɛnabɔ."
         },
         "categoriesSection": {
             "kicker": "Ka lajɛ",
@@ -79,13 +79,13 @@
         "finalCta": {
             "kicker": "I labɛnnen don wa?",
             "title": "I ka haminanko kɛ ɲɛnabɔli ye.",
-            "description": "Don Barasira la ani ka baarakɛla min i mako b’a la sɔrɔ.",
+            "description": "Don BaraSira la ani ka baarakɛla min i mako b’a la sɔrɔ.",
             "createAccount": "N ka kɔnti dabɔ",
             "viewServices": "Baarakɛw lajɛ"
         }
     },
     "footer": {
-        "copyright": "Barasira. Hakɛ bɛ bɛɛ ye.",
+        "copyright": "BaraSira. Hakɛ bɛ bɛɛ ye.",
         "terms": "Shɛrikanw",
         "privacy": "Siratigɛya",
         "contactUs": "Ka an na",
@@ -94,7 +94,7 @@
         "explore": "Ka lajɛ",
         "account": "I ka yɔrɔ",
         "needHelp": "I mako bɛ dɛmɛ na wa?",
-        "helpDescription": "An ka kulu bɛ i dɛmɛ i ka baarakɛcogow, i ka kɔnti ani Barasira ka baarakɛcogo la.",
+        "helpDescription": "An ka kulu bɛ i dɛmɛ i ka baarakɛcogow, i ka kɔnti ani BaraSira ka baarakɛcogo la.",
         "writeToUs": "Sɛbɛn an ka kulu ma",
         "madeForMali": "A dilanna Mali kama",
         "backToTop": "Ka segin sanfɛ"
@@ -107,6 +107,7 @@
     "navigation": {
         "home": "So",
         "services": "Dɔgɔkunw Jɔyɔrɔ",
+        "about": "An ye jɔnw ye?",
         "partners": "Jɛɲɔgɔnw",
         "dashboard": "Ka fila kan",
         "missions": "Baro kɛcogo",
@@ -121,6 +122,41 @@
         "logout": "Ka bɔ",
         "login": "Ka sigi",
         "register": "Ka tɔgɔ fɔ"
+    },
+    "about": {
+        "metaTitle": "An ye jɔnw ye?",
+        "eyebrow": "BaraSira ko la",
+        "title": "Mali ka haminankow ni seko tigilamɛnw ɲɔgɔnna",
+        "introduction": "BaraSira ye Mali ka plateforme ye min bɛ mɔgɔw ni tɔnw dɛmɛ ka sigida baarakɛla laadalikanw sɔrɔ nɔgɔya ani laadalikan na.",
+        "discoverServices": "Baaraw lajɛ",
+        "contactUs": "An wele",
+        "storyEyebrow": "An ka tariku",
+        "storyTitle": "Ɲɛnabɔli min dilanna sigida ko kɛcogow kama",
+        "storyFirst": "Baarakɛla ɲuman sɔrɔli bɛ dan mɔgɔw ka kunnafoni kan tuma caman na. BaraSira bɛ ɲinini nɔgɔya ka baaraw, porofiliw, baarakɛcogow ani kumaw lajɛ yɔrɔ kelen na.",
+        "storySecond": "An b’a fɛ ka sigida seko hakɛ bonya, ka wari sɔrɔ siraw fara kan ani ka laadalikan sabati jatigiw ni baarakɛlaw cɛ.",
+        "valuesEyebrow": "An ka layiduw",
+        "valuesTitle": "Fɛn minnu bɛ an ka baara ɲɛfɔ",
+        "values": {
+            "trust": { "title": "Laadalikan", "description": "Porofiliw, hakɛlatigɛliw ani kumaw bɛ mɔgɔ bɛɛ dɛmɛ ka sugandili kɛ hakilijigin na." },
+            "proximity": { "title": "Surunya", "description": "Plateforme min sigilen don Mali la ani min bɛ a ka sigidaw ka kɛcogo, kanw ani makow lamɛn." },
+            "impact": { "title": "Nafaba", "description": "Baarakɛlaw bɛ ye ka caya ani jatigiw bɛ se ka baaraw sɔrɔ nɔgɔya la." }
+        },
+        "organization": {
+            "eyebrow": "An ka sigicogo",
+            "title": "Kulu minnu bɛ baara ɲɔgɔn fɛ kun kelen kama",
+            "description": "An ka sigicogo bɛ nimoroya seko, sigida dɔnniya ani mɔgɔ dɛmɛ ɲɔgɔn kan ka BaraSira yiriwa.",
+            "leadership": { "title": "Kuntigiya", "description": "Yɛrɛ jira, laadilikan, mara ani plateforme yiriwali." },
+            "teams": {
+                "technology": { "title": "Fɛn dilan & Nimoroya", "description": "Dilan, yiriwa, lakana ani baarakɛcogo ɲuman fara kan." },
+                "operations": { "title": "Baara & Jɔyɔrɔ", "description": "Baaraw lajɛli, porofiliw sɛgɛsɛgɛli ani kuma jɔyɔrɔ." },
+                "growth": { "title": "Jirali & Jɛɲɔgɔnya", "description": "Jirali, jama sɔrɔli, kunnafoni ani jɛɲɔgɔnw ni ɲɔgɔnya." },
+                "support": { "title": "Dɛmɛ & Jama", "description": "Jatigiw, baarakɛlaw ani jama mɔgɔw dɛmɛli." }
+            }
+        },
+        "ctaEyebrow": "An ka nata sigi",
+        "ctaTitle": "Don BaraSira ka jama la",
+        "ctaDescription": "I ka haminanko bila, i ka baara yiriwa walima ka baarakɛla minnu bɛ i kɛrɛfɛ lajɛ.",
+        "joinUs": "Kɔnti dɔ dabɔ"
     },
     "auth": {
         "login_title": "Ka sigi",
@@ -498,10 +534,10 @@
         "finalNotice": "Hakɛli in yɛlɛmana kaban, a tɛ se ka yɛlɛma tuguni."
     },
     "platformReviews": {
-        "navigation": "Barasira hakɛliw",
-        "eyebrow": "Barasira mɔgɔw",
-        "title": "Barasira baarakɛlaw ka hakɛliw",
-        "homeTitle": "U bɛ Barasira kɛ ka u ka ko kɛlen ɲɛfɔ",
+        "navigation": "BaraSira hakɛliw",
+        "eyebrow": "BaraSira mɔgɔw",
+        "title": "BaraSira baarakɛlaw ka hakɛliw",
+        "homeTitle": "U bɛ BaraSira kɛ ka u ka ko kɛlen ɲɛfɔ",
         "homeSubtitle": "Jatigiw ni baarakɛlaw ka hakɛli tiɲɛw.",
         "viewAll": "Hakɛliw bɛɛ lajɛ",
         "subtitle": "Jatigiw ni baarakɛlaw bɛ u ka ko kɛlen ɲɛfɔ.",
@@ -510,20 +546,20 @@
         "editTitle": "N ka hakɛli yɛlɛma",
         "rating": "I ka hakɛli",
         "star": "Dolo {star} sugandi",
-        "comment": "I ka Barasira ko kɛlen",
+        "comment": "I ka BaraSira ko kɛlen",
         "placeholder": "I ka ko kɛlen ɲɛfɔ ani min ka kan ka ɲɛ…",
         "saving": "A bɛ marali…",
         "publish": "N ka hakɛli bila",
         "loginTitle": "I ka ko kɛlen ɲɛfɔ",
-        "loginText": "Don walasa ka Barasira hakɛli bila.",
+        "loginText": "Don walasa ka BaraSira hakɛli bila.",
         "login": "Ka don",
         "empty": "Hakɛli si ma bila fɔlɔ. I ye fɔlɔ kɛ.",
         "pagination": "Hakɛliw ɲɛnabɔli",
         "roles": {
             "client": "Jatigi",
             "prestataire": "Baarakɛla",
-            "admin": "Barasira jɛkulu",
-            "superadmin": "Barasira jɛkulu"
+            "admin": "BaraSira jɛkulu",
+            "superadmin": "BaraSira jɛkulu"
         }
     },
     "clientProfile": {
@@ -543,7 +579,7 @@
         "publish": "Hakilina bila",
         "communityEyebrow": "Baarakɛlaw ka hakilinaw",
         "commentsTitle": "Hakilina {count}",
-        "visibilityNotice": "Baarakɛlaw ni Barasira ɲɛmɔgɔw bɛ se ka hakilinaw in lajɛ.",
+        "visibilityNotice": "Baarakɛlaw ni BaraSira ɲɛmɔgɔw bɛ se ka hakilinaw in lajɛ.",
         "noComments": "Hakilina si ma bila jatigi in kan fɔlɔ."
     },
     "applications": {
@@ -629,7 +665,7 @@
         "cancel": "Ka bali",
         "account": "N ka kɔnti",
         "personalInformation": "N yɛrɛ ka kunnafoniw",
-        "personalInformationHint": "Kunnafoni minnu bɛ kɛ i ka Barasira kɔnti la.",
+        "personalInformationHint": "Kunnafoni minnu bɛ kɛ i ka BaraSira kɔnti la.",
         "editHint": "I ka kunnafoniw ni i yɛrɛ ɲɛfɔli lakodɔn waati bɛɛ.",
         "firstName": "Tɔgɔ",
         "lastName": "Jamu",
@@ -729,7 +765,7 @@
     "serviceIndex": {
         "kicker": "Sigida baarakɛlaw",
         "title": "Baarakɛ min bɛ bɛn i ka haminanko ma, o sɔrɔ.",
-        "subtitle": "Baarakɛlaw lajɛ, u ka yamaruyaw suma ani ka u wele Barasira kɔnɔ.",
+        "subtitle": "Baarakɛlaw lajɛ, u ka yamaruyaw suma ani ka u wele BaraSira kɔnɔ.",
         "searchPlaceholder": "Plomberie, garankɛya, taşili…",
         "searchLabel": "Baarakɛ ɲini",
         "search": "Ka ɲini",
@@ -782,7 +818,7 @@
         "presentation": "Ɲɛfɔli",
         "aboutService": "Baarakɛ in ko la",
         "exchangeSafely": "Kuma lakana kɔnɔ",
-        "exchangeSafelyHint": "Barasira ka kumaden kɛ ka i ka haminanko ɲɛfɔ ani ka kuma bɛɛ mara yɔrɔ kelen na.",
+        "exchangeSafelyHint": "BaraSira ka kumaden kɛ ka i ka haminanko ɲɛfɔ ani ka kuma bɛɛ mara yɔrɔ kelen na.",
         "provider": "Baarakɛla",
         "verifiedProfile": "Porofili sɛgɛsɛgɛlen",
         "unverifiedProfile": "Porofili ma sɛgɛsɛgɛ",
@@ -799,9 +835,9 @@
     "adminDashboard": {
         "metaTitle": "Kunnafoni ɲɛmɔgɔ ka tablo",
         "eyebrow": "Ɲɛmɔgɔya yɔrɔ",
-        "welcome": "I ni ce {name}, Barasira ɲɛnabɔ yɔrɔ kelen na",
+        "welcome": "I ni ce {name}, BaraSira ɲɛnabɔ yɔrɔ kelen na",
         "subtitle": "Baarakɛlaw, baaraw ani baarakɛcogow ka taaɲɛ lajɛ yɔrɔ kelen na.",
-        "overview": "Barasira bɛɛ lajɛli",
+        "overview": "BaraSira bɛɛ lajɛli",
         "activity": "Baarakɛcogow ka taaɲɛ",
         "analytics": "Sɛgɛsɛgɛli",
         "latest": "Ko kura minnu kɛra",
@@ -836,7 +872,7 @@
             "eyebrow": "Wari ko",
             "title": "Wari sarali kunnafoniw",
             "grossVolume": "Wari sɔrɔlen",
-            "platformRevenue": "Barasira ka hakɛ (10 %)",
+            "platformRevenue": "BaraSira ka hakɛ (10 %)",
             "providerPayouts": "Baarakɛla ka hakɛ (90 %)",
             "total": "Wari sarali bɛɛ",
             "average": "Wari caman cɛmancɛ",
@@ -851,7 +887,7 @@
             "method": "Sarali cogo",
             "status": "Cogoya",
             "amount": "Wari",
-            "commission": "Barasira (10 %)",
+            "commission": "BaraSira (10 %)",
             "providerNet": "Baarakɛla (90 %)",
             "date": "Don",
             "empty": "Wari sarali si tɛ yen.",
@@ -1028,18 +1064,18 @@
         "orderFor": "{name} jira cogo",
         "saveOrder": "Jira cogo mara",
         "savingOrder": "A bɛ marala…",
-        "publish": "Jɛɲɔgɔn nin jira Barasira kan",
+        "publish": "Jɛɲɔgɔn nin jira BaraSira kan",
         "promotionTitle": "Jiracogo sara",
         "promotionHint": "Waati sigi jɛɲɔgɔn bɛ jira so ɲɛ fɛ.",
         "promotionAmount": "Wari saralen (FCFA)",
         "promotionStart": "Jirali daminɛ",
         "promotionEnd": "Jirali laban",
-        "promotionRule": "Waati kɔnɔ, Barasira bɛ jɛɲɔgɔn fila fo jira, minnu ye wari caman sara olu fɔlɔ."
+        "promotionRule": "Waati kɔnɔ, BaraSira bɛ jɛɲɔgɔn fila fo jira, minnu ye wari caman sara olu fɔlɔ."
     },
     "partners": {
         "metaTitle": "An ka jɛɲɔgɔnw",
         "eyebrow": "U bɛ an dɛmɛ",
-        "title": "Barasira jɛɲɔgɔnw",
+        "title": "BaraSira jɛɲɔgɔnw",
         "subtitle": "Tɔnw minnu bɛ dɛmɛ kɛ ka baarakɛw ka ɲi Mali la, olu dɔn.",
         "homeTitle": "An ka jɛɲɔgɔn danbe taw",
         "viewAll": "Jɛɲɔgɔnw bɛɛ lajɛ",
@@ -1047,16 +1083,16 @@
         "emptyTitle": "Jɛɲɔgɔn si ma jira fɔlɔ",
         "emptyText": "An ka jɛɲɔgɔn nataw bɛna jira yan.",
         "featuredEyebrow": "Jɛɲɔgɔn jiralenw",
-        "featuredText": "Tɔnw minnu bɛ jira Barasira kan sisan",
+        "featuredText": "Tɔnw minnu bɛ jira BaraSira kan sisan",
         "featuredBadge": "Jɛɲɔgɔn saralen"
     },
     "sponsorship": {
         "cta": "Sponsorisé kunnafoni dɔ bɔ",
         "eyebrow": "I ka jira ka bonya",
-        "title": "I ka sponsorisé kunnafoni bɔ Barasira kan",
+        "title": "I ka sponsorisé kunnafoni bɔ BaraSira kan",
         "subtitle": "I ka tɔ̀n jira an ka jama la, waati min ka bɛn i ka campagne ma.",
         "plansTitle": "Bɔli waati sugandi",
-        "plansText": "Formule kelen sugandi, ka i ka ɲinini ci Barasira ma email la.",
+        "plansText": "Formule kelen sugandi, ka i ka ɲinini ci BaraSira ma email la.",
         "recommended": "A ka ɲi",
         "choosePlan": "Nin formule sugandi",
         "selected": "Formule sugandilen",
@@ -1077,7 +1113,7 @@
         "benefitsEyebrow": "I ka campagne",
         "benefitsTitle": "Min bɛ sɔrɔ",
         "benefits": {
-            "1": "Kunnafoni bɛ jira Barasira kan",
+            "1": "Kunnafoni bɛ jira BaraSira kan",
             "2": "I ka tɔ̀n ka site sira",
             "3": "I ka baara ɲɛfɔli",
             "4": "Kuma tilennen ni an ka ekip ye"
@@ -1144,7 +1180,7 @@
     },
     "cookies": {
         "title": "I ka cookie sugandili",
-        "description": "Barasira bɛ cookie wajibiw kɛ i ka kɔnti ni site lakana kama. Ni i sɔnna, marketing cookie bɛ an dɛmɛ campagne hakɛ sumali la.",
+        "description": "BaraSira bɛ cookie wajibiw kɛ i ka kɔnti ni site lakana kama. Ni i sɔnna, marketing cookie bɛ an dɛmɛ campagne hakɛ sumali la.",
         "accept": "Bɛɛ sɔn",
         "reject": "Min wajibiyalen tɛ, olu bali",
         "customize": "A sugandi",
@@ -1179,7 +1215,7 @@
         "title": "N ka sɛbɛnw",
         "hint": "I ka sɛbɛnw bila yɔrɔ gundolen in na. I ni ɲɛmɔgɔ yamaruyalenw dɔrɔn bɛ se k’u lajɛ.",
         "badgeInfoTitle": "Porofili sɛgɛsɛgɛlen taamasiyɛn sɔrɔ",
-        "badgeInfoText": "Porofili sɛgɛsɛgɛlen taamasiyɛn bɛ fara i ka porofili kan ni Barasira ɲɛmɔgɔ dɔ ye i ka ladalakɛ sɛbɛn sɛgɛsɛgɛ ka a latigɛ.",
+        "badgeInfoText": "Porofili sɛgɛsɛgɛlen taamasiyɛn bɛ fara i ka porofili kan ni BaraSira ɲɛmɔgɔ dɔ ye i ka ladalakɛ sɛbɛn sɛgɛsɛgɛ ka a latigɛ.",
         "type": "Sɛbɛn sugu",
         "label": "Sɛbɛn tɔgɔ",
         "file": "Filen",
@@ -1249,7 +1285,7 @@
         "eyebrow": "Kunnafoni ɲɛmɔgɔba",
         "title": "Kan yɛlɛma",
         "navHint": "Kan bɛɛ la yɛlɛma",
-        "subtitle": "Sɛbɛn kelen yɛlɛma Barasira kan tɔw bɛɛ la.",
+        "subtitle": "Sɛbɛn kelen yɛlɛma BaraSira kan tɔw bɛɛ la.",
         "back": "Taabolo",
         "sourceLanguage": "Kan daminɛ",
         "sourceText": "Sɛbɛn min bɛ yɛlɛma",
@@ -1269,7 +1305,7 @@
         }
     },
     "navbar": {
-        "homeLabel": "Barasira — So",
+        "homeLabel": "BaraSira — So",
         "tagline": "Laadalikanbaaraw",
         "openMenu": "Ka menu dayɛlɛ",
         "mainNavigation": "Taa-yɔrɔ fɔlɔ",
@@ -1293,7 +1329,7 @@
         "metaTitle": "Ka an na",
         "hero": {
             "badge": "I mako bɛ dɛmɛ na wa?",
-            "title": "Barasira ka kuluw wele",
+            "title": "BaraSira ka kuluw wele",
             "description": "Ɲininkali dɔ bɛ i fɛ baarakɛcogo, i ka kɔnti, baarakɛla walima plateforme ka baarakɛcogo kan wa? An ka kulu bɛ yen ka i dɛmɛ."
         },
         "information": {
@@ -1356,7 +1392,7 @@
         "eyebrow": "Ɲɛmɔgɔya",
         "title": "Kunnafoni gafew",
         "navHint": "PDF, matarafali ani Swagger",
-        "subtitle": "Barasira ka kunnafoni gafew lajɛ lakana kɔnɔ.",
+        "subtitle": "BaraSira ka kunnafoni gafew lajɛ lakana kɔnɔ.",
         "back": "Segin tabali la",
         "swaggerTitle": "API kunnafoni",
         "swaggerDescription": "OpenAPI ka siraw ani u cogow lajɛ Swagger UI la.",
@@ -1375,7 +1411,7 @@
             "business-model": { "title": "Business Model", "description": "Wari sɔrɔcogo, fɛɛrɛ, wari dɛmɛ ani hakɛ jateminɛ." },
             "readme": { "title": "README", "description": "Application sigicogo, baara ani sariya." },
             "technical-source": { "title": "Matarafali bɔyɔrɔ", "description": "Tekiniki matarafali ka Markdown sɛbɛn." },
-            "openapi-yaml": { "title": "OpenAPI YAML", "description": "Barasira REST API ka daɲɛlatigɛ." },
+            "openapi-yaml": { "title": "OpenAPI YAML", "description": "BaraSira REST API ka daɲɛlatigɛ." },
             "openapi-json": { "title": "OpenAPI JSON", "description": "OpenAPI daɲɛlatigɛ min bɛ kɛ Swagger UI la." }
         }
     },
@@ -1388,13 +1424,13 @@
             "exportExcel": "A bɔ Excel la"
         },
         "auth": {
-            "secureBadge": "Barasira lakana",
+            "secureBadge": "BaraSira lakana",
             "loginHeroTitle": "Don ka baarakɛla ɲuman sɔrɔ joona.",
             "loginHeroText": "I ka baarakɛcogow, baaraw, kibaruw ani ladilikanw lajɛ.",
             "verifiedProviders": "Baarakɛla sɛgɛsɛgɛlenw",
             "secureMissions": "Baarakɛcogo lakanalenw",
             "fastSupport": "Dɛmɛ joona",
-            "loginSubtitle": "Don i ka Barasira kɔnti la",
+            "loginSubtitle": "Don i ka BaraSira kɔnti la",
             "continueGoogle": "Taa ɲɛ ni Google ye",
             "continueFacebook": "Taa ɲɛ ni Facebook ye",
             "recommended": "A ka ɲi",
@@ -1406,13 +1442,13 @@
             "noAccount": "Kɔnti tɛ i bolo fɔlɔ wa?",
             "verifyEmail": "I ka imɛli sɛgɛsɛgɛ.",
             "serverError": "Sɛrɛwɛri fili. A lajɛ kokura.",
-            "joinBadge": "Fara Barasira kan",
+            "joinBadge": "Fara BaraSira kan",
             "registerHeroTitle": "I ka kɔnti da ka daminɛ nɔgɔya la.",
             "registerHeroText": "I ka baaraw bila, baarakɛcogow sɔrɔ walima baarakɛla lakika wele Mali fan bɛɛ.",
             "verifiedProfile": "Porofili sɛgɛsɛgɛlen",
             "missionsServices": "Baarakɛcogow ni baaraw",
             "integratedMessaging": "Kibaru cili",
-            "registerSubtitle": "I tɔgɔ sɛbɛn Barasira la",
+            "registerSubtitle": "I tɔgɔ sɛbɛn BaraSira la",
             "seekService": "N bɛ baarakɛ dɔ ɲini",
             "offerServices": "N bɛ n ka baaraw bila",
             "confirmation": "Dafali",

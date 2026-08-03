@@ -22,7 +22,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'phone' => '+223 7'.$this->faker->numerify('# ## ## ##'),
             'role' => 'client',
-            'bio' => 'Utilisateur Barasira à la recherche de services fiables au Mali.',
+            'bio' => 'Utilisateur BaraSira à la recherche de services fiables au Mali.',
             'avatar_url' => null,
             'rating' => 0,
             'verified' => true,

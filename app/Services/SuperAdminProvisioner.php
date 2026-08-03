@@ -36,7 +36,7 @@ class SuperAdminProvisioner
             'phone' => config('superadmin.phone'),
             'password' => Hash::make($password),
             'role' => 'superadmin',
-            'bio' => 'Superadministrateur de la plateforme Barasira.',
+            'bio' => 'Superadministrateur de la plateforme BaraSira.',
             'avatar_url' => null,
             'rating' => 0,
             'verified' => true,

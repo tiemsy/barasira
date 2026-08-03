@@ -25,7 +25,7 @@ class PartnerSponsorshipTest extends TestCase
     public function test_partner_can_email_a_sponsorship_request_for_the_selected_plan(): void
     {
         Mail::fake();
-        config(['partner_sponsorship.recipient' => 'partenaires@barasira.com']);
+        config(['partner_sponsorship.recipient' => 'partenaires@BaraSira.com']);
 
         $response = $this->post('/partners/sponsoring', [
             'company_name' => 'Entreprise Mali',
@@ -41,7 +41,7 @@ class PartnerSponsorshipTest extends TestCase
 
         $response->assertSessionHasNoErrors()->assertSessionHas('success');
         Mail::assertSent(PartnerSponsorshipMail::class, function (PartnerSponsorshipMail $mail) {
-            return $mail->hasTo('partenaires@barasira.com')
+            return $mail->hasTo('partenaires@BaraSira.com')
                 && $mail->requestData['plan'] === 'month'
                 && $mail->plan['price'] === 150000;
         });

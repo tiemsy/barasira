@@ -11,4 +11,4 @@ Disallow: /login
 Disallow: /register
 Allow: /avis
 
-Sitemap: https://barasira.com/sitemap.xml
+Sitemap: https://BaraSira.com/sitemap.xml

@@ -18,7 +18,7 @@ class Payment extends Model
         'payer_id', // utilisateur qui effectue le paiement
         'receiver_id', // utilisateur qui reçoit le paiement
         'amount', // montant payé
-        'platform_fee', // commission Barasira (10 %)
+        'platform_fee', // commission BaraSira (10 %)
         'provider_amount', // montant attribué au prestataire (90 %)
         'status', // pending, completed, failed, refunded
         'method', // méthode de paiement (card, mobile_money, cash)

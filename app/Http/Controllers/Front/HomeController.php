@@ -68,7 +68,7 @@ class HomeController extends Controller
         return Inertia::render('Home', [
             'seo' => SeoMeta::page(
                 $request,
-                'Barasira — Trouvez un prestataire fiable au Mali',
+                'BaraSira — Trouvez un prestataire fiable au Mali',
                 'Trouvez rapidement des prestataires qualifiés au Mali pour vos travaux, services à domicile et besoins professionnels.'
             ),
             'randomCategories' => $categories->shuffle()->take(4)->values(),

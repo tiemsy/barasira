@@ -1,7 +1,7 @@
 {
   "private": true,
   "type": "module",
-  "name": "barasira",
+  "name": "BaraSira",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",

@@ -30,7 +30,7 @@ class ContactController extends Controller
         ]);
 
         try {
-            Mail::to(config('mail.contact_address', 'contact@barasira.com'))
+            Mail::to(config('mail.contact_address', 'contact@BaraSira.com'))
                 ->send(new ContactMessageMail($validated));
 
             return back()->with(

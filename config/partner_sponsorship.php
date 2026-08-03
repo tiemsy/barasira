@@ -7,5 +7,5 @@ return [
         'quarter' => ['duration_days' => 90, 'price' => 350000],
     ],
     'categories' => ['services', 'commerce', 'finance', 'education', 'technology', 'events', 'ngo', 'other'],
-    'recipient' => env('PARTNER_REQUEST_EMAIL', env('MAIL_CONTACT_ADDRESS', 'contact@barasira.com')),
+    'recipient' => env('PARTNER_REQUEST_EMAIL', env('MAIL_CONTACT_ADDRESS', 'contact@BaraSira.com')),
 ];

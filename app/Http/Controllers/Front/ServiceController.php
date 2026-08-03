@@ -32,7 +32,7 @@ class ServiceController extends Controller
         return Inertia::render('Services/Index', [
             'seo' => SeoMeta::page(
                 $request,
-                'Services professionnels au Mali | Barasira',
+                'Services professionnels au Mali | BaraSira',
                 'Recherchez des prestataires qualifiés par métier et par ville au Mali. Comparez les services et trouvez le professionnel adapté à votre besoin.'
             ),
             'categories' => $this->serviceCategory->all(),

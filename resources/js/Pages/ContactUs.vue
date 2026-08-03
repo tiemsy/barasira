@@ -21,7 +21,7 @@ const form = useForm({
 defineProps({
     contactEmail: {
         type: String,
-        default: 'contact@barasira.com',
+        default: 'contact@BaraSira.com',
     },
     contactPhone: {
         type: String,

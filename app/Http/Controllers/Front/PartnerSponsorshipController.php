@@ -26,8 +26,8 @@ class PartnerSponsorshipController extends Controller
             'categories' => config('partner_sponsorship.categories'),
             'seo' => SeoMeta::page(
                 $request,
-                'Publication sponsorisée pour les partenaires | Barasira',
-                'Mettez votre entreprise en avant sur Barasira pendant une semaine, un mois ou trois mois.'
+                'Publication sponsorisée pour les partenaires | BaraSira',
+                'Mettez votre entreprise en avant sur BaraSira pendant une semaine, un mois ou trois mois.'
             ),
         ]);
     }

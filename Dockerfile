@@ -138,7 +138,7 @@ RUN composer dump-autoload \
     && ln -sfn /var/www/html/storage/app/public /var/www/html/public/storage
 
 COPY --from=frontend-build /app/public/build ./public/build
-COPY docker/php/development.ini /usr/local/etc/php/conf.d/zz-barasira-environment.ini
+COPY docker/php/development.ini /usr/local/etc/php/conf.d/zz-BaraSira-environment.ini
 
 RUN chown -R www-data:www-data storage bootstrap/cache
 
@@ -160,7 +160,7 @@ RUN php artisan config:clear \
     && rm -rf tests phpunit.xml
 
 COPY --from=frontend-build /app/public/build ./public/build
-COPY docker/php/logging.ini /usr/local/etc/php/conf.d/zz-barasira-environment.ini
+COPY docker/php/logging.ini /usr/local/etc/php/conf.d/zz-BaraSira-environment.ini
 
 RUN chown -R www-data:www-data storage bootstrap/cache
 

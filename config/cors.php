@@ -23,8 +23,8 @@ return [
         'http://localhost:5173',
         'http://localhost:8080',
         'http://localhost:8082',
-        'https://staging.barasira.com',
-        'https://barasira.com'
+        'https://staging.BaraSira.com',
+        'https://BaraSira.com'
     ],
 
     'allowed_origins_patterns' => [],

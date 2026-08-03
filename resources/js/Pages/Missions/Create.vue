@@ -15,7 +15,7 @@ import {
     validateMissionForm,
 } from '@/utils/missionForm'
 
-const DRAFT_KEY = 'barasira:mission-draft'
+const DRAFT_KEY = 'BaraSira:mission-draft'
 const toast = useToastStore()
 const { locale, t } = useI18n()
 const form = ref(emptyMissionForm())
