@@ -5,7 +5,7 @@
     <title>Nouveau message de contact</title>
 </head>
 <body>
-    <h1>Nouveau message depuis Barasira</h1>
+    <h1>Nouveau message depuis BaraSira</h1>
 
     <p>
         <strong>Nom :</strong>

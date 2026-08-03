@@ -33,7 +33,7 @@ class PlatformReviewTest extends TestCase
     {
         $this->post(route('front.platform-reviews.store'), [
             'rating' => 5,
-            'comment' => 'Une expérience vraiment excellente sur Barasira.',
+            'comment' => 'Une expérience vraiment excellente sur BaraSira.',
         ])->assertRedirect(route('login'));
     }
 
@@ -66,7 +66,7 @@ class PlatformReviewTest extends TestCase
             PlatformReview::query()->create([
                 'user_id' => User::factory()->create()->id,
                 'rating' => 4,
-                'comment' => "Avis public numéro {$index} sur Barasira.",
+                'comment' => "Avis public numéro {$index} sur BaraSira.",
                 'is_published' => true,
             ]);
         }

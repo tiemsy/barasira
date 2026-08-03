@@ -1,10 +1,10 @@
-# Spécifications techniques — Barasira
+# Spécifications techniques — BaraSira
 
 Version 1.0 — 30 juillet 2026
 
 ## 1. Objet
 
-Barasira est une marketplace de services mettant en relation des clients et des
+BaraSira est une marketplace de services mettant en relation des clients et des
 prestataires au Mali. Le produit couvre l’inscription, la vérification des
 profils, la publication de missions, les candidatures, la messagerie, les
 paiements, les évaluations, les partenaires et l’administration.
@@ -83,7 +83,7 @@ déjà occupés par le proxy de la plateforme.
 - target Docker : `staging` ;
 - Compose : `docker-compose.staging.yml` ;
 - service public : `app`, port interne `80` ;
-- domaine : `https://staging.barasira.com` ;
+- domaine : `https://staging.BaraSira.com` ;
 - base et volume dédiés au staging ;
 - `APP_ENV=staging`, `APP_DEBUG=false`.
 
@@ -92,7 +92,7 @@ déjà occupés par le proxy de la plateforme.
 - target Docker : `production` ;
 - Compose : `docker-compose.prod.yml` ;
 - service public : `nginx`, port interne `80` ;
-- domaine : `https://barasira.com` ;
+- domaine : `https://BaraSira.com` ;
 - `APP_ENV=production`, `APP_DEBUG=false`.
 
 ### 3.4 Construction de l’image
@@ -233,13 +233,13 @@ MAIL_PORT=587
 MAIL_ENCRYPTION=tls
 MAIL_USERNAME=...
 MAIL_PASSWORD=...
-MAIL_FROM_ADDRESS=contact@barasira.com
+MAIL_FROM_ADDRESS=contact@BaraSira.com
 ```
 
 `MAIL_PASSWORD` est une clé SMTP Brevo, jamais une clé API/MCP. Les IP
 sortantes de staging et production doivent être autorisées lorsque la sécurité
 IP Brevo est activée. Cloudflare Email Routing reçoit les messages destinés à
-`contact@barasira.com` et les redirige vers la boîte configurée.
+`contact@BaraSira.com` et les redirige vers la boîte configurée.
 
 ### 8.2 Paiements
 
@@ -349,9 +349,9 @@ Une évolution d’API doit modifier simultanément :
 |---|---|
 | `README.md` | prise en main et référence développeur |
 | `docs/SPECIFICATIONS-TECHNIQUES.md` | spécification technique maintenable |
-| `docs/Specifications-Techniques-Barasira.pdf` | version partageable |
-| `docs/business-model-barasira.html` | source du document stratégique |
-| `docs/Business-Model-Barasira.pdf` | business model partageable |
+| `docs/Specifications-Techniques-BaraSira.pdf` | version partageable |
+| `docs/business-model-BaraSira.html` | source du document stratégique |
+| `docs/Business-Model-BaraSira.pdf` | business model partageable |
 | `storage/api-docs/api-docs.yaml` | contrat OpenAPI versionnable |
 | `storage/api-docs/api-docs.json` | contrat utilisé par Swagger UI |
 

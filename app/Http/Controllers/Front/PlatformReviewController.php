@@ -36,8 +36,8 @@ class PlatformReviewController extends Controller
             'averageRating' => round((float) PlatformReview::query()->where('is_published', true)->avg('rating'), 1),
             'seo' => SeoMeta::page(
                 $request,
-                'Avis sur Barasira | Expériences des utilisateurs',
-                'Découvrez les avis des clients et prestataires qui utilisent Barasira au Mali.'
+                'Avis sur BaraSira | Expériences des utilisateurs',
+                'Découvrez les avis des clients et prestataires qui utilisent BaraSira au Mali.'
             ),
         ]);
     }

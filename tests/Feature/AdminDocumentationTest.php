@@ -13,7 +13,7 @@ class AdminDocumentationTest extends TestCase
             $user = new User([
                 'first_name' => 'Documentation',
                 'last_name' => 'Admin',
-                'email' => "{$role}@barasira.test",
+                'email' => "{$role}@BaraSira.test",
                 'locale' => 'fr',
                 'role' => $role,
             ]);
@@ -36,7 +36,7 @@ class AdminDocumentationTest extends TestCase
         $client = new User([
             'first_name' => 'Documentation',
             'last_name' => 'Client',
-            'email' => 'client@barasira.test',
+            'email' => 'client@BaraSira.test',
             'locale' => 'fr',
             'role' => 'client',
         ]);
@@ -51,7 +51,7 @@ class AdminDocumentationTest extends TestCase
         $admin = new User([
             'first_name' => 'Documentation',
             'last_name' => 'Admin',
-            'email' => 'admin@barasira.test',
+            'email' => 'admin@BaraSira.test',
             'locale' => 'fr',
             'role' => 'admin',
         ]);

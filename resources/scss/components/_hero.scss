@@ -24,7 +24,7 @@
 
 .hero-grid {
     display: grid;
-    background-image: url("../images/hero-barasira.png"); // image générée
+    background-image: url("../images/hero-BaraSira.png"); // image générée
     grid-template-columns: 1.05fr .95fr;
     gap: $s-space-16;
     align-items: center;
@@ -290,7 +290,7 @@
 
 @media (max-width: 640px) {
     .hero-grid {
-        background-image: url("../images/hero-mobile-barasira.png"); // image générée
+        background-image: url("../images/hero-mobile-BaraSira.png"); // image générée
         // padding-bottom: $s-literal-30rem;
     }
 

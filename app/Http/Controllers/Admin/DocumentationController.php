@@ -20,13 +20,13 @@ class DocumentationController extends Controller
             'title' => 'Spécifications techniques',
             'description' => 'Architecture, API, données, sécurité, intégrations et exploitation.',
             'type' => 'pdf',
-            'path' => 'docs/Specifications-Techniques-Barasira.pdf',
+            'path' => 'docs/Specifications-Techniques-BaraSira.pdf',
         ],
         'business-model' => [
             'title' => 'Business Model',
             'description' => 'Modèle économique, stratégie, financement et prévisions.',
             'type' => 'pdf',
-            'path' => 'docs/Business-Model-Barasira.pdf',
+            'path' => 'docs/Business-Model-BaraSira.pdf',
         ],
         'readme' => [
             'title' => 'README développeur',
@@ -42,7 +42,7 @@ class DocumentationController extends Controller
         ],
         'openapi-yaml' => [
             'title' => 'OpenAPI YAML',
-            'description' => 'Contrat versionnable de l’API REST Barasira.',
+            'description' => 'Contrat versionnable de l’API REST BaraSira.',
             'type' => 'code',
             'path' => 'storage/api-docs/api-docs.yaml',
         ],

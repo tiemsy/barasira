@@ -54,8 +54,8 @@ class SeoMeta
     public static function service(Request $request, Service $service): array
     {
         $location = $service->municipality?->name ?: $service->city?->name ?: config('seo.country');
-        $title = "{$service->name} à {$location} | Barasira";
-        $description = $service->description ?: "Trouvez un prestataire pour {$service->name} à {$location} sur Barasira.";
+        $title = "{$service->name} à {$location} | BaraSira";
+        $description = $service->description ?: "Trouvez un prestataire pour {$service->name} à {$location} sur BaraSira.";
         $canonical = self::canonical($request);
 
         $serviceSchema = [

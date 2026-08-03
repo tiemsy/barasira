@@ -35,7 +35,7 @@ class DatabaseBrowserServiceTest extends TestCase
             $table->string('api_token')->nullable();
         });
         DB::connection('browser_test')->table('accounts')->insert([
-            'email' => 'admin@barasira.test',
+            'email' => 'admin@BaraSira.test',
             'password' => 'secret-password',
             'api_token' => 'secret-token',
         ]);
@@ -46,7 +46,7 @@ class DatabaseBrowserServiceTest extends TestCase
         $this->assertSame(['id', 'email', 'password', 'api_token'], array_column($browser->columns($table), 'name'));
 
         $row = $browser->rows($table, 25)->items()[0];
-        $this->assertSame('admin@barasira.test', $row['email']);
+        $this->assertSame('admin@BaraSira.test', $row['email']);
         $this->assertSame('[MASQUÉ]', $row['password']);
         $this->assertSame('[MASQUÉ]', $row['api_token']);
     }

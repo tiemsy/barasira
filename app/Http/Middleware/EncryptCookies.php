@@ -13,6 +13,6 @@ class EncryptCookies extends Middleware
      */
     protected $except = [
         // Ce cookie est écrit par Vue afin que Laravel valide dans la même langue.
-        'barasira_locale',
+        'BaraSira_locale',
     ];
 }

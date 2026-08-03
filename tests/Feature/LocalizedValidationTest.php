@@ -32,13 +32,13 @@ class LocalizedValidationTest extends TestCase
     public function test_the_browser_locale_cookie_is_not_discarded_as_an_encrypted_cookie(): void
     {
         $request = Request::create('/', 'GET', [], [
-            'barasira_locale' => 'en',
+            'BaraSira_locale' => 'en',
         ]);
 
         $response = app(EncryptCookies::class)->handle(
             $request,
             fn (Request $request) => response()->json([
-                'locale' => $request->cookie('barasira_locale'),
+                'locale' => $request->cookie('BaraSira_locale'),
             ])
         );
 
@@ -48,7 +48,7 @@ class LocalizedValidationTest extends TestCase
     private function assertLocalizedEmailValidation(string $locale, string $message): void
     {
         $request = Request::create('/', 'POST', [], [
-            'barasira_locale' => $locale,
+            'BaraSira_locale' => $locale,
         ]);
 
         $response = (new SetLocale)->handle($request, function () {

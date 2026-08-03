@@ -14,18 +14,18 @@ class SuperAdminProvisioningTest extends TestCase
     public function test_command_creates_and_updates_a_superadmin_idempotently(): void
     {
         config()->set('superadmin', [
-            'email' => 'root@barasira.test',
+            'email' => 'root@BaraSira.test',
             'password' => 'a-secure-password',
             'phone' => '+22370000000',
             'first_name' => 'Root',
-            'last_name' => 'Barasira',
+            'last_name' => 'BaraSira',
         ]);
 
         $this->artisan('superadmin:ensure')->assertSuccessful();
         $this->artisan('superadmin:ensure')->assertSuccessful();
 
-        $this->assertSame(1, User::withTrashed()->where('email', 'root@barasira.test')->count());
-        $superAdmin = User::where('email', 'root@barasira.test')->firstOrFail();
+        $this->assertSame(1, User::withTrashed()->where('email', 'root@BaraSira.test')->count());
+        $superAdmin = User::where('email', 'root@BaraSira.test')->firstOrFail();
         $this->assertSame('superadmin', $superAdmin->role);
         $this->assertTrue($superAdmin->verified);
         $this->assertNotNull($superAdmin->email_verified_at);
@@ -35,14 +35,14 @@ class SuperAdminProvisioningTest extends TestCase
     public function test_command_fails_when_production_credentials_are_missing(): void
     {
         $this->app->detectEnvironment(fn () => 'production');
-        config()->set('superadmin.email', 'root@barasira.test');
+        config()->set('superadmin.email', 'root@BaraSira.test');
         config()->set('superadmin.password', null);
 
         $this->artisan('superadmin:ensure')
             ->expectsOutput('SUPERADMIN_PASSWORD est obligatoire et doit contenir au moins 12 caractères.')
             ->assertFailed();
 
-        $this->assertDatabaseMissing('users', ['email' => 'root@barasira.test']);
+        $this->assertDatabaseMissing('users', ['email' => 'root@BaraSira.test']);
     }
 
     public function test_command_reports_an_empty_email_separately(): void
@@ -58,19 +58,19 @@ class SuperAdminProvisioningTest extends TestCase
     public function test_command_restores_a_deleted_superadmin(): void
     {
         config()->set('superadmin', [
-            'email' => 'root@barasira.test',
+            'email' => 'root@BaraSira.test',
             'password' => 'a-secure-password',
             'phone' => '+22370000000',
             'first_name' => 'Root',
-            'last_name' => 'Barasira',
+            'last_name' => 'BaraSira',
         ]);
-        $user = User::factory()->create(['email' => 'root@barasira.test']);
+        $user = User::factory()->create(['email' => 'root@BaraSira.test']);
         $user->delete();
 
         $this->artisan('superadmin:ensure')->assertSuccessful();
 
         $this->assertDatabaseHas('users', [
-            'email' => 'root@barasira.test',
+            'email' => 'root@BaraSira.test',
             'role' => 'superadmin',
             'deleted_at' => null,
         ]);

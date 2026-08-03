@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
-import logoUrl from '@/assets/logo-barasira.png'
+import logoUrl from '@/assets/logo-BaraSira.png'
 import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const page = usePage()
@@ -40,7 +40,7 @@ const isActive = path => path === '/'
 function changeLanguage(event) {
     locale.value = event.target.value
     localStorage.setItem('lang', locale.value)
-    document.cookie = `barasira_locale=${locale.value}; path=/; max-age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`
+    document.cookie = `BaraSira_locale=${locale.value}; path=/; max-age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`
 }
 
 function toggleMenu(name) {
@@ -97,6 +97,11 @@ onBeforeUnmount(() => document.removeEventListener('keydown', closeOnEscape))
                 <li>
                     <Link href="/services" class="nav-link" :class="{ active: isActive('/services') }">
                         {{ $t('navigation.services') }}
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/qui-sommes-nous" class="nav-link" :class="{ active: isActive('/qui-sommes-nous') }">
+                        {{ $t('navigation.about') }}
                     </Link>
                 </li>
 

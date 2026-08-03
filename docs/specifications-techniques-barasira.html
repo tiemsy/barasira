@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Spécifications techniques — Barasira</title>
+<title>Spécifications techniques — BaraSira</title>
 <style>
 @page{size:A4;margin:16mm}*{box-sizing:border-box}body{margin:0;color:#172022;font:10pt/1.45 Arial,sans-serif}h1,h2,h3{color:#123e37}h1{font-size:28pt}h2{font-size:17pt;border-bottom:2px solid #e5b84b;padding-bottom:2mm;margin-top:9mm}h3{font-size:12pt;margin:5mm 0 2mm}p,li{margin-bottom:1.5mm}code,pre{font-family:Menlo,monospace;background:#f0f5f3}code{padding:.3mm 1mm}pre{padding:3mm;border-left:3px solid #176b5b;white-space:pre-wrap}table{width:100%;border-collapse:collapse;margin:3mm 0}th{background:#123e37;color:white;text-align:left}th,td{padding:2mm;border:1px solid #dbe5e2;vertical-align:top}.cover{height:260mm;padding:22mm 14mm;background:linear-gradient(145deg,#103d36 0 60%,#176b5b 60% 78%,#edbd48 78%);color:white;page-break-after:always}.cover h1{color:white;font-size:35pt;margin-top:35mm}.cover p{font-size:15pt;max-width:130mm}.cover .meta{margin-top:75mm;color:white;font-weight:bold;text-shadow:0 1px 2px rgba(0,0,0,.35)}.page-break{page-break-before:always}.callout{border-left:4px solid #e5b84b;background:#fff9e9;padding:3mm}.muted{color:#63716e}ul{padding-left:6mm}
 </style>
@@ -10,13 +10,13 @@
 <body>
 <section class="cover">
   <div>DOCUMENT D’ARCHITECTURE ET D’EXPLOITATION</div>
-  <h1>Spécifications techniques<br>Barasira</h1>
+  <h1>Spécifications techniques<br>BaraSira</h1>
   <p>Architecture, API, données, sécurité, intégrations et déploiement.</p>
   <div class="meta">Version 1.0 · 30 juillet 2026<br>Document technique de référence</div>
 </section>
 
 <h2>1. Périmètre</h2>
-<p>Barasira est une marketplace de services au Mali. Elle gère les utilisateurs, prestataires, services, missions, candidatures, paiements, avis, messagerie, documents de vérification, partenaires et outils d’administration.</p>
+<p>BaraSira est une marketplace de services au Mali. Elle gère les utilisateurs, prestataires, services, missions, candidatures, paiements, avis, messagerie, documents de vérification, partenaires et outils d’administration.</p>
 <div class="callout">Le contrat API détaillé est disponible dans <code>storage/api-docs/api-docs.yaml</code> et dans Swagger UI sur <code>/api/documentation</code>.</div>
 
 <h2>2. Architecture</h2>
@@ -51,13 +51,13 @@
 
 <h2>7. Langues et notifications</h2>
 <p>Le français, l’anglais et le bambara sont pris en charge. La locale choisie est conservée dans un cookie et dans le profil connecté. Les validations, notifications et e-mails utilisent la langue du destinataire.</p>
-<p>Les canaux disponibles sont la base Laravel, Brevo SMTP, SMS et WhatsApp. <code>contact@barasira.com</code> reçoit via Cloudflare Email Routing ; Brevo assure l’envoi transactionnel.</p>
+<p>Les canaux disponibles sont la base Laravel, Brevo SMTP, SMS et WhatsApp. <code>contact@BaraSira.com</code> reçoit via Cloudflare Email Routing ; Brevo assure l’envoi transactionnel.</p>
 
 <div class="page-break"></div>
 <h2>8. Intégrations</h2>
 <table><tr><th>Service</th><th>Usage</th><th>Points de vigilance</th></tr>
 <tr><td>Brevo</td><td>E-mails transactionnels</td><td>Clé SMTP, domaine authentifié, IP sortante autorisée</td></tr>
-<tr><td>Cloudflare Email Routing</td><td>Réception de contact@barasira.com</td><td>Redirection vers une boîte réelle</td></tr>
+<tr><td>Cloudflare Email Routing</td><td>Réception de contact@BaraSira.com</td><td>Redirection vers une boîte réelle</td></tr>
 <tr><td>CinetPay / PayPal</td><td>Paiements</td><td>Secrets, signatures, webhooks et rapprochement</td></tr>
 <tr><td>Google</td><td>SSO et Places</td><td>URLs de callback et restrictions de clé</td></tr>
 <tr><td>Fournisseur IA</td><td>Génération et traduction</td><td>Quota, cache, confidentialité et relecture</td></tr></table>
@@ -84,8 +84,8 @@ php artisan l5-swagger:generate</pre>
 <p>Toute évolution d’API doit synchroniser routes, validation, autorisation, tests, annotations Swagger et artefacts OpenAPI.</p>
 
 <h2>12. Références</h2>
-<ul><li><code>README.md</code> : démarrage et référence développeur.</li><li><code>docs/SPECIFICATIONS-TECHNIQUES.md</code> : source détaillée maintenable.</li><li><code>docs/Business-Model-Barasira.pdf</code> : document stratégique.</li><li><code>storage/api-docs/api-docs.yaml</code> : contrat OpenAPI.</li></ul>
-<p class="muted">Barasira — Spécifications techniques, version 1.0 du 30 juillet 2026.</p>
+<ul><li><code>README.md</code> : démarrage et référence développeur.</li><li><code>docs/SPECIFICATIONS-TECHNIQUES.md</code> : source détaillée maintenable.</li><li><code>docs/Business-Model-BaraSira.pdf</code> : document stratégique.</li><li><code>storage/api-docs/api-docs.yaml</code> : contrat OpenAPI.</li></ul>
+<p class="muted">BaraSira — Spécifications techniques, version 1.0 du 30 juillet 2026.</p>
 </body>
 </html>
 
@@ -93,7 +93,7 @@ php artisan l5-swagger:generate</pre>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Spécifications techniques — Barasira</title>
+<title>Spécifications techniques — BaraSira</title>
 <style>
 @page{size:A4;margin:16mm}*{box-sizing:border-box}body{margin:0;color:#172022;font:10pt/1.45 Arial,sans-serif}h1,h2,h3{color:#123e37}h1{font-size:28pt}h2{font-size:17pt;border-bottom:2px solid #e5b84b;padding-bottom:2mm;margin-top:9mm}h3{font-size:12pt;margin:5mm 0 2mm}p,li{margin-bottom:1.5mm}code,pre{font-family:Menlo,monospace;background:#f0f5f3}code{padding:.3mm 1mm}pre{padding:3mm;border-left:3px solid #176b5b;white-space:pre-wrap}table{width:100%;border-collapse:collapse;margin:3mm 0}th{background:#123e37;color:white;text-align:left}th,td{padding:2mm;border:1px solid #dbe5e2;vertical-align:top}.cover{height:260mm;padding:22mm 14mm;background:linear-gradient(145deg,#103d36 0 60%,#176b5b 60% 78%,#edbd48 78%);color:white;page-break-after:always}.cover h1{color:white;font-size:35pt;margin-top:35mm}.cover p{font-size:15pt;max-width:130mm}.cover .meta{margin-top:75mm;color:white;font-weight:bold;text-shadow:0 1px 2px rgba(0,0,0,.35)}.page-break{page-break-before:always}.callout{border-left:4px solid #e5b84b;background:#fff9e9;padding:3mm}.muted{color:#63716e}ul{padding-left:6mm}
 </style>
@@ -101,13 +101,13 @@ php artisan l5-swagger:generate</pre>
 <body>
 <section class="cover">
   <div>DOCUMENT D’ARCHITECTURE ET D’EXPLOITATION</div>
-  <h1>Spécifications techniques<br>Barasira</h1>
+  <h1>Spécifications techniques<br>BaraSira</h1>
   <p>Architecture, API, données, sécurité, intégrations et déploiement.</p>
   <div class="meta">Version 1.0 · 30 juillet 2026<br>Document technique de référence</div>
 </section>
 
 <h2>1. Périmètre</h2>
-<p>Barasira est une marketplace de services au Mali. Elle gère les utilisateurs, prestataires, services, missions, candidatures, paiements, avis, messagerie, documents de vérification, partenaires et outils d’administration.</p>
+<p>BaraSira est une marketplace de services au Mali. Elle gère les utilisateurs, prestataires, services, missions, candidatures, paiements, avis, messagerie, documents de vérification, partenaires et outils d’administration.</p>
 <div class="callout">Le contrat API détaillé est disponible dans <code>storage/api-docs/api-docs.yaml</code> et dans Swagger UI sur <code>/api/documentation</code>.</div>
 
 <h2>2. Architecture</h2>
@@ -142,13 +142,13 @@ php artisan l5-swagger:generate</pre>
 
 <h2>7. Langues et notifications</h2>
 <p>Le français, l’anglais et le bambara sont pris en charge. La locale choisie est conservée dans un cookie et dans le profil connecté. Les validations, notifications et e-mails utilisent la langue du destinataire.</p>
-<p>Les canaux disponibles sont la base Laravel, Brevo SMTP, SMS et WhatsApp. <code>contact@barasira.com</code> reçoit via Cloudflare Email Routing ; Brevo assure l’envoi transactionnel.</p>
+<p>Les canaux disponibles sont la base Laravel, Brevo SMTP, SMS et WhatsApp. <code>contact@BaraSira.com</code> reçoit via Cloudflare Email Routing ; Brevo assure l’envoi transactionnel.</p>
 
 <div class="page-break"></div>
 <h2>8. Intégrations</h2>
 <table><tr><th>Service</th><th>Usage</th><th>Points de vigilance</th></tr>
 <tr><td>Brevo</td><td>E-mails transactionnels</td><td>Clé SMTP, domaine authentifié, IP sortante autorisée</td></tr>
-<tr><td>Cloudflare Email Routing</td><td>Réception de contact@barasira.com</td><td>Redirection vers une boîte réelle</td></tr>
+<tr><td>Cloudflare Email Routing</td><td>Réception de contact@BaraSira.com</td><td>Redirection vers une boîte réelle</td></tr>
 <tr><td>CinetPay / PayPal</td><td>Paiements</td><td>Secrets, signatures, webhooks et rapprochement</td></tr>
 <tr><td>Google</td><td>SSO et Places</td><td>URLs de callback et restrictions de clé</td></tr>
 <tr><td>Fournisseur IA</td><td>Génération et traduction</td><td>Quota, cache, confidentialité et relecture</td></tr></table>
@@ -175,8 +175,8 @@ php artisan l5-swagger:generate</pre>
 <p>Toute évolution d’API doit synchroniser routes, validation, autorisation, tests, annotations Swagger et artefacts OpenAPI.</p>
 
 <h2>12. Références</h2>
-<ul><li><code>README.md</code> : démarrage et référence développeur.</li><li><code>docs/SPECIFICATIONS-TECHNIQUES.md</code> : source détaillée maintenable.</li><li><code>docs/Business-Model-Barasira.pdf</code> : document stratégique.</li><li><code>storage/api-docs/api-docs.yaml</code> : contrat OpenAPI.</li></ul>
+<ul><li><code>README.md</code> : démarrage et référence développeur.</li><li><code>docs/SPECIFICATIONS-TECHNIQUES.md</code> : source détaillée maintenable.</li><li><code>docs/Business-Model-BaraSira.pdf</code> : document stratégique.</li><li><code>storage/api-docs/api-docs.yaml</code> : contrat OpenAPI.</li></ul>
 <p>Les administrateurs et superadministrateurs consultent ce catalogue depuis <code>/admin/documentation</code>. Les fichiers sont servis par une liste blanche côté serveur, sans accepter de chemin arbitraire.</p>
-<p class="muted">Barasira — Spécifications techniques, version 1.0 du 30 juillet 2026.</p>
+<p class="muted">BaraSira — Spécifications techniques, version 1.0 du 30 juillet 2026.</p>
 </body>
 </html>

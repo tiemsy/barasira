@@ -19,7 +19,7 @@ class GroqProvider implements AiProviderInterface
         $payload['response_format'] = [
             'type' => 'json_schema',
             'json_schema' => [
-                'name' => 'barasira_payload',
+                'name' => 'BaraSira_payload',
                 'strict' => true,
                 'schema' => $schema,
             ],

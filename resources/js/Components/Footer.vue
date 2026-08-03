@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
-import logoUrl from '@/assets/logo-barasira.png'
+import logoUrl from '@/assets/logo-BaraSira.png'
 import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const page = usePage()
@@ -17,7 +17,7 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 function openCookiePreferences() {
-    window.dispatchEvent(new CustomEvent('barasira:cookie-preferences'))
+    window.dispatchEvent(new CustomEvent('BaraSira:cookie-preferences'))
 }
 </script>
 
@@ -43,6 +43,7 @@ function openCookiePreferences() {
                     <h2>{{ $t('footer.explore') }}</h2>
                     <Link href="/">{{ $t('navigation.home') }}</Link>
                     <Link href="/services">{{ $t('navigation.services') }}</Link>
+                    <Link href="/qui-sommes-nous">{{ $t('navigation.about') }}</Link>
                     <Link href="/partners">{{ $t('navigation.partners') }}</Link>
                     <Link href="/avis">{{ $t('platformReviews.navigation') }}</Link>
                     <Link href="/contact-us">{{ $t('footer.contactUs') }}</Link>

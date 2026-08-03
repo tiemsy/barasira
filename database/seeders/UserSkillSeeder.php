@@ -22,7 +22,7 @@ class UserSkillSeeder extends Seeder
                         'Couture traditionnelle et moderne' => 7,
                         default => 5,
                     },
-                    'certificate' => 'Attestation professionnelle Barasira',
+                    'certificate' => 'Attestation professionnelle BaraSira',
                     'certificate_file' => null,
                     'description' => "Compétence vérifiée pour le service « {$service->name} ».",
                     'verified' => true,

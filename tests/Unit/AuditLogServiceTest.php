@@ -11,7 +11,7 @@ class AuditLogServiceTest extends TestCase
 {
     public function test_update_audit_contains_changes_and_redacts_secrets(): void
     {
-        $path = sys_get_temp_dir().'/barasira-audit-test-'.uniqid().'.log';
+        $path = sys_get_temp_dir().'/BaraSira-audit-test-'.uniqid().'.log';
         config(['logging.channels.audit' => ['driver' => 'single', 'path' => $path, 'level' => 'info']]);
         Log::forgetChannel('audit');
 

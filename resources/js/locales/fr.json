@@ -1,11 +1,11 @@
 {
     "app": {
-        "name": "Barasira",
+        "name": "BaraSira",
         "tagline": "Trouvez des prestataires fiables près de chez vous au Mali 🇲🇱"
     },
     "home": {
         "heroTitle": "Trouvez des prestataires fiables près de chez vous au Mali 🇲🇱",
-        "heroSubtitle": "Plomberie, électricité, transport, couture… en quelques minutes.\nBarasira connecte particuliers et professionnels maliens pour des services rapides, fiables et locaux.",
+        "heroSubtitle": "Plomberie, électricité, transport, couture… en quelques minutes.\nBaraSira connecte particuliers et professionnels maliens pour des services rapides, fiables et locaux.",
         "heroBtnFindService": "Trouver un service",
         "heroBtnBecomeProvider": "Devenir prestataire",
         "security": "Sécurité",
@@ -24,7 +24,7 @@
         "description": "Trouvez des professionnels locaux, publiez votre besoin et échangez en toute simplicité sur une plateforme pensée pour le Mali.",
         "localProfessionals": "Des professionnels locaux",
         "availableCities": "Disponibles dans plusieurs villes du Mali",
-        "heroImageAlt": "Professionnels Barasira",
+        "heroImageAlt": "Professionnels BaraSira",
         "ratedProfiles": "Profils évalués",
         "chooseConfidently": "Choisissez en confiance",
         "needPublished": "Besoin publié",
@@ -48,13 +48,13 @@
         "how": {
             "kicker": "Simple et rapide",
             "title": "Votre besoin pris en charge en trois étapes",
-            "description": "De la recherche au premier échange, Barasira vous accompagne sans complexité.",
+            "description": "De la recherche au premier échange, BaraSira vous accompagne sans complexité.",
             "step1Title": "Décrivez votre besoin",
             "step1Description": "Recherchez un service ou publiez une mission détaillée en quelques minutes.",
             "step2Title": "Comparez les profils",
             "step2Description": "Consultez les compétences, les prix et les informations des prestataires.",
             "step3Title": "Échangez directement",
-            "step3Description": "Discutez via la messagerie Barasira et organisez votre intervention."
+            "step3Description": "Discutez via la messagerie BaraSira et organisez votre intervention."
         },
         "categoriesSection": {
             "kicker": "Explorer",
@@ -79,13 +79,13 @@
         "finalCta": {
             "kicker": "Prêt à commencer ?",
             "title": "Transformez votre besoin en solution.",
-            "description": "Rejoignez Barasira et trouvez le professionnel qu’il vous faut.",
+            "description": "Rejoignez BaraSira et trouvez le professionnel qu’il vous faut.",
             "createAccount": "Créer mon compte",
             "viewServices": "Voir les services"
         }
     },
     "footer": {
-        "copyright": "Barasira. Tous droits réservés.",
+        "copyright": "BaraSira. Tous droits réservés.",
         "terms": "Conditions",
         "privacy": "Confidentialité",
         "contactUs": "Nous contacter",
@@ -94,7 +94,7 @@
         "explore": "Explorer",
         "account": "Votre espace",
         "needHelp": "Besoin d’aide ?",
-        "helpDescription": "Notre équipe vous accompagne pour vos missions, votre compte et l’utilisation de Barasira.",
+        "helpDescription": "Notre équipe vous accompagne pour vos missions, votre compte et l’utilisation de BaraSira.",
         "writeToUs": "Écrivez à notre équipe",
         "madeForMali": "Pensé et construit pour le Mali",
         "backToTop": "Retour en haut de la page"
@@ -107,6 +107,7 @@
     "navigation": {
         "home": "Accueil",
         "services": "Services",
+        "about": "Qui sommes-nous ?",
         "partners": "Partenaires",
         "dashboard": "Tableau de bord",
         "missions": "Missions",
@@ -121,6 +122,41 @@
         "logout": "Déconnexion",
         "login": "Connexion",
         "register": "Inscription"
+    },
+    "about": {
+        "metaTitle": "Qui sommes-nous ?",
+        "eyebrow": "À propos de BaraSira",
+        "title": "Rapprocher les besoins et les talents du Mali",
+        "introduction": "BaraSira est une plateforme malienne qui permet aux particuliers et aux organisations de trouver des prestataires locaux fiables, simplement et en toute confiance.",
+        "discoverServices": "Découvrir les services",
+        "contactUs": "Nous contacter",
+        "storyEyebrow": "Notre histoire",
+        "storyTitle": "Une solution pensée pour les réalités locales",
+        "storyFirst": "Trouver le bon professionnel repose encore trop souvent sur le bouche-à-oreille. BaraSira rend cette recherche plus simple en réunissant les services, les profils, les missions et les échanges dans un même espace.",
+        "storySecond": "Notre ambition est de valoriser les compétences locales, de créer davantage d’opportunités économiques et d’installer une relation de confiance durable entre chaque client et chaque prestataire.",
+        "valuesEyebrow": "Nos engagements",
+        "valuesTitle": "Ce qui guide chacune de nos actions",
+        "values": {
+            "trust": { "title": "Confiance", "description": "Des profils, avis et échanges conçus pour aider chacun à décider avec plus de sérénité." },
+            "proximity": { "title": "Proximité", "description": "Une plateforme ancrée au Mali, attentive aux usages, aux langues et aux besoins de ses communautés." },
+            "impact": { "title": "Impact", "description": "Plus de visibilité pour les professionnels et un accès simplifié aux services pour les clients." }
+        },
+        "organization": {
+            "eyebrow": "Notre organisation",
+            "title": "Des équipes réunies autour d’une même mission",
+            "description": "Notre organisation associe expertise numérique, connaissance du terrain et accompagnement humain pour faire grandir BaraSira.",
+            "leadership": { "title": "Direction générale", "description": "Vision, stratégie, gouvernance et développement de la plateforme." },
+            "teams": {
+                "technology": { "title": "Produit & Technologie", "description": "Conception, développement, sécurité et amélioration de l’expérience." },
+                "operations": { "title": "Opérations & Qualité", "description": "Suivi des services, vérification des profils et qualité des échanges." },
+                "growth": { "title": "Marketing & Partenariats", "description": "Visibilité, acquisition, communication et relations avec les partenaires." },
+                "support": { "title": "Support & Communauté", "description": "Accompagnement des clients, prestataires et membres de la communauté." }
+            }
+        },
+        "ctaEyebrow": "Construisons la suite",
+        "ctaTitle": "Rejoignez la communauté BaraSira",
+        "ctaDescription": "Publiez votre besoin, développez votre activité ou découvrez les professionnels disponibles près de chez vous.",
+        "joinUs": "Créer un compte"
     },
     "auth": {
         "login_title": "Connexion",
@@ -471,10 +507,10 @@
         "finalNotice": "Cet avis a déjà été modifié et est maintenant définitif."
     },
     "platformReviews": {
-        "navigation": "Avis sur Barasira",
-        "eyebrow": "La communauté Barasira",
-        "title": "Ce que nos utilisateurs pensent de Barasira",
-        "homeTitle": "Ils utilisent Barasira et partagent leur expérience",
+        "navigation": "Avis sur BaraSira",
+        "eyebrow": "La communauté BaraSira",
+        "title": "Ce que nos utilisateurs pensent de BaraSira",
+        "homeTitle": "Ils utilisent BaraSira et partagent leur expérience",
         "homeSubtitle": "Des retours authentiques de clients et prestataires qui font vivre la plateforme.",
         "viewAll": "Voir tous les avis",
         "subtitle": "Clients et prestataires partagent librement leur expérience de la plateforme.",
@@ -483,16 +519,16 @@
         "editTitle": "Modifier mon avis",
         "rating": "Votre note",
         "star": "Choisir {star} étoile(s)",
-        "comment": "Votre expérience avec Barasira",
+        "comment": "Votre expérience avec BaraSira",
         "placeholder": "Dites-nous ce que vous appréciez et ce que nous pourrions améliorer…",
         "saving": "Enregistrement…",
         "publish": "Publier mon avis",
         "loginTitle": "Partagez votre expérience",
-        "loginText": "Connectez-vous pour publier un avis authentique sur Barasira.",
+        "loginText": "Connectez-vous pour publier un avis authentique sur BaraSira.",
         "login": "Se connecter",
         "empty": "Aucun avis n’a encore été publié. Soyez le premier à partager votre expérience.",
         "pagination": "Pagination des avis",
-        "roles": { "client": "Client", "prestataire": "Prestataire", "admin": "Équipe Barasira", "superadmin": "Équipe Barasira" }
+        "roles": { "client": "Client", "prestataire": "Prestataire", "admin": "Équipe BaraSira", "superadmin": "Équipe BaraSira" }
     },
     "clientProfile": {
         "pageTitle": "Profil de {name}",
@@ -511,7 +547,7 @@
         "publish": "Publier le commentaire",
         "communityEyebrow": "Retours des prestataires",
         "commentsTitle": "{count} commentaire(s)",
-        "visibilityNotice": "Ces commentaires sont visibles par les prestataires et l’administration Barasira.",
+        "visibilityNotice": "Ces commentaires sont visibles par les prestataires et l’administration BaraSira.",
         "noComments": "Aucun commentaire n’a encore été publié sur ce client."
     },
     "applications": {
@@ -597,7 +633,7 @@
         "cancel": "Annuler",
         "account": "Mon compte",
         "personalInformation": "Informations personnelles",
-        "personalInformationHint": "Les informations utilisées pour votre compte Barasira.",
+        "personalInformationHint": "Les informations utilisées pour votre compte BaraSira.",
         "editHint": "Gardez vos coordonnées et votre présentation à jour.",
         "firstName": "Prénom",
         "lastName": "Nom",
@@ -636,7 +672,7 @@
     "serviceIndex": {
         "kicker": "Professionnels locaux",
         "title": "Trouvez le service adapté à votre besoin.",
-        "subtitle": "Explorez les prestataires disponibles, comparez leurs offres et prenez contact directement depuis Barasira.",
+        "subtitle": "Explorez les prestataires disponibles, comparez leurs offres et prenez contact directement depuis BaraSira.",
         "searchPlaceholder": "Plomberie, couture, transport…",
         "searchLabel": "Rechercher un service",
         "search": "Rechercher",
@@ -673,12 +709,12 @@
         "view": "Voir {name}"
     },
     "serviceShow": {
-        "breadcrumb":"Fil d’Ariane","service":"Service","available":"Disponible","unavailable":"Indisponible","mali":"Mali","editService":"Modifier le service","estimatedPrice":"Tarif indicatif","interventionArea":"Zone d’intervention","published":"Publié le","notSpecified":"Non renseigné","priceOnRequest":"Prix sur demande","currencyAmount":"{amount} FCFA","priceRange":"{minimum} – {maximum}","presentation":"Présentation","aboutService":"À propos de ce service","exchangeSafely":"Échangez en toute sécurité","exchangeSafelyHint":"Utilisez la messagerie Barasira pour préciser votre besoin et conserver vos échanges au même endroit.","provider":"Prestataire","verifiedProfile":"Profil vérifié","unverifiedProfile":"Profil non vérifié","newProvider":"Nouveau","reviews":"{count} avis","activeServices":"Services actifs","rating":"Note moyenne","ratingOutOfFive":"{rating}/5","contactProvider":"Contacter le prestataire","loginToContact":"Se connecter pour contacter","yourService":"Il s’agit de votre propre service.","clientOnlyContact":"Seuls les clients peuvent contacter ce prestataire."
+        "breadcrumb":"Fil d’Ariane","service":"Service","available":"Disponible","unavailable":"Indisponible","mali":"Mali","editService":"Modifier le service","estimatedPrice":"Tarif indicatif","interventionArea":"Zone d’intervention","published":"Publié le","notSpecified":"Non renseigné","priceOnRequest":"Prix sur demande","currencyAmount":"{amount} FCFA","priceRange":"{minimum} – {maximum}","presentation":"Présentation","aboutService":"À propos de ce service","exchangeSafely":"Échangez en toute sécurité","exchangeSafelyHint":"Utilisez la messagerie BaraSira pour préciser votre besoin et conserver vos échanges au même endroit.","provider":"Prestataire","verifiedProfile":"Profil vérifié","unverifiedProfile":"Profil non vérifié","newProvider":"Nouveau","reviews":"{count} avis","activeServices":"Services actifs","rating":"Note moyenne","ratingOutOfFive":"{rating}/5","contactProvider":"Contacter le prestataire","loginToContact":"Se connecter pour contacter","yourService":"Il s’agit de votre propre service.","clientOnlyContact":"Seuls les clients peuvent contacter ce prestataire."
     },
     "adminDashboard": {
         "metaTitle": "Tableau de bord administrateur",
         "eyebrow": "Centre de contrôle",
-        "welcome": "Bonjour {name}, pilotez Barasira en un coup d’œil",
+        "welcome": "Bonjour {name}, pilotez BaraSira en un coup d’œil",
         "subtitle": "Suivez les utilisateurs, les services et l’activité des missions depuis un espace centralisé.",
         "overview": "Vue d’ensemble de la plateforme",
         "activity": "Activité des missions",
@@ -699,7 +735,7 @@
         "noRecentServices": "Aucun service récent.",
         "stats": {"users":"Utilisateurs","providers":"Prestataires","clients":"Clients","services":"Services","missions":"Missions","activeMissions":"Missions actives"},
         "actions": {"users":"Gérer les utilisateurs","services":"Voir les services","missions":"Voir les missions","documents":"Documents à vérifier"},
-        "transactions": {"eyebrow":"Finances","title":"Statistiques des transactions","grossVolume":"Volume encaissé","platformRevenue":"Part Barasira (10 %)","providerPayouts":"Part prestataires (90 %)","total":"Transactions totales","average":"Montant moyen encaissé","successRate":"Taux de réussite","byStatus":"Répartition par statut","byMethod":"Répartition par moyen de paiement","recent":"Transactions récentes","reference":"Référence","mission":"Mission","payer":"Payeur","receiver":"Bénéficiaire","method":"Moyen","status":"Statut","amount":"Montant","commission":"Barasira (10 %)","providerNet":"Prestataire (90 %)","date":"Date","empty":"Aucune transaction.","methods":{"orange_money":"Orange Money","moov_money":"Moov Money","carte":"Carte bancaire","paypal":"PayPal","unknown":"Moyen inconnu"},"statuses":{"en_attente":"En attente","effectue":"Effectuée","echoue":"Échouée","annule":"Annulée","rembourse":"Remboursée"}}
+        "transactions": {"eyebrow":"Finances","title":"Statistiques des transactions","grossVolume":"Volume encaissé","platformRevenue":"Part BaraSira (10 %)","providerPayouts":"Part prestataires (90 %)","total":"Transactions totales","average":"Montant moyen encaissé","successRate":"Taux de réussite","byStatus":"Répartition par statut","byMethod":"Répartition par moyen de paiement","recent":"Transactions récentes","reference":"Référence","mission":"Mission","payer":"Payeur","receiver":"Bénéficiaire","method":"Moyen","status":"Statut","amount":"Montant","commission":"BaraSira (10 %)","providerNet":"Prestataire (90 %)","date":"Date","empty":"Aucune transaction.","methods":{"orange_money":"Orange Money","moov_money":"Moov Money","carte":"Carte bancaire","paypal":"PayPal","unknown":"Moyen inconnu"},"statuses":{"en_attente":"En attente","effectue":"Effectuée","echoue":"Échouée","annule":"Annulée","rembourse":"Remboursée"}}
     },
     "confirmDialog": {"title":"Confirmer l’action","deleteTitle":"Confirmer la suppression","continueTitle":"Changer de compte","cancelActionTitle":"Annuler cette mission ?","cancel":"Retour","confirm":"Confirmer","delete":"Supprimer définitivement","continue":"Continuer","confirmAction":"Confirmer l’annulation","close":"Fermer la fenêtre"},
     "impersonation": {"active":"Vous consultez la plateforme en tant que {name}.","stop":"Revenir au superadministrateur","start":"Se connecter avec ce compte","confirm":"Vous connecter en tant que {name} sans mot de passe ?"},
@@ -710,19 +746,19 @@
         "metaTitle":"Gestion des services","eyebrow":"Administration","title":"Services","subtitle":"Ajoutez et gérez les offres proposées sur la plateforme.","add":"Ajouter un service","search":"Rechercher","searchPlaceholder":"Service, description ou prestataire…","category":"Catégorie","allCategories":"Toutes les catégories","status":"Statut","allStatuses":"Tous les statuts","active":"Actif","inactive":"Inactif","filter":"Filtrer","reset":"Réinitialiser","service":"Service","provider":"Prestataire","location":"Localisation","prices":"Tarifs","actions":"Actions","edit":"Modifier","delete":"Supprimer","notSpecified":"Non renseigné","uncategorized":"Sans catégorie","unknownProvider":"Prestataire inconnu","toPrice":"à {price}","empty":"Aucun service ne correspond à votre recherche.","pagination":"Pagination des services","deleteConfirm":"Supprimer le service « {name} » ?","createTitle":"Ajouter un service","editTitle":"Modifier le service","createSubtitle":"Associez une nouvelle offre à un prestataire.","editSubtitle":"Mettez à jour l’offre, sa localisation et ses tarifs.","back":"Retour aux services","details":"Informations du service","detailsHint":"Définissez le prestataire, la catégorie et la zone d’intervention.","name":"Nom du service","selectProvider":"Sélectionner un prestataire","selectCategory":"Sélectionner une catégorie","icon":"Classe de l’icône","city":"Ville","selectCity":"Sélectionner une ville","municipality":"Commune","noMunicipality":"Aucune commune","description":"Description","pricing":"Tarification et visibilité","pricingHint":"Indiquez la fourchette tarifaire et la disponibilité de l’offre.","minimumPrice":"Prix minimum (FCFA)","maximumPrice":"Prix maximum (FCFA)","makeActive":"Rendre ce service actif"
     },
     "adminPartners": {
-        "metaTitle":"Gestion des partenaires","eyebrow":"Administration","title":"Partenaires","subtitle":"Gérez les entreprises partenaires et leur visibilité publique.","navHint":"Entreprises et visibilité","add":"Ajouter un partenaire","searchPlaceholder":"Entreprise, contact ou e-mail…","allStatuses":"Tous les statuts","published":"Publié","draft":"Brouillon","filter":"Filtrer","reset":"Réinitialiser","company":"Entreprise","contact":"Personne à contacter","website":"Site web","status":"Statut","actions":"Actions","visit":"Visiter","notSpecified":"Non renseigné","empty":"Aucun partenaire ne correspond à votre recherche.","deleteConfirm":"Supprimer le partenaire « {name} » ?","createTitle":"Ajouter un partenaire","editTitle":"Modifier le partenaire","formSubtitle":"Renseignez l’entreprise, son contact principal et sa visibilité sur Barasira.","back":"Retour aux partenaires","companyInfo":"Informations de l’entreprise","companyHint":"Ces informations pourront être affichées publiquement lorsque le partenaire est publié.","companyName":"Nom de l’entreprise","companyEmail":"E-mail de l’entreprise","companyPhone":"Téléphone de l’entreprise","address":"Adresse","description":"Présentation","logo":"Logo","noLogo":"Aucun logo","logoHint":"PNG, JPG ou WEBP — 2 Mo maximum.","contactInfo":"Personne à contacter","contactHint":"Ces coordonnées restent réservées à l’administration.","contactName":"Nom complet","contactPosition":"Fonction","contactEmail":"E-mail du contact","contactPhone":"Téléphone du contact","visibility":"Publication","order":"Ordre d’affichage","orderHint":"Attribuez les plus petits numéros aux partenaires à afficher en premier.","orderFor":"Ordre d’affichage de {name}","saveOrder":"Enregistrer l’ordre","savingOrder":"Enregistrement…","publish":"Publier ce partenaire sur Barasira","promotionTitle":"Mise en avant payante","promotionHint":"Planifiez la période pendant laquelle ce partenaire peut apparaître en tête de l’accueil.","promotionAmount":"Montant payé (FCFA)","promotionStart":"Début de la mise en avant","promotionEnd":"Fin de la mise en avant","promotionRule":"Pendant chaque période active, Barasira affiche au maximum deux partenaires, classés par montant payé décroissant."
+        "metaTitle":"Gestion des partenaires","eyebrow":"Administration","title":"Partenaires","subtitle":"Gérez les entreprises partenaires et leur visibilité publique.","navHint":"Entreprises et visibilité","add":"Ajouter un partenaire","searchPlaceholder":"Entreprise, contact ou e-mail…","allStatuses":"Tous les statuts","published":"Publié","draft":"Brouillon","filter":"Filtrer","reset":"Réinitialiser","company":"Entreprise","contact":"Personne à contacter","website":"Site web","status":"Statut","actions":"Actions","visit":"Visiter","notSpecified":"Non renseigné","empty":"Aucun partenaire ne correspond à votre recherche.","deleteConfirm":"Supprimer le partenaire « {name} » ?","createTitle":"Ajouter un partenaire","editTitle":"Modifier le partenaire","formSubtitle":"Renseignez l’entreprise, son contact principal et sa visibilité sur BaraSira.","back":"Retour aux partenaires","companyInfo":"Informations de l’entreprise","companyHint":"Ces informations pourront être affichées publiquement lorsque le partenaire est publié.","companyName":"Nom de l’entreprise","companyEmail":"E-mail de l’entreprise","companyPhone":"Téléphone de l’entreprise","address":"Adresse","description":"Présentation","logo":"Logo","noLogo":"Aucun logo","logoHint":"PNG, JPG ou WEBP — 2 Mo maximum.","contactInfo":"Personne à contacter","contactHint":"Ces coordonnées restent réservées à l’administration.","contactName":"Nom complet","contactPosition":"Fonction","contactEmail":"E-mail du contact","contactPhone":"Téléphone du contact","visibility":"Publication","order":"Ordre d’affichage","orderHint":"Attribuez les plus petits numéros aux partenaires à afficher en premier.","orderFor":"Ordre d’affichage de {name}","saveOrder":"Enregistrer l’ordre","savingOrder":"Enregistrement…","publish":"Publier ce partenaire sur BaraSira","promotionTitle":"Mise en avant payante","promotionHint":"Planifiez la période pendant laquelle ce partenaire peut apparaître en tête de l’accueil.","promotionAmount":"Montant payé (FCFA)","promotionStart":"Début de la mise en avant","promotionEnd":"Fin de la mise en avant","promotionRule":"Pendant chaque période active, BaraSira affiche au maximum deux partenaires, classés par montant payé décroissant."
     },
-    "partners": {"metaTitle":"Nos partenaires","eyebrow":"Ils nous accompagnent","title":"Les partenaires de Barasira","subtitle":"Découvrez les organisations qui contribuent au développement de services fiables et accessibles au Mali.","homeTitle":"Nos partenaires de confiance","viewAll":"Voir tous les partenaires","visitWebsite":"Visiter le site web","emptyTitle":"Aucun partenaire publié","emptyText":"Nos futurs partenaires seront bientôt présentés ici.","featuredEyebrow":"Partenaires à la une","featuredText":"Les organisations mises en avant actuellement sur Barasira","featuredBadge":"Partenaire sponsorisé"},
-    "sponsorship": {"cta":"Sponsoriser une publication","eyebrow":"Gagnez en visibilité","title":"Publiez votre contenu sponsorisé sur Barasira","subtitle":"Présentez votre entreprise à notre communauté avec une formule adaptée à votre campagne.","plansTitle":"Choisissez votre durée de publication","plansText":"Sélectionnez une formule, puis envoyez votre demande à l’équipe Barasira.","recommended":"Recommandé","choosePlan":"Sélectionner cette formule","selected":"Formule sélectionnée","plans":{"week":{"name":"Une semaine","description":"Une campagne courte pour annoncer une actualité ou un événement."},"month":{"name":"Un mois","description":"Une présence régulière pour développer votre visibilité."},"quarter":{"name":"Trois mois","description":"Une visibilité durable au meilleur tarif sur la durée."}},"benefitsEyebrow":"Votre campagne","benefitsTitle":"Ce qui est inclus","benefits":{"1":"Publication mise en avant sur Barasira","2":"Lien vers le site de votre entreprise","3":"Présentation adaptée à votre activité","4":"Prise de contact directe avec notre équipe"},"formTitle":"Envoyer une demande","formText":"Renseignez vos coordonnées. Notre équipe vous répondra par e-mail pour valider le contenu et les dates.","company":"Entreprise","contact":"Personne à contacter","website":"Site web","category":"Secteur d’activité","selectCategory":"Sélectionnez un secteur","otherCategory":"Précisez votre secteur","categories":{"services":"Services","commerce":"Commerce","finance":"Finance","education":"Éducation","technology":"Technologie","events":"Événementiel","ngo":"Association / ONG","other":"Autre"},"message":"Votre projet","messagePlaceholder":"Décrivez le contenu à promouvoir et les dates souhaitées…","consent":"J’accepte que mes informations soient utilisées pour traiter cette demande.","sending":"Envoi en cours…","send":"Envoyer ma demande par e-mail"},
+    "partners": {"metaTitle":"Nos partenaires","eyebrow":"Ils nous accompagnent","title":"Les partenaires de BaraSira","subtitle":"Découvrez les organisations qui contribuent au développement de services fiables et accessibles au Mali.","homeTitle":"Nos partenaires de confiance","viewAll":"Voir tous les partenaires","visitWebsite":"Visiter le site web","emptyTitle":"Aucun partenaire publié","emptyText":"Nos futurs partenaires seront bientôt présentés ici.","featuredEyebrow":"Partenaires à la une","featuredText":"Les organisations mises en avant actuellement sur BaraSira","featuredBadge":"Partenaire sponsorisé"},
+    "sponsorship": {"cta":"Sponsoriser une publication","eyebrow":"Gagnez en visibilité","title":"Publiez votre contenu sponsorisé sur BaraSira","subtitle":"Présentez votre entreprise à notre communauté avec une formule adaptée à votre campagne.","plansTitle":"Choisissez votre durée de publication","plansText":"Sélectionnez une formule, puis envoyez votre demande à l’équipe BaraSira.","recommended":"Recommandé","choosePlan":"Sélectionner cette formule","selected":"Formule sélectionnée","plans":{"week":{"name":"Une semaine","description":"Une campagne courte pour annoncer une actualité ou un événement."},"month":{"name":"Un mois","description":"Une présence régulière pour développer votre visibilité."},"quarter":{"name":"Trois mois","description":"Une visibilité durable au meilleur tarif sur la durée."}},"benefitsEyebrow":"Votre campagne","benefitsTitle":"Ce qui est inclus","benefits":{"1":"Publication mise en avant sur BaraSira","2":"Lien vers le site de votre entreprise","3":"Présentation adaptée à votre activité","4":"Prise de contact directe avec notre équipe"},"formTitle":"Envoyer une demande","formText":"Renseignez vos coordonnées. Notre équipe vous répondra par e-mail pour valider le contenu et les dates.","company":"Entreprise","contact":"Personne à contacter","website":"Site web","category":"Secteur d’activité","selectCategory":"Sélectionnez un secteur","otherCategory":"Précisez votre secteur","categories":{"services":"Services","commerce":"Commerce","finance":"Finance","education":"Éducation","technology":"Technologie","events":"Événementiel","ngo":"Association / ONG","other":"Autre"},"message":"Votre projet","messagePlaceholder":"Décrivez le contenu à promouvoir et les dates souhaitées…","consent":"J’accepte que mes informations soient utilisées pour traiter cette demande.","sending":"Envoi en cours…","send":"Envoyer ma demande par e-mail"},
     "adminLogs": {"metaTitle":"Journaux système","eyebrow":"Superadministration","title":"Journaux système","subtitle":"Consultez et gérez les modifications, suppressions et activités techniques depuis un espace sécurisé.","back":"Tableau de bord","sourceList":"Sources des journaux","currentSource":"Source active","available":"Disponible","unavailable":"Indisponible","lines":"Nombre de lignes","refresh":"Actualiser","updated":"Modifié le {date}","displayed":"{count} lignes affichées","unavailableTitle":"Ce journal n’est pas accessible","unavailableHint":"Vérifiez le chemin et les permissions du fichier. Avec Docker, PHP ou Nginx peuvent écrire sur stdout : configurez alors LOG_VIEWER_* vers un fichier monté.","emptyTitle":"Aucune entrée récente","emptyHint":"Le fichier existe, mais il ne contient aucune ligne à afficher.","console":"Contenu du journal","notice":"Accès et purge réservés au superadministrateur.","purgeTitle":"Purger les journaux","purgeHint":"Cette action concerne toutes les sources accessibles.","dateFrom":"Du","dateTo":"Au","purgePeriod":"Purger la période","purgeAll":"Tout purger","purgeAllConfirm":"Supprimer définitivement le contenu de tous les journaux ?","purgePeriodConfirm":"Supprimer définitivement les entrées de la période choisie ?","sources":{"audit":"Audit des actions","laravel":"Laravel","php":"PHP","nginx_access":"Accès Nginx","nginx_error":"Erreurs Nginx"}},
-    "cookies": {"title":"Vos choix concernant les cookies","description":"Barasira utilise des cookies nécessaires pour sécuriser votre session. Avec votre accord, des cookies marketing nous aident à mesurer nos campagnes et à faire connaître nos services.","accept":"Tout accepter","reject":"Refuser les optionnels","customize":"Personnaliser","eyebrow":"Confidentialité","settingsTitle":"Gérer mes préférences","settingsText":"Vous pouvez modifier votre choix à tout moment depuis le pied de page.","necessaryTitle":"Cookies nécessaires","necessaryText":"Indispensables à la connexion, à la sécurité et au fonctionnement du site.","marketingTitle":"Mesure et marketing","marketingText":"Mesurent les visites et l’efficacité des campagnes Google et Meta.","alwaysActive":"Toujours actifs","save":"Enregistrer mes choix","close":"Fermer","manage":"Gérer les cookies"},
+    "cookies": {"title":"Vos choix concernant les cookies","description":"BaraSira utilise des cookies nécessaires pour sécuriser votre session. Avec votre accord, des cookies marketing nous aident à mesurer nos campagnes et à faire connaître nos services.","accept":"Tout accepter","reject":"Refuser les optionnels","customize":"Personnaliser","eyebrow":"Confidentialité","settingsTitle":"Gérer mes préférences","settingsText":"Vous pouvez modifier votre choix à tout moment depuis le pied de page.","necessaryTitle":"Cookies nécessaires","necessaryText":"Indispensables à la connexion, à la sécurité et au fonctionnement du site.","marketingTitle":"Mesure et marketing","marketingText":"Mesurent les visites et l’efficacité des campagnes Google et Meta.","alwaysActive":"Toujours actifs","save":"Enregistrer mes choix","close":"Fermer","manage":"Gérer les cookies"},
     "legal": {"eyebrow":"Informations juridiques","documents":"Cadre juridique","updated":"Dernière mise à jour : {date}","question":"Une question ?","links":{"cgu":"Conditions d’utilisation","cgv":"Conditions de vente","confidentialite":"Confidentialité","cookies":"Politique de cookies","moderation":"Charte de modération","kyc":"KYC et paiements"}},
-    "providerDocuments": {"eyebrow":"Vérification du profil","title":"Mes documents justificatifs","hint":"Déposez vos pièces dans cet espace privé. Seuls vous-même et les administrateurs habilités peuvent les consulter.","badgeInfoTitle":"Obtenez le badge Profil vérifié","badgeInfoText":"Gagnez la confiance des clients et augmentez vos chances d’être choisi : envoyez votre pièce d’identité dès maintenant. Après sa validation sécurisée par un administrateur Barasira, le badge Profil vérifié apparaîtra automatiquement sur votre profil.","type":"Type de document","label":"Nom du document","file":"Fichier","fileHint":"PDF, JPG, PNG ou WEBP — 10 Mo maximum.","fileTooLarge":"Ce fichier est trop volumineux. Sélectionnez un fichier de 10 Mo maximum.","upload":"Envoyer pour vérification","uploading":"Envoi en cours…","download":"Télécharger","delete":"Supprimer","deleteTitle":"Supprimer ce document ?","deleteText":"Le fichier et son état de vérification seront définitivement supprimés.","empty":"Aucun document déposé.","types":{"identity":"Pièce d’identité","diploma":"Diplôme","certification":"Certification","address_proof":"Justificatif de domicile","other":"Autre document"},"statuses":{"en_attente":"En attente","valide":"Validé","rejete":"Refusé"}},
+    "providerDocuments": {"eyebrow":"Vérification du profil","title":"Mes documents justificatifs","hint":"Déposez vos pièces dans cet espace privé. Seuls vous-même et les administrateurs habilités peuvent les consulter.","badgeInfoTitle":"Obtenez le badge Profil vérifié","badgeInfoText":"Gagnez la confiance des clients et augmentez vos chances d’être choisi : envoyez votre pièce d’identité dès maintenant. Après sa validation sécurisée par un administrateur BaraSira, le badge Profil vérifié apparaîtra automatiquement sur votre profil.","type":"Type de document","label":"Nom du document","file":"Fichier","fileHint":"PDF, JPG, PNG ou WEBP — 10 Mo maximum.","fileTooLarge":"Ce fichier est trop volumineux. Sélectionnez un fichier de 10 Mo maximum.","upload":"Envoyer pour vérification","uploading":"Envoi en cours…","download":"Télécharger","delete":"Supprimer","deleteTitle":"Supprimer ce document ?","deleteText":"Le fichier et son état de vérification seront définitivement supprimés.","empty":"Aucun document déposé.","types":{"identity":"Pièce d’identité","diploma":"Diplôme","certification":"Certification","address_proof":"Justificatif de domicile","other":"Autre document"},"statuses":{"en_attente":"En attente","valide":"Validé","rejete":"Refusé"}},
     "adminDocuments": {"eyebrow":"Conformité","title":"Vérification des documents","subtitle":"Contrôlez les justificatifs privés transmis par les prestataires.","navHint":"Identité, diplômes et conformité","providerSearch":"Nom du prestataire…","search":"Nom du document…","allServiceCategories":"Toutes les catégories de service","allStatuses":"Tous les statuts","allTypes":"Tous les types","filter":"Filtrer","reset":"Réinitialiser","inspect":"Télécharger et examiner","comment":"Commentaire ou motif du refus…","reject":"Refuser","approve":"Valider","reopen":"Remettre en attente","delete":"Supprimer","deleteConfirm":"Supprimer définitivement ce document ?","empty":"Aucun document ne correspond aux filtres."},
     "adminDatabase": {"metaTitle":"Base de données","eyebrow":"Superadministration","title":"Base de données","subtitle":"Consultez les tables et leurs données depuis un espace strictement en lecture seule.","navHint":"Tables et données en lecture seule","back":"Tableau de bord","tables":"{count} tables","selectedTable":"Table sélectionnée","perPage":"Lignes par page","columns":"{count} colonnes","rows":"{count} lignes","readOnly":"Lecture seule","structure":"Structure de la table","nullable":"Valeur NULL autorisée","required":"Valeur requise","empty":"Cette table ne contient aucune donnée. Sa structure reste affichée ci-dessus."},
-    "adminTranslations": {"metaTitle":"Atelier de traduction","eyebrow":"Superadministration","title":"Traductions","navHint":"Traduire dans toutes les langues","subtitle":"Traduisez un texte simultanément vers toutes les autres langues de Barasira.","back":"Tableau de bord","sourceLanguage":"Langue source","sourceText":"Texte à traduire","placeholder":"Saisissez jusqu’à 10 000 caractères…","provider":"Moteur : {provider}","translateAll":"Tout traduire","loading":"Traduction en cours…","copy":"Copier","copied":"Copié","resultPlaceholder":"La traduction apparaîtra ici.","error":"La traduction est temporairement indisponible.","notice":"Accès réservé au superadministrateur. Les résultats peuvent être relus et corrigés avant utilisation.","languages":{"fr":"Français","en":"Anglais","bm":"Bambara"}},
+    "adminTranslations": {"metaTitle":"Atelier de traduction","eyebrow":"Superadministration","title":"Traductions","navHint":"Traduire dans toutes les langues","subtitle":"Traduisez un texte simultanément vers toutes les autres langues de BaraSira.","back":"Tableau de bord","sourceLanguage":"Langue source","sourceText":"Texte à traduire","placeholder":"Saisissez jusqu’à 10 000 caractères…","provider":"Moteur : {provider}","translateAll":"Tout traduire","loading":"Traduction en cours…","copy":"Copier","copied":"Copié","resultPlaceholder":"La traduction apparaîtra ici.","error":"La traduction est temporairement indisponible.","notice":"Accès réservé au superadministrateur. Les résultats peuvent être relus et corrigés avant utilisation.","languages":{"fr":"Français","en":"Anglais","bm":"Bambara"}},
     "navbar": {
-        "homeLabel": "Barasira — Accueil",
+        "homeLabel": "BaraSira — Accueil",
         "tagline": "Services de confiance",
         "openMenu": "Ouvrir le menu",
         "mainNavigation": "Navigation principale",
@@ -746,7 +782,7 @@
         "metaTitle": "Nous contacter",
         "hero": {
             "badge": "Besoin d’aide ?",
-            "title": "Contactez l’équipe Barasira",
+            "title": "Contactez l’équipe BaraSira",
             "description": "Une question concernant une mission, votre compte, un prestataire ou le fonctionnement de la plateforme ? Notre équipe est à votre écoute."
         },
         "information": {
@@ -809,7 +845,7 @@
         "eyebrow": "Administration",
         "title": "Documentation",
         "navHint": "PDF, spécifications et Swagger",
-        "subtitle": "Consultez les documents stratégiques et techniques de Barasira depuis un espace sécurisé.",
+        "subtitle": "Consultez les documents stratégiques et techniques de BaraSira depuis un espace sécurisé.",
         "back": "Tableau de bord",
         "swaggerTitle": "Documentation interactive de l’API",
         "swaggerDescription": "Explorez les 63 opérations du contrat OpenAPI et leurs schémas dans Swagger UI.",
@@ -828,13 +864,13 @@
             "business-model": { "title": "Business Model", "description": "Modèle économique, stratégie, financement et prévisions." },
             "readme": { "title": "README développeur", "description": "Installation, fonctionnalités, commandes et conventions du projet." },
             "technical-source": { "title": "Source des spécifications", "description": "Version Markdown maintenable des spécifications techniques." },
-            "openapi-yaml": { "title": "OpenAPI YAML", "description": "Contrat versionnable de l’API REST Barasira." },
+            "openapi-yaml": { "title": "OpenAPI YAML", "description": "Contrat versionnable de l’API REST BaraSira." },
             "openapi-json": { "title": "OpenAPI JSON", "description": "Contrat OpenAPI utilisé par Swagger UI." }
         }
     },
     "ui": {
         "common": { "loading": "Chargement…", "avatar": "Avatar", "verified": "Vérifié", "verifiedAccount": "Compte vérifié", "exportExcel": "Exporter vers Excel" },
-        "auth": { "secureBadge": "Barasira sécurisé", "loginHeroTitle": "Connectez-vous et trouvez le bon prestataire rapidement.", "loginHeroText": "Accédez à vos missions, services, messages et recommandations personnalisées.", "verifiedProviders": "Prestataires vérifiés", "secureMissions": "Missions sécurisées", "fastSupport": "Support rapide", "loginSubtitle": "Accédez à votre compte Barasira", "continueGoogle": "Continuer avec Google", "continueFacebook": "Continuer avec Facebook", "recommended": "Recommandé", "loginEmailDivider": "ou connectez-vous avec votre email", "registerEmailDivider": "ou créez un compte avec votre email", "emailPlaceholder": "votre{'@'}email.com", "forgotPassword": "Mot de passe oublié ?", "loggingIn": "Connexion…", "noAccount": "Pas encore de compte ?", "verifyEmail": "Veuillez valider votre boîte mail.", "serverError": "Erreur serveur. Veuillez réessayer.", "joinBadge": "Rejoignez Barasira", "registerHeroTitle": "Créez votre compte et commencez simplement.", "registerHeroText": "Publiez vos services, trouvez des missions ou contactez des prestataires fiables partout au Mali.", "verifiedProfile": "Profil vérifié", "missionsServices": "Missions et services", "integratedMessaging": "Messagerie intégrée", "registerSubtitle": "Inscrivez-vous sur Barasira", "seekService": "Je cherche un service", "offerServices": "Je propose mes services", "confirmation": "Confirmation", "creating": "Création…", "alreadyAccount": "Vous avez déjà un compte ?", "passwordRequired": "Le mot de passe est obligatoire.", "confirmationRequired": "La confirmation du mot de passe est obligatoire.", "bothPasswordsRequired": "Veuillez renseigner les deux champs de mot de passe.", "passwordMismatch": "Les mots de passe ne correspondent pas.", "registrationSuccess": "Inscription réussie.", "registrationError": "Inscription impossible.", "genericError": "Une erreur est survenue." },
+        "auth": { "secureBadge": "BaraSira sécurisé", "loginHeroTitle": "Connectez-vous et trouvez le bon prestataire rapidement.", "loginHeroText": "Accédez à vos missions, services, messages et recommandations personnalisées.", "verifiedProviders": "Prestataires vérifiés", "secureMissions": "Missions sécurisées", "fastSupport": "Support rapide", "loginSubtitle": "Accédez à votre compte BaraSira", "continueGoogle": "Continuer avec Google", "continueFacebook": "Continuer avec Facebook", "recommended": "Recommandé", "loginEmailDivider": "ou connectez-vous avec votre email", "registerEmailDivider": "ou créez un compte avec votre email", "emailPlaceholder": "votre{'@'}email.com", "forgotPassword": "Mot de passe oublié ?", "loggingIn": "Connexion…", "noAccount": "Pas encore de compte ?", "verifyEmail": "Veuillez valider votre boîte mail.", "serverError": "Erreur serveur. Veuillez réessayer.", "joinBadge": "Rejoignez BaraSira", "registerHeroTitle": "Créez votre compte et commencez simplement.", "registerHeroText": "Publiez vos services, trouvez des missions ou contactez des prestataires fiables partout au Mali.", "verifiedProfile": "Profil vérifié", "missionsServices": "Missions et services", "integratedMessaging": "Messagerie intégrée", "registerSubtitle": "Inscrivez-vous sur BaraSira", "seekService": "Je cherche un service", "offerServices": "Je propose mes services", "confirmation": "Confirmation", "creating": "Création…", "alreadyAccount": "Vous avez déjà un compte ?", "passwordRequired": "Le mot de passe est obligatoire.", "confirmationRequired": "La confirmation du mot de passe est obligatoire.", "bothPasswordsRequired": "Veuillez renseigner les deux champs de mot de passe.", "passwordMismatch": "Les mots de passe ne correspondent pas.", "registrationSuccess": "Inscription réussie.", "registrationError": "Inscription impossible.", "genericError": "Une erreur est survenue." },
         "messages": { "title": "Messages", "newTitle": "Nouveau message", "subtitle": "Vos échanges avec les clients et prestataires", "to": "À", "mission": "Mission", "placeholder": "Écrivez votre message…", "sending": "Envoi…", "send": "Envoyer", "sendMessage": "Envoyer le message", "empty": "Aucune conversation pour le moment.", "direct": "Conversation directe", "loading": "Chargement des messages…", "select": "Sélectionnez une conversation pour commencer.", "recipientMissing": "Le destinataire est introuvable.", "sendError": "Impossible d’envoyer le message.", "loadError": "Impossible de charger la conversation." },
         "errors": { "notFoundEyebrow": "Page introuvable", "notFoundTitle": "Cette page semble avoir disparu.", "notFoundDescription": "L’adresse est peut-être incorrecte ou la page a été déplacée. Vous pouvez revenir à l’accueil ou consulter la page précédente.", "forbiddenPage": "Accès refusé", "forbiddenEyebrow": "Accès protégé", "forbiddenTitle": "Vous n’avez pas accès à cette page.", "forbiddenDescription": "Cette section est réservée à un autre rôle ou nécessite des autorisations supplémentaires. Vérifiez votre compte ou revenez à votre espace.", "backDashboard": "Retour à mon espace", "backHome": "Retour à l’accueil", "previous": "Page précédente", "mistake": "Vous pensez qu’il s’agit d’une erreur ?", "contact": "Contactez notre équipe." },
         "map": { "title": "Services disponibles par ville" },

@@ -25,7 +25,7 @@ class ResumeSeeder extends Seeder
         });
 
         $profiles = [
-            'ibrahim.electricien@barasira.test' => [
+            'ibrahim.electricien@BaraSira.test' => [
                 'educations' => [
                     ['school_name' => 'Institut National de Formation Professionnelle', 'degree' => 'CAP', 'field' => 'Électricité bâtiment', 'start_year' => 2012, 'end_year' => 2014, 'city' => 'Bamako', 'country' => 'Mali'],
                 ],
@@ -37,7 +37,7 @@ class ResumeSeeder extends Seeder
                     ['name' => 'Habilitation électrique basse tension', 'issuer' => 'INFP Mali', 'issue_date' => '2021-06-15', 'expiration_date' => null, 'credential_url' => null],
                 ],
             ],
-            'mariam.plombiere@barasira.test' => [
+            'mariam.plombiere@BaraSira.test' => [
                 'educations' => [
                     ['school_name' => 'Centre de Formation Professionnelle de Sénou', 'degree' => 'Certificat professionnel', 'field' => 'Plomberie sanitaire', 'start_year' => 2016, 'end_year' => 2017, 'city' => 'Bamako', 'country' => 'Mali'],
                 ],
@@ -47,7 +47,7 @@ class ResumeSeeder extends Seeder
                 ],
                 'certifications' => [],
             ],
-            'boubacar.informatique@barasira.test' => [
+            'boubacar.informatique@BaraSira.test' => [
                 'educations' => [
                     ['school_name' => 'Institut Universitaire de Gestion', 'degree' => 'DUT', 'field' => 'Informatique de gestion', 'start_year' => 2015, 'end_year' => 2017, 'city' => 'Bamako', 'country' => 'Mali'],
                 ],
@@ -59,7 +59,7 @@ class ResumeSeeder extends Seeder
                     ['name' => 'Introduction to Cybersecurity', 'issuer' => 'Cisco Networking Academy', 'issue_date' => '2023-05-10', 'expiration_date' => null, 'credential_url' => 'https://www.netacad.com/courses/cybersecurity/introduction-cybersecurity'],
                 ],
             ],
-            'aissata.couture@barasira.test' => [
+            'aissata.couture@BaraSira.test' => [
                 'educations' => [
                     ['school_name' => 'Centre de Formation Féminine de Bamako', 'degree' => 'CAP', 'field' => 'Coupe et couture', 'start_year' => 2013, 'end_year' => 2015, 'city' => 'Bamako', 'country' => 'Mali'],
                 ],
@@ -70,7 +70,7 @@ class ResumeSeeder extends Seeder
                     ['name' => 'Perfectionnement en modélisme', 'issuer' => 'Maison de l’Artisanat de Bamako', 'issue_date' => '2019-08-30', 'expiration_date' => null, 'credential_url' => null],
                 ],
             ],
-            'youssouf.solaire@barasira.test' => [
+            'youssouf.solaire@BaraSira.test' => [
                 'educations' => [
                     ['school_name' => 'École Nationale d’Ingénieurs Abderhamane Baba Touré', 'degree' => 'Licence professionnelle', 'field' => 'Énergies renouvelables', 'start_year' => 2014, 'end_year' => 2017, 'city' => 'Bamako', 'country' => 'Mali'],
                 ],
@@ -81,7 +81,7 @@ class ResumeSeeder extends Seeder
                     ['name' => 'Installation de systèmes photovoltaïques', 'issuer' => 'Agence des Énergies Renouvelables du Mali', 'issue_date' => '2020-02-14', 'expiration_date' => null, 'credential_url' => null],
                 ],
             ],
-            'nana.climatisation@barasira.test' => [
+            'nana.climatisation@BaraSira.test' => [
                 'educations' => [
                     ['school_name' => 'Centre de Formation Professionnelle de Missabougou', 'degree' => 'BT', 'field' => 'Froid et climatisation', 'start_year' => 2015, 'end_year' => 2017, 'city' => 'Bamako', 'country' => 'Mali'],
                 ],

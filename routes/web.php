@@ -45,6 +45,13 @@ Route::get('/up', static fn () => response()->json(['status' => 'ok']))
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
 });
+Route::get('/qui-sommes-nous', static fn () => Inertia::render('About', [
+    'seo' => \App\Support\SeoMeta::page(
+        request(),
+        'Qui sommes-nous ? — BaraSira',
+        'Découvrez la mission, la vision et les engagements de BaraSira pour faciliter l’accès à des services locaux fiables au Mali.'
+    ),
+]))->name('about');
 Route::get('/partners', [PartnerController::class, 'index'])->name('front.partners.index');
 Route::get('/partners/sponsoring', [PartnerSponsorshipController::class, 'create'])->name('front.partners.sponsorship.create');
 Route::post('/partners/sponsoring', [PartnerSponsorshipController::class, 'store'])
@@ -92,10 +99,10 @@ Route::get('/contact-us', function () {
     return Inertia::render('ContactUs', [
         'seo' => \App\Support\SeoMeta::page(
             request(),
-            'Contacter Barasira',
-            'Contactez l’équipe Barasira pour toute question sur la recherche de prestataires et les services disponibles au Mali.'
+            'Contacter BaraSira',
+            'Contactez l’équipe BaraSira pour toute question sur la recherche de prestataires et les services disponibles au Mali.'
         ),
-        'contactEmail' => config('mail.contact_address', 'contact@barasira.com'),
+        'contactEmail' => config('mail.contact_address', 'contact@BaraSira.com'),
         'contactPhone' => '+223 00 00 00 00',
     ]);
 })->name('contact.index');

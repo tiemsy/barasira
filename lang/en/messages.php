@@ -2,7 +2,7 @@
 
 return [
     'client_comment_saved' => 'Your comment about this client has been saved.',
-    'platform_review_saved' => 'Thank you, your Barasira review has been saved.',
+    'platform_review_saved' => 'Thank you, your BaraSira review has been saved.',
     'payment_multiple_of_five_cinetpay' => 'The CinetPay amount must be a whole number and a multiple of 5 FCFA.',
     'payment_multiple_of_five' => 'The amount must be a whole number and a multiple of 5 FCFA.',
     'mission_already_paid' => 'This mission has already been paid.',

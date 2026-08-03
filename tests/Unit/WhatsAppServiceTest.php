@@ -15,7 +15,7 @@ class WhatsAppServiceTest extends TestCase
             'whatsapp.driver' => 'http',
             'whatsapp.endpoint' => 'https://whatsapp.example/send',
             'whatsapp.token' => 'secret-token',
-            'whatsapp.sender' => 'Barasira',
+            'whatsapp.sender' => 'BaraSira',
         ]);
 
         app(WhatsAppService::class)->send('+223 70 00 00 00', 'Votre notification');
@@ -24,6 +24,6 @@ class WhatsAppServiceTest extends TestCase
             && $request->hasHeader('Authorization', 'Bearer secret-token')
             && $request['to'] === '+22370000000'
             && $request['message'] === 'Votre notification'
-            && $request['sender'] === 'Barasira');
+            && $request['sender'] === 'BaraSira');
     }
 }
