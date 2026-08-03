@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
-import logoUrl from '@/assets/logo-BaraSira.png'
+import logoUrl from '@/assets/logo-barasira.png'
 import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const page = usePage()

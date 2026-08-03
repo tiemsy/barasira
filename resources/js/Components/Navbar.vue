@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
-import logoUrl from '@/assets/logo-BaraSira.png'
+import logoUrl from '@/assets/logo-barasira.png'
 import DashboardIcon from '@/Components/DashboardIcon.vue'
 
 const page = usePage()

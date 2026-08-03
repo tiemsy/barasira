@@ -248,7 +248,7 @@
 ========================================================= */
 .hero-grid {
   display: grid;
-  background-image: url("../images/hero-BaraSira.png");
+  background-image: url("../images/hero-barasira.png");
   grid-template-columns: 1.05fr 0.95fr;
   gap: 4rem;
   align-items: center;
@@ -531,7 +531,7 @@
 }
 
 .services-hero {
-  background-image: url("../images/hero-services-BaraSira.png");
+  background-image: url("../images/hero-services-barasira.png");
   color: #fff;
   text-align: center;
   background-size: cover;
@@ -717,7 +717,7 @@
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .services-hero {
-    background-image: url("../images/hero-services-mobile-BaraSira.png");
+    background-image: url("../images/hero-services-mobile-barasira.png");
   }
   .hero-search {
     grid-template-columns: 1fr;
@@ -735,7 +735,7 @@
 .service-hero {
   position: relative;
   padding: 4rem 0 3rem;
-  background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("../images/hero-services-BaraSira.png") center/cover no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("../images/hero-services-barasira.png") center/cover no-repeat;
   color: #ffffff;
   text-align: center;
 }

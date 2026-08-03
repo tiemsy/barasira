@@ -7,6 +7,6 @@ return [
         'SEO_DEFAULT_DESCRIPTION',
         'Trouvez rapidement des prestataires qualifiés au Mali pour vos travaux, services à domicile et besoins professionnels.'
     ),
-    'image' => env('SEO_DEFAULT_IMAGE', '/images/logo-BaraSira.png'),
+    'image' => env('SEO_DEFAULT_IMAGE', '/images/logo-barasira.png'),
     'country' => env('SEO_COUNTRY', 'Mali'),
 ];

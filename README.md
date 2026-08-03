@@ -72,7 +72,7 @@ Points d’accès :
 
 - Sitemap XML : `/sitemap.xml` (pages publiques et services actifs)
 - Directives des robots : `/robots.txt`
-- Image sociale par défaut : `/images/logo-BaraSira.png`
+- Image sociale par défaut : `/images/logo-barasira.png`
 
 Configuration de production :
 
@@ -81,7 +81,7 @@ APP_URL=https://BaraSira.com
 SEO_SITE_NAME=BaraSira
 SEO_DEFAULT_TITLE="BaraSira — Trouvez un prestataire fiable au Mali"
 SEO_DEFAULT_DESCRIPTION="Trouvez rapidement des prestataires qualifiés au Mali pour vos travaux, services à domicile et besoins professionnels."
-SEO_DEFAULT_IMAGE=/images/logo-BaraSira.png
+SEO_DEFAULT_IMAGE=/images/logo-barasira.png
 SEO_COUNTRY=Mali
 ```
 

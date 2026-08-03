@@ -41,6 +41,8 @@ jobs:
           file: ./Dockerfile
           target: ${{ matrix.target }}
           push: false
+          load: true
+          tags: barasira:${{ matrix.target }}
           cache-from: type=gha,scope=BaraSira-${{ matrix.target }}
           cache-to: type=gha,mode=max,scope=BaraSira-${{ matrix.target }}
 
