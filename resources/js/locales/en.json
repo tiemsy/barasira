@@ -1351,6 +1351,34 @@
         "email": "Please enter a valid email.",
         "min_length": "This field must contain at least {min} characters."
     },
+    "adminDocumentation": {
+        "metaTitle": "Documentation",
+        "eyebrow": "Administration",
+        "title": "Documentation",
+        "navHint": "PDFs, specifications and Swagger",
+        "subtitle": "View Barasira’s strategic and technical documents from a secure workspace.",
+        "back": "Dashboard",
+        "swaggerTitle": "Interactive API documentation",
+        "swaggerDescription": "Explore the OpenAPI contract operations and schemas in Swagger UI.",
+        "openSwagger": "Open Swagger",
+        "catalog": "Documentation catalogue",
+        "selectedDocument": "Selected document",
+        "unavailable": "Unavailable",
+        "open": "Open",
+        "download": "Download",
+        "updated": "Updated on {date}",
+        "emptyTitle": "No document available",
+        "emptyDescription": "Check that the documents are included in the deployed image.",
+        "notice": "Access restricted to administrators and super administrators.",
+        "documents": {
+            "technical-specifications": { "title": "Technical specifications", "description": "Architecture, API, data, security, integrations and operations." },
+            "business-model": { "title": "Business Model", "description": "Business model, strategy, funding and forecasts." },
+            "readme": { "title": "Developer README", "description": "Installation, features, commands and project conventions." },
+            "technical-source": { "title": "Specifications source", "description": "Maintainable Markdown version of the technical specifications." },
+            "openapi-yaml": { "title": "OpenAPI YAML", "description": "Versionable Barasira REST API contract." },
+            "openapi-json": { "title": "OpenAPI JSON", "description": "OpenAPI contract used by Swagger UI." }
+        }
+    },
     "ui": {
         "common": {
             "loading": "Loading…",

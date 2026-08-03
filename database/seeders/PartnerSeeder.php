@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Partner;
+use App\Models\PartnerPromotion;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -12,12 +13,45 @@ class PartnerSeeder extends Seeder
     public function run(): void
     {
         $adminId = User::query()->whereIn('role', ['superadmin', 'admin'])->value('id');
+        $promotionAmount = 150000;
+        $promotionPlan = collect(config('partner_sponsorship.plans'))
+            ->firstWhere('price', $promotionAmount);
+        $promotionStartsAt = now();
+
         $partners = [
+            [
+                'company_name' => 'Urgol Events Mali',
+                'description' => 'Agence événementielle malienne spécialisée dans la conception, l’organisation et la coordination d’événements professionnels et privés.',
+                'logo' => 'urgol-events-mali.svg',
+                'website_url' => 'https://urgol-events.com',
+                'company_email' => 'contact@urgol-events.test',
+                'company_phone' => '+223 76 45 20 20',
+                'address' => 'Bamako, Mali',
+                'contact_name' => 'Responsable Urgol Events Mali',
+                'contact_position' => 'Responsable des partenariats',
+                'contact_email' => 'partenariats@urgol-events.test',
+                'contact_phone' => '+223 76 45 20 20',
+                'display_order' => 1,
+            ],
+            [
+                'company_name' => 'Les Petits Stylos',
+                'description' => 'Structure engagée dans l’éducation, l’éveil et l’accompagnement des enfants à travers des activités pédagogiques et créatives.',
+                'logo' => 'les-petits-stylos.svg',
+                'website_url' => 'https://lespetitsstylos-fondation.com',
+                'company_email' => 'contact@les-petits-stylos.test',
+                'company_phone' => '+223 70 35 15 15',
+                'address' => 'Bamako, Mali',
+                'contact_name' => 'Responsable Les Petits Stylos',
+                'contact_position' => 'Coordination',
+                'contact_email' => 'coordination@les-petits-stylos.test',
+                'contact_phone' => '+223 70 35 15 15',
+                'display_order' => 2,
+            ],
             [
                 'company_name' => 'Mali Énergie Solutions',
                 'description' => 'Entreprise spécialisée dans les solutions énergétiques durables et l’accompagnement des professionnels locaux.',
                 'logo' => 'mali-energie-solutions.svg',
-                'website_url' => 'https://example.com/mali-energie-solutions',
+                'website_url' => null,
                 'company_email' => 'contact@mali-energie.test',
                 'company_phone' => '+223 20 22 10 10',
                 'address' => 'Hamdallaye ACI 2000, Bamako',
@@ -25,13 +59,13 @@ class PartnerSeeder extends Seeder
                 'contact_position' => 'Responsable des partenariats',
                 'contact_email' => 'aminata.coulibaly@mali-energie.test',
                 'contact_phone' => '+223 76 10 20 30',
-                'display_order' => 1,
+                'display_order' => 3,
             ],
             [
                 'company_name' => 'Sugu Digital',
                 'description' => 'Agence numérique qui soutient la transformation digitale des artisans, indépendants et petites entreprises maliennes.',
                 'logo' => 'sugu-digital.svg',
-                'website_url' => 'https://example.com/sugu-digital',
+                'website_url' => null,
                 'company_email' => 'bonjour@sugu-digital.test',
                 'company_phone' => '+223 20 23 40 50',
                 'address' => 'Badalabougou, Bamako',
@@ -39,7 +73,7 @@ class PartnerSeeder extends Seeder
                 'contact_position' => 'Directeur commercial',
                 'contact_email' => 'moussa.diarra@sugu-digital.test',
                 'contact_phone' => '+223 70 40 50 60',
-                'display_order' => 2,
+                'display_order' => 4,
             ],
             [
                 'company_name' => 'Jigi Formation',
@@ -53,34 +87,6 @@ class PartnerSeeder extends Seeder
                 'contact_position' => 'Coordinatrice des programmes',
                 'contact_email' => 'fatoumata.kone@jigi-formation.test',
                 'contact_phone' => '+223 75 60 70 80',
-                'display_order' => 3,
-            ],
-            [
-                'company_name' => 'Urgol Events Mali',
-                'description' => 'Agence événementielle malienne spécialisée dans la conception, l’organisation et la coordination d’événements professionnels et privés.',
-                'logo' => 'urgol-events-mali.svg',
-                'website_url' => null,
-                'company_email' => 'contact@urgol-events.test',
-                'company_phone' => '+223 76 45 20 20',
-                'address' => 'Bamako, Mali',
-                'contact_name' => 'Responsable Urgol Events Mali',
-                'contact_position' => 'Responsable des partenariats',
-                'contact_email' => 'partenariats@urgol-events.test',
-                'contact_phone' => '+223 76 45 20 20',
-                'display_order' => 4,
-            ],
-            [
-                'company_name' => 'Les Petits Stylos',
-                'description' => 'Structure engagée dans l’éducation, l’éveil et l’accompagnement des enfants à travers des activités pédagogiques et créatives.',
-                'logo' => 'les-petits-stylos.svg',
-                'website_url' => null,
-                'company_email' => 'contact@les-petits-stylos.test',
-                'company_phone' => '+223 70 35 15 15',
-                'address' => 'Bamako, Mali',
-                'contact_name' => 'Responsable Les Petits Stylos',
-                'contact_position' => 'Coordination',
-                'contact_email' => 'coordination@les-petits-stylos.test',
-                'contact_phone' => '+223 70 35 15 15',
                 'display_order' => 5,
             ],
         ];
@@ -89,17 +95,43 @@ class PartnerSeeder extends Seeder
             $logo = $data['logo'];
             unset($data['logo']);
             $logoPath = "partners/{$logo}";
-            Storage::disk('public')->put($logoPath, file_get_contents(database_path("seeders/assets/partners/{$logo}")));
 
-            Partner::query()->updateOrCreate(
-                ['company_name' => $data['company_name']],
-                $data + [
-                    'logo_path' => $logoPath,
-                    'is_published' => true,
-                    'created_by' => $adminId,
-                    'updated_by' => $adminId,
-                ]
-            );
+            $partner = Partner::query()->firstOrNew(['company_name' => $data['company_name']]);
+            $partner->fill($data + [
+                'is_published' => true,
+                'updated_by' => $adminId,
+            ]);
+
+            if (! $partner->exists) {
+                $partner->created_by = $adminId;
+            }
+
+            if (! $partner->logo_path) {
+                $partner->logo_path = $logoPath;
+            }
+
+            $partner->save();
+
+            if ($partner->logo_path === $logoPath && ! Storage::disk('public')->exists($logoPath)) {
+                Storage::disk('public')->put(
+                    $logoPath,
+                    file_get_contents(database_path("seeders/assets/partners/{$logo}"))
+                );
+            }
+
+            if (in_array($partner->company_name, ['Urgol Events Mali', 'Les Petits Stylos'], true)) {
+                PartnerPromotion::query()->updateOrCreate(
+                    [
+                        'partner_id' => $partner->id,
+                        'paid_amount' => $promotionAmount,
+                    ],
+                    [
+                        'starts_at' => $promotionStartsAt,
+                        'ends_at' => $promotionStartsAt->copy()->addDays($promotionPlan['duration_days']),
+                        'created_by' => $adminId,
+                    ]
+                );
+            }
         }
 
         $this->command?->info(count($partners).' partenaires de démonstration créés avec succès.');

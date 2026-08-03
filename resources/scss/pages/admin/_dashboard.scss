@@ -39,7 +39,7 @@
     justify-content: space-between;
     gap: $s-literal-2rem;
 
-    h1 { max-width: 760px; margin: $s-literal--75rem $s-space-0; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.08; }
+    h1 { max-width: 760px; margin: $s-literal--75rem $s-space-0; line-height: 1.08; }
     p { max-width: 680px; margin: $s-space-0; color: $c-literal-47dea33265; font-size: 1.05rem; line-height: 1.7; }
 }
 

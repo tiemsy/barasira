@@ -804,6 +804,34 @@
         "email": "Veuillez entrer un email valide.",
         "min_length": "Ce champ doit contenir au moins {min} caractères."
     },
+    "adminDocumentation": {
+        "metaTitle": "Documentation",
+        "eyebrow": "Administration",
+        "title": "Documentation",
+        "navHint": "PDF, spécifications et Swagger",
+        "subtitle": "Consultez les documents stratégiques et techniques de Barasira depuis un espace sécurisé.",
+        "back": "Tableau de bord",
+        "swaggerTitle": "Documentation interactive de l’API",
+        "swaggerDescription": "Explorez les 63 opérations du contrat OpenAPI et leurs schémas dans Swagger UI.",
+        "openSwagger": "Ouvrir Swagger",
+        "catalog": "Catalogue documentaire",
+        "selectedDocument": "Document sélectionné",
+        "unavailable": "Indisponible",
+        "open": "Ouvrir",
+        "download": "Télécharger",
+        "updated": "Mis à jour le {date}",
+        "emptyTitle": "Aucun document disponible",
+        "emptyDescription": "Vérifiez que les documents sont présents dans l’image déployée.",
+        "notice": "Accès réservé aux administrateurs et superadministrateurs.",
+        "documents": {
+            "technical-specifications": { "title": "Spécifications techniques", "description": "Architecture, API, données, sécurité, intégrations et exploitation." },
+            "business-model": { "title": "Business Model", "description": "Modèle économique, stratégie, financement et prévisions." },
+            "readme": { "title": "README développeur", "description": "Installation, fonctionnalités, commandes et conventions du projet." },
+            "technical-source": { "title": "Source des spécifications", "description": "Version Markdown maintenable des spécifications techniques." },
+            "openapi-yaml": { "title": "OpenAPI YAML", "description": "Contrat versionnable de l’API REST Barasira." },
+            "openapi-json": { "title": "OpenAPI JSON", "description": "Contrat OpenAPI utilisé par Swagger UI." }
+        }
+    },
     "ui": {
         "common": { "loading": "Chargement…", "avatar": "Avatar", "verified": "Vérifié", "verifiedAccount": "Compte vérifié", "exportExcel": "Exporter vers Excel" },
         "auth": { "secureBadge": "Barasira sécurisé", "loginHeroTitle": "Connectez-vous et trouvez le bon prestataire rapidement.", "loginHeroText": "Accédez à vos missions, services, messages et recommandations personnalisées.", "verifiedProviders": "Prestataires vérifiés", "secureMissions": "Missions sécurisées", "fastSupport": "Support rapide", "loginSubtitle": "Accédez à votre compte Barasira", "continueGoogle": "Continuer avec Google", "continueFacebook": "Continuer avec Facebook", "recommended": "Recommandé", "loginEmailDivider": "ou connectez-vous avec votre email", "registerEmailDivider": "ou créez un compte avec votre email", "emailPlaceholder": "votre{'@'}email.com", "forgotPassword": "Mot de passe oublié ?", "loggingIn": "Connexion…", "noAccount": "Pas encore de compte ?", "verifyEmail": "Veuillez valider votre boîte mail.", "serverError": "Erreur serveur. Veuillez réessayer.", "joinBadge": "Rejoignez Barasira", "registerHeroTitle": "Créez votre compte et commencez simplement.", "registerHeroText": "Publiez vos services, trouvez des missions ou contactez des prestataires fiables partout au Mali.", "verifiedProfile": "Profil vérifié", "missionsServices": "Missions et services", "integratedMessaging": "Messagerie intégrée", "registerSubtitle": "Inscrivez-vous sur Barasira", "seekService": "Je cherche un service", "offerServices": "Je propose mes services", "confirmation": "Confirmation", "creating": "Création…", "alreadyAccount": "Vous avez déjà un compte ?", "passwordRequired": "Le mot de passe est obligatoire.", "confirmationRequired": "La confirmation du mot de passe est obligatoire.", "bothPasswordsRequired": "Veuillez renseigner les deux champs de mot de passe.", "passwordMismatch": "Les mots de passe ne correspondent pas.", "registrationSuccess": "Inscription réussie.", "registrationError": "Inscription impossible.", "genericError": "Une erreur est survenue." },

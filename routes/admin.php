@@ -3,9 +3,10 @@
 // Dashboard admin
 
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\ExportController;
-use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\DatabaseBrowserController;
+use App\Http\Controllers\Admin\DocumentationController;
+use App\Http\Controllers\Admin\DocumentController;
+use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\ImpersonationController;
 use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\PartnerController;
@@ -23,6 +24,10 @@ Route::get('/documents', [DocumentController::class, 'index'])->name('admin.docu
 Route::get('/documents/{document}/download', [DocumentController::class, 'download'])->name('admin.documents.download');
 Route::patch('/documents/{document}/review', [DocumentController::class, 'review'])->name('admin.documents.review');
 Route::delete('/documents/{document}', [DocumentController::class, 'destroy'])->name('admin.documents.destroy');
+Route::get('/documentation', [DocumentationController::class, 'index'])->name('admin.documentation.index');
+Route::get('/documentation/{document}', [DocumentationController::class, 'file'])
+    ->where('document', '[a-z0-9-]+')
+    ->name('admin.documentation.file');
 Route::prefix('exports')->controller(ExportController::class)->group(function () {
     Route::get('/users', 'users')->name('admin.exports.users');
     Route::get('/services', 'services')->name('admin.exports.services');

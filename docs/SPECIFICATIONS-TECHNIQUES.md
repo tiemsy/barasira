@@ -355,3 +355,7 @@ Une évolution d’API doit modifier simultanément :
 | `storage/api-docs/api-docs.yaml` | contrat OpenAPI versionnable |
 | `storage/api-docs/api-docs.json` | contrat utilisé par Swagger UI |
 
+Les administrateurs et superadministrateurs accèdent à ce catalogue depuis
+`/admin/documentation`. Les aperçus et téléchargements sont fournis par une
+liste blanche côté serveur ; un identifiant inconnu retourne une réponse 404
+et aucun chemin de fichier arbitraire n’est accepté.
