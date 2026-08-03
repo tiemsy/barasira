@@ -116,7 +116,7 @@ RUN composer dump-autoload \
 # Stage 7 — Image de développement
 # Assemble une application complète avec les dépendances de développement,
 # les assets frontend compilés et une configuration PHP adaptée au travail local.
-FROM development-dependencies AS development
+FROM development-dependencies AS develop
 
 ENV APP_ENV=local \
     APP_DEBUG=true \
