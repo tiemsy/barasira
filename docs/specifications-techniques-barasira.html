@@ -180,3 +180,95 @@ php artisan l5-swagger:generate</pre>
 <p class="muted">BaraSira — Spécifications techniques, version 1.0 du 30 juillet 2026.</p>
 </body>
 </html>
+
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Spécifications techniques — Barasira</title>
+<style>
+@page{size:A4;margin:16mm}*{box-sizing:border-box}body{margin:0;color:#172022;font:10pt/1.45 Arial,sans-serif}h1,h2,h3{color:#123e37}h1{font-size:28pt}h2{font-size:17pt;border-bottom:2px solid #e5b84b;padding-bottom:2mm;margin-top:9mm}h3{font-size:12pt;margin:5mm 0 2mm}p,li{margin-bottom:1.5mm}code,pre{font-family:Menlo,monospace;background:#f0f5f3}code{padding:.3mm 1mm}pre{padding:3mm;border-left:3px solid #176b5b;white-space:pre-wrap}table{width:100%;border-collapse:collapse;margin:3mm 0}th{background:#123e37;color:white;text-align:left}th,td{padding:2mm;border:1px solid #dbe5e2;vertical-align:top}.cover{height:260mm;padding:22mm 14mm;background:linear-gradient(145deg,#103d36 0 60%,#176b5b 60% 78%,#edbd48 78%);color:white;page-break-after:always}.cover h1{color:white;font-size:35pt;margin-top:35mm}.cover p{font-size:15pt;max-width:130mm}.cover .meta{margin-top:75mm;color:white;font-weight:bold;text-shadow:0 1px 2px rgba(0,0,0,.35)}.page-break{page-break-before:always}.callout{border-left:4px solid #e5b84b;background:#fff9e9;padding:3mm}.muted{color:#63716e}ul{padding-left:6mm}
+</style>
+</head>
+<body>
+<section class="cover">
+  <div>DOCUMENT D’ARCHITECTURE ET D’EXPLOITATION</div>
+  <h1>Spécifications techniques<br>Barasira</h1>
+  <p>Architecture, API, données, sécurité, intégrations et déploiement.</p>
+  <div class="meta">Version 1.0 · 30 juillet 2026<br>Document technique de référence</div>
+</section>
+
+<h2>1. Périmètre</h2>
+<p>Barasira est une marketplace de services au Mali. Elle gère les utilisateurs, prestataires, services, missions, candidatures, paiements, avis, messagerie, documents de vérification, partenaires et outils d’administration.</p>
+<div class="callout">Le contrat API détaillé est disponible dans <code>storage/api-docs/api-docs.yaml</code> et dans Swagger UI sur <code>/api/documentation</code>.</div>
+
+<h2>2. Architecture</h2>
+<table><tr><th>Couche</th><th>Technologie</th><th>Responsabilité</th></tr>
+<tr><td>HTTP</td><td>Nginx</td><td>Fichiers statiques et transfert PHP-FPM</td></tr>
+<tr><td>Backend</td><td>PHP 8.2+ / Laravel 12</td><td>API, Inertia, règles métier et tâches</td></tr>
+<tr><td>Frontend</td><td>Vue 3 / Inertia / Vite / Sass</td><td>Interfaces publiques, utilisateur et admin</td></tr>
+<tr><td>Données</td><td>MySQL 8</td><td>Persistance métier</td></tr>
+<tr><td>Cache/files</td><td>Redis 7</td><td>Cache et notifications asynchrones</td></tr>
+<tr><td>Exploitation</td><td>Docker, Supervisor, Coolify</td><td>Image, processus, proxy HTTPS et déploiement</td></tr></table>
+<pre>Navigateur / mobile → Proxy HTTPS Coolify → app:80 / Nginx
+                                      → PHP-FPM → MySQL
+                                                → Redis</pre>
+
+<h2>3. Environnements</h2>
+<table><tr><th>Environnement</th><th>Docker</th><th>Service public</th><th>Configuration</th></tr>
+<tr><td>Local</td><td>target development</td><td>nginx:8080</td><td>debug et dépendances de développement</td></tr>
+<tr><td>Staging</td><td><code>docker-compose.staging.yml</code></td><td><code>app:80</code></td><td><code>APP_ENV=staging</code></td></tr>
+<tr><td>Production</td><td><code>docker-compose.prod.yml</code></td><td><code>nginx:80</code></td><td><code>APP_ENV=production</code></td></tr></table>
+<p>Le proxy Coolify est seul propriétaire des ports hôte 80/443. Le healthcheck interne appelle <code>/up</code>.</p>
+
+<h2>4. Authentification et autorisation</h2>
+<ul><li>Session web, cookie CSRF et Sanctum stateful.</li><li>Jeton Bearer facultatif pour un client natif fournissant <code>device_name</code>.</li><li>Google SSO ; Facebook SSO actuellement masqué.</li><li>Vérification d’adresse électronique et réinitialisation de mot de passe.</li><li>Rôles : client, prestataire, admin et superadmin.</li></ul>
+
+<h2>5. API REST</h2>
+<p>Les endpoints JSON sont préfixés par <code>/api</code>. Ils utilisent les statuts 401, 403, 404, 422 et 429 de manière conventionnelle. Les familles exposées sont Auth, Users, Services, Service categories, Missions, Mission applications, Messages, Reviews, Resumes, Portfolio, Payments et AI.</p>
+<p>Les routes <code>/api/debug-auth</code>, <code>/api/documentation</code> et <code>/api/oauth2-callback</code> sont techniques et ne constituent pas un contrat métier.</p>
+
+<h2>6. Données et règles métier</h2>
+<p>Les agrégats centraux sont les utilisateurs, services, missions, candidatures, paiements, messages, avis, documents et partenaires. Les CV utilisent les expériences, formations, certifications, langues, tags et portfolios.</p>
+<ul><li>Les URLs publiques importantes utilisent des slugs uniques.</li><li>Une mission accepte plusieurs candidatures mais un seul prestataire assigné.</li><li>La tarification acceptée est horaire ou globale.</li><li>Les créneaux incompatibles empêchent une candidature.</li><li>Une à cinq preuves sont requises lors de l’initialisation du paiement.</li><li>L’allocation cible 90 % prestataire et 10 % plateforme.</li><li>L’ordre et la publication des partenaires sont administrables.</li></ul>
+
+<h2>7. Langues et notifications</h2>
+<p>Le français, l’anglais et le bambara sont pris en charge. La locale choisie est conservée dans un cookie et dans le profil connecté. Les validations, notifications et e-mails utilisent la langue du destinataire.</p>
+<p>Les canaux disponibles sont la base Laravel, Brevo SMTP, SMS et WhatsApp. <code>contact@barasira.com</code> reçoit via Cloudflare Email Routing ; Brevo assure l’envoi transactionnel.</p>
+
+<div class="page-break"></div>
+<h2>8. Intégrations</h2>
+<table><tr><th>Service</th><th>Usage</th><th>Points de vigilance</th></tr>
+<tr><td>Brevo</td><td>E-mails transactionnels</td><td>Clé SMTP, domaine authentifié, IP sortante autorisée</td></tr>
+<tr><td>Cloudflare Email Routing</td><td>Réception de contact@barasira.com</td><td>Redirection vers une boîte réelle</td></tr>
+<tr><td>CinetPay / PayPal</td><td>Paiements</td><td>Secrets, signatures, webhooks et rapprochement</td></tr>
+<tr><td>Google</td><td>SSO et Places</td><td>URLs de callback et restrictions de clé</td></tr>
+<tr><td>Fournisseur IA</td><td>Génération et traduction</td><td>Quota, cache, confidentialité et relecture</td></tr></table>
+
+<h2>9. Sécurité</h2>
+<ul><li>CSRF, cookies sécurisés, hachage des mots de passe et limitation de débit.</li><li>Middleware, rôles, Policies et contrôle de propriété.</li><li>Documents privés et validation stricte des uploads.</li><li>Secrets uniquement dans les variables d’environnement.</li><li>Audit des modifications et suppressions avec masquage des champs sensibles.</li><li>Explorateur SQL superadmin en lecture seule.</li><li>Consentement obligatoire avant activation des cookies marketing.</li></ul>
+
+<h2>10. Déploiement et exploitation</h2>
+<pre>php artisan migrate --force
+php artisan optimize:clear
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan superadmin:ensure</pre>
+<div class="callout"><strong>Interdit hors environnement jetable :</strong> <code>migrate:fresh</code> et <code>migrate:refresh</code>, car ces commandes peuvent supprimer les données.</div>
+<p>Journaux : Laravel quotidien, PHP, audit, accès Nginx et erreurs Nginx. Diagnostic minimal : <code>supervisorctl status</code>, <code>curl http://127.0.0.1/up</code> et <code>php artisan migrate:status</code>.</p>
+
+<h2>11. Qualité</h2>
+<pre>php artisan test
+./vendor/bin/pint --test
+npm run build
+npm run scss:audit
+php artisan l5-swagger:generate</pre>
+<p>Toute évolution d’API doit synchroniser routes, validation, autorisation, tests, annotations Swagger et artefacts OpenAPI.</p>
+
+<h2>12. Références</h2>
+<ul><li><code>README.md</code> : démarrage et référence développeur.</li><li><code>docs/SPECIFICATIONS-TECHNIQUES.md</code> : source détaillée maintenable.</li><li><code>docs/Business-Model-Barasira.pdf</code> : document stratégique.</li><li><code>storage/api-docs/api-docs.yaml</code> : contrat OpenAPI.</li></ul>
+<p>Les administrateurs et superadministrateurs consultent ce catalogue depuis <code>/admin/documentation</code>. Les fichiers sont servis par une liste blanche côté serveur, sans accepter de chemin arbitraire.</p>
+<p class="muted">Barasira — Spécifications techniques, version 1.0 du 30 juillet 2026.</p>
+</body>
+</html>

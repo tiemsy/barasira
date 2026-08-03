@@ -26,7 +26,7 @@ class DocumentationController extends Controller
             'title' => 'Business Model',
             'description' => 'Modèle économique, stratégie, financement et prévisions.',
             'type' => 'pdf',
-            'path' => 'docs/Business-Model-BaraSira.pdf',
+            'path' => 'docs/Business-Model-Barasira.pdf',
         ],
         'readme' => [
             'title' => 'README développeur',
