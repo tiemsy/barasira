@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: development
+      target: develop
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
@@ -13,10 +13,13 @@ services:
     expose:
       - "9000"
     networks:
-      - BaraSira
+      - barasira_nwk
 
   nginx:
-    image: nginx:stable-alpine
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    image: barasira-nginx:local
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
@@ -26,28 +29,28 @@ services:
     expose:
       - "80"
     networks:
-      - BaraSira
+      - barasira_nwk
 
   db:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_DATABASE: BaraSira
-      MYSQL_USER: BaraSira
-      MYSQL_PASSWORD: BaraSira
+      MYSQL_DATABASE: barasira
+      MYSQL_USER: barasira
+      MYSQL_PASSWORD: barasira
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - dbdata:/var/lib/mysql
     networks:
-      - BaraSira
+      - barasira_nwk
 
   redis:
     image: redis:7-alpine
     networks:
-      - BaraSira
+      - barasira_nwk
 
 networks:
-  BaraSira:
+  barasira_nwk:
 
 volumes:
   dbdata:
