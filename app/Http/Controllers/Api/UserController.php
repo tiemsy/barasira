@@ -347,8 +347,6 @@ class UserController extends Controller
      */
     public function destroy(User $user): JsonResponse
     {
-        var_dump($user);
-        exit;
         $user->delete();
 
         return response()->json(null, 204);

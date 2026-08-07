@@ -22,7 +22,7 @@ services:
     ports:
       - "5173:5173"
     networks:
-      - BaraSira
+      - barasira_nwk
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -35,17 +35,17 @@ services:
     depends_on:
       - db
     networks:
-      - BaraSira
+      - barasira_nwk
 
   mailpit:
     image: axllent/mailpit
     ports:
       - "8025:8025"
     networks:
-      - BaraSira
+      - barasira_nwk
 
 volumes:
   node_modules:
 
 networks:
-  BaraSira:
+  barasira_nwk :
